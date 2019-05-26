@@ -42,6 +42,34 @@ public CreateNewRedGreenTimer() {
     CreateTimer(randomFloat, RedGreenMessageTimer);
 }
 
+public SetLeader(team) {
+    if (team == CS_TEAM_CT) {
+        ctLeader = -1;
+    } else {
+        tLeader = -1;
+    }
+    ArrayList players = new ArrayList();
+
+    for (int client = 1; client <= MaxClients; client++) {
+        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+            if (GetClientTeam(client) == team) {
+                players.Push(client);
+            }
+        }
+    }
+
+    if (players.Length > 0) {
+        int randomPlayer = GetRandomInt(0, players.Length - 1);
+        if (team == CS_TEAM_CT) {
+            ctLeader = players.Get(randomPlayer);
+            GetClientName(ctLeader, ctLeaderName, sizeof(ctLeaderName));
+        } else {
+            tLeader = players.Get(randomPlayer);
+            GetClientName(tLeader, tLeaderName, sizeof(tLeaderName));
+        }
+    }
+}
+
 public SendManhuntMessage(team) {
     for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
@@ -64,23 +92,119 @@ public SendManhuntMessage(team) {
     }
 }
 
-public GivePlayerItemByString(client, char[] item) {
-    // For random weapon generate first whether it
-    // should be primary of secondary
-    new randomIntCat = -1;
-    if (StrEqual(item, "weapon_random")) {
-        randomIntCat = GetRandomInt(0, 1);
+public RemoveWeapons() {
+	for (int client = 1; client < MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+
+            // Primary = 0
+            // Secondary = 1
+            // Knife = 2
+            // C4 = 4
+            // Shield = 11
+
+			new primary = GetPlayerWeaponSlot(client, 0);
+			new secondary = GetPlayerWeaponSlot(client, 1);
+            new c4 = GetPlayerWeaponSlot(client, 4);
+            new shield = GetPlayerWeaponSlot(client, 11);
+
+			if (primary > -1) {
+				RemovePlayerItem(client, primary);
+				RemoveEdict(primary);
+			}
+
+			if (secondary > -1) {
+				RemovePlayerItem(client, secondary);
+				RemoveEdict(secondary);
+			}
+
+            if (StrEqual(NoC4, "1") && c4 > -1) {
+                RemovePlayerItem(client, c4);
+				RemoveEdict(c4);
+            }
+
+            if (shield > -1) {
+                RemovePlayerItem(client, shield);
+				RemoveEdict(shield);
+            }
+		}
+	}
+}
+
+public RemoveNades() {
+	for (int client = 1; client < MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+			for (int j = 0; j < 6; j++) {
+				SetEntProp(client, Prop_Send, "m_iAmmo", 0, _, GrenadesAll[j]);
+			}
+		}
+	}
+}
+
+public SetKnife(bool add) {
+    for (int client = 1; client < MaxClients; client++) {
+        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+            new knife = GetPlayerWeaponSlot(client, 2);
+            if (add) {
+                if (knife == -1) {
+                    new newKnife = GivePlayerItem(client, "weapon_knife");
+                    EquipPlayerWeapon(client, newKnife);
+                }
+            } else {
+                if (knife != -1) {
+                    RemovePlayerItem(client, knife);
+                    RemoveEdict(knife);
+                }
+            }
+        }
+    }
+}
+
+public GiveAllPlayersItem(char[] item) {
+    for (int client = 1; client < MaxClients; client++) {
+        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+            if (!g_Zombies || GetClientTeam(client) == CS_TEAM_CT) {
+                GivePlayerItem(client, item);
+            }
+        }
+    }
+}
+
+stock void SelectHotPotato(int client = -1) {
+    RemoveWeapons();
+    ArrayList players = new ArrayList();
+
+    for (int i = 1; i <= MaxClients; i++) {
+        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+            players.Push(i);
+        }
     }
 
-    if (StrEqual(item, "weapon_primary_random") || randomIntCat == 0) {
-        new randomInt = GetRandomInt(0, PRIMARY_LENGTH - 1);
-        GivePlayerItem(client, WeaponPrimary[randomInt]);
-    } else if (StrEqual(item, "weapon_secondary_random") || randomIntCat == 1) {
-        new randomInt = GetRandomInt(0, SECONDARY_LENGTH - 1);
-        GivePlayerItem(client, WeaponSecondary[randomInt]);
+    if (client == -1) {
+        int randomInt = GetRandomInt(0, players.Length - 1);
+        // Used to store hot potato holder,
+        // has nothing to do with CT
+        ctLeader = players.Get(randomInt);
     } else {
-        GivePlayerItem(client, item);
+        ctLeader = client;
     }
+
+    GetClientName(ctLeader, ctLeaderName, sizeof(ctLeaderName));
+
+    new String:message[256];
+    Format(message, sizeof(message), "You have the {DARK_RED}hot potato{NORMAL}, hit someone to give it to them!");
+    Colorize(message, sizeof(message));
+    CPrintToChat(ctLeader, message);
+
+    Format(message, sizeof(message), "{YELLOW}%s has the {DARK_RED}hot potato{NORMAL}, don't get hit!", ctLeaderName);
+    Colorize(message, sizeof(message));
+    for (int i = 0; i < players.Length; i++) {
+        int otherClient = players.Get(i);
+        if (otherClient != ctLeader) {
+            CPrintToChat(otherClient, message);
+        }
+    }
+
+    GivePlayerItem(ctLeader, "weapon_fiveseven");
 }
 
 stock void KillPlayer(int client, int killerUserid=-1, char[] weapon="knife", int assisterUserid=-1) {

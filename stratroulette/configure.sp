@@ -12,6 +12,25 @@ public ConfigureWeapons() {
     RemoveWeapons();
     RemoveNades();
 
+    // For random weapon generate first whether it
+    // should be primary of secondary
+    new randomIntCat = -1;
+    if (StrEqual(Weapon, "weapon_random")) {
+        randomIntCat = GetRandomInt(0, 1);
+    }
+
+    char primary[256];
+    char secondary[256];
+
+    if (StrContains(Weapon, "weapon_primary_random") != -1 || randomIntCat == 0) {
+        new randomInt = GetRandomInt(0, PRIMARY_LENGTH - 1);
+        Format(primary, sizeof(primary), WeaponPrimary[randomInt]);
+    }
+    if (StrContains(Weapon, "weapon_secondary_random") != -1 || randomIntCat == 1) {
+        new randomInt = GetRandomInt(0, SECONDARY_LENGTH - 1);
+        Format(secondary, sizeof(secondary), WeaponSecondary[randomInt]);
+    }
+
     // If we need to give a weapon
     if (!StrEqual(Weapon, "none")) {
 		decl String:bit[10][80];
@@ -21,79 +40,22 @@ public ConfigureWeapons() {
             for (int j = 1; j < MaxClients; j++) {
                 if (IsClientInGame(j) && IsPlayerAlive(j) && !IsFakeClient(j)) {
                     if (!g_Zombies || GetClientTeam(j) == CS_TEAM_CT) {
-                        GivePlayerItemByString(j, bit[string]);
+                        if (StrEqual(bit[string], "weapon_primary_random")
+                         || (StrEqual(bit[string], "weapon_random") && randomIntCat == 0)) {
+                            GivePlayerItem(j, primary);
+                        } else if (StrEqual(bit[string], "weapon_secondary_random")
+                         || (StrEqual(bit[string], "weapon_random") && randomIntCat == 1)) {
+                            GivePlayerItem(j, secondary);
+                        } else {
+                            GivePlayerItem(j, bit[string]);
+                        }
                     }
                 }
             }
         }
     }
-}
 
-public RemoveWeapons() {
-	for (int client = 1; client < MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-
-            // Primary = 0
-            // Secondary = 1
-            // Knife = 2
-            // C4 = 4
-            // Shield = 11
-
-			new primary = GetPlayerWeaponSlot(client, 0);
-			new secondary = GetPlayerWeaponSlot(client, 1);
-            new c4 = GetPlayerWeaponSlot(client, 4);
-            new shield = GetPlayerWeaponSlot(client, 11);
-
-			if (primary > -1) {
-				RemovePlayerItem(client, primary);
-				RemoveEdict(primary);
-			}
-
-			if (secondary > -1) {
-				RemovePlayerItem(client, secondary);
-				RemoveEdict(secondary);
-			}
-
-            if (StrEqual(NoC4, "1") && c4 > -1) {
-                RemovePlayerItem(client, c4);
-				RemoveEdict(c4);
-            }
-
-            if (shield > -1) {
-                RemovePlayerItem(client, shield);
-				RemoveEdict(shield);
-            }
-		}
-	}
-}
-
-public RemoveNades() {
-	for (int client = 1; client < MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-			for (int j = 0; j < 6; j++) {
-				SetEntProp(client, Prop_Send, "m_iAmmo", 0, _, GrenadesAll[j]);
-			}
-		}
-	}
-}
-
-public SetKnife(bool add) {
-    for (int client = 1; client < MaxClients; client++) {
-        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            new knife = GetPlayerWeaponSlot(client, 2);
-            if (add) {
-                if (knife == -1) {
-                    new newKnife = GivePlayerItem(client, "weapon_knife");
-                    EquipPlayerWeapon(client, newKnife);
-                }
-            } else {
-                if (knife != -1) {
-                    RemovePlayerItem(client, knife);
-                    RemoveEdict(knife);
-                }
-            }
-        }
-    }
+    return 1;
 }
 
 public ConfigureArmorDefuser() {
@@ -312,12 +274,12 @@ public ConfigureHeadshotOnly() {
 	}
 }
 
-public ConfigureSpeedchange() {
-    if (StrEqual(SpeedChange, "1")) {
-		g_SpeedChange = true;
-        CreateTimer(1.0, SpeedChangeTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+public ConfigureSlowMotion() {
+    if (StrEqual(SlowMotion, "1")) {
+		g_SlowMotion = true;
+        CreateTimer(1.0, SlowMotionTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 	} else {
-		g_SpeedChange = false;
+		g_SlowMotion = false;
 	}
 }
 
@@ -371,37 +333,10 @@ public ConfigureLeader() {
         SendLeaderMessage(CS_TEAM_CT);
         SendLeaderMessage(CS_TEAM_T);
 
-        CreateTimer(0.5, CheckLeaderTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+        int freezeTime = GetConVarInt(mp_freezetime);
+        CreateTimer(freezeTime + 3.0, StartLeaderTimer);
     } else {
         g_Leader = false;
-    }
-}
-
-public SetLeader(team) {
-    if (team == CS_TEAM_CT) {
-        ctLeader = -1;
-    } else {
-        tLeader = -1;
-    }
-    ArrayList players = new ArrayList();
-
-    for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            if (GetClientTeam(client) == team) {
-                players.Push(client);
-            }
-        }
-    }
-
-    if (players.Length > 0) {
-        int randomPlayer = GetRandomInt(0, players.Length - 1);
-        if (team == CS_TEAM_CT) {
-            ctLeader = players.Get(randomPlayer);
-            GetClientName(ctLeader, ctLeaderName, sizeof(ctLeaderName));
-        } else {
-            tLeader = players.Get(randomPlayer);
-            GetClientName(tLeader, tLeaderName, sizeof(tLeaderName));
-        }
     }
 }
 
@@ -535,5 +470,27 @@ public ConfigureWinner() {
         SetConVarInt(mp_default_team_winner_no_objective, 1, true, false);
     } else {
         SetConVarInt(mp_default_team_winner_no_objective, 3, true, false);
+    }
+}
+
+public ConfigureHotPotato() {
+    if (StrEqual(HotPotato, "1")) {
+        g_HotPotato = true;
+        ctLeader = -1;
+        int freezeTime = GetConVarInt(mp_freezetime);
+
+        CreateTimer(freezeTime + 10.0, NewHotPotatoTimer);
+    } else {
+        g_HotPotato = false;
+    }
+}
+
+public ConfigureKillRound() {
+    if (StrEqual(KillRound, "1")) {
+        g_KillRound = true;
+        SetConVarInt(mp_ignore_round_win_conditions, 1, true, false);
+    } else {
+        g_KillRound = false;
+        SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
     }
 }

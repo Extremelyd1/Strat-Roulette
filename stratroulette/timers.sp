@@ -6,8 +6,8 @@ public Action:EnableThirdPerson(Handle:timer) {
 	}
 }
 
-public Action:SpeedChangeTimer(Handle timer) {
-    if (!g_SpeedChange) {
+public Action:SlowMotionTimer(Handle timer) {
+    if (!g_SlowMotion) {
         return Plugin_Stop;
     }
     int randomInt = GetRandomInt(0, 2);
@@ -17,9 +17,11 @@ public Action:SpeedChangeTimer(Handle timer) {
             if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
                 g_HighSpeed = !g_HighSpeed;
                 if (g_HighSpeed) {
-                    SetEntPropFloat(i, Prop_Data, "m_flLaggedMovementValue", 4.0);
+                    SetEntPropFloat(i, Prop_Data, "m_flLaggedMovementValue", 1.0);
+                    SetConVarInt(sv_gravity, 800);
                 } else {
                     SetEntPropFloat(i, Prop_Data, "m_flLaggedMovementValue", 0.3);
+                    SetConVarInt(sv_gravity, 400);
                 }
             }
         }
@@ -71,6 +73,13 @@ public Action:SetWeaponAmmo(Handle timer) {
     }
 
     return Plugin_Continue;
+}
+
+// Simply here to delay starting the timer
+// so players can walk to their leader at
+// start of the round
+public Action:StartLeaderTimer(Handle timer) {
+    CreateTimer(0.5, CheckLeaderTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 }
 
 public Action:CheckLeaderTimer(Handle timer) {
@@ -244,6 +253,10 @@ public Action:RedGreenDamageTimer(Handle timer) {
     if (!g_RedGreen) {
         return Plugin_Stop;
     }
+    new String:message[256];
+    Format(message, sizeof(message), "Don't {DARK_RED}move{NORMAL} during {DARK_RED}red{NORMAL} light");
+    Colorize(message, sizeof(message));
+
     for (new i = 1; i < MaxClients; i++) {
         if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
             // Store client id in string
@@ -265,9 +278,6 @@ public Action:RedGreenDamageTimer(Handle timer) {
                     } else {
                         ForcePlayerSuicide(i);
                     }
-                    new String:message[256];
-                    Format(message, sizeof(message), "Don't {DARK_RED}move{NORMAL} during {DARK_RED}red{NORMAL} light");
-                    Colorize(message, sizeof(message));
                     CPrintToChat(i, message);
                 }
             }
@@ -275,6 +285,78 @@ public Action:RedGreenDamageTimer(Handle timer) {
             positionMap.SetArray(playerIdString, playerPos, 3);
         }
     }
+
+    return Plugin_Continue;
+}
+
+public Action:NewHotPotatoTimer(Handle timer) {
+    if (!g_HotPotato) {
+        return Plugin_Stop;
+    }
+
+    SelectHotPotato();
+    CreateTimer(5.0, HotPotatoMessage1Timer);
+    CreateTimer(10.0, HotPotatoMessage2Timer);
+    CreateTimer(15.0, HotPotatoTimer);
+
+    return Plugin_Continue;
+}
+
+public Action:HotPotatoMessage1Timer(Handle timer) {
+    if (ctLeader != -1) {
+        new String:message[256];
+        Format(message, sizeof(message), "That is one {DARK_RED}hot potato{NORMAL}!", ctLeaderName);
+        Colorize(message, sizeof(message));
+        CPrintToChat(ctLeader, message);
+    }
+}
+
+public Action:HotPotatoMessage2Timer(Handle timer) {
+    if (ctLeader != -1) {
+        new String:message[256];
+        Format(message, sizeof(message), "I can't hold this {DARK_RED}hot potato{NORMAL} much longer!", ctLeaderName);
+        Colorize(message, sizeof(message));
+        CPrintToChat(ctLeader, message);
+    }
+}
+
+public Action:HotPotatoTimer(Handle timer) {
+    if (!g_HotPotato) {
+        return Plugin_Stop;
+    }
+
+    RemoveWeapons();
+    if (ctLeader != -1) {
+        ForcePlayerSuicide(ctLeader);
+
+        new String:message[256];
+        Format(message, sizeof(message), "{YELLOW}%s died with the {DARK_RED}hot potato{NORMAL}!", ctLeaderName);
+        Colorize(message, sizeof(message));
+        for (new i = 1; i < MaxClients; i++) {
+            if (IsClientInGame(i) && !IsFakeClient(i)) {
+                CPrintToChat(i, message);
+            }
+        }
+
+        bool ctWiped = true;
+        bool tWiped = true;
+
+        for (int client = 1; client <= MaxClients; client++) {
+            if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+                if (GetClientTeam(client) == CS_TEAM_CT) {
+                    ctWiped = false;
+                } else if (GetClientTeam(client) == CS_TEAM_T) {
+                    tWiped = false;
+                }
+            }
+        }
+
+        if (ctWiped || tWiped) {
+            return Plugin_Stop;
+        }
+    }
+
+    CreateTimer(3.0, NewHotPotatoTimer);
 
     return Plugin_Continue;
 }

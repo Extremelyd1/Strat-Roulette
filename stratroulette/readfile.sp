@@ -65,7 +65,7 @@ public ReadNewRound() {
     kv.GetString("fov", Fov, sizeof(Fov), "90");
     kv.GetString("chickendef", ChickenDefuse, sizeof(ChickenDefuse), "0");
     kv.GetString("headshot", HeadShot, sizeof(HeadShot), "0");
-    kv.GetString("speedchange", SpeedChange, sizeof(SpeedChange), "0");
+    kv.GetString("slowmotion", SlowMotion, sizeof(SlowMotion), "0");
     kv.GetString("noscope", NoScope, sizeof(NoScope), "0");
     kv.GetString("recoilview", RecoilView, sizeof(RecoilView), "0.0555");
     kv.GetString("alwaysmove", AlwaysMove, sizeof(AlwaysMove), "0");
@@ -87,6 +87,8 @@ public ReadNewRound() {
     kv.GetString("redgreen", RedGreen, sizeof(RedGreen), "0");
     kv.GetString("manhunt", Manhunt, sizeof(Manhunt), "0");
     kv.GetString("winner", Winner, sizeof(Winner), "t");
+    kv.GetString("hotpotato", HotPotato, sizeof(HotPotato), "0");
+    kv.GetString("killround", KillRound, sizeof(KillRound), "0");
 
     new String:divider[] = "{DARK_BLUE}----------------------------------------";
     Colorize(divider, sizeof(divider));
@@ -137,7 +139,7 @@ public ReadNewRound() {
 	//** Headshot only **//
 	ConfigureHeadshotOnly();
 	//** Speedchange **//
-	ConfigureSpeedchange();
+	ConfigureSlowMotion();
 	//** Weird recoil view **//
 	ConfigureWeirdRecoilView();
 	//** Friction **//
@@ -166,6 +168,10 @@ public ReadNewRound() {
     ConfigureManhunt();
     //** Default winner **//
     ConfigureWinner();
+    //** Hot potato **//
+    ConfigureHotPotato();
+    //** Kill round **//
+    ConfigureKillRound();
 
     return 1;
 }

@@ -1,0 +1,362 @@
+"Strats"
+{
+	"1"
+	{
+		"name"			"Third person round"
+		"thirdperson"	"1"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"infiniteammo"	"2"
+		"armor"			"100"
+		"helmet"		"1"
+		"defuser"		"1"
+	}
+	"2"
+	{
+		"name"			"Baby hit me one more time"
+		"weapon"		"weapon_decoy"
+		"health"		"1"
+		"decoysound"	"0"
+		"noknife"		"1"
+		"infinitenade"	"1"
+		"defuser"		"1"
+	}
+	"3"
+	{
+		"name"			"Speed round"
+		"weapon"		"weapon_ak47;weapon_deagle"
+		"speed"			"5"
+		"gravity"		"300"
+		"infiniteammo"	"2"
+		"defuser"		"1"
+	}
+	"4"
+	{
+		"name"			"Straight shooter"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"infiniteammo"	"2"
+		"norecoil"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"defuser"		"1"
+	}
+	"5"
+	{
+		"name"			"Zeus machine gun"
+		"weapon"		"weapon_taser"
+		"infiniteammo"	"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"defuser"		"1"
+	}
+	"6"
+	{
+		"name"			"Speed knife round"
+		"speed"			"4"
+		"weapon"		"none"
+		"defuser"		"1"
+	}
+	"7"
+	{
+		"name"			"Shield round"
+		"weapon"		"weapon_shield;weapon_fiveseven"
+		"noknife"		"1"
+		"oitc"			"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"defuser"		"1"
+	}
+	"8"
+	{
+		"name"			"No-scopes only"
+		"weapon"		"weapon_ssg08"
+		"noscope"		"1"
+		"helmet"		"1"
+	}
+	"9"
+	{
+		"name"			"Negev no recoil round"
+		"weapon"		"weapon_negev"
+		"norecoil"		"1"
+		"health"		"1000"
+		"infiniteammo"	"2"
+		"defuser"		"1"
+		"helmet"		"1"
+	}
+	"10"
+	{
+		"name"			"Random guns"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"infiniteammo"	"2"
+		"defuser"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+	}
+	"11"
+	{
+		"name"			"Low gravity AWP round"
+		"weapon"		"weapon_awp"
+		"gravity"		"200"
+		"norecoil"		"1"
+		"noknife"		"1"
+		"defuser"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+	}
+	"12"
+	{
+		"name"			"Low gravity zeus round"
+		"weapon"		"weapon_taser"
+		"gravity"		"200"
+		"infiniteammo"	"1"
+		"noknife"		"1"
+		"defuser"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+	}
+	"13"
+	{
+		"name"			"Vampire round"
+		"weapon"		"weapon_usp_silencer"
+		"vampire"		"1"
+		"infiniteammo"	"2"
+		"pcolor"		"black"
+		"defuser"		"1"
+	}
+	"14"
+	{
+		"name"			"Reverse controls round"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"backwards"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+	}
+	"15"
+	{
+		"name"			"Large fov round"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"fov"			"150"
+		"defuser"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+	}
+	"16"
+	{
+		"name"			"Third person round"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"fov"			"35"
+		"thirdperson"	"1"
+		"defuser"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+	}
+	"17"
+	{
+		"name"			"Chicken defuse round"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"chickendef"	"1"
+		"defuser"		"1"
+	}
+	"18"
+	{
+		"name"			"Headshot round"
+		"weapon"		"weapon_ak47;weapon_deagle"
+		"headshot"		"1"
+	}
+	"19"
+	{
+		"name"			"Low gravity mag7 round"
+		"weapon"		"weapon_mag7"
+		"gravity"		"300"
+		"infiniteammo"	"2"
+		"armor"			"100"
+		"helmet"		"1"
+	}
+	"20"
+	{
+		"name"			"Slow Motion"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"slowmotion"	"1"
+		"defuser"		"1"
+		"killround"		"1"
+	}
+	"21"
+	{
+		"name"			"Deagle headshot round"
+		"weapon"		"weapon_deagle"
+		"headshot"		"1"
+		"infiniteammo"	"2"
+	}
+	"22"
+	{
+		"name"			"Weird recoil round"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"recoilview"	"100"
+		"defuser"		"1"
+	}
+	"23"
+	{
+		"name"			"Don't stop me now"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"alwaysmove"	"1"
+		"defuser"		"1"
+	}
+	"24"
+	{
+		"name"			"Clumsy round"
+		"health"		"200"
+		"weapon"		"weapon_glock"
+		"noknife"		"1"
+		"dropweapons"	"1"
+	}
+	"25"
+	{
+		"name"			"Smoke weed everyday"
+		"weapon"		"weapon_smokegrenade"
+		"infinitenade"	"1"
+		"defuser"		"1"
+	}
+	"26"
+	{
+		"name"			"Burn baby burn"
+		"weapon"		"weapon_molotov"
+		"infinitenade"	"1"
+		"noknife"		"1"
+		"defuser"		"1"
+	}
+	"27"
+	{
+		"name"			"Milk, milk everywhere"
+		"health"		"6"
+		"weapon"		"weapon_flashbang"
+		"infinitenade"	"1"
+		"noknife"		"1"
+	}
+	"28"
+	{
+		"name"			"Frag out!"
+		"weapon"		"weapon_hegrenade"
+		"infinitenade"	"1"
+		"noknife"		"1"
+		"defuser"		"1"
+	}
+	"29"
+	{
+		"name"			"One In The Chamber"
+		"weapon"		"weapon_random"
+		"oitc" 			"1"
+		"noknife"		"1"
+	}
+	"30"
+	{
+		"name"			"Follow the Leader"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"followleader"	"1"
+		"defuser"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+	}
+	"31"
+	{
+		"name"			"Invisibility round"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"invisible"		"1"
+		"infiniteammo"	"2"
+	}
+	"32"
+	{
+		"name"			"Team deathmatch"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"infiniteammo"	"2"
+		"noc4"			"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"killround"		"1"
+	}
+	"33"
+	{
+		"name"			"Zombie invasion"
+		"weapon"		"weapon_negev;weapon_fiveseven"
+		"infiniteammo"	"1"
+		"noc4"			"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"health"		"1000"
+		"zombies"		"1"
+	}
+	"34"
+	{
+		"name"			"Axe throwing contest"
+		"weapon"		"none"
+		"axe"			"1"
+		"noc4"			"1"
+		"noknife"		"1"
+		"killround"		"1"
+		"health"		"121"
+	}
+	"35"
+	{
+		"name"			"Bar fight"
+		"weapon"		"none"
+		"fists"			"1"
+		"noc4"			"1"
+		"noknife"		"1"
+		"killround"		"1"
+	}
+	"36"
+	{
+		"name"			"Hit swap"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"armor"			"100"
+		"helmet"		"1"
+		"teleport"		"1"
+	}
+	"37"
+	{
+		"name"			"Buddy System"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"health"		"1000"
+		"buddysystem"	"1"
+	}
+	"38"
+	{
+		"name"			"It's High Noon"
+		"weapon"		"weapon_revolver"
+		"armor"			"100"
+		"helmet"		"1"
+		"infiniteammo"	"2"
+		"noknife"		"1"
+	}
+	"39"
+	{
+		"name"			"{DARK_RED}Red{NORMAL} light, {GREEN}green{NORMAL} light"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"armor"			"100"
+		"helmet"		"1"
+		"redgreen"		"1"
+	}
+	"40"
+	{
+		"name"			"Manhunt"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"armor"			"100"
+		"helmet"		"1"
+		"manhunt"		"1"
+		"noc4"			"1"
+		"killround"		"1"
+	}
+	"41"
+	{
+		"name"			"Hot Potato"
+		"weapon"		"none"
+		"armor"			"100"
+		"helmet"		"1"
+		"health"		"1000"
+		"hotpotato"		"1"
+		"noc4"			"1"
+		"killround"		"1"
+		"infiniteammo"	"2"
+		"noknife"		"1"
+		"oitc"			"1"
+		"showallmap"	"1"
+	}
+}

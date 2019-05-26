@@ -31,7 +31,7 @@ new String:Backwards[3];
 new String:Fov[10];
 new String:ChickenDefuse[3];
 new String:HeadShot[3];
-new String:SpeedChange[3];
+new String:SlowMotion[3];
 new String:RecoilView[7];
 new String:AlwaysMove[3];
 new String:DropWeapons[3];
@@ -52,6 +52,8 @@ new String:RandomNade[3];
 new String:RedGreen[3];
 new String:Manhunt[3];
 new String:Winner[20];
+new String:HotPotato[3];
+new String:KillRound[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -60,7 +62,7 @@ new bool:g_NoScope = false;
 new bool:g_Vampire = false;
 new bool:g_ChickenDefuse = false;
 new bool:g_HeadShot = false;
-new bool:g_SpeedChange = false;
+new bool:g_SlowMotion = false;
 new bool:g_DropWeapons = false;
 new bool:g_OneInTheChamber = false;
 new bool:g_Leader = false;
@@ -72,6 +74,8 @@ new bool:g_Zombies = false;
 new bool:g_Teleport = false;
 new bool:g_RedGreen = false;
 new bool:g_Manhunt = false;
+new bool:g_HotPotato = false;
+new bool:g_KillRound = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -96,7 +100,7 @@ new const String:WeaponSecondary[SECONDARY_LENGTH][] =  {
 // Grenades
 new const GrenadesAll[] =  { 15, 17, 16, 14, 18, 17 };
 
-// Leader/Manhunt
+// Leader/Manhunt/Hot potato
 new String:ctLeaderName[128];
 new ctLeader;
 new String:tLeaderName[128];
@@ -131,6 +135,8 @@ new Handle:sv_friction;
 new Handle:mp_radar_showall;
 new Handle:sv_cheats;
 new Handle:mp_default_team_winner_no_objective;
+new Handle:mp_ignore_round_win_conditions;
+new Handle:mp_freezetime;
 
 #include "stratroulette/configure.sp"
 #include "stratroulette/readfile.sp"
@@ -163,6 +169,8 @@ public OnPluginStart() {
 	HookEvent("player_death", SrEventPlayerDeath);
     HookEvent("player_death", SrEventPlayerDeathPre, EventHookMode_Pre);
     HookEvent("other_death", SrEventEntityDeath);
+
+    AddCommandListener(Command_Drop, "drop");
 }
 
 public void OnMapStart() {
@@ -214,6 +222,14 @@ public Action:cmd_srtest(client, args) {
     PrintToServer("client id: %d", client);
 }
 
+public Action:Command_Drop(int client, const char[] command, int args) {
+    if (g_HotPotato) {
+        return Plugin_Stop;
+    }
+
+    return Plugin_Continue;
+}
+
 public OnConfigsExecuted() {
 
 	//** CVARS **//
@@ -234,6 +250,8 @@ public OnConfigsExecuted() {
     mp_radar_showall = FindConVar("mp_radar_showall");
     sv_cheats = FindConVar("sv_cheats");
     mp_default_team_winner_no_objective = FindConVar("mp_default_team_winner_no_objective");
+    mp_ignore_round_win_conditions = FindConVar("mp_ignore_round_win_conditions");
+    mp_freezetime = FindConVar("mp_freezetime");
 
 	//** KEYVALUES **//
 	new flags = GetConVarFlags(sv_gravity);
@@ -351,12 +369,21 @@ public Action:SrEventWeaponZoom(Handle:event, const String:name[], bool:dontBroa
 }
 
 public Action:SrEventPlayerHurt(Handle:event, const String:name[], bool:dontBroadcast) {
-    if (g_Zombies || g_BuddySystem) {
+    // Infinite health
+    if (g_Zombies || g_BuddySystem || g_HotPotato) {
         new victim = GetClientOfUserId(GetEventInt(event, "userid"));
 
-        if (GetClientTeam(victim) == CS_TEAM_T || g_BuddySystem) {
+        if (!g_Zombies || GetClientTeam(victim) == CS_TEAM_T) {
             new intHealth = StringToInt(Health);
             SetEntityHealth(victim, intHealth);
+        }
+
+        if (g_HotPotato) {
+    		new attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
+            if (attacker != victim && victim != 0 && attacker != 0 &&
+                GetClientTeam(victim) != GetClientTeam(attacker)) {
+                SelectHotPotato(victim);
+            }
         }
 
         return Plugin_Continue;
@@ -483,6 +510,27 @@ public Action:SrEventPlayerDeath(Handle:event, const String:name[], bool:dontBro
 }
 
 public Action:SrEventPlayerDeathPre(Handle:event, const String:name[], bool:dontBroadcast) {
+    if (g_KillRound) {
+        bool ctWiped = true;
+        bool tWiped = true;
+
+        for (int client = 1; client <= MaxClients; client++) {
+            if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+                if (GetClientTeam(client) == CS_TEAM_CT) {
+                    ctWiped = false;
+                } else if (GetClientTeam(client) == CS_TEAM_T) {
+                    tWiped = false;
+                }
+            }
+        }
+
+        if (ctWiped || tWiped) {
+            SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
+
+            return Plugin_Continue;
+        }
+    }
+
     if (g_BuddySystem) {
         new userid = GetEventInt(event, "userid");
         new attackerUserid = GetEventInt(event, "attacker");
@@ -515,10 +563,9 @@ public Action:SrEventEntityDeath(Handle:event, const String:name[], bool:dontBro
                 new chicken;
                 chickenMap.GetValue(playerIdString, chicken);
 
-                chickenMap.Remove(playerIdString);
-
                 if (chicken == entity) {
                     KillPlayer(i, attackerUserid, weapon);
+                    chickenMap.Remove(playerIdString);
                 }
             }
         }
