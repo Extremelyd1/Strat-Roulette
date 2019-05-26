@@ -1,0 +1,72 @@
+Ideas:
+Hot potato, shoot to give other player potato, explodes after some time
+
+Bomb is planted
+
+PP-Bizon, can only empty magazine, no stop shooting (not sure if possible)
+
+Hitting an enemy switches to a different weapon
+
+Crouch only
+
+Fix spawn location for "follow the leader"
+Don't take damage in start of round
+
+One gun per team, can't shoot until you give it to teammate
+
+R8 round (maybe one bullet)
+
+Block left and right strafe(?)
+
+Randomly rotate player 180 degrees
+
+Madlad: Shooting makes you do a 360
+
+mp_default_team_winner_no_objective 1 - Draw
+mp_default_team_winner_no_objective 2 - T
+mp_default_team_winner_no_objective 3 - CT
+
+Code:
+
+/* new weapon = GetEntPropEnt(x, Prop_Data, "m_hActiveWeapon");
+if(weapon < 1) {
+    return Plugin_Continue;
+}
+
+// Entity classname
+new String:classname[30];
+GetEntityClassname(weapon, classname, sizeof(classname));
+
+new m_iPrimaryAmmoType = GetEntProp(weapon, Prop_Send, "m_iPrimaryAmmoType"); // Ammo type
+new m_iSecondaryAmmoType = GetEntProp(weapon, Prop_Send, "m_iSecondaryAmmoType");
+
+new m_iClip1 = -1;
+new m_iClip2 = -1;
+new m_iAmmo_prim = -1;
+new m_iAmmo_sec = -1;
+
+// Primary ammo
+if(m_iPrimaryAmmoType != -1) {
+    m_iClip1 = GetEntProp(weapon, Prop_Send, "m_iClip1"); // weapon clip amount bullets
+    m_iAmmo_prim = GetEntProp(x, Prop_Send, "m_iAmmo", _, m_iPrimaryAmmoType); // Player ammunition for this weapon ammo type
+
+    // SetEntProp(weapon, Prop_Send, "m_iClip1", 99); // Set weapon clip ammunition
+    // SetEntProp(client, Prop_Send, "m_iAmmo", 99, _, m_iPrimaryAmmoType); // Set player ammunition of this weapon primary ammo type
+}
+
+// Secondary ammo (Not usefull in cs:s)
+if(m_iSecondaryAmmoType != -1) {
+    m_iClip2 = GetEntProp(weapon, Prop_Send, "m_iClip2");
+    m_iAmmo_sec = GetEntProp(x, Prop_Send, "m_iAmmo", _, m_iSecondaryAmmoType);
+}
+
+// Output
+PrintToServer("\nIndex %i = classname %s\n- PrimAmmoType %i & m_iClip1 %i\n- SecAmmoType %i & m_iClip2 %i\n- Player m_iAmmo prim %i & sec %i",
+            weapon,
+            classname,
+            m_iPrimaryAmmoType,
+            m_iClip1,
+            m_iSecondaryAmmoType,
+            m_iClip2,
+            m_iAmmo_prim,
+            m_iAmmo_sec); */
