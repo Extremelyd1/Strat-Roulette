@@ -85,12 +85,12 @@ public ConfigureArmorDefuser() {
 }
 
 public ConfigureHealth() {
-    int HealthInt = StringToInt(Health);
-    if (HealthInt != 100) {
+    g_Health = StringToInt(Health);
+    if (g_Health != 100) {
         for (int client = 1; client < MaxClients; client++) {
             if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
                 if (!g_Zombies || GetClientTeam(client) == CS_TEAM_T) {
-                    SetEntityHealth(client, HealthInt);
+                    SetEntityHealth(client, g_Health);
                 }
             }
         }
@@ -511,5 +511,13 @@ public ConfigureBomberman() {
         SetConVarInt(mp_c4timer, 40, true, false);
         SetConVarInt(mp_c4_cannot_be_defused, 0, true, false);
         SetConVarInt(mp_anyone_can_pickup_c4, 0, true, false);
+    }
+}
+
+public ConfigureDontMiss() {
+    if (StrEqual(DontMiss, "1")) {
+        g_DontMiss = true;
+    } else {
+        g_DontMiss = false;
     }
 }

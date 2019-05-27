@@ -55,6 +55,7 @@ new String:Winner[20];
 new String:HotPotato[3];
 new String:KillRound[3];
 new String:Bomberman[3];
+new String:DontMiss[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -78,6 +79,7 @@ new bool:g_Manhunt = false;
 new bool:g_HotPotato = false;
 new bool:g_KillRound = false;
 new bool:g_Bomberman = false;
+new bool:g_DontMiss = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -91,6 +93,18 @@ new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
     "weapon_m4a1_silencer", "weapon_awp", "weapon_mp5sd"
 };
 
+// Damage taken when missing with primary
+new const PrimaryDamage[PRIMARY_LENGTH] = {
+    10, 10, 5,
+    10, 3, 10,
+    3, 10, 5,
+    2, 5, 5,
+    3, 2, 5,
+    2, 50, 10,
+    50, 7, 2,
+    10, 50, 10
+};
+
 // Secondary weapons
 new const String:WeaponSecondary[SECONDARY_LENGTH][] =  {
 	"weapon_deagle", "weapon_elite", "weapon_fiveseven",
@@ -99,9 +113,18 @@ new const String:WeaponSecondary[SECONDARY_LENGTH][] =  {
     "weapon_revolver"
 };
 
+// Damage taken when missing with secondary
+new const SecondaryDamage[SECONDARY_LENGTH] = {
+    20, 5, 10,
+    5, 10, 10,
+    5, 5, 10,
+    20
+};
+
 // Grenades
 new const GrenadesAll[] =  { 15, 17, 16, 14, 18, 17 };
 
+new g_Health;
 // Leader/Manhunt/Hot potato
 new String:ctLeaderName[128];
 new ctLeader;
@@ -176,6 +199,7 @@ public OnPluginStart() {
 	HookEvent("player_death", SrEventPlayerDeath);
     HookEvent("player_death", SrEventPlayerDeathPre, EventHookMode_Pre);
     HookEvent("other_death", SrEventEntityDeath);
+    HookEvent("bullet_impact", SrEventBulletImpact);
 
     AddCommandListener(Command_Drop, "drop");
 
@@ -449,6 +473,29 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
     return Plugin_Continue;
 }
 
+public Action:SrEventBulletImpact(Handle:event, const String:name[], bool:dontBroadcast) {
+    if (g_DontMiss) {
+        new client = GetClientOfUserId(GetEventInt(event, "userid"));
+        char weaponname[128];
+        Client_GetActiveWeaponName(client, weaponname, sizeof(weaponname));
+
+        for (int i = 0; i < PRIMARY_LENGTH; i++) {
+            if (StrEqual(weaponname, WeaponPrimary[i])) {
+                DamagePlayer(client, PrimaryDamage[i]);
+                return Plugin_Continue;
+            }
+        }
+        for (int i = 0; i < SECONDARY_LENGTH; i++) {
+            if (StrEqual(weaponname, WeaponSecondary[i])) {
+                DamagePlayer(client, SecondaryDamage[i]);
+                return Plugin_Continue;
+            }
+        }
+    }
+
+    return Plugin_Continue;
+}
+
 public Action:SrEventPlayerHurt(Handle:event, const String:name[], bool:dontBroadcast) {
     // Infinite health
     if (g_Zombies || g_BuddySystem || g_HotPotato) {
@@ -475,11 +522,13 @@ public Action:SrEventPlayerHurt(Handle:event, const String:name[], bool:dontBroa
 		if (attacker == 0) {
 			return Plugin_Continue;
 		}
-		new dmg_health = GetEventInt(event, "dmg_health");
-		new attackerH = GetEntProp(attacker, Prop_Send, "m_iHealth");
+		new damage = GetEventInt(event, "dmg_health");
+		new attackerHealth = GetEntProp(attacker, Prop_Send, "m_iHealth");
 		if (IsClientInGame(attacker) && IsPlayerAlive(attacker) && !IsFakeClient(attacker)) {
-			new GiveHealth = attackerH + dmg_health;
-			SetEntityHealth(attacker, GiveHealth);
+			new giveHealth = attackerHealth + damage;
+            if (!g_DontMiss || giveHealth <= g_Health) {
+    			SetEntityHealth(attacker, giveHealth);
+            }
 		}
 	}
 
@@ -489,6 +538,8 @@ public Action:SrEventPlayerHurt(Handle:event, const String:name[], bool:dontBroa
 		new attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
 		new damageDone = GetEventInt(event, "dmg_health");
 		new newHealth = GetEventInt(event, "health");
+
+        PrintToServer("hitgroup: %d", hitgroup);
 
 		if (hitgroup != 1) {
 			if (attacker != victim && victim != 0 && attacker != 0) {
@@ -606,7 +657,6 @@ public Action:SrEventPlayerDeathPre(Handle:event, const String:name[], bool:dont
         }
 
         if (ctWiped || tWiped) {
-            PrintToServer("round win condition set true");
             SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
 
             return Plugin_Continue;

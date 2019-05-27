@@ -113,16 +113,11 @@ public Action:CheckLeaderTimer(Handle timer) {
             float distance = GetVectorDistance(vec, pos);
 
             if (distance > 300) {
-                new currentHealth = GetEntProp(client, Prop_Send, "m_iHealth");
-                if (currentHealth > 5) {
-                    new String:message[256];
-                    Format(message, sizeof(message), "{DARK_RED}Warning {NORMAL}too far from the {YELLOW}leader");
-                    Colorize(message, sizeof(message));
-                    CPrintToChat(client, message);
-                    SetEntityHealth(client, currentHealth - 5);
-                } else {
-                    ForcePlayerSuicide(client);
-                }
+                DamagePlayer(client, 5);
+                new String:message[256];
+                Format(message, sizeof(message), "{DARK_RED}Warning {NORMAL}too far from the {YELLOW}leader");
+                Colorize(message, sizeof(message));
+                CPrintToChat(client, message);
             }
         }
     }
@@ -140,16 +135,11 @@ public Action:CheckLeaderTimer(Handle timer) {
             float distance = GetVectorDistance(vec, pos);
 
             if (distance > 300) {
-                new currentHealth = GetEntProp(client, Prop_Send, "m_iHealth");
-                if (currentHealth > 5) {
-                    new String:message[256];
-                    Format(message, sizeof(message), "{DARK_RED}Warning {NORMAL}too far from the {YELLOW}leader");
-                    Colorize(message, sizeof(message));
-                    CPrintToChat(client, message);
-                    SetEntityHealth(client, currentHealth - 5);
-                } else {
-                    ForcePlayerSuicide(client);
-                }
+                DamagePlayer(client, 5);
+                new String:message[256];
+                Format(message, sizeof(message), "{DARK_RED}Warning {NORMAL}too far from the {YELLOW}leader");
+                Colorize(message, sizeof(message));
+                CPrintToChat(client, message);
             }
         }
     }

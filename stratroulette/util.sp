@@ -207,6 +207,15 @@ stock void SelectHotPotato(int client = -1) {
     GivePlayerItem(ctLeader, "weapon_fiveseven");
 }
 
+stock void DamagePlayer(int client, int damage, int attacker=-1) {
+    new currentHealth = GetEntProp(client, Prop_Send, "m_iHealth");
+    if (currentHealth > damage) {
+        SetEntityHealth(client, currentHealth - damage);
+    } else {
+        KillPlayer(client, attacker);
+    }
+}
+
 stock void KillPlayer(int client, int killerUserid=-1, char[] weapon="knife", int assisterUserid=-1) {
     if (killerUserid != -1) {
         new Handle:event = CreateEvent("player_death");

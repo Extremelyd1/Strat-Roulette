@@ -90,6 +90,7 @@ public ReadNewRound() {
     kv.GetString("hotpotato", HotPotato, sizeof(HotPotato), "0");
     kv.GetString("killround", KillRound, sizeof(KillRound), "0");
     kv.GetString("bomberman", Bomberman, sizeof(Bomberman), "0");
+    kv.GetString("dontmiss", DontMiss, sizeof(DontMiss), "0");
 
     new String:divider[] = "{DARK_BLUE}----------------------------------------";
     Colorize(divider, sizeof(divider));
@@ -175,6 +176,8 @@ public ReadNewRound() {
     ConfigureKillRound();
     //** Bomberman **//
     ConfigureBomberman();
+    //** Dont miss **//
+    ConfigureDontMiss();
 
     return 1;
 }
