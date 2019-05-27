@@ -134,7 +134,7 @@ new Handle:weapon_recoil_view_punch_extra;
 new Handle:sv_accelerate;
 new Handle:sv_airaccelerate;
 new Handle:sv_friction;
-new Handle:mp_radar_all;
+new Handle:mp_radar_showall;
 new Handle:sv_cheats;
 new Handle:mp_default_team_winner_no_objective;
 new Handle:mp_ignore_round_win_conditions;
