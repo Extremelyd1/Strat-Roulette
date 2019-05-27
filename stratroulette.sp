@@ -54,6 +54,7 @@ new String:Manhunt[3];
 new String:Winner[20];
 new String:HotPotato[3];
 new String:KillRound[3];
+new String:Bomberman[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -76,6 +77,7 @@ new bool:g_RedGreen = false;
 new bool:g_Manhunt = false;
 new bool:g_HotPotato = false;
 new bool:g_KillRound = false;
+new bool:g_Bomberman = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -132,11 +134,15 @@ new Handle:weapon_recoil_view_punch_extra;
 new Handle:sv_accelerate;
 new Handle:sv_airaccelerate;
 new Handle:sv_friction;
-new Handle:mp_radar_showall;
+new Handle:mp_radar_all;
 new Handle:sv_cheats;
 new Handle:mp_default_team_winner_no_objective;
 new Handle:mp_ignore_round_win_conditions;
 new Handle:mp_freezetime;
+new Handle:mp_plant_c4_anywhere;
+new Handle:mp_c4timer;
+new Handle:mp_c4_cannot_be_defused;
+new Handle:mp_anyone_can_pickup_c4;
 
 #include "stratroulette/configure.sp"
 #include "stratroulette/readfile.sp"
@@ -156,13 +162,14 @@ public OnPluginStart() {
     //** Commands **//
     RegAdminCmd("sm_setround", cmd_setround, ADMFLAG_ROOT, "Command to forcefully set the next round strat");
     RegAdminCmd("sm_sr", cmd_setround, ADMFLAG_ROOT, "Command to forcefully set the next round strat");
+    RegAdminCmd("sm_endround", cmd_endround, ADMFLAG_ROOT, "Command to forcefully end the round");
     RegAdminCmd("sm_srslots", cmd_srslots, ADMFLAG_ROOT, "Command to output items in weapons slots");
     RegAdminCmd("sm_srtest", cmd_srtest, ADMFLAG_ROOT, "Command to test something");
 	//** Event **//
 	HookEvent("decoy_started", SrEventDecoyStarted);
 	HookEvent("weapon_zoom", SrEventWeaponZoom, EventHookMode_Post);
 	HookEvent("bomb_planted", SrBombPlanted_Event);
-	HookEvent("player_hurt", SrEventPlayerHurt);
+	HookEvent("player_hurt", SrEventPlayerHurt, EventHookMode_Pre);
 	HookEvent("inspect_weapon", SrEventInspectWeapon);
 	HookEvent("round_end", SrEventRoundEnd);
 	HookEvent("round_start", SrEventRoundStart);
@@ -171,10 +178,21 @@ public OnPluginStart() {
     HookEvent("other_death", SrEventEntityDeath);
 
     AddCommandListener(Command_Drop, "drop");
+
+    // Hook players after plugin reload
+    for (int client = 1; client <= MaxClients; client++) {
+        if (IsClientInGame(client) && !IsFakeClient(client)) {
+            SDKHook(client, SDKHook_OnTakeDamage, OnTakeDamage);
+        }
+    }
 }
 
 public void OnMapStart() {
     // Nothing here yet
+}
+
+public OnClientPutInServer(client) {
+    SDKHook(client, SDKHook_OnTakeDamage, OnTakeDamage);
 }
 
 public Action:cmd_setround(client, args) {
@@ -205,6 +223,12 @@ public Action:cmd_setround(client, args) {
     return Plugin_Handled;
 }
 
+public Action:cmd_endround(client, args) {
+    CS_TerminateRound(1.0, CSRoundEnd_Draw, true);
+
+    return Plugin_Handled;
+}
+
 public Action:cmd_srslots(client, args) {
     for (new i = 0; i < 100; i++) {
         new edict = GetPlayerWeaponSlot(client, i);
@@ -219,11 +243,12 @@ public Action:cmd_srslots(client, args) {
 }
 
 public Action:cmd_srtest(client, args) {
-    PrintToServer("client id: %d", client);
+    new c4 = GivePlayerItem(client, "weapon_c4");
+    EquipPlayerWeapon(client, c4);
 }
 
 public Action:Command_Drop(int client, const char[] command, int args) {
-    if (g_HotPotato) {
+    if (g_HotPotato || g_Bomberman) {
         return Plugin_Stop;
     }
 
@@ -252,6 +277,10 @@ public OnConfigsExecuted() {
     mp_default_team_winner_no_objective = FindConVar("mp_default_team_winner_no_objective");
     mp_ignore_round_win_conditions = FindConVar("mp_ignore_round_win_conditions");
     mp_freezetime = FindConVar("mp_freezetime");
+    mp_plant_c4_anywhere = FindConVar("mp_plant_c4_anywhere");
+    mp_c4timer = FindConVar("mp_c4timer");
+    mp_c4_cannot_be_defused = FindConVar("mp_c4_cannot_be_defused");
+    mp_anyone_can_pickup_c4 = FindConVar("mp_anyone_can_pickup_c4");
 
 	//** KEYVALUES **//
 	new flags = GetConVarFlags(sv_gravity);
@@ -366,6 +395,58 @@ public Action:SrEventWeaponZoom(Handle:event, const String:name[], bool:dontBroa
 			PrintToChat(client, "This is noscope round! Don't try to scope!");
 		}
 	}
+}
+
+public Action:Hook_DenyTransmit(entity, client) {
+    if (entity != client) {
+        return Plugin_Handled;
+    }
+    return Plugin_Continue;
+}
+
+public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damagetype) {
+    if (g_Bomberman) {
+        new victimHealth = GetEntProp(victim, Prop_Send, "m_iHealth");
+        if (victimHealth <= damage) {
+            // Victim would have been killed by bomb damage
+
+            // Check whether team is wiped
+            bool ctWiped = true;
+            bool tWiped = true;
+
+            for (int client = 1; client <= MaxClients; client++) {
+                if (IsClientInGame(client) && IsPlayerAlive(client)
+                    && !IsFakeClient(client) && client != victim) {
+                    if (GetClientTeam(client) == CS_TEAM_CT) {
+                        ctWiped = false;
+                    } else if (GetClientTeam(client) == CS_TEAM_T) {
+                        tWiped = false;
+                    }
+                }
+            }
+
+            if (!ctWiped && !tWiped) {
+                KillPlayer(victim, victim);
+                return Plugin_Handled;
+            }
+
+            DataPack data = new DataPack();
+
+            if (ctWiped) {
+                data.WriteCell(CS_TEAM_CT);
+            } else if (tWiped) {
+                data.WriteCell(CS_TEAM_T);
+            }
+
+            // Wait 0.1 seconds before killing player manually,
+            // to allow round end by bomb to be bypassed
+            CreateTimer(0.1, WipeTeamTimer, data);
+
+            return Plugin_Handled;
+        }
+    }
+
+    return Plugin_Continue;
 }
 
 public Action:SrEventPlayerHurt(Handle:event, const String:name[], bool:dontBroadcast) {
@@ -510,7 +591,7 @@ public Action:SrEventPlayerDeath(Handle:event, const String:name[], bool:dontBro
 }
 
 public Action:SrEventPlayerDeathPre(Handle:event, const String:name[], bool:dontBroadcast) {
-    if (g_KillRound) {
+    if (g_KillRound && !g_Bomberman) {
         bool ctWiped = true;
         bool tWiped = true;
 
@@ -525,13 +606,14 @@ public Action:SrEventPlayerDeathPre(Handle:event, const String:name[], bool:dont
         }
 
         if (ctWiped || tWiped) {
+            PrintToServer("round win condition set true");
             SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
 
             return Plugin_Continue;
         }
     }
 
-    if (g_BuddySystem) {
+    if (g_BuddySystem || g_Bomberman) {
         new userid = GetEventInt(event, "userid");
         new attackerUserid = GetEventInt(event, "attacker");
 

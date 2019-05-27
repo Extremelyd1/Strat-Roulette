@@ -334,7 +334,7 @@ public ConfigureLeader() {
         SendLeaderMessage(CS_TEAM_T);
 
         int freezeTime = GetConVarInt(mp_freezetime);
-        CreateTimer(freezeTime + 3.0, StartLeaderTimer);
+        CreateTimer(freezeTime, StartLeaderTimer);
     } else {
         g_Leader = false;
     }
@@ -352,13 +352,15 @@ public ConfigureInvisible() {
     if (StrEqual(Invisible, "1")) {
         for (int client = 1; client < MaxClients; client++) {
     		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-                SetEntityRenderMode(client, RENDER_NONE);
+                SDKHook(client, SDKHook_SetTransmit, Hook_DenyTransmit);
+                /* SetEntityRenderMode(client, RENDER_NONE); */
             }
         }
     } else {
         for (int client = 1; client < MaxClients; client++) {
     		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-                SetEntityRenderMode(client, RENDER_NORMAL);
+                SDKUnhook(client, SDKHook_SetTransmit, Hook_DenyTransmit);
+                /* SetEntityRenderMode(client, RENDER_NORMAL); */
             }
         }
     }
@@ -465,7 +467,7 @@ public ConfigureManhunt() {
 
 public ConfigureWinner() {
     if (StrEqual(Winner, "t")) {
-        SetConVarInt(mp_default_team_winner_no_objective, 2, true, false);
+        SetConVarInt(mp_default_team_winner_no_objective, -1, true, false);
     } else if (StrEqual(Winner, "draw")) {
         SetConVarInt(mp_default_team_winner_no_objective, 1, true, false);
     } else {
@@ -492,5 +494,22 @@ public ConfigureKillRound() {
     } else {
         g_KillRound = false;
         SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
+    }
+}
+
+public ConfigureBomberman() {
+    if (StrEqual(Bomberman, "1")) {
+        g_Bomberman = true;
+        SetConVarInt(mp_plant_c4_anywhere, 1, true, false);
+        SetConVarInt(mp_c4timer, 10, true, false);
+        SetConVarInt(mp_c4_cannot_be_defused, 1, true, false);
+        SetConVarInt(mp_anyone_can_pickup_c4, 1, true, false);
+        CreateTimer(0.1, CheckC4Timer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+    } else {
+        g_Bomberman = false;
+        SetConVarInt(mp_plant_c4_anywhere, 0, true, false);
+        SetConVarInt(mp_c4timer, 40, true, false);
+        SetConVarInt(mp_c4_cannot_be_defused, 0, true, false);
+        SetConVarInt(mp_anyone_can_pickup_c4, 0, true, false);
     }
 }

@@ -79,7 +79,7 @@ public Action:SetWeaponAmmo(Handle timer) {
 // so players can walk to their leader at
 // start of the round
 public Action:StartLeaderTimer(Handle timer) {
-    CreateTimer(0.5, CheckLeaderTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+    CreateTimer(3.0, CheckLeaderTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 }
 
 public Action:CheckLeaderTimer(Handle timer) {
@@ -359,4 +359,39 @@ public Action:HotPotatoTimer(Handle timer) {
     CreateTimer(3.0, NewHotPotatoTimer);
 
     return Plugin_Continue;
+}
+
+public Action:CheckC4Timer(Handle timer) {
+    if (!g_Bomberman) {
+        return Plugin_Stop;
+    }
+
+    for (new i = 1; i < MaxClients; i++) {
+        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+            new c4Slot = GetPlayerWeaponSlot(i, 4);
+
+            if (c4Slot < 0) {
+                new c4 = GivePlayerItem(i, "weapon_c4");
+                EquipPlayerWeapon(i, c4);
+            }
+        }
+    }
+
+    return Plugin_Continue;
+}
+
+public Action:WipeTeamTimer(Handle timer, DataPack data) {
+    SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
+
+    data.Reset();
+
+    int team = data.ReadCell();
+
+    for (int client = 1; client <= MaxClients; client++) {
+        if (IsClientInGame(client) && !IsFakeClient(client)) {
+            if (GetClientTeam(client) == team) {
+                KillPlayer(client, client);
+            }
+        }
+    }
 }

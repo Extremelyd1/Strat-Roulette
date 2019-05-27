@@ -221,7 +221,8 @@
 		"weapon"		"weapon_molotov"
 		"infinitenade"	"1"
 		"noknife"		"1"
-		"defuser"		"1"
+		"noc4"			"1"
+		"killround"		"1"
 	}
 	"27"
 	{
@@ -237,7 +238,8 @@
 		"weapon"		"weapon_hegrenade"
 		"infinitenade"	"1"
 		"noknife"		"1"
-		"defuser"		"1"
+		"noc4"			"1"
+		"killround"		"1"
 	}
 	"29"
 	{
@@ -358,5 +360,25 @@
 		"noknife"		"1"
 		"oitc"			"1"
 		"showallmap"	"1"
+	}
+	"42"
+	{
+		"name"			"Bomberman"
+		"weapon"		"weapon_c4"
+		"health"		"500"
+		"bomberman"		"1"
+		"showallmap"	"1"
+		"killround"		"1"
+		"noknife"		"1"
+		"noc4"			"1"
+	}
+	"43"
+	{
+		"name"			"Random nades"
+		"weapon"		"weapon_hegrenade"
+		"noknife"		"1"
+		"randomnade"	"1"
+		"killround"		"1"
+		"noc4"			"1"
 	}
 }
