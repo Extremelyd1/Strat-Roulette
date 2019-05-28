@@ -57,6 +57,7 @@ new String:KillRound[3];
 new String:Bomberman[3];
 new String:DontMiss[3];
 new String:CrabWalk[3];
+new String:RandomGuns[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -82,6 +83,7 @@ new bool:g_KillRound = false;
 new bool:g_Bomberman = false;
 new bool:g_DontMiss = false;
 new bool:g_CrabWalk = false;
+new bool:g_RandomGuns = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -168,6 +170,7 @@ new Handle:mp_plant_c4_anywhere;
 new Handle:mp_c4timer;
 new Handle:mp_c4_cannot_be_defused;
 new Handle:mp_anyone_can_pickup_c4;
+new Handle:mp_death_drop_grenade;
 
 #include "stratroulette/configure.sp"
 #include "stratroulette/readfile.sp"
@@ -319,6 +322,7 @@ public OnConfigsExecuted() {
     mp_c4timer = FindConVar("mp_c4timer");
     mp_c4_cannot_be_defused = FindConVar("mp_c4_cannot_be_defused");
     mp_anyone_can_pickup_c4 = FindConVar("mp_anyone_can_pickup_c4");
+    mp_death_drop_grenade = FindConVar("mp_death_drop_grenade");
 
 	//** KEYVALUES **//
 	new flags = GetConVarFlags(sv_gravity);

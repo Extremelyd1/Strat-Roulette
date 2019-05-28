@@ -84,12 +84,15 @@
 	}
 	"10"
 	{
-		"name"			"Random guns"
-		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"name"			"Random Guns"
+		"weapon"		"none"
+		"noknife"		"1"
 		"infiniteammo"	"2"
-		"defuser"		"1"
+		"noc4"			"1"
 		"armor"			"100"
 		"helmet"		"1"
+		"health"		"1000"
+		"randomguns"	"1"
 	}
 	"11"
 	{
@@ -350,7 +353,7 @@
 		"armor"			"100"
 		"helmet"		"1"
 		"manhunt"		"1"
-		"noc4"			"1"
+		"noc4"			"1" 
 		"killround"		"1"
 	}
 	"41"

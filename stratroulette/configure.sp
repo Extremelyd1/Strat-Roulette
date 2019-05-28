@@ -525,7 +525,18 @@ public ConfigureDontMiss() {
 public ConfigureCrabWalk() {
     if (StrEqual(CrabWalk, "1")) {
         g_CrabWalk = true;
+        SetConVarInt(mp_death_drop_grenade, 0, true, false);
     } else {
         g_CrabWalk = false;
+        SetConVarInt(mp_death_drop_grenade, 1, true, false);
+    }
+}
+
+public ConfigureRandomGuns() {
+    if (StrEqual(RandomGuns, "1")) {
+        g_RandomGuns = true;
+        CreateTimer(1.0, RandomGunsTimer);
+    } else {
+        g_RandomGuns = false;
     }
 }

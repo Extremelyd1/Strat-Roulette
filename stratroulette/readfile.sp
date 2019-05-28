@@ -92,6 +92,7 @@ public ReadNewRound() {
     kv.GetString("bomberman", Bomberman, sizeof(Bomberman), "0");
     kv.GetString("dontmiss", DontMiss, sizeof(DontMiss), "0");
     kv.GetString("crabwalk", CrabWalk, sizeof(CrabWalk), "0");
+    kv.GetString("randomguns", RandomGuns, sizeof(RandomGuns), "0");
 
     new String:divider[] = "{DARK_BLUE}----------------------------------------";
     Colorize(divider, sizeof(divider));
@@ -181,6 +182,8 @@ public ReadNewRound() {
     ConfigureDontMiss();
     //** Crab Walk **//
     ConfigureCrabWalk();
+    //** Random Guns **//
+    ConfigureRandomGuns();
 
     return 1;
 }

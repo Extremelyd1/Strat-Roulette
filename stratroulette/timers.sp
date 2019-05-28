@@ -394,3 +394,33 @@ public Action:DontMissDamageTimer(Handle timer, DataPack data) {
 
     DamagePlayer(client, damage);
 }
+
+public Action:RandomGunsTimer(Handle timer) {
+    if (!g_RandomGuns) {
+        return Plugin_Stop;
+    }
+
+    RemoveWeapons();
+
+    for (int client = 1; client < MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+            new randomIntCat = GetRandomInt(0, 1);
+
+            char weapon[256];
+            if (randomIntCat == 0) {
+                new randomInt = GetRandomInt(0, PRIMARY_LENGTH - 1);
+                Format(weapon, sizeof(weapon), WeaponPrimary[randomInt]);
+            } else {
+                new randomInt = GetRandomInt(0, SECONDARY_LENGTH - 1);
+                Format(weapon, sizeof(weapon), WeaponSecondary[randomInt]);
+            }
+            GivePlayerItem(client, weapon);
+        }
+    }
+
+    float randomFloat = GetRandomFloat(5.0, 9.0);
+
+    CreateTimer(randomFloat, RandomGunsTimer);
+
+    return Plugin_Continue;
+}
