@@ -207,12 +207,21 @@ stock void SelectHotPotato(int client = -1) {
     GivePlayerItem(ctLeader, "weapon_fiveseven");
 }
 
+// Used to damage player by amount of damage, can also be used to heal
+// with negative damage
 stock void DamagePlayer(int client, int damage, int attacker=-1) {
     new currentHealth = GetEntProp(client, Prop_Send, "m_iHealth");
-    if (currentHealth > damage) {
-        SetEntityHealth(client, currentHealth - damage);
-    } else {
-        KillPlayer(client, attacker);
+    new newHealth = currentHealth - damage;
+    if (damage > 0) {
+        if (newHealth > 0) {
+            SetEntityHealth(client, newHealth);
+        } else {
+            KillPlayer(client, attacker);
+        }
+    } else if (damage < 0) {
+        if (newHealth <= g_Health) {
+            SetEntityHealth(client, newHealth);
+        }
     }
 }
 

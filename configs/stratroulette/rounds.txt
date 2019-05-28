@@ -159,8 +159,12 @@
 	"18"
 	{
 		"name"			"Headshot round"
-		"weapon"		"weapon_ak47;weapon_deagle"
+		"weapon"		"weapon_bizon"
 		"headshot"		"1"
+		"noknife"		"1"
+		"infiniteammo"	"2"
+		"armor"			"100"
+		"helmet"		"1"
 	}
 	"19"
 	{
@@ -181,10 +185,13 @@
 	}
 	"21"
 	{
-		"name"			"Deagle headshot round"
+		"name"			"Juan Deag"
 		"weapon"		"weapon_deagle"
+		"noknife"		"1"
 		"headshot"		"1"
 		"infiniteammo"	"2"
+		"armor"			"100"
+		"helmet"		"1"
 	}
 	"22"
 	{
@@ -378,6 +385,14 @@
 		"weapon"		"weapon_hegrenade"
 		"noknife"		"1"
 		"randomnade"	"1"
+		"killround"		"1"
+		"noc4"			"1"
+	}
+	"44"
+	{
+		"name"			"Don't Miss"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"dontmiss"		"1"
 		"killround"		"1"
 		"noc4"			"1"
 	}

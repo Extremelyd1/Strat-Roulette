@@ -385,3 +385,12 @@ public Action:WipeTeamTimer(Handle timer, DataPack data) {
         }
     }
 }
+
+public Action:DontMissDamageTimer(Handle timer, DataPack data) {
+    data.Reset();
+
+    int client = data.ReadCell();
+    int damage = data.ReadCell();
+
+    DamagePlayer(client, damage);
+}

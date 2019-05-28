@@ -98,10 +98,10 @@ new const PrimaryDamage[PRIMARY_LENGTH] = {
     10, 10, 5,
     10, 3, 10,
     3, 10, 5,
-    2, 5, 5,
-    3, 2, 5,
-    2, 50, 10,
-    50, 7, 2,
+    20, 5, 5,
+    3, 20, 5,
+    20, 50, 10,
+    50, 7, 20,
     10, 50, 10
 };
 
@@ -199,7 +199,7 @@ public OnPluginStart() {
 	HookEvent("player_death", SrEventPlayerDeath);
     HookEvent("player_death", SrEventPlayerDeathPre, EventHookMode_Pre);
     HookEvent("other_death", SrEventEntityDeath);
-    HookEvent("bullet_impact", SrEventBulletImpact);
+    HookEvent("weapon_fire", SrEventWeaponFire);
 
     AddCommandListener(Command_Drop, "drop");
 
@@ -473,7 +473,7 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
     return Plugin_Continue;
 }
 
-public Action:SrEventBulletImpact(Handle:event, const String:name[], bool:dontBroadcast) {
+public Action:SrEventWeaponFire(Handle:event, const String:name[], bool:dontBroadcast) {
     if (g_DontMiss) {
         new client = GetClientOfUserId(GetEventInt(event, "userid"));
         char weaponname[128];
@@ -481,13 +481,21 @@ public Action:SrEventBulletImpact(Handle:event, const String:name[], bool:dontBr
 
         for (int i = 0; i < PRIMARY_LENGTH; i++) {
             if (StrEqual(weaponname, WeaponPrimary[i])) {
-                DamagePlayer(client, PrimaryDamage[i]);
+                DataPack data = new DataPack();
+                data.WriteCell(client);
+                data.WriteCell(PrimaryDamage[i]);
+
+                CreateTimer(0.1, DontMissDamageTimer, data);
                 return Plugin_Continue;
             }
         }
         for (int i = 0; i < SECONDARY_LENGTH; i++) {
             if (StrEqual(weaponname, WeaponSecondary[i])) {
-                DamagePlayer(client, SecondaryDamage[i]);
+                DataPack data = new DataPack();
+                data.WriteCell(client);
+                data.WriteCell(SecondaryDamage[i]);
+
+                CreateTimer(0.1, DontMissDamageTimer, data);
                 return Plugin_Continue;
             }
         }
@@ -526,9 +534,7 @@ public Action:SrEventPlayerHurt(Handle:event, const String:name[], bool:dontBroa
 		new attackerHealth = GetEntProp(attacker, Prop_Send, "m_iHealth");
 		if (IsClientInGame(attacker) && IsPlayerAlive(attacker) && !IsFakeClient(attacker)) {
 			new giveHealth = attackerHealth + damage;
-            if (!g_DontMiss || giveHealth <= g_Health) {
-    			SetEntityHealth(attacker, giveHealth);
-            }
+    		SetEntityHealth(attacker, giveHealth);
 		}
 	}
 
@@ -538,8 +544,6 @@ public Action:SrEventPlayerHurt(Handle:event, const String:name[], bool:dontBroa
 		new attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
 		new damageDone = GetEventInt(event, "dmg_health");
 		new newHealth = GetEventInt(event, "health");
-
-        PrintToServer("hitgroup: %d", hitgroup);
 
 		if (hitgroup != 1) {
 			if (attacker != victim && victim != 0 && attacker != 0) {
@@ -563,6 +567,27 @@ public Action:SrEventPlayerHurt(Handle:event, const String:name[], bool:dontBroa
 
             TeleportEntity(victim, attackerPos, NULL_VECTOR, NULL_VECTOR);
             TeleportEntity(attacker, victimPos, NULL_VECTOR, NULL_VECTOR);
+        }
+    }
+
+    if (g_DontMiss) {
+        char weapon[128];
+        GetEventString(event, "weapon", weapon, sizeof(weapon));
+        Format(weapon, sizeof(weapon), "weapon_%s", weapon);
+
+        new attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
+
+        for (int i = 0; i < PRIMARY_LENGTH; i++) {
+            if (StrEqual(weapon, WeaponPrimary[i])) {
+                DamagePlayer(attacker, -PrimaryDamage[i]);
+                return Plugin_Continue;
+            }
+        }
+        for (int i = 0; i < SECONDARY_LENGTH; i++) {
+            if (StrEqual(weapon, WeaponSecondary[i])) {
+                DamagePlayer(attacker, -SecondaryDamage[i]);
+                return Plugin_Continue;
+            }
         }
     }
 
