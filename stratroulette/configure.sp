@@ -521,3 +521,11 @@ public ConfigureDontMiss() {
         g_DontMiss = false;
     }
 }
+
+public ConfigureCrabWalk() {
+    if (StrEqual(CrabWalk, "1")) {
+        g_CrabWalk = true;
+    } else {
+        g_CrabWalk = false;
+    }
+}

@@ -396,4 +396,10 @@
 		"killround"		"1"
 		"noc4"			"1"
 	}
+	"45"
+	{
+		"name"			"Crab Walk"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"crabwalk"		"1"
+	}
 }

@@ -56,6 +56,7 @@ new String:HotPotato[3];
 new String:KillRound[3];
 new String:Bomberman[3];
 new String:DontMiss[3];
+new String:CrabWalk[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -80,6 +81,7 @@ new bool:g_HotPotato = false;
 new bool:g_KillRound = false;
 new bool:g_Bomberman = false;
 new bool:g_DontMiss = false;
+new bool:g_CrabWalk = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -201,7 +203,7 @@ public OnPluginStart() {
     HookEvent("other_death", SrEventEntityDeath);
     HookEvent("weapon_fire", SrEventWeaponFire);
 
-    AddCommandListener(Command_Drop, "drop");
+    AddCommandListener(CommandDrop, "drop");
 
     // Hook players after plugin reload
     for (int client = 1; client <= MaxClients; client++) {
@@ -271,11 +273,23 @@ public Action:cmd_srtest(client, args) {
     EquipPlayerWeapon(client, c4);
 }
 
-public Action:Command_Drop(int client, const char[] command, int args) {
+public Action:CommandDrop(int client, const char[] command, int args) {
     if (g_HotPotato || g_Bomberman) {
         return Plugin_Stop;
     }
 
+    return Plugin_Continue;
+}
+
+public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3], float angles[3], int& weapon, int& subtype, int& cmdnum, int& tickcount, int& seed, int mouse[2]) {
+    if (g_CrabWalk) {
+        if (buttons & IN_FORWARD) {
+            return Plugin_Handled;
+        }
+        if (buttons & IN_BACK) {
+            return Plugin_Handled;
+        }
+    }
     return Plugin_Continue;
 }
 
