@@ -11,6 +11,7 @@
 #define STRAT_FILE "addons/sourcemod/configs/stratroulette/rounds.txt"
 #define PRIMARY_LENGTH 24
 #define SECONDARY_LENGTH 10
+#define SMOKE_RADIUS 165
 
 // KeyValue strings
 new String:RoundName[200];
@@ -58,6 +59,7 @@ new String:Bomberman[3];
 new String:DontMiss[3];
 new String:CrabWalk[3];
 new String:RandomGuns[3];
+new String:Poison[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -84,6 +86,7 @@ new bool:g_Bomberman = false;
 new bool:g_DontMiss = false;
 new bool:g_CrabWalk = false;
 new bool:g_RandomGuns = false;
+new bool:g_Poison = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -141,6 +144,8 @@ new bool:g_RedLight = false;
 new StringMap:positionMap;
 // Buddy system
 new StringMap:chickenMap;
+// Poison
+new StringMap:smokeMap;
 
 // Round setting command
 new bool:setNextRound = false;
@@ -205,6 +210,8 @@ public OnPluginStart() {
     HookEvent("player_death", SrEventPlayerDeathPre, EventHookMode_Pre);
     HookEvent("other_death", SrEventEntityDeath);
     HookEvent("weapon_fire", SrEventWeaponFire);
+    HookEvent("smokegrenade_detonate", SrEventSmokeDetonate);
+    HookEvent("smokegrenade_expired", SrEventSmokeExpired);
 
     AddCommandListener(CommandDrop, "drop");
 
@@ -340,6 +347,7 @@ public OnConfigsExecuted() {
 
     chickenMap = CreateTrie();
     positionMap = CreateTrie();
+    smokeMap = CreateTrie();
 }
 
 public SetServerConvars() {
@@ -744,5 +752,31 @@ public Action:SrEventEntityDeath(Handle:event, const String:name[], bool:dontBro
                 }
             }
         }
+    }
+}
+
+public Action:SrEventSmokeDetonate(Handle:event, const String:name[], bool:dontBroadcast) {
+    if (g_Poison) {
+        new entity = GetEventInt(event, "entityid");
+        float pos[3];
+        pos[0] = GetEventFloat(event, "x");
+        pos[1] = GetEventFloat(event, "y");
+        pos[2] = GetEventFloat(event, "z");
+
+        new String:entityIdString[64];
+        IntToString(entity, entityIdString, sizeof(entityIdString));
+
+        smokeMap.SetArray(entityIdString, pos, 3);
+    }
+}
+
+public Action:SrEventSmokeExpired(Handle:event, const String:name[], bool:dontBroadcast) {
+    if (g_Poison) {
+        new entity = GetEventInt(event, "entityid");
+
+        new String:entityIdString[64];
+        IntToString(entity, entityIdString, sizeof(entityIdString));
+
+        smokeMap.Remove(entityIdString);
     }
 }

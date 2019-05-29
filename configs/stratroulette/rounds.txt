@@ -405,4 +405,12 @@
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"crabwalk"		"1"
 	}
+	"46"
+	{
+		"name"			"Poison Cloud"
+		"weapon"		"weapon_random;weapon_smokegrenade"
+		"infinitenade"	"1"
+		"defuser"		"1"
+		"poison"		"1"
+	}
 }

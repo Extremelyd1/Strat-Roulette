@@ -15,7 +15,7 @@ public ConfigureWeapons() {
     // For random weapon generate first whether it
     // should be primary of secondary
     new randomIntCat = -1;
-    if (StrEqual(Weapon, "weapon_random")) {
+    if (StrContains(Weapon, "weapon_random") != -1) {
         randomIntCat = GetRandomInt(0, 1);
     }
 
@@ -334,7 +334,7 @@ public ConfigureLeader() {
         SendLeaderMessage(CS_TEAM_T);
 
         int freezeTime = GetConVarInt(mp_freezetime);
-        CreateTimer(freezeTime, StartLeaderTimer);
+        CreateTimer(freezeTime + 1.0, StartLeaderTimer);
     } else {
         g_Leader = false;
     }
@@ -538,5 +538,16 @@ public ConfigureRandomGuns() {
         CreateTimer(1.0, RandomGunsTimer);
     } else {
         g_RandomGuns = false;
+    }
+}
+
+public ConfigurePoison() {
+    if (StrEqual(Poison, "1")) {
+        smokeMap.Clear();
+        g_Poison = true;
+        CreateTimer(0.5, PoisonDamageTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+    } else {
+        smokeMap.Clear();
+        g_Poison = false;
     }
 }

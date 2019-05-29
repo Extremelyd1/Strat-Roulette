@@ -79,7 +79,7 @@ public Action:SetWeaponAmmo(Handle timer) {
 // so players can walk to their leader at
 // start of the round
 public Action:StartLeaderTimer(Handle timer) {
-    CreateTimer(3.0, CheckLeaderTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+    CreateTimer(7.0, CheckLeaderTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 }
 
 public Action:CheckLeaderTimer(Handle timer) {
@@ -421,6 +421,42 @@ public Action:RandomGunsTimer(Handle timer) {
     float randomFloat = GetRandomFloat(5.0, 9.0);
 
     CreateTimer(randomFloat, RandomGunsTimer);
+
+    return Plugin_Continue;
+}
+
+public Action:PoisonDamageTimer(Handle timer) {
+    if (!g_Poison) {
+        return Plugin_Stop;
+    }
+
+    for (int client = 1; client < MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+            float playerPos[3];
+            GetClientEyePosition(client, playerPos);
+
+            StringMapSnapshot snapshot = smokeMap.Snapshot();
+            for (int i = 0; i < snapshot.Length; i++) {
+                char key[64];
+                snapshot.GetKey(i, key, sizeof(key));
+
+                float smokePos[3];
+                smokeMap.GetArray(key, smokePos, sizeof(smokePos));
+
+                float distance = GetVectorDistance(playerPos, smokePos);
+
+                if (distance < SMOKE_RADIUS) {
+                    DamagePlayer(client, 5);
+                    new String:message[256];
+                    Format(message, sizeof(message), "{DARK_RED}Warning {NORMAL}the smoke is {DARK_RED}toxic");
+                    Colorize(message, sizeof(message));
+                    CPrintToChat(client, message);
+                }
+            }
+            // Free snapshot variable
+            delete snapshot;
+        }
+    }
 
     return Plugin_Continue;
 }
