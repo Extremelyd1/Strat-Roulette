@@ -531,6 +531,29 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
         }
     }
 
+    if (g_BuddySystem || g_HotPotato) {
+        if (g_HotPotato) {
+            if (attacker != victim && victim != 0 && attacker != 0 &&
+                GetClientTeam(victim) != GetClientTeam(attacker)) {
+                SelectHotPotato(victim);
+            }
+        }
+
+        return Plugin_Handled;
+    }
+
+    if (g_Vampire) {
+		if (attacker == 0) {
+			return Plugin_Continue;
+		}
+
+		new attackerHealth = GetEntProp(attacker, Prop_Send, "m_iHealth");
+		if (IsClientInGame(attacker) && IsPlayerAlive(attacker) && !IsFakeClient(attacker)) {
+			new giveHealth = RoundToNearest(attackerHealth + damage);
+    		SetEntityHealth(attacker, giveHealth);
+		}
+	}
+
     return Plugin_Continue;
 }
 
@@ -566,43 +589,10 @@ public Action:SrEventWeaponFire(Handle:event, const String:name[], bool:dontBroa
 }
 
 public Action:SrEventPlayerHurt(Handle:event, const String:name[], bool:dontBroadcast) {
-    // Infinite health
-    if (g_Zombies || g_BuddySystem || g_HotPotato) {
-        new victim = GetClientOfUserId(GetEventInt(event, "userid"));
-
-        if (!g_Zombies || GetClientTeam(victim) == CS_TEAM_T) {
-            new intHealth = StringToInt(Health);
-            SetEntityHealth(victim, intHealth);
-        }
-
-        if (g_HotPotato) {
-    		new attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
-            if (attacker != victim && victim != 0 && attacker != 0 &&
-                GetClientTeam(victim) != GetClientTeam(attacker)) {
-                SelectHotPotato(victim);
-            }
-        }
-
-        return Plugin_Continue;
-    }
-
-	if (g_Vampire) {
-		new attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
-		if (attacker == 0) {
-			return Plugin_Continue;
-		}
-		new damage = GetEventInt(event, "dmg_health");
-		new attackerHealth = GetEntProp(attacker, Prop_Send, "m_iHealth");
-		if (IsClientInGame(attacker) && IsPlayerAlive(attacker) && !IsFakeClient(attacker)) {
-			new giveHealth = attackerHealth + damage;
-    		SetEntityHealth(attacker, giveHealth);
-		}
-	}
-
+    new victim = GetClientOfUserId(GetEventInt(event, "userid"));
+    new attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
 	if (g_HeadShot) {
 		new hitgroup = GetEventInt(event, "hitgroup");
-		new victim = GetClientOfUserId(GetEventInt(event, "userid"));
-		new attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
 		new damageDone = GetEventInt(event, "dmg_health");
 		new newHealth = GetEventInt(event, "health");
 
@@ -616,27 +606,10 @@ public Action:SrEventPlayerHurt(Handle:event, const String:name[], bool:dontBroa
 		}
 	}
 
-    if (g_Teleport) {
-        new victim = GetClientOfUserId(GetEventInt(event, "userid"));
-		new attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
-
-        if (attacker != victim && victim != 0 && attacker != 0) {
-            float victimPos[3];
-            GetEntPropVector(victim, Prop_Send, "m_vecOrigin", victimPos);
-            float attackerPos[3];
-            GetEntPropVector(attacker, Prop_Send, "m_vecOrigin", attackerPos);
-
-            TeleportEntity(victim, attackerPos, NULL_VECTOR, NULL_VECTOR);
-            TeleportEntity(attacker, victimPos, NULL_VECTOR, NULL_VECTOR);
-        }
-    }
-
     if (g_DontMiss) {
         char weapon[128];
         GetEventString(event, "weapon", weapon, sizeof(weapon));
         Format(weapon, sizeof(weapon), "weapon_%s", weapon);
-
-        new attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
 
         for (int i = 0; i < PRIMARY_LENGTH; i++) {
             if (StrEqual(weapon, WeaponPrimary[i])) {
@@ -649,6 +622,18 @@ public Action:SrEventPlayerHurt(Handle:event, const String:name[], bool:dontBroa
                 DamagePlayer(attacker, -SecondaryDamage[i]);
                 return Plugin_Continue;
             }
+        }
+    }
+
+    if (g_Teleport) {
+        if (attacker != victim && victim != 0 && attacker != 0) {
+            float victimPos[3];
+            GetEntPropVector(victim, Prop_Send, "m_vecOrigin", victimPos);
+            float attackerPos[3];
+            GetEntPropVector(attacker, Prop_Send, "m_vecOrigin", attackerPos);
+
+            TeleportEntity(victim, attackerPos, NULL_VECTOR, NULL_VECTOR);
+            TeleportEntity(attacker, victimPos, NULL_VECTOR, NULL_VECTOR);
         }
     }
 

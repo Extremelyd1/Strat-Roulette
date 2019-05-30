@@ -326,7 +326,6 @@
 	{
 		"name"			"Buddy System"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
-		"health"		"1000"
 		"buddysystem"	"1"
 	}
 	"38"
@@ -362,7 +361,6 @@
 		"weapon"		"none"
 		"armor"			"100"
 		"helmet"		"1"
-		"health"		"1000"
 		"hotpotato"		"1"
 		"noc4"			"1"
 		"killround"		"1"
