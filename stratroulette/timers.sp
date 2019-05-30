@@ -1,5 +1,5 @@
 public Action:EnableThirdPerson(Handle:timer) {
-	for (new i = 1; i < MaxClients; i++) {
+	for (new i = 1; i <= MaxClients; i++) {
 		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
 			ClientCommand(i, "thirdperson");
 		}
@@ -13,7 +13,7 @@ public Action:SlowMotionTimer(Handle timer) {
     int randomInt = GetRandomInt(0, 2);
 
     if (randomInt == 0) {
-        for (new i = 1; i < MaxClients; i++) {
+        for (new i = 1; i <= MaxClients; i++) {
             if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
                 g_HighSpeed = !g_HighSpeed;
                 if (g_HighSpeed) {
@@ -62,7 +62,7 @@ public Action:SetWeaponAmmo(Handle timer) {
         return Plugin_Stop;
     }
 
-    for (new i = 1; i < MaxClients; i++) {
+    for (new i = 1; i <= MaxClients; i++) {
         if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
             if (GetClipAmmo(i) > 1) {
                 SetClipAmmo(i, 1);
@@ -152,7 +152,7 @@ public Action:CheckAxeFistsTimer(Handle timer) {
         return Plugin_Stop;
     }
 
-    for (new i = 1; i < MaxClients; i++) {
+    for (new i = 1; i <= MaxClients; i++) {
         if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
             new meleeSlot = GetPlayerWeaponSlot(i, 2);
 
@@ -175,7 +175,7 @@ public Action:BuddyTimer(Handle timer) {
     if (!g_BuddySystem) {
         return Plugin_Stop;
     }
-    for (new i = 1; i < MaxClients; i++) {
+    for (new i = 1; i <= MaxClients; i++) {
         if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
             // Convert player id to string
             new String:playerIdString[64];
@@ -209,7 +209,7 @@ public Action:RedGreenMessageTimer(Handle timer) {
         CreateNewRedGreenTimer();
     }
     Colorize(message, sizeof(message));
-    for (new i = 1; i < MaxClients; i++) {
+    for (new i = 1; i <= MaxClients; i++) {
         if (IsClientInGame(i) && !IsFakeClient(i)) {
             CPrintToChat(i, message);
         }
@@ -222,7 +222,7 @@ public Action:RedLightTimer(Handle timer) {
     g_RedLight = true;
 
     // Save player positions
-    for (new i = 1; i < MaxClients; i++) {
+    for (new i = 1; i <= MaxClients; i++) {
         if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
             // Store client id in string
             new String:playerIdString[64];
@@ -247,7 +247,7 @@ public Action:RedGreenDamageTimer(Handle timer) {
     Format(message, sizeof(message), "Don't {DARK_RED}move{NORMAL} during {DARK_RED}red{NORMAL} light");
     Colorize(message, sizeof(message));
 
-    for (new i = 1; i < MaxClients; i++) {
+    for (new i = 1; i <= MaxClients; i++) {
         if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
             // Store client id in string
             new String:playerIdString[64];
@@ -322,7 +322,7 @@ public Action:HotPotatoTimer(Handle timer) {
         new String:message[256];
         Format(message, sizeof(message), "{YELLOW}%s died with the {DARK_RED}hot potato{NORMAL}!", ctLeaderName);
         Colorize(message, sizeof(message));
-        for (new i = 1; i < MaxClients; i++) {
+        for (new i = 1; i <= MaxClients; i++) {
             if (IsClientInGame(i) && !IsFakeClient(i)) {
                 CPrintToChat(i, message);
             }
@@ -356,7 +356,7 @@ public Action:CheckC4Timer(Handle timer) {
         return Plugin_Stop;
     }
 
-    for (new i = 1; i < MaxClients; i++) {
+    for (new i = 1; i <= MaxClients; i++) {
         if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
             new c4Slot = GetPlayerWeaponSlot(i, 4);
 
@@ -402,7 +402,7 @@ public Action:RandomGunsTimer(Handle timer) {
 
     RemoveWeapons();
 
-    for (int client = 1; client < MaxClients; client++) {
+    for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
             new randomIntCat = GetRandomInt(0, 1);
 
@@ -430,7 +430,7 @@ public Action:PoisonDamageTimer(Handle timer) {
         return Plugin_Stop;
     }
 
-    for (int client = 1; client < MaxClients; client++) {
+    for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
             float playerPos[3];
             GetClientEyePosition(client, playerPos);

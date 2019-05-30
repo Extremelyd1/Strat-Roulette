@@ -93,7 +93,7 @@ public SendVIPMessage(team) {
 }
 
 public RemoveWeapons() {
-	for (int client = 1; client < MaxClients; client++) {
+	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
 
             // Primary = 0
@@ -131,7 +131,7 @@ public RemoveWeapons() {
 }
 
 public RemoveNades() {
-	for (int client = 1; client < MaxClients; client++) {
+	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
 			for (int j = 0; j < 6; j++) {
 				SetEntProp(client, Prop_Send, "m_iAmmo", 0, _, GrenadesAll[j]);
@@ -141,7 +141,7 @@ public RemoveNades() {
 }
 
 public SetKnife(bool add) {
-    for (int client = 1; client < MaxClients; client++) {
+    for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
             new knife = GetPlayerWeaponSlot(client, 2);
             if (add) {
@@ -160,7 +160,7 @@ public SetKnife(bool add) {
 }
 
 public GiveAllPlayersItem(char[] item) {
-    for (int client = 1; client < MaxClients; client++) {
+    for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
             if (!g_Zombies || GetClientTeam(client) == CS_TEAM_CT) {
                 GivePlayerItem(client, item);

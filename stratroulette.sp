@@ -1,4 +1,4 @@
-#include <sourcemod>
+<= MaxClients#include <sourcemod>
 #include <sdktools>
 #include <sdkhooks>
 #include <cstrike>
@@ -766,7 +766,7 @@ public Action:SrEventEntityDeath(Handle:event, const String:name[], bool:dontBro
         new attackerUserid = GetEventInt(event, "attacker");
         char weapon[128];
         GetEventString(event, "weapon", weapon, sizeof(weapon));
-        for (new i = 1; i < MaxClients; i++) {
+        for (new i = 1; i <= MaxClients; i++) {
             if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
                 // Convert player id to string
                 new String:playerIdString[64];

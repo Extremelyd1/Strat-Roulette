@@ -37,7 +37,7 @@ public ConfigureWeapons() {
 		new SumOfStrings = ExplodeString(Weapon, ";", bit, sizeof bit, sizeof bit[]);
 
 		for (int string = 0; string < SumOfStrings; string++) {
-            for (int j = 1; j < MaxClients; j++) {
+            for (int j = 1; j <= MaxClients; j++) {
                 if (IsClientInGame(j) && IsPlayerAlive(j) && !IsFakeClient(j)) {
                     if (!g_Zombies || GetClientTeam(j) == CS_TEAM_CT) {
                         if (StrEqual(bit[string], "weapon_primary_random")
@@ -60,7 +60,7 @@ public ConfigureWeapons() {
 
 public ConfigureArmorDefuser() {
     // Defuser
-    for (int client = 1; client < MaxClients; client++) {
+    for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
             if (GetClientTeam(client) == CS_TEAM_CT) {
                 if (StrEqual(Defuser, "1")) {
@@ -87,7 +87,7 @@ public ConfigureArmorDefuser() {
 public ConfigureHealth() {
     g_Health = StringToInt(Health);
     if (g_Health != 100) {
-        for (int client = 1; client < MaxClients; client++) {
+        for (int client = 1; client <= MaxClients; client++) {
             if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
                 if (!g_Zombies || GetClientTeam(client) == CS_TEAM_T) {
                     SetEntityHealth(client, g_Health);
@@ -95,7 +95,7 @@ public ConfigureHealth() {
             }
         }
     } else {
-        for (int client = 1; client < MaxClients; client++) {
+        for (int client = 1; client <= MaxClients; client++) {
             if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
                 int actualHealth = GetEntProp(client, Prop_Send, "m_iHealth");
                 if (actualHealth != 100) {
@@ -144,7 +144,7 @@ public ConfigureInfiniteNades() {
 
 public ConfigureSpeed() {
     new Float:newPlayerSpeed = StringToFloat(PlayerSpeed);
-    for (int client = 1; client < MaxClients; client++) {
+    for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
             SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", newPlayerSpeed);
         }
@@ -223,7 +223,7 @@ public ConfigurePlayerColors() {
 		setNewColor = true;
 	}
 
-	for (int client = 1; client < MaxClients; client++) {
+	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
             if (setNewColor) {
                 SetEntityRenderColor(client, colorR, colorG, colorB, 0);
@@ -250,7 +250,7 @@ public ConfigureBackwards() {
 public ConfigureFov() {
     new newFov = StringToInt(Fov);
 
-    for (int client = 1; client < MaxClients; client++) {
+    for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
             SetEntProp(client, Prop_Send, "m_iDefaultFOV", newFov);
 			SetEntProp(client, Prop_Send, "m_iFOV", newFov);
@@ -300,7 +300,7 @@ public ConfigureFriction() {
 public ConfigureDropWeapons() {
     if (StrEqual(DropWeapons, "1")) {
         g_DropWeapons = true;
-        for (int client = 1; client < MaxClients; client++) {
+        for (int client = 1; client <= MaxClients; client++) {
             if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
                 CreateNewDropWeaponsTimer(client);
             }
@@ -314,7 +314,7 @@ public ConfigureDropWeapons() {
 public ConfigureOneInTheChamber() {
     if (StrEqual(OneInTheChamber, "1")) {
         g_OneInTheChamber = true;
-        for (int client = 1; client < MaxClients; client++) {
+        for (int client = 1; client <= MaxClients; client++) {
             if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
                 SetClipAmmo(client, 1);
             }
@@ -350,13 +350,13 @@ public ConfigureAllOnMap() {
 
 public ConfigureInvisible() {
     if (StrEqual(Invisible, "1")) {
-        for (int client = 1; client < MaxClients; client++) {
+        for (int client = 1; client <= MaxClients; client++) {
     		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
                 SDKHook(client, SDKHook_SetTransmit, Hook_DenyTransmit);
             }
         }
     } else {
-        for (int client = 1; client < MaxClients; client++) {
+        for (int client = 1; client <= MaxClients; client++) {
     		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
                 SDKUnhook(client, SDKHook_SetTransmit, Hook_DenyTransmit);
             }
@@ -381,7 +381,7 @@ public ConfigureBuddySystem() {
     ClearBuddySystemChickens();
     if (StrEqual(BuddySystem, "1")) {
         g_BuddySystem = true;
-        for (int client = 1; client < MaxClients; client++) {
+        for (int client = 1; client <= MaxClients; client++) {
             if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
                 new chicken = CreateEntityByName("chicken");
                 float playerPos[3];
