@@ -207,6 +207,23 @@ stock void SelectHotPotato(int client = -1) {
     GivePlayerItem(ctLeader, "weapon_fiveseven");
 }
 
+public ClearBuddySystemChickens() {
+    if (chickenHealth.Size != 0) {
+        StringMapSnapshot snapshot = chickenHealth.Snapshot();
+        for (int i = 0; i < snapshot.Length; i++) {
+            char key[64];
+            snapshot.GetKey(i, key, sizeof(key));
+
+            int chickenRef = EntIndexToEntRef(StringToInt(key));
+            AcceptEntityInput(chickenRef, "kill");
+        }
+
+        delete snapshot;
+        chickenMap.Clear();
+        chickenHealth.Clear();
+    }
+}
+
 // Used to damage player by amount of damage, can also be used to heal
 // with negative damage
 stock void DamagePlayer(int client, int damage, int attacker=-1) {

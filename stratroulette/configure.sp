@@ -378,9 +378,8 @@ public ConfigureAxeFists() {
 }
 
 public ConfigureBuddySystem() {
+    ClearBuddySystemChickens();
     if (StrEqual(BuddySystem, "1")) {
-        chickenMap.Clear();
-        chickenHealth.Clear();
         g_BuddySystem = true;
         for (int client = 1; client < MaxClients; client++) {
             if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
@@ -413,15 +412,6 @@ public ConfigureBuddySystem() {
         CreateTimer(0.1, BuddyTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
     } else {
         g_BuddySystem = false;
-        int ent = -1;
-        while ((ent = FindEntityByClassname(ent, "chicken")) != -1) {
-            int ref = EntIndexToEntRef(ent);
-
-            /* Fire an input on this entity - We use the reference version since this includes a serial check */
-            AcceptEntityInput(ref, "Kill");
-        }
-        chickenMap.Clear();
-        chickenHealth.Clear();
     }
 }
 
