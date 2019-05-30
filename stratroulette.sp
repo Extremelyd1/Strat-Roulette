@@ -148,6 +148,7 @@ new bool:g_RedLight = false;
 new StringMap:positionMap;
 // Buddy system
 new StringMap:chickenMap;
+new StringMap:chickenHealth;
 // Poison
 new StringMap:smokeMap;
 
@@ -351,6 +352,7 @@ public OnConfigsExecuted() {
 	SetServerConvars();
 
     chickenMap = CreateTrie();
+    chickenHealth = CreateTrie();
     positionMap = CreateTrie();
     smokeMap = CreateTrie();
 }
@@ -512,6 +514,20 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
     if (g_Bodyguard) {
         if (victim != ctLeader && victim != tLeader) {
             return Plugin_Handled;
+        }
+    }
+
+    if (g_BuddySystem) {
+        new String:victimIdString[64];
+        IntToString(victim, victimIdString, sizeof(victimIdString));
+        float currentChickenHealth;
+        if (chickenHealth.GetValue(victimIdString, currentChickenHealth)) {
+            if (damage < currentChickenHealth) {
+                chickenHealth.SetValue(victimIdString, currentChickenHealth - damage);
+                return Plugin_Handled;
+            }
+            chickenHealth.Remove(victimIdString);
+            return Plugin_Continue;
         }
     }
 

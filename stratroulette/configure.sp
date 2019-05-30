@@ -379,6 +379,8 @@ public ConfigureAxeFists() {
 
 public ConfigureBuddySystem() {
     if (StrEqual(BuddySystem, "1")) {
+        chickenMap.Clear();
+        chickenHealth.Clear();
         g_BuddySystem = true;
         for (int client = 1; client < MaxClients; client++) {
             if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
@@ -388,6 +390,9 @@ public ConfigureBuddySystem() {
 
                 DispatchSpawn(chicken);
                 SetEntProp(chicken, Prop_Send, "m_fEffects", 0);
+
+                SDKHookEx(chicken, SDKHook_OnTakeDamage, OnTakeDamage);
+
                 // Teleport chicken to player
                 TeleportEntity(chicken, playerPos, NULL_VECTOR, NULL_VECTOR);
 
@@ -398,6 +403,10 @@ public ConfigureBuddySystem() {
                 new String:playerIdString[64];
                 IntToString(client, playerIdString, sizeof(playerIdString));
                 chickenMap.SetValue(playerIdString, chicken);
+
+                new String:chickenIdString[64];
+                IntToString(chicken, chickenIdString, sizeof(chickenIdString));
+                chickenHealth.SetValue(chickenIdString, 200.0);
             }
         }
         // Create timer to enforce leader of chicken
@@ -412,6 +421,7 @@ public ConfigureBuddySystem() {
             AcceptEntityInput(ref, "Kill");
         }
         chickenMap.Clear();
+        chickenHealth.Clear();
     }
 }
 
