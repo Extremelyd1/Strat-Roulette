@@ -4,6 +4,68 @@ static char _colorNames[][] = {"{NORMAL}", "{DARK_RED}",    "{PINK}",      "{GRE
 static char _colorCodes[][] = {"\x01", "\x02", "\x03", "\x04", "\x05", "\x06",
                                "\x07", "\x08", "\x09", "\x0B", "\x0C", "\x0E"};
 
+// Used before each round to reset all remaining modifiers from
+// previous round
+public ResetConfiguration() {
+    // Third person
+    SetConVarInt(sv_allow_thirdperson, 0, true, false);
+    // Weapons
+    RemoveWeapons();
+    RemoveNades();
+    // Knife
+    SetKnife(true);
+    // Infinite ammo
+    SetConVarInt(sv_infinite_ammo, 0, true, false);
+    // Gravity
+    SetConVarInt(sv_gravity, 800, true, false);
+    // Recoil related
+    SetConVarInt(weapon_accuracy_nospread, 0, true, false);
+    SetConVarFloat(weapon_recoil_cooldown, 0.55, true, false);
+    SetConVarFloat(weapon_recoil_decay1_exp, 3.5, true, false);
+    SetConVarInt(weapon_recoil_decay2_exp, 8, true, false);
+    SetConVarInt(weapon_recoil_decay2_lin, 18, true, false);
+    SetConVarInt(weapon_recoil_scale, 2, true, false);
+    SetConVarInt(weapon_recoil_suppression_shots, 4, true, false);
+    SetConVarFloat(weapon_recoil_view_punch_extra, 0.0555, true, false);
+    // Acceleration
+    SetConVarFloat(sv_accelerate, 5.5, true, false);
+    SetConVarInt(sv_airaccelerate, 12, true, false);
+    // Friction
+    SetConVarFloat(sv_friction, 5.2, true, false);
+    // All on map
+    SetConVarInt(mp_radar_showall, 0, true, false);
+    // Buddy System
+    ClearBuddySystemChickens();
+    // Red Green
+    positionMap.Clear();
+    // Winner
+    SetConVarInt(mp_default_team_winner_no_objective, 3, true, false);
+    // Kill round
+    SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
+    // Bomberman
+    SetConVarInt(mp_plant_c4_anywhere, 0, true, false);
+    SetConVarInt(mp_c4timer, 40, true, false);
+    SetConVarInt(mp_c4_cannot_be_defused, 0, true, false);
+    SetConVarInt(mp_anyone_can_pickup_c4, 0, true, false);
+    // Drop grenade
+    SetConVarInt(mp_death_drop_grenade, 1, true, false);
+    // Poison
+    smokeMap.Clear();
+    // Client loop
+    for (int client = 1; client <= MaxClients; client++) {
+        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+            // Defuser
+            SetEntProp(client, Prop_Send, "m_bHasDefuser", 0);
+            // Armor
+            Client_SetArmor(client, 0);
+            // Helmet
+            SetEntData(client, FindSendPropInfo("CCSPlayer", "m_bHasHelmet"), 0);
+            // Color
+            SetEntityRenderColor(client, 255, 255, 255, 0);
+        }
+    }
+}
+
 public CreateNewDropWeaponsTimer(client) {
     float randomFloat = GetRandomFloat(3.0, 6.0);
     DataPack data = new DataPack();

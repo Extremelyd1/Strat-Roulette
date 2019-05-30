@@ -284,8 +284,6 @@ public Action:cmd_srslots(client, args) {
 }
 
 public Action:cmd_srtest(client, args) {
-    new c4 = GivePlayerItem(client, "weapon_c4");
-    EquipPlayerWeapon(client, c4);
 }
 
 public Action:CommandDrop(int client, const char[] command, int args) {

@@ -2,16 +2,10 @@ public ConfigureThirdPerson() {
     if (StrEqual(ThirdPerson, "1")) {
 		SetConVarInt(sv_allow_thirdperson, 1, true, false);
 		CreateTimer(0.1, EnableThirdPerson);
-	} else {
-        SetConVarInt(sv_allow_thirdperson, 0, true, false);
 	}
 }
 
 public ConfigureWeapons() {
-    // First remove weapons
-    RemoveWeapons();
-    RemoveNades();
-
     // For random weapon generate first whether it
     // should be primary of secondary
     new randomIntCat = -1;
@@ -65,20 +59,14 @@ public ConfigureArmorDefuser() {
             if (GetClientTeam(client) == CS_TEAM_CT) {
                 if (StrEqual(Defuser, "1")) {
                     SetEntProp(client, Prop_Send, "m_bHasDefuser", 1);
-                } else {
-                    SetEntProp(client, Prop_Send, "m_bHasDefuser", 0);
                 }
             }
-            if (StrEqual(Armor, "0")) {
-                Client_SetArmor(client, 0);
-            } else {
+            if (!StrEqual(Armor, "0")) {
                 new armorInt = StringToInt(Armor);
                 Client_SetArmor(client, armorInt);
             }
             if (StrEqual(Helmet, "1")) {
                 SetEntData(client, FindSendPropInfo("CCSPlayer", "m_bHasHelmet"), 1);
-            } else {
-                SetEntData(client, FindSendPropInfo("CCSPlayer", "m_bHasHelmet"), 0);
             }
         }
     }
@@ -91,15 +79,6 @@ public ConfigureHealth() {
             if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
                 if (!g_Zombies || GetClientTeam(client) == CS_TEAM_T) {
                     SetEntityHealth(client, g_Health);
-                }
-            }
-        }
-    } else {
-        for (int client = 1; client <= MaxClients; client++) {
-            if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-                int actualHealth = GetEntProp(client, Prop_Send, "m_iHealth");
-                if (actualHealth != 100) {
-                    SetEntityHealth(client, 100);
                 }
             }
         }
@@ -117,8 +96,6 @@ public ConfigureDecoySound() {
 public ConfigureNoKnife() {
     if (StrEqual(NoKnife, "1")) {
         SetKnife(false);
-    } else {
-        SetKnife(true);
     }
 }
 
@@ -126,17 +103,13 @@ public ConfigureInfiniteAmmo() {
     if (StrEqual(InfiniteAmmo, "1") || StrEqual(InfiniteAmmo, "2")) {
 		new SetAmmoInt = StringToInt(InfiniteAmmo);
 		SetConVarInt(sv_infinite_ammo, SetAmmoInt, true, false);
-	} else {
-		new currentInfiniteAmmo = GetConVarInt(sv_infinite_ammo);
-		if (currentInfiniteAmmo > 0) {
-			SetConVarInt(sv_infinite_ammo, 0, true, false);
-		}
 	}
 }
 
 public ConfigureInfiniteNades() {
     if (StrEqual(InfiniteNade, "1")) {
 		g_InfiniteNade = true;
+        SetConVarInt(mp_death_drop_grenade, 0, true, false);
 	} else {
 		g_InfiniteNade = false;
 	}
@@ -156,11 +129,6 @@ public ConfigureGravity() {
 
 	if (newPlayerGravity != 800) {
 		SetConVarInt(sv_gravity, newPlayerGravity, true, false);
-	} else {
-		new currentGravity = GetConVarInt(sv_gravity);
-		if (currentGravity != 800) {
-			SetConVarInt(sv_gravity, 800, true, false);
-		}
 	}
 }
 
@@ -174,17 +142,6 @@ public ConfigureNoRecoil() {
 			SetConVarInt(weapon_recoil_decay2_lin, 99999, true, false);
 			SetConVarInt(weapon_recoil_scale, 0, true, false);
 			SetConVarInt(weapon_recoil_suppression_shots, 500, true, false);
-		}
-	} else {
-		new currentWeaponAccuracy = GetConVarInt(weapon_accuracy_nospread);
-		if (currentWeaponAccuracy != 0) {
-			SetConVarInt(weapon_accuracy_nospread, 0, true, false);
-			SetConVarFloat(weapon_recoil_cooldown, 0.55, true, false);
-			SetConVarFloat(weapon_recoil_decay1_exp, 3.5, true, false);
-			SetConVarInt(weapon_recoil_decay2_exp, 8, true, false);
-			SetConVarInt(weapon_recoil_decay2_lin, 18, true, false);
-			SetConVarInt(weapon_recoil_scale, 2, true, false);
-			SetConVarInt(weapon_recoil_suppression_shots, 4, true, false);
 		}
 	}
 }
@@ -227,8 +184,6 @@ public ConfigurePlayerColors() {
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
             if (setNewColor) {
                 SetEntityRenderColor(client, colorR, colorG, colorB, 0);
-            } else {
-                SetEntityRenderColor(client, 255, 255, 255, 0);
             }
 		}
 	}
@@ -238,12 +193,6 @@ public ConfigureBackwards() {
     if (StrEqual(Backwards, "1")) {
 		SetConVarInt(sv_accelerate, -5, true, false);
         SetConVarFloat(sv_airaccelerate, -0.5, true, false);
-	} else {
-		new currentAccelerate = GetConVarInt(sv_accelerate);
-		if (currentAccelerate != 5.5) {
-			SetConVarFloat(sv_accelerate, 5.5, true, false);
-            SetConVarInt(sv_airaccelerate, 12, true, false);
-		}
 	}
 }
 
@@ -284,16 +233,16 @@ public ConfigureSlowMotion() {
 }
 
 public ConfigureWeirdRecoilView() {
-    new Float:newRecoilView = StringToFloat(RecoilView);
+    if (!StrEqual(RecoilView, "0.0555")) {
+        new Float:newRecoilView = StringToFloat(RecoilView);
 
-	SetConVarFloat(weapon_recoil_view_punch_extra, newRecoilView, true, false);
+    	SetConVarFloat(weapon_recoil_view_punch_extra, newRecoilView, true, false);
+    }
 }
 
 public ConfigureFriction() {
     if (StrEqual(AlwaysMove, "1")) {
 		SetConVarInt(sv_friction, -1, true, false);
-	} else {
-		SetConVarFloat(sv_friction, 5.2, true, false);
 	}
 }
 
@@ -343,8 +292,6 @@ public ConfigureLeader() {
 public ConfigureAllOnMap() {
     if (StrEqual(AllOnMap, "1")) {
         SetConVarInt(mp_radar_showall, 1, true, false);
-    } else {
-        SetConVarInt(mp_radar_showall, 0, true, false);
     }
 }
 
@@ -378,7 +325,6 @@ public ConfigureAxeFists() {
 }
 
 public ConfigureBuddySystem() {
-    ClearBuddySystemChickens();
     if (StrEqual(BuddySystem, "1")) {
         g_BuddySystem = true;
         for (int client = 1; client <= MaxClients; client++) {
@@ -418,6 +364,7 @@ public ConfigureBuddySystem() {
 public ConfigureRandomNade() {
     if (StrEqual(RandomNade, "1")) {
         g_RandomNade = true;
+        SetConVarInt(mp_death_drop_grenade, 0, true, false);
     } else {
         g_RandomNade = false;
     }
@@ -447,7 +394,6 @@ public ConfigureRedGreen() {
     } else {
         g_RedGreen = false;
         g_RedLight = false;
-        positionMap.Clear();
     }
 }
 
@@ -468,8 +414,6 @@ public ConfigureWinner() {
         SetConVarInt(mp_default_team_winner_no_objective, -1, true, false);
     } else if (StrEqual(Winner, "draw")) {
         SetConVarInt(mp_default_team_winner_no_objective, 1, true, false);
-    } else {
-        SetConVarInt(mp_default_team_winner_no_objective, 3, true, false);
     }
 }
 
@@ -491,7 +435,6 @@ public ConfigureKillRound() {
         SetConVarInt(mp_ignore_round_win_conditions, 1, true, false);
     } else {
         g_KillRound = false;
-        SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
     }
 }
 
@@ -505,10 +448,6 @@ public ConfigureBomberman() {
         CreateTimer(0.1, CheckC4Timer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
     } else {
         g_Bomberman = false;
-        SetConVarInt(mp_plant_c4_anywhere, 0, true, false);
-        SetConVarInt(mp_c4timer, 40, true, false);
-        SetConVarInt(mp_c4_cannot_be_defused, 0, true, false);
-        SetConVarInt(mp_anyone_can_pickup_c4, 0, true, false);
     }
 }
 
@@ -523,10 +462,8 @@ public ConfigureDontMiss() {
 public ConfigureCrabWalk() {
     if (StrEqual(CrabWalk, "1")) {
         g_CrabWalk = true;
-        SetConVarInt(mp_death_drop_grenade, 0, true, false);
     } else {
         g_CrabWalk = false;
-        SetConVarInt(mp_death_drop_grenade, 1, true, false);
     }
 }
 
@@ -545,7 +482,6 @@ public ConfigurePoison() {
         g_Poison = true;
         CreateTimer(0.5, PoisonDamageTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
     } else {
-        smokeMap.Clear();
         g_Poison = false;
     }
 }

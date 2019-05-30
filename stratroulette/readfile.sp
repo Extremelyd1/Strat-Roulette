@@ -107,6 +107,8 @@ public ReadNewRound() {
 	CPrintToChatAll(RoundName);
 	CPrintToChatAll(divider);
 
+    ResetConfiguration();
+
     //** Zombies **//
     ConfigureZombies();
 	//** Third person **//
