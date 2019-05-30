@@ -47,7 +47,7 @@ new String:NoC4[3];
 new String:Zombies[3];
 new String:Axe[3];
 new String:Fists[3];
-new String:Teleport[3];
+new String:HitSwap[3];
 new String:BuddySystem[3];
 new String:RandomNade[3];
 new String:RedGreen[3];
@@ -79,7 +79,7 @@ new bool:g_Fists = false;
 new bool:g_BuddySystem = false;
 new bool:g_RandomNade = false;
 new bool:g_Zombies = false;
-new bool:g_Teleport = false;
+new bool:g_HitSwap = false;
 new bool:g_RedGreen = false;
 new bool:g_Manhunt = false;
 new bool:g_HotPotato = false;
@@ -623,7 +623,7 @@ public Action:SrEventPlayerHurt(Handle:event, const String:name[], bool:dontBroa
         }
     }
 
-    if (g_Teleport) {
+    if (g_HitSwap) {
         if (attacker != victim && victim != 0 && attacker != 0) {
             float victimPos[3];
             GetEntPropVector(victim, Prop_Send, "m_vecOrigin", victimPos);

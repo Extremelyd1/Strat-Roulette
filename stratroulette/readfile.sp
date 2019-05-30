@@ -81,7 +81,7 @@ public ReadNewRound() {
     kv.GetString("zombies", Zombies, sizeof(Zombies), "0");
     kv.GetString("axe", Axe, sizeof(Axe), "0");
     kv.GetString("fists", Fists, sizeof(Fists), "0");
-    kv.GetString("teleport", Teleport, sizeof(Teleport), "0");
+    kv.GetString("hitswap", HitSwap, sizeof(HitSwap), "0");
     kv.GetString("buddysystem", BuddySystem, sizeof(BuddySystem), "0");
     kv.GetString("randomnade", RandomNade, sizeof(RandomNade), "0");
     kv.GetString("redgreen", RedGreen, sizeof(RedGreen), "0");
@@ -169,8 +169,8 @@ public ReadNewRound() {
     ConfigureBuddySystem();
     //** Random nades **//
     ConfigureRandomNade();
-    //** Teleport **//
-    ConfigureTeleport();
+    //** HitSwap **//
+    ConfigureHitSwap();
     //** Red light, green light **//
     ConfigureRedGreen();
     //** Manhunt **//

@@ -378,11 +378,11 @@ public ConfigureZombies() {
     }
 }
 
-public ConfigureTeleport() {
-    if (StrEqual(Teleport, "1")) {
-        g_Teleport = true;
+public ConfigureHitSwap() {
+    if (StrEqual(HitSwap, "1")) {
+        g_HitSwap = true;
     } else {
-        g_Teleport = false;
+        g_HitSwap = false;
     }
 }
 
