@@ -60,6 +60,7 @@ new String:DontMiss[3];
 new String:CrabWalk[3];
 new String:RandomGuns[3];
 new String:Poison[3];
+new String:Bodyguard[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -87,6 +88,7 @@ new bool:g_DontMiss = false;
 new bool:g_CrabWalk = false;
 new bool:g_RandomGuns = false;
 new bool:g_Poison = false;
+new bool:g_Bodyguard = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -284,7 +286,7 @@ public Action:cmd_srtest(client, args) {
 }
 
 public Action:CommandDrop(int client, const char[] command, int args) {
-    if (g_HotPotato || g_Bomberman) {
+    if (g_HotPotato || g_Bomberman || g_Bodyguard) {
         return Plugin_Stop;
     }
 
@@ -449,7 +451,15 @@ public Action:SrEventWeaponZoom(Handle:event, const String:name[], bool:dontBroa
 
 public Action:Hook_DenyTransmit(entity, client) {
     if (entity != client) {
-        return Plugin_Handled;
+        if (IsClientInGame(entity)) {
+            if (!IsPlayerAlive(client)) {
+                if (GetClientTeam(entity) != GetClientTeam(client)) {
+                        return Plugin_Handled;
+                }
+            } else {
+                return Plugin_Handled;
+            }
+        }
     }
     return Plugin_Continue;
 }
@@ -492,6 +502,12 @@ public Action:OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damage
             // to allow round end by bomb to be bypassed
             CreateTimer(0.1, WipeTeamTimer, data);
 
+            return Plugin_Handled;
+        }
+    }
+
+    if (g_Bodyguard) {
+        if (victim != ctLeader && victim != tLeader) {
             return Plugin_Handled;
         }
     }
@@ -665,7 +681,7 @@ public Action:SrEventPlayerDeath(Handle:event, const String:name[], bool:dontBro
             }
         }
 
-        if (g_Manhunt) {
+        if (g_Manhunt || g_Bodyguard) {
             // Manhunt
             new killTeam;
             if (client == ctLeader) {

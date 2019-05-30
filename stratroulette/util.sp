@@ -70,7 +70,7 @@ public SetLeader(team) {
     }
 }
 
-public SendManhuntMessage(team) {
+public SendVIPMessage(team) {
     for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
             if (GetClientTeam(client) == team) {

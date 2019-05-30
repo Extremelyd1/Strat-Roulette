@@ -353,14 +353,12 @@ public ConfigureInvisible() {
         for (int client = 1; client < MaxClients; client++) {
     		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
                 SDKHook(client, SDKHook_SetTransmit, Hook_DenyTransmit);
-                /* SetEntityRenderMode(client, RENDER_NONE); */
             }
         }
     } else {
         for (int client = 1; client < MaxClients; client++) {
     		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
                 SDKUnhook(client, SDKHook_SetTransmit, Hook_DenyTransmit);
-                /* SetEntityRenderMode(client, RENDER_NORMAL); */
             }
         }
     }
@@ -458,8 +456,8 @@ public ConfigureManhunt() {
         g_Manhunt = true;
         SetLeader(CS_TEAM_CT);
         SetLeader(CS_TEAM_T);
-        SendManhuntMessage(CS_TEAM_CT);
-        SendManhuntMessage(CS_TEAM_T);
+        SendVIPMessage(CS_TEAM_CT);
+        SendVIPMessage(CS_TEAM_T);
     } else {
         g_Manhunt = false;
     }
@@ -549,5 +547,36 @@ public ConfigurePoison() {
     } else {
         smokeMap.Clear();
         g_Poison = false;
+    }
+}
+
+public ConfigureBodyguard() {
+    if (StrEqual(Bodyguard, "1")) {
+        g_Bodyguard = true;
+        SetLeader(CS_TEAM_CT);
+        SetLeader(CS_TEAM_T);
+
+        SendVIPMessage(CS_TEAM_CT);
+        SendVIPMessage(CS_TEAM_T);
+
+        if (ctLeader != -1) {
+            if (IsClientInGame(ctLeader) && IsPlayerAlive(ctLeader) && !IsFakeClient(ctLeader)) {
+                GivePlayerItem(ctLeader, "weapon_fiveseven");
+            }
+        }
+        if (tLeader != -1) {
+            if (IsClientInGame(tLeader) && IsPlayerAlive(tLeader) && !IsFakeClient(tLeader)) {
+                GivePlayerItem(tLeader, "weapon_fiveseven");
+            }
+        }
+
+        for (int client = 1; client <= MaxClients; client++) {
+            if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)
+             && client != ctLeader && client != tLeader) {
+                 GivePlayerItem(client, "weapon_shield");
+            }
+        }
+    } else {
+        g_Bodyguard = false;
     }
 }
