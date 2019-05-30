@@ -1,4 +1,4 @@
-<= MaxClients#include <sourcemod>
+#include <sourcemod>
 #include <sdktools>
 #include <sdkhooks>
 #include <cstrike>
