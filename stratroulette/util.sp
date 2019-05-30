@@ -10,6 +10,8 @@ public ResetConfiguration() {
     // Third person
     SetConVarInt(sv_allow_thirdperson, 0, true, false);
     // Weapons
+    primaryWeapon = "";
+    secondaryWeapon = "";
     RemoveWeapons();
     RemoveNades();
     // Knife
@@ -54,6 +56,8 @@ public ResetConfiguration() {
     // Client loop
     for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+            // Third person
+            ClientCommand(client, "firstperson");
             // Defuser
             SetEntProp(client, Prop_Send, "m_bHasDefuser", 0);
             // Armor

@@ -13,16 +13,13 @@ public ConfigureWeapons() {
         randomIntCat = GetRandomInt(0, 1);
     }
 
-    char primary[256];
-    char secondary[256];
-
     if (StrContains(Weapon, "weapon_primary_random") != -1 || randomIntCat == 0) {
         new randomInt = GetRandomInt(0, PRIMARY_LENGTH - 1);
-        Format(primary, sizeof(primary), WeaponPrimary[randomInt]);
+        Format(primaryWeapon, sizeof(primaryWeapon), WeaponPrimary[randomInt]);
     }
     if (StrContains(Weapon, "weapon_secondary_random") != -1 || randomIntCat == 1) {
         new randomInt = GetRandomInt(0, SECONDARY_LENGTH - 1);
-        Format(secondary, sizeof(secondary), WeaponSecondary[randomInt]);
+        Format(secondaryWeapon, sizeof(secondaryWeapon), WeaponSecondary[randomInt]);
     }
 
     // If we need to give a weapon
@@ -36,10 +33,10 @@ public ConfigureWeapons() {
                     if (!g_Zombies || GetClientTeam(j) == CS_TEAM_CT) {
                         if (StrEqual(bit[string], "weapon_primary_random")
                          || (StrEqual(bit[string], "weapon_random") && randomIntCat == 0)) {
-                            GivePlayerItem(j, primary);
+                            GivePlayerItem(j, primaryWeapon);
                         } else if (StrEqual(bit[string], "weapon_secondary_random")
                          || (StrEqual(bit[string], "weapon_random") && randomIntCat == 1)) {
-                            GivePlayerItem(j, secondary);
+                            GivePlayerItem(j, secondaryWeapon);
                         } else {
                             GivePlayerItem(j, bit[string]);
                         }
@@ -268,7 +265,7 @@ public ConfigureTinyMags() {
                 SetClipAmmo(client, 1);
             }
         }
-        CreateTimer(0.1, SetWeaponAmmo, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+        CreateTimer(0.1, SetTinyMagsTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
     } else {
         g_TinyMags = false;
     }
@@ -535,5 +532,18 @@ public ConfigurePocketTP() {
         }
     } else {
         g_PocketTP = false;
+    }
+}
+
+public ConfigureOneInTheChamber() {
+    if (StrEqual(OneInTheChamber, "1")) {
+        g_OneInTheChamber = true;
+        for (int client = 1; client <= MaxClients; client++) {
+            if (IsClientInGame(client) && IsPlayerAlive(client)) {
+                SetClipAmmo(client, 1);
+            }
+        }
+    } else {
+        g_OneInTheChamber = false;
     }
 }

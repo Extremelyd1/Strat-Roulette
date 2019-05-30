@@ -57,7 +57,7 @@ public Action:DropWeaponsTimer(Handle timer, DataPack data) {
     return Plugin_Stop;
 }
 
-public Action:SetWeaponAmmo(Handle timer) {
+public Action:SetTinyMagsTimer(Handle timer) {
     if (!g_TinyMags) {
         return Plugin_Stop;
     }
@@ -74,6 +74,20 @@ public Action:SetWeaponAmmo(Handle timer) {
 
     return Plugin_Continue;
 }
+
+/* public Action:RemoveReserveAmmoTimer(Handle timer) {
+    if (!g_OneInTheChamber) {
+        return Plugin_Stop;
+    }
+
+    for (new i = 1; i <= MaxClients; i++) {
+        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+            SetReserveAmmo(i, 0);
+        }
+    }
+
+    return Plugin_Continue;
+} */
 
 // Simply here to delay starting the timer
 // so players can walk to their leader at
@@ -467,6 +481,46 @@ public Action:AwardZeusTimer(Handle timer, int client) {
     }
 
     GivePlayerItem(client, "weapon_taser");
+
+    return Plugin_Continue;
+}
+
+public Action:RemoveOITCWeapon(Handle timer, DataPack data) {
+    if (!g_OneInTheChamber) {
+        return Plugin_Stop;
+    }
+
+    data.Reset();
+    int client = data.ReadCell();
+    new weapon = data.ReadCell();
+
+    RemovePlayerItem(client, weapon);
+    RemoveEdict(weapon);
+
+    return Plugin_Continue;
+}
+
+public Action:AwardOITCWeapon(Handle timer, int client) {
+    if (!g_OneInTheChamber) {
+        return Plugin_Stop;
+    }
+
+    char weaponname[128];
+    Client_GetActiveWeaponName(client, weaponname, sizeof(weaponname));
+    if (!StrEqual(weaponname, "weapon_knife") && GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon") > 0) {
+        PrintToServer("Has weapon");
+        SetClipAmmo(client, GetClipAmmo(client) + 1);
+    } else {
+        if (!StrEqual(primaryWeapon, "")) {
+            PrintToServer("New primary");
+            GivePlayerItem(client, primaryWeapon);
+        }
+        if (!StrEqual(secondaryWeapon, "")) {
+            PrintToServer("New secondary");
+            GivePlayerItem(client, secondaryWeapon);
+        }
+        SetClipAmmo(client, 1);
+    }
 
     return Plugin_Continue;
 }

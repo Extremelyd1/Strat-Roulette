@@ -97,6 +97,7 @@ public ReadNewRound() {
     kv.GetString("bodyguard", Bodyguard, sizeof(Bodyguard), "0");
     kv.GetString("zeusround", ZeusRound, sizeof(ZeusRound), "0");
     kv.GetString("pockettp", PocketTP, sizeof(PocketTP), "0");
+    kv.GetString("oitc", OneInTheChamber, sizeof(OneInTheChamber), "0");
 
     new String:divider[] = "{DARK_BLUE}----------------------------------------";
     Colorize(divider, sizeof(divider));
@@ -198,6 +199,8 @@ public ReadNewRound() {
     ConfigureZeusRound();
     //** PocketTP **//
     ConfigurePocketTP();
+    //** One in the Chamber **//
+    ConfigureOneInTheChamber();
 
     delete kv;
 

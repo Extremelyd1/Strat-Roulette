@@ -104,6 +104,23 @@ public Action:SrEventWeaponFire(Handle:event, const String:name[], bool:dontBroa
         CloseHandle(lookTrace);
     }
 
+    if (g_OneInTheChamber) {
+        new client = GetClientOfUserId(GetEventInt(event, "userid"));
+
+        char weaponname[128];
+        Client_GetActiveWeaponName(client, weaponname, sizeof(weaponname));
+
+        if (!StrEqual(weaponname, "weapon_knife")) {
+            new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
+            if (weapon > 0 && GetClipAmmo(client) > 0) {
+                DataPack data = new DataPack();
+                data.WriteCell(client);
+                data.WriteCell(weapon);
+                CreateTimer(0.1, RemoveOITCWeapon, data);
+            }
+        }
+    }
+
     return Plugin_Continue;
 }
 
@@ -226,6 +243,13 @@ public Action:SrEventPlayerDeath(Handle:event, const String:name[], bool:dontBro
             int killer = GetClientOfUserId(killerUserid);
             if (IsClientInGame(killer) && !IsFakeClient(killer) && IsPlayerAlive(killer)) {
                 CreateTimer(1.2, AwardZeusTimer, killer);
+            }
+        }
+
+        if (g_OneInTheChamber) {
+            int killer = GetClientOfUserId(killerUserid);
+            if (IsClientInGame(killer) && !IsFakeClient(killer) && IsPlayerAlive(killer)) {
+                CreateTimer(0.2, AwardOITCWeapon, killer);
             }
         }
 

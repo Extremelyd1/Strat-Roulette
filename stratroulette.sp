@@ -65,6 +65,7 @@ new String:Poison[3];
 new String:Bodyguard[3];
 new String:ZeusRound[3];
 new String:PocketTP[3];
+new String:OneInTheChamber[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -95,6 +96,7 @@ new bool:g_Poison = false;
 new bool:g_Bodyguard = false;
 new bool:g_ZeusRound = false;
 new bool:g_PocketTP = false;
+new bool:g_OneInTheChamber = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -155,6 +157,9 @@ new StringMap:chickenMap;
 new StringMap:chickenHealth;
 // Poison
 new StringMap:smokeMap;
+// Weapons
+char primaryWeapon[256];
+char secondaryWeapon[256];
 
 // Round setting command
 new bool:setNextRound = false;

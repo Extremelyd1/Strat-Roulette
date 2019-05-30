@@ -253,9 +253,9 @@
 	}
 	"29"
 	{
-		"name"			"One In The Chamber"
+		"name"			"Tiny Magazines"
 		"weapon"		"weapon_random"
-		"oitc" 			"1"
+		"tinymags"		"1"
 		"noknife"		"1"
 	}
 	"30"
@@ -428,5 +428,14 @@
 		"infiniteammo"	"2"
 		"killround"		"1"
 		"noc4"			"1"
+	}
+	"49"
+	{
+		"name"			"One in the Chamber"
+		"weapon"		"weapon_random"
+		"oitc"			"1"
+		"noc4"			"1"
+		"health"		"1"
+		"killround"		"1"
 	}
 }
