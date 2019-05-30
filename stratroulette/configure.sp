@@ -118,7 +118,7 @@ public ConfigureInfiniteNades() {
 public ConfigureSpeed() {
     new Float:newPlayerSpeed = StringToFloat(PlayerSpeed);
     for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+        if (IsClientInGame(client) && IsPlayerAlive(client)) {
             SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", newPlayerSpeed);
         }
     }
@@ -522,5 +522,18 @@ public ConfigureZeusRound() {
         g_ZeusRound = true;
     } else {
         g_ZeusRound = false;
+    }
+}
+
+public ConfigurePocketTP() {
+    if (StrEqual(PocketTP, "1")) {
+        g_PocketTP = true;
+        for (int client = 1; client <= MaxClients; client++) {
+            if (IsClientInGame(client) && IsPlayerAlive(client)) {
+                SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", 0.0);
+            }
+        }
+    } else {
+        g_PocketTP = false;
     }
 }

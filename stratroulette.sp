@@ -12,6 +12,8 @@
 #define PRIMARY_LENGTH 24
 #define SECONDARY_LENGTH 10
 #define SMOKE_RADIUS 165
+#define	CLIENTWIDTH	35.0
+#define	CLIENTHEIGHT 90.0
 
 // KeyValue strings
 new String:RoundName[200];
@@ -62,6 +64,7 @@ new String:RandomGuns[3];
 new String:Poison[3];
 new String:Bodyguard[3];
 new String:ZeusRound[3];
+new String:PocketTP[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -91,6 +94,7 @@ new bool:g_RandomGuns = false;
 new bool:g_Poison = false;
 new bool:g_Bodyguard = false;
 new bool:g_ZeusRound = false;
+new bool:g_PocketTP = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -583,7 +587,63 @@ public Action:SrEventWeaponFire(Handle:event, const String:name[], bool:dontBroa
         }
     }
 
+    if (g_PocketTP) {
+        new client = GetClientOfUserId(GetEventInt(event, "userid"));
+
+        float origin[3];
+        float angles[3];
+
+        GetClientEyePosition(client, origin);
+        GetClientEyeAngles(client, angles);
+
+        new Handle:lookTrace = TR_TraceRayFilterEx(origin, angles, MASK_PLAYERSOLID, RayType_Infinite, RayFilter, client);
+        if (TR_DidHit(lookTrace)) {
+            float hitLocation[3];
+
+            TR_GetEndPosition(hitLocation, lookTrace);
+
+            int tries = 300;
+            bool success = false;
+
+            hitLocation[2] = hitLocation[2] - 5.0;
+
+            float mins[3];
+            mins[0] = -CLIENTWIDTH / 2;
+            mins[1] = -CLIENTWIDTH / 2;
+            mins[2] = 0.0;
+
+            float maxs[3];
+            maxs[0] = CLIENTWIDTH / 2;
+            maxs[1] = CLIENTWIDTH / 2;
+            maxs[2] = CLIENTHEIGHT;
+
+            while (!success && tries > 0) {
+                hitLocation[2] = hitLocation[2] + 5.0;
+
+                new Handle:hitboxTrace = TR_TraceHullEx(hitLocation, hitLocation, mins, maxs, MASK_PLAYERSOLID);
+
+                if (!TR_DidHit(hitboxTrace)) {
+                    TeleportEntity(client, hitLocation, NULL_VECTOR, NULL_VECTOR);
+                    success = true;
+                } else {
+                    tries--;
+                }
+
+                CloseHandle(hitboxTrace);
+            }
+        }
+
+        CloseHandle(lookTrace);
+    }
+
     return Plugin_Continue;
+}
+
+public bool:RayFilter(entity, mask, any:data) {
+    if (entity == data) {
+        return false;
+    }
+    return true;
 }
 
 public Action:SrEventPlayerHurt(Handle:event, const String:name[], bool:dontBroadcast) {

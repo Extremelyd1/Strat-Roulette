@@ -320,7 +320,7 @@
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"armor"			"100"
 		"helmet"		"1"
-		"teleport"		"1"
+		"hitswap"		"1"
 	}
 	"37"
 	{
@@ -419,5 +419,14 @@
 		"killround"		"1"
 		"noc4"			"1"
 		"bodyguard"		"1"
+	}
+	"48"
+	{
+		"name"			"Pocket Teleporter"
+		"weapon"		"weapon_nova;weapon_usp_silencer"
+		"pockettp"		"1"
+		"infiniteammo"	"2"
+		"killround"		"1"
+		"noc4"			"1"
 	}
 }
