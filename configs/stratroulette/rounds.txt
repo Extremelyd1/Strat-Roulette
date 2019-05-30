@@ -61,7 +61,7 @@
 		"name"			"Shield round"
 		"weapon"		"weapon_shield;weapon_fiveseven"
 		"noknife"		"1"
-		"oitc"			"1"
+		"tinymags"		"1"
 		"armor"			"100"
 		"helmet"		"1"
 		"defuser"		"1"
@@ -366,7 +366,7 @@
 		"killround"		"1"
 		"infiniteammo"	"2"
 		"noknife"		"1"
-		"oitc"			"1"
+		"tinymags"		"1"
 		"showallmap"	"1"
 	}
 	"42"

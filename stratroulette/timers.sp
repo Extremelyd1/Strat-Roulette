@@ -58,7 +58,7 @@ public Action:DropWeaponsTimer(Handle timer, DataPack data) {
 }
 
 public Action:SetWeaponAmmo(Handle timer) {
-    if (!g_OneInTheChamber) {
+    if (!g_TinyMags) {
         return Plugin_Stop;
     }
 

@@ -260,9 +260,9 @@ public ConfigureDropWeapons() {
     }
 }
 
-public ConfigureOneInTheChamber() {
-    if (StrEqual(OneInTheChamber, "1")) {
-        g_OneInTheChamber = true;
+public ConfigureTinyMags() {
+    if (StrEqual(TinyMags, "1")) {
+        g_TinyMags = true;
         for (int client = 1; client <= MaxClients; client++) {
             if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
                 SetClipAmmo(client, 1);
@@ -270,7 +270,7 @@ public ConfigureOneInTheChamber() {
         }
         CreateTimer(0.1, SetWeaponAmmo, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
     } else {
-        g_OneInTheChamber = false;
+        g_TinyMags = false;
     }
 }
 
