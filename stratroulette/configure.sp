@@ -336,7 +336,7 @@ public ConfigureBuddySystem() {
                 DispatchSpawn(chicken);
                 SetEntProp(chicken, Prop_Send, "m_fEffects", 0);
 
-                SDKHookEx(chicken, SDKHook_OnTakeDamage, OnTakeDamage);
+                SDKHookEx(chicken, SDKHook_OnTakeDamage, Hook_OnTakeDamage);
 
                 // Teleport chicken to player
                 TeleportEntity(chicken, playerPos, NULL_VECTOR, NULL_VECTOR);
