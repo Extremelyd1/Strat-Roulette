@@ -580,3 +580,11 @@ public ConfigureBodyguard() {
         g_Bodyguard = false;
     }
 }
+
+public ConfigureZeusRound() {
+    if (StrEqual(ZeusRound, "1")) {
+        g_ZeusRound = true;
+    } else {
+        g_ZeusRound = false;
+    }
+}

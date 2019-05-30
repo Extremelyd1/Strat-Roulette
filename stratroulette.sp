@@ -61,6 +61,7 @@ new String:CrabWalk[3];
 new String:RandomGuns[3];
 new String:Poison[3];
 new String:Bodyguard[3];
+new String:ZeusRound[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -89,6 +90,7 @@ new bool:g_CrabWalk = false;
 new bool:g_RandomGuns = false;
 new bool:g_Poison = false;
 new bool:g_Bodyguard = false;
+new bool:g_ZeusRound = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -302,6 +304,7 @@ public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3
             return Plugin_Handled;
         }
     }
+
     return Plugin_Continue;
 }
 
@@ -670,7 +673,7 @@ public Action:SrEventPlayerDeath(Handle:event, const String:name[], bool:dontBro
     char weapon[128];
     GetEventString(event, "weapon", weapon, sizeof(weapon));
 
-	if (IsClientInGame(client) && !IsFakeClient(client)) {
+	if (IsClientInGame(client)) {
 
         if (g_Leader) {
             // Follow the leader
@@ -699,12 +702,21 @@ public Action:SrEventPlayerDeath(Handle:event, const String:name[], bool:dontBro
             }
         }
 
-        // Third person
-		SendConVarValue(client, sv_allow_thirdperson, "0");
+        if (g_ZeusRound) {
+            int killer = GetClientOfUserId(killerUserid);
+            if (IsClientInGame(killer) && !IsFakeClient(killer) && IsPlayerAlive(killer)) {
+                CreateTimer(1.2, AwardZeusTimer, killer);
+            }
+        }
 
-		// Fov
-		SetEntProp(client, Prop_Send, "m_iDefaultFOV", 90);
-		SetEntProp(client, Prop_Send, "m_iFOV", 90);
+        if (!IsFakeClient(client)) {
+            // Third person
+        	SendConVarValue(client, sv_allow_thirdperson, "0");
+
+        	// Fov
+        	SetEntProp(client, Prop_Send, "m_iDefaultFOV", 90);
+        	SetEntProp(client, Prop_Send, "m_iFOV", 90);
+        }
 	}
 }
 

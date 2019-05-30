@@ -41,12 +41,13 @@
 	}
 	"5"
 	{
-		"name"			"Zeus machine gun"
+		"name"			"One Battery in the Chamber"
 		"weapon"		"weapon_taser"
-		"infiniteammo"	"1"
 		"armor"			"100"
 		"helmet"		"1"
-		"defuser"		"1"
+		"noc4"			"1"
+		"killround"		"1"
+		"zeusround"		"1"
 	}
 	"6"
 	{
@@ -106,7 +107,7 @@
 	}
 	"12"
 	{
-		"name"			"Low gravity zeus round"
+		"name"			"Space semi-auto Zeus"
 		"weapon"		"weapon_taser"
 		"gravity"		"200"
 		"infiniteammo"	"1"

@@ -95,6 +95,7 @@ public ReadNewRound() {
     kv.GetString("randomguns", RandomGuns, sizeof(RandomGuns), "0");
     kv.GetString("poison", Poison, sizeof(Poison), "0");
     kv.GetString("bodyguard", Bodyguard, sizeof(Bodyguard), "0");
+    kv.GetString("zeusround", ZeusRound, sizeof(ZeusRound), "0");
 
     new String:divider[] = "{DARK_BLUE}----------------------------------------";
     Colorize(divider, sizeof(divider));
@@ -190,6 +191,8 @@ public ReadNewRound() {
     ConfigurePoison();
     //** Bodyguard **//
     ConfigureBodyguard();
+    //** Auto zeus **//
+    ConfigureZeusRound();
 
     return 1;
 }

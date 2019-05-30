@@ -460,3 +460,13 @@ public Action:PoisonDamageTimer(Handle timer) {
 
     return Plugin_Continue;
 }
+
+public Action:AwardZeusTimer(Handle timer, int client) {
+    if (!g_ZeusRound) {
+        return Plugin_Stop;
+    }
+
+    GivePlayerItem(client, "weapon_taser");
+
+    return Plugin_Continue;
+}
