@@ -13,6 +13,25 @@ public Action:Hook_DenyTransmit(entity, client) {
     return Plugin_Continue;
 }
 
+public Action:Hook_MonkeySeeTransmit(entity, client) {
+    /* if (!IsClientInGame(entity)) {
+        return Plugin_Continue;
+    }
+
+    if (client != ctLeader && GetClientTeam(client) == CS_TEAM_CT) {
+        if (entity != ctLeader && GetClientTeam(entity) == CS_TEAM_CT) {
+            return Plugin_Handled;
+        }
+    }
+    if (client != tLeader && GetClientTeam(client) == CS_TEAM_T) {
+        if (entity != tLeader && GetClientTeam(entity) == CS_TEAM_T) {
+            return Plugin_Handled;
+        }
+    } */
+
+    return Plugin_Continue;
+}
+
 public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damagetype) {
     if (g_Bomberman) {
         new victimHealth = GetEntProp(victim, Prop_Send, "m_iHealth");
@@ -97,6 +116,10 @@ public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &d
     		SetEntityHealth(attacker, giveHealth);
 		}
 	}
+
+    if (g_MonkeySee) {
+        return Plugin_Handled;
+    }
 
     return Plugin_Continue;
 }

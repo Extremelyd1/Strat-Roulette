@@ -53,6 +53,8 @@ public ResetConfiguration() {
     SetConVarInt(mp_death_drop_grenade, 1, true, false);
     // Poison
     smokeMap.Clear();
+    // Solid teammates
+    SetConVarInt(mp_solid_teammates, 1, true, false);
     // Client loop
     for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
@@ -95,6 +97,11 @@ public SendLeaderMessage(team) {
             }
         }
     }
+}
+
+public SendMessage(client, char[] message) {
+    Colorize(message, 256);
+    CPrintToChat(client, message);
 }
 
 public CreateNewRedGreenTimer() {

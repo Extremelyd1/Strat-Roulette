@@ -67,6 +67,7 @@ new String:ZeusRound[3];
 new String:PocketTP[3];
 new String:OneInTheChamber[3];
 new String:Captcha[3];
+new String:MonkeySee[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -99,6 +100,7 @@ new bool:g_ZeusRound = false;
 new bool:g_PocketTP = false;
 new bool:g_OneInTheChamber = false;
 new bool:g_Captcha = false;
+new bool:g_MonkeySee = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -197,6 +199,7 @@ new Handle:mp_c4timer;
 new Handle:mp_c4_cannot_be_defused;
 new Handle:mp_anyone_can_pickup_c4;
 new Handle:mp_death_drop_grenade;
+new Handle:mp_solid_teammates;
 
 #include "stratroulette/configure.sp"
 #include "stratroulette/readfile.sp"
@@ -371,6 +374,7 @@ public OnConfigsExecuted() {
     mp_c4_cannot_be_defused = FindConVar("mp_c4_cannot_be_defused");
     mp_anyone_can_pickup_c4 = FindConVar("mp_anyone_can_pickup_c4");
     mp_death_drop_grenade = FindConVar("mp_death_drop_grenade");
+    mp_solid_teammates = FindConVar("mp_solid_teammates");
 
 	//** KEYVALUES **//
 	new flags = GetConVarFlags(sv_gravity);

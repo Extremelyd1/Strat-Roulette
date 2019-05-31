@@ -161,6 +161,90 @@ public Action:CheckLeaderTimer(Handle timer) {
     return Plugin_Continue;
 }
 
+public Action:CheckMonkeyTimer(Handle timer) {
+    if (!g_MonkeySee) {
+        return Plugin_Stop;
+    }
+
+    float ctPos[3];
+    float tPos[3];
+
+    GetClientEyePosition(ctLeader, ctPos);
+    GetClientEyePosition(tLeader, tPos);
+
+    int ctAlive = 0;
+    int tAlive = 0;
+
+    for (int client = 1; client <= MaxClients; client++) {
+        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+            if (client != ctLeader && client != tLeader) {
+                float pos[3];
+                GetClientEyePosition(client, pos);
+                float distance = -1;
+
+                if (GetClientTeam(client) == CS_TEAM_CT) {
+                    ctAlive++;
+                    distance = GetVectorDistance(pos, tPos);
+                } else if (GetClientTeam(client) == CS_TEAM_T) {
+                    tAlive++;
+                    distance = GetVectorDistance(pos, ctPos);
+                }
+
+                if (distance > 500) {
+                    DamagePlayer(client, 5);
+                    SendMessage(client, "{DARK_RED}Warning{NORMAL} too far from the {YELLOW}leader");
+                }
+            }
+        }
+    }
+
+    if (ctAlive == 0) {
+        KillPlayer(ctLeader, tLeader, "knife");
+        return Plugin_Stop;
+    } else if (tAlive == 0) {
+        KillPlayer(tLeader, ctLeader, "knife");
+        return Plugin_Stop;
+    }
+
+    return Plugin_Continue;
+}
+
+public Action:StartMonkeyTimer(Handle timer) {
+    float ctPos[3];
+    float tPos[3];
+
+    GetEntPropVector(ctLeader, Prop_Send, "m_vecOrigin", ctPos);
+    GetEntPropVector(tLeader, Prop_Send, "m_vecOrigin", tPos);
+
+    ctPos[2] += CLIENTHEIGHT * 2;
+    tPos[2] += CLIENTHEIGHT * 2;
+
+    for (int client = 1; client <= MaxClients; client++) {
+        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+            if (GetClientTeam(client) == CS_TEAM_CT) {
+                if (client == ctLeader) {
+                    SendMessage(client, "Try to lose the {DARK_RED}Terrorists");
+                    GivePlayerItem(client, "weapon_knife");
+                } else {
+                    SendMessage(client, "Try to keep up with the {DARK_RED}Terrorist{NORMAL} leader");
+                    TeleportEntity(client, tPos, NULL_VECTOR, NULL_VECTOR);
+                }
+            } else if (GetClientTeam(client) == CS_TEAM_T) {
+                if (client == tLeader) {
+                    SendMessage(client, "Try to lose the {DARK_RED}Counter-Terrorists");
+                    GivePlayerItem(client, "weapon_knife");
+                } else {
+                    SendMessage(client, "Try to keep up with the {DARK_RED}Counter-Terrorist{NORMAL} leader");
+                    TeleportEntity(client, ctPos, NULL_VECTOR, NULL_VECTOR);
+                }
+            }
+            SDKHook(client, SDKHook_SetTransmit, Hook_MonkeySeeTransmit);
+        }
+    }
+
+    CreateTimer(0.5, CheckMonkeyTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+}
+
 public Action:CheckAxeFistsTimer(Handle timer) {
     if (!g_Axe && !g_Fists) {
         return Plugin_Stop;

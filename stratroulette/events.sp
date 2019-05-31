@@ -57,6 +57,12 @@ public Action:SrEventWeaponFire(Handle:event, const String:name[], bool:dontBroa
 
     if (g_PocketTP) {
         new client = GetClientOfUserId(GetEventInt(event, "userid"));
+        char weapon[128];
+        GetEventString(event, "weapon", weapon, sizeof(weapon));
+
+        if (!StrEqual(weapon, "weapon_usp_silencer")) {
+            return Plugin_Continue;
+        }
 
         float origin[3];
         float angles[3];

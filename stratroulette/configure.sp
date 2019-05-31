@@ -557,3 +557,23 @@ public ConfigureCaptcha() {
         g_Captcha = false;
     }
 }
+
+public ConfigureMonkeySee() {
+    if (StrEqual(MonkeySee, "1")) {
+        g_MonkeySee = true;
+
+        SetConVarInt(mp_solid_teammates, 0, true, false);
+
+        SetLeader(CS_TEAM_CT);
+        SetLeader(CS_TEAM_T);
+
+        CreateTimer(1.5, StartMonkeyTimer);
+    } else {
+        g_MonkeySee = false;
+        for (int client = 1; client <= MaxClients; client++) {
+            if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+                SDKUnhook(client, SDKHook_SetTransmit, Hook_MonkeySeeTransmit);
+            }
+        }
+    }
+}

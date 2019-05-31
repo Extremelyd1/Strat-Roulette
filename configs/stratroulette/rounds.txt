@@ -247,10 +247,12 @@
 	"27"
 	{
 		"name"			"Milk, Milk Everywhere"
-		"health"		"6"
+		"health"		"1"
 		"weapon"		"weapon_flashbang"
 		"infinitenade"	"1"
 		"noknife"		"1"
+		"noc4"			"1"
+		"killround"		"1"
 	}
 	"28"
 	{
@@ -289,13 +291,11 @@
 	}
 	"32"
 	{
-		"name"			"Team Deathmatch"
-		"weapon"		"weapon_primary_random;weapon_secondary_random"
-		"infiniteammo"	"2"
+		"name"			"Monkey see, Monkey do"
+		"weapon"		"none"
 		"noc4"			"1"
-		"armor"			"100"
-		"helmet"		"1"
 		"killround"		"1"
+		"monkeysee"		"1"
 	}
 	"33"
 	{
@@ -431,6 +431,8 @@
 		"poison"		"1"
 		"armor"			"100"
 		"helmet"		"1"
+		"noc4"			"1"
+		"killround"		"1"
 	}
 	"47"
 	{
@@ -442,6 +444,7 @@
 		"bodyguard"		"1"
 		"armor"			"100"
 		"helmet"		"1"
+		"infiniteammo"	"2"
 	}
 	"48"
 	{

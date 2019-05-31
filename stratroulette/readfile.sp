@@ -109,6 +109,7 @@ public ReadNewRound() {
     kv.GetString("pockettp", PocketTP, sizeof(PocketTP), "0");
     kv.GetString("oitc", OneInTheChamber, sizeof(OneInTheChamber), "0");
     kv.GetString("captcha", Captcha, sizeof(Captcha), "0");
+    kv.GetString("monkeysee", MonkeySee, sizeof(MonkeySee), "0");
 
     new String:divider[] = "{DARK_BLUE}----------------------------------------";
     Colorize(divider, sizeof(divider));
@@ -214,6 +215,8 @@ public ReadNewRound() {
     ConfigureOneInTheChamber();
     //** Captcha **//
     ConfigureCaptcha();
+    //** Monkey see, Monkey do **//
+    ConfigureMonkeySee();
 
     delete kv;
 
