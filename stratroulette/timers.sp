@@ -169,8 +169,12 @@ public Action:CheckMonkeyTimer(Handle timer) {
     float ctPos[3];
     float tPos[3];
 
-    GetClientEyePosition(ctLeader, ctPos);
-    GetClientEyePosition(tLeader, tPos);
+    if (monkeyOneTeam != CS_TEAM_T) {
+        GetClientEyePosition(ctLeader, ctPos);
+    }
+    if (monkeyOneTeam != CS_TEAM_CT) {
+        GetClientEyePosition(tLeader, tPos);
+    }
 
     int ctAlive = 0;
     int tAlive = 0;
@@ -180,7 +184,7 @@ public Action:CheckMonkeyTimer(Handle timer) {
             if (client != ctLeader && client != tLeader) {
                 float pos[3];
                 GetClientEyePosition(client, pos);
-                float distance = -1;
+                float distance = -1.0;
 
                 if (GetClientTeam(client) == CS_TEAM_CT) {
                     ctAlive++;
@@ -198,12 +202,14 @@ public Action:CheckMonkeyTimer(Handle timer) {
         }
     }
 
-    if (ctAlive == 0) {
-        KillPlayer(ctLeader, tLeader, "knife");
-        return Plugin_Stop;
-    } else if (tAlive == 0) {
-        KillPlayer(tLeader, ctLeader, "knife");
-        return Plugin_Stop;
+    if (monkeyOneTeam == -1) {
+        if (ctAlive == 0) {
+            KillPlayer(ctLeader, tLeader, "knife");
+            return Plugin_Stop;
+        } else if (tAlive == 0) {
+            KillPlayer(tLeader, ctLeader, "knife");
+            return Plugin_Stop;
+        }
     }
 
     return Plugin_Continue;
@@ -213,31 +219,34 @@ public Action:StartMonkeyTimer(Handle timer) {
     float ctPos[3];
     float tPos[3];
 
-    GetEntPropVector(ctLeader, Prop_Send, "m_vecOrigin", ctPos);
-    GetEntPropVector(tLeader, Prop_Send, "m_vecOrigin", tPos);
-
-    ctPos[2] += CLIENTHEIGHT * 2;
-    tPos[2] += CLIENTHEIGHT * 2;
+    if (monkeyOneTeam != CS_TEAM_T) {
+        GetEntPropVector(ctLeader, Prop_Send, "m_vecOrigin", ctPos);
+        ctPos[2] += CLIENTHEIGHT * 1.5;
+    }
+    if (monkeyOneTeam != CS_TEAM_CT) {
+        GetEntPropVector(tLeader, Prop_Send, "m_vecOrigin", tPos);
+        tPos[2] += CLIENTHEIGHT * 1.5;
+    }
 
     for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            if (GetClientTeam(client) == CS_TEAM_CT) {
+            if (GetClientTeam(client) == CS_TEAM_CT && monkeyOneTeam != CS_TEAM_CT) {
                 if (client == ctLeader) {
                     SendMessage(client, "Try to lose the {DARK_RED}Terrorists");
-                    GivePlayerItem(client, "weapon_knife");
                 } else {
                     SendMessage(client, "Try to keep up with the {DARK_RED}Terrorist{NORMAL} leader");
                     TeleportEntity(client, tPos, NULL_VECTOR, NULL_VECTOR);
                 }
-            } else if (GetClientTeam(client) == CS_TEAM_T) {
+            } else if (GetClientTeam(client) == CS_TEAM_T && monkeyOneTeam != CS_TEAM_T) {
                 if (client == tLeader) {
                     SendMessage(client, "Try to lose the {DARK_RED}Counter-Terrorists");
-                    GivePlayerItem(client, "weapon_knife");
                 } else {
                     SendMessage(client, "Try to keep up with the {DARK_RED}Counter-Terrorist{NORMAL} leader");
                     TeleportEntity(client, ctPos, NULL_VECTOR, NULL_VECTOR);
                 }
             }
+            new knife = GivePlayerItem(client, "weapon_knife");
+            EquipPlayerWeapon(client, knife);
             SDKHook(client, SDKHook_SetTransmit, Hook_MonkeySeeTransmit);
         }
     }

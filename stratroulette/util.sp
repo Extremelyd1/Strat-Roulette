@@ -55,6 +55,8 @@ public ResetConfiguration() {
     smokeMap.Clear();
     // Solid teammates
     SetConVarInt(mp_solid_teammates, 1, true, false);
+    // Monkey see
+    monkeyOneTeam = -1;
     // Client loop
     for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {

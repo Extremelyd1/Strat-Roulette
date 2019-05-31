@@ -294,7 +294,6 @@
 		"name"			"Monkey see, Monkey do"
 		"weapon"		"none"
 		"noc4"			"1"
-		"killround"		"1"
 		"monkeysee"		"1"
 	}
 	"33"

@@ -408,7 +408,7 @@ public ConfigureManhunt() {
 
 public ConfigureWinner() {
     if (StrEqual(Winner, "t")) {
-        SetConVarInt(mp_default_team_winner_no_objective, -1, true, false);
+        SetConVarInt(mp_default_team_winner_no_objective, 2, true, false);
     } else if (StrEqual(Winner, "draw")) {
         SetConVarInt(mp_default_team_winner_no_objective, 1, true, false);
     }
@@ -564,8 +564,42 @@ public ConfigureMonkeySee() {
 
         SetConVarInt(mp_solid_teammates, 0, true, false);
 
-        SetLeader(CS_TEAM_CT);
-        SetLeader(CS_TEAM_T);
+        int ctPlayers = 0;
+        int tPlayers = 0;
+
+        for (int client = 1; client <= MaxClients; client++) {
+            if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+                if (GetClientTeam(client) == CS_TEAM_CT) {
+                    ctPlayers++;
+                } else if (GetClientTeam(client) == CS_TEAM_T) {
+                    tPlayers++;
+                }
+            }
+        }
+
+        if (ctPlayers + tPlayers < 4) {
+            int randomTeam = -1;
+            if (tPlayers == ctPlayers) {
+                randomTeam = GetRandomInt(0, 1);
+            }
+
+            if (tPlayers > ctPlayers || randomTeam == 0) {
+                monkeyOneTeam = CS_TEAM_CT;
+                SetConVarInt(mp_default_team_winner_no_objective, 2, true, false);
+            } else if (ctPlayers > tPlayers || randomTeam == 1) {
+                monkeyOneTeam = CS_TEAM_T;
+            }
+        } else {
+            g_KillRound = true;
+            SetConVarInt(mp_ignore_round_win_conditions, 1, true, false);
+        }
+
+        if (monkeyOneTeam != CS_TEAM_T) {
+            SetLeader(CS_TEAM_CT);
+        }
+        if (monkeyOneTeam != CS_TEAM_CT) {
+            SetLeader(CS_TEAM_T);
+        }
 
         CreateTimer(1.5, StartMonkeyTimer);
     } else {

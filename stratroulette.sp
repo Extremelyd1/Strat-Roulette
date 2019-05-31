@@ -167,6 +167,8 @@ char secondaryWeapon[256];
 // Captcha
 char captchaAnswer[64];
 ArrayList captchaClients;
+// Monkey see
+int monkeyOneTeam = -1;
 
 // Round variables
 int lastRound = -1;
