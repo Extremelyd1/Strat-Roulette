@@ -476,4 +476,12 @@
 		"helmet"		"1"
 		"noknife"		"1"
 	}
+	"51"
+	{
+		"name"			"Stealth"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"stealth"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+	}
 }

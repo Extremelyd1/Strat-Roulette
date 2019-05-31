@@ -247,7 +247,6 @@ public Action:StartMonkeyTimer(Handle timer) {
             }
             new knife = GivePlayerItem(client, "weapon_knife");
             EquipPlayerWeapon(client, knife);
-            SDKHook(client, SDKHook_SetTransmit, Hook_MonkeySeeTransmit);
         }
     }
 

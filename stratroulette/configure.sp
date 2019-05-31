@@ -604,9 +604,23 @@ public ConfigureMonkeySee() {
         CreateTimer(1.5, StartMonkeyTimer);
     } else {
         g_MonkeySee = false;
+    }
+}
+
+public ConfigureStealth() {
+    if (StrEqual(Stealth, "1")) {
+        g_Stealth = true;
         for (int client = 1; client <= MaxClients; client++) {
             if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-                SDKUnhook(client, SDKHook_SetTransmit, Hook_MonkeySeeTransmit);
+                stealthVisible[client] = false;
+                SDKHook(client, SDKHook_SetTransmit, Hook_StealthTransmit);
+            }
+        }
+    } else {
+        g_Stealth = false;
+        for (int client = 1; client <= MaxClients; client++) {
+            if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+                SDKUnhook(client, SDKHook_SetTransmit, Hook_StealthTransmit);
             }
         }
     }

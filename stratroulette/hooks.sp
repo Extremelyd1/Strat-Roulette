@@ -13,22 +13,20 @@ public Action:Hook_DenyTransmit(entity, client) {
     return Plugin_Continue;
 }
 
-public Action:Hook_MonkeySeeTransmit(entity, client) {
-    /* if (!IsClientInGame(entity)) {
-        return Plugin_Continue;
-    }
-
-    if (client != ctLeader && GetClientTeam(client) == CS_TEAM_CT) {
-        if (entity != ctLeader && GetClientTeam(entity) == CS_TEAM_CT) {
-            return Plugin_Handled;
+public Action:Hook_StealthTransmit(entity, client) {
+    if (entity != client) {
+        if (IsClientInGame(entity)) {
+            if (!IsPlayerAlive(client)) {
+                if (GetClientTeam(entity) != GetClientTeam(client)) {
+                        return Plugin_Handled;
+                }
+            } else {
+                if (!stealthVisible[entity]) {
+                    return Plugin_Handled;
+                }
+            }
         }
     }
-    if (client != tLeader && GetClientTeam(client) == CS_TEAM_T) {
-        if (entity != tLeader && GetClientTeam(entity) == CS_TEAM_T) {
-            return Plugin_Handled;
-        }
-    } */
-
     return Plugin_Continue;
 }
 

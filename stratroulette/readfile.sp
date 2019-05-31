@@ -96,7 +96,7 @@ public ReadNewRound() {
     kv.GetString("randomnade", RandomNade, sizeof(RandomNade), "0");
     kv.GetString("redgreen", RedGreen, sizeof(RedGreen), "0");
     kv.GetString("manhunt", Manhunt, sizeof(Manhunt), "0");
-    kv.GetString("winner", Winner, sizeof(Winner), "t");
+    kv.GetString("winner", Winner, sizeof(Winner), "0");
     kv.GetString("hotpotato", HotPotato, sizeof(HotPotato), "0");
     kv.GetString("killround", KillRound, sizeof(KillRound), "0");
     kv.GetString("bomberman", Bomberman, sizeof(Bomberman), "0");
@@ -110,6 +110,7 @@ public ReadNewRound() {
     kv.GetString("oitc", OneInTheChamber, sizeof(OneInTheChamber), "0");
     kv.GetString("captcha", Captcha, sizeof(Captcha), "0");
     kv.GetString("monkeysee", MonkeySee, sizeof(MonkeySee), "0");
+    kv.GetString("stealth", Stealth, sizeof(Stealth), "0");
 
     new String:divider[] = "{DARK_BLUE}----------------------------------------";
     Colorize(divider, sizeof(divider));
@@ -217,6 +218,8 @@ public ReadNewRound() {
     ConfigureCaptcha();
     //** Monkey see, Monkey do **//
     ConfigureMonkeySee();
+    //** Stealth **//
+    ConfigureStealth();
 
     delete kv;
 

@@ -68,6 +68,7 @@ new String:PocketTP[3];
 new String:OneInTheChamber[3];
 new String:Captcha[3];
 new String:MonkeySee[3];
+new String:Stealth[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -101,6 +102,7 @@ new bool:g_PocketTP = false;
 new bool:g_OneInTheChamber = false;
 new bool:g_Captcha = false;
 new bool:g_MonkeySee = false;
+new bool:g_Stealth = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -169,6 +171,8 @@ char captchaAnswer[64];
 ArrayList captchaClients;
 // Monkey see
 int monkeyOneTeam = -1;
+// Stealth
+new stealthVisible[MAXPLAYERS + 1];
 
 // Round variables
 int lastRound = -1;
@@ -324,6 +328,16 @@ public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3
         }
         if (buttons & IN_BACK) {
             return Plugin_Handled;
+        }
+    }
+
+    if (g_Stealth) {
+        int walkMask = IN_FORWARD | IN_BACK | IN_LEFT | IN_RIGHT;
+        int otherMask = IN_ATTACK | IN_RELOAD;
+        if (buttons & otherMask || (buttons & walkMask && !(buttons & IN_SPEED))) {
+            stealthVisible[client] = true;
+        } else {
+            stealthVisible[client] = false;
         }
     }
 
