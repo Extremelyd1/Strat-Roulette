@@ -100,13 +100,3 @@ public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &d
 
     return Plugin_Continue;
 }
-
-public Action:Hook_Reload(int weapon) {
-    PrintToServer("reload called");
-    if (g_OneInTheChamber) {
-        PrintToServer("reload stopped");
-        return Plugin_Handled;
-    }
-
-    return Plugin_Continue;
-}

@@ -2,7 +2,7 @@
 {
 	"1"
 	{
-		"name"			"Third person round"
+		"name"			"Third Person"
 		"thirdperson"	"1"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"infiniteammo"	"2"
@@ -22,7 +22,7 @@
 	}
 	"3"
 	{
-		"name"			"Speed round"
+		"name"			"I am speed"
 		"weapon"		"weapon_ak47;weapon_deagle"
 		"speed"			"5"
 		"gravity"		"300"
@@ -51,14 +51,14 @@
 	}
 	"6"
 	{
-		"name"			"Speed knife round"
+		"name"			"Speed Knife"
 		"speed"			"4"
 		"weapon"		"none"
 		"defuser"		"1"
 	}
 	"7"
 	{
-		"name"			"Shield round"
+		"name"			"Shielded"
 		"weapon"		"weapon_shield;weapon_fiveseven"
 		"noknife"		"1"
 		"tinymags"		"1"
@@ -68,14 +68,14 @@
 	}
 	"8"
 	{
-		"name"			"No-scopes only"
+		"name"			"No-scopes Only"
 		"weapon"		"weapon_ssg08"
 		"noscope"		"1"
 		"helmet"		"1"
 	}
 	"9"
 	{
-		"name"			"Negev no recoil round"
+		"name"			"Laser Gun"
 		"weapon"		"weapon_negev"
 		"norecoil"		"1"
 		"health"		"1000"
@@ -97,7 +97,7 @@
 	}
 	"11"
 	{
-		"name"			"Low gravity AWP round"
+		"name"			"Space AWP"
 		"weapon"		"weapon_awp"
 		"gravity"		"200"
 		"norecoil"		"1"
@@ -118,7 +118,7 @@
 	}
 	"13"
 	{
-		"name"			"Vampire round"
+		"name"			"Vampire"
 		"weapon"		"weapon_usp_silencer"
 		"vampire"		"1"
 		"infiniteammo"	"2"
@@ -127,7 +127,7 @@
 	}
 	"14"
 	{
-		"name"			"Reverse controls round"
+		"name"			"In Reverse"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"backwards"		"1"
 		"armor"			"100"
@@ -135,7 +135,7 @@
 	}
 	"15"
 	{
-		"name"			"Large fov round"
+		"name"			"Peripheral Vision"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"fov"			"150"
 		"defuser"		"1"
@@ -144,7 +144,7 @@
 	}
 	"16"
 	{
-		"name"			"Third person round"
+		"name"			"Third Person"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"fov"			"35"
 		"thirdperson"	"1"
@@ -154,14 +154,16 @@
 	}
 	"17"
 	{
-		"name"			"Chicken defuse round"
+		"name"			"Chicken Defuse"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"chickendef"	"1"
 		"defuser"		"1"
+		"armor"			"100"
+		"helmet"		"1"
 	}
 	"18"
 	{
-		"name"			"Headshot round"
+		"name"			"Headshot Only"
 		"weapon"		"weapon_bizon"
 		"headshot"		"1"
 		"noknife"		"1"
@@ -171,7 +173,7 @@
 	}
 	"19"
 	{
-		"name"			"Low gravity mag7 round"
+		"name"			"Space Swag7"
 		"weapon"		"weapon_mag7"
 		"gravity"		"300"
 		"infiniteammo"	"2"
@@ -185,6 +187,8 @@
 		"slowmotion"	"1"
 		"defuser"		"1"
 		"killround"		"1"
+		"armor"			"100"
+		"helmet"		"1"
 	}
 	"21"
 	{
@@ -198,10 +202,12 @@
 	}
 	"22"
 	{
-		"name"			"Weird recoil round"
+		"name"			"Trigger Spazm"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"recoilview"	"100"
 		"defuser"		"1"
+		"armor"			"100"
+		"helmet"		"1"
 	}
 	"23"
 	{
@@ -209,25 +215,29 @@
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"alwaysmove"	"1"
 		"defuser"		"1"
+		"armor"			"100"
+		"helmet"		"1"
 	}
 	"24"
 	{
-		"name"			"Clumsy round"
+		"name"			"Clumsy"
 		"health"		"200"
 		"weapon"		"weapon_glock"
 		"noknife"		"1"
 		"dropweapons"	"1"
+		"armor"			"100"
+		"helmet"		"1"
 	}
 	"25"
 	{
-		"name"			"Smoke weed everyday"
+		"name"			"Smoke Weed Everyday"
 		"weapon"		"weapon_smokegrenade"
 		"infinitenade"	"1"
 		"defuser"		"1"
 	}
 	"26"
 	{
-		"name"			"Burn baby burn"
+		"name"			"Burn Baby Burn"
 		"weapon"		"weapon_molotov"
 		"infinitenade"	"1"
 		"noknife"		"1"
@@ -236,7 +246,7 @@
 	}
 	"27"
 	{
-		"name"			"Milk, milk everywhere"
+		"name"			"Milk, Milk Everywhere"
 		"health"		"6"
 		"weapon"		"weapon_flashbang"
 		"infinitenade"	"1"
@@ -244,7 +254,7 @@
 	}
 	"28"
 	{
-		"name"			"Frag out!"
+		"name"			"Frag Out!"
 		"weapon"		"weapon_hegrenade"
 		"infinitenade"	"1"
 		"noknife"		"1"
@@ -257,6 +267,7 @@
 		"weapon"		"weapon_random"
 		"tinymags"		"1"
 		"noknife"		"1"
+		
 	}
 	"30"
 	{
@@ -269,14 +280,16 @@
 	}
 	"31"
 	{
-		"name"			"Invisibility round"
+		"name"			"Invisibility"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"invisible"		"1"
 		"infiniteammo"	"2"
+		"armor"			"100"
+		"helmet"		"1"
 	}
 	"32"
 	{
-		"name"			"Team deathmatch"
+		"name"			"Team Deathmatch"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"infiniteammo"	"2"
 		"noc4"			"1"
@@ -286,7 +299,7 @@
 	}
 	"33"
 	{
-		"name"			"Zombie invasion"
+		"name"			"Zombie Invasion"
 		"weapon"		"weapon_negev;weapon_fiveseven"
 		"infiniteammo"	"1"
 		"noc4"			"1"
@@ -297,7 +310,7 @@
 	}
 	"34"
 	{
-		"name"			"Axe throwing contest"
+		"name"			"Axe Throwing Contest"
 		"weapon"		"none"
 		"axe"			"1"
 		"noc4"			"1"
@@ -307,16 +320,18 @@
 	}
 	"35"
 	{
-		"name"			"Bar fight"
+		"name"			"Bar Fight"
 		"weapon"		"none"
 		"fists"			"1"
 		"noc4"			"1"
 		"noknife"		"1"
 		"killround"		"1"
+		"armor"			"100"
+		"helmet"		"1"
 	}
 	"36"
 	{
-		"name"			"Hit swap"
+		"name"			"Hit Swap"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"armor"			"100"
 		"helmet"		"1"
@@ -339,7 +354,7 @@
 	}
 	"39"
 	{
-		"name"			"{DARK_RED}Red{NORMAL} light, {GREEN}green{NORMAL} light"
+		"name"			"{DARK_RED}Red{NORMAL} Light, {GREEN}Green{NORMAL} Light"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"armor"			"100"
 		"helmet"		"1"
@@ -382,7 +397,7 @@
 	}
 	"43"
 	{
-		"name"			"Random nades"
+		"name"			"Random Nades"
 		"weapon"		"weapon_hegrenade"
 		"noknife"		"1"
 		"randomnade"	"1"
@@ -396,12 +411,16 @@
 		"dontmiss"		"1"
 		"killround"		"1"
 		"noc4"			"1"
+		"armor"			"100"
+		"helmet"		"1"
 	}
 	"45"
 	{
 		"name"			"Crab Walk"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"crabwalk"		"1"
+		"armor"			"100"
+		"helmet"		"1"
 	}
 	"46"
 	{
@@ -410,6 +429,8 @@
 		"infinitenade"	"1"
 		"defuser"		"1"
 		"poison"		"1"
+		"armor"			"100"
+		"helmet"		"1"
 	}
 	"47"
 	{
@@ -419,6 +440,8 @@
 		"killround"		"1"
 		"noc4"			"1"
 		"bodyguard"		"1"
+		"armor"			"100"
+		"helmet"		"1"
 	}
 	"48"
 	{
@@ -428,6 +451,8 @@
 		"infiniteammo"	"2"
 		"killround"		"1"
 		"noc4"			"1"
+		"armor"			"100"
+		"helmet"		"1"
 	}
 	"49"
 	{
@@ -437,5 +462,16 @@
 		"noc4"			"1"
 		"health"		"1"
 		"killround"		"1"
+	}
+	"50"
+	{
+		"name"			"Captcha"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"captcha"		"1"
+		"noc4"			"1"
+		"killround"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"noknife"		"1"
 	}
 }

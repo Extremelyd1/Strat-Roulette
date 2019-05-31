@@ -28,15 +28,25 @@ public ReadNewRound() {
     kv = new KeyValues("Strats");
     kv.ImportFromFile(STRAT_FILE);
 
-	int roundNumber = GetRandomInt(1, numberOfStrats);
+    ArrayList possibleRoundNumbers = new ArrayList();
+
+    for (int i = 1; i <= numberOfStrats; i++) {
+        if (i != lastRound) {
+            possibleRoundNumbers.Push(i);
+        }
+    }
+
+	int roundNumber = possibleRoundNumbers.Get(GetRandomInt(0, possibleRoundNumbers.Length - 1));
 
     char roundNumberString[16];
 
     if (setNextRound) {
         Format(roundNumberString, sizeof(roundNumberString), "%s", forceRoundNumber);
         setNextRound = false;
+        lastRound = StringToInt(forceRoundNumber);
     } else {
         IntToString(roundNumber, roundNumberString, sizeof(roundNumberString));
+        lastRound = roundNumber;
     }
 
     if (!kv.JumpToKey(roundNumberString)) {
@@ -98,6 +108,7 @@ public ReadNewRound() {
     kv.GetString("zeusround", ZeusRound, sizeof(ZeusRound), "0");
     kv.GetString("pockettp", PocketTP, sizeof(PocketTP), "0");
     kv.GetString("oitc", OneInTheChamber, sizeof(OneInTheChamber), "0");
+    kv.GetString("captcha", Captcha, sizeof(Captcha), "0");
 
     new String:divider[] = "{DARK_BLUE}----------------------------------------";
     Colorize(divider, sizeof(divider));
@@ -201,6 +212,8 @@ public ReadNewRound() {
     ConfigurePocketTP();
     //** One in the Chamber **//
     ConfigureOneInTheChamber();
+    //** Captcha **//
+    ConfigureCaptcha();
 
     delete kv;
 

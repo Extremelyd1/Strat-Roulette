@@ -508,19 +508,52 @@ public Action:AwardOITCWeapon(Handle timer, int client) {
     char weaponname[128];
     Client_GetActiveWeaponName(client, weaponname, sizeof(weaponname));
     if (!StrEqual(weaponname, "weapon_knife") && GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon") > 0) {
-        PrintToServer("Has weapon");
         SetClipAmmo(client, GetClipAmmo(client) + 1);
     } else {
         if (!StrEqual(primaryWeapon, "")) {
-            PrintToServer("New primary");
             GivePlayerItem(client, primaryWeapon);
         }
         if (!StrEqual(secondaryWeapon, "")) {
-            PrintToServer("New secondary");
             GivePlayerItem(client, secondaryWeapon);
         }
         SetClipAmmo(client, 1);
     }
+
+    return Plugin_Continue;
+}
+
+public Action:SendCaptchaTimer(Handle timer) {
+    if (!g_Captcha) {
+        return Plugin_Stop;
+    }
+
+    int randomInt1 = GetRandomInt(5, 20);
+    int randomInt2 = GetRandomInt(5, 20);
+
+    IntToString(randomInt1 + randomInt2, captchaAnswer, sizeof(captchaAnswer));
+
+    char message1[256];
+    char message2[256];
+    Format(message1, sizeof(message1),
+        "{GREEN}Solve{NORMAL} %d + %d to get your {LIGHT_GREEN}weapons{NORMAL} back!",
+        randomInt1, randomInt2);
+    Format(message2, sizeof(message2), "Type the {LIGHT_GREEN}answer{NORMAL} in chat.");
+    Colorize(message1, sizeof(message1));
+    Colorize(message2, sizeof(message2));
+    for (int client = 1; client <= MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+            CPrintToChat(client, message1);
+            CPrintToChat(client, message2);
+            // Client is not on list
+            if (captchaClients.FindValue(client) == -1) {
+                captchaClients.Push(client);
+                RemoveWeaponsClient(client);
+            }
+        }
+    }
+
+    float randomFloat = GetRandomFloat(8.0, 15.0);
+    CreateTimer(randomFloat, SendCaptchaTimer);
 
     return Plugin_Continue;
 }

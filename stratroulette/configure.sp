@@ -547,3 +547,13 @@ public ConfigureOneInTheChamber() {
         g_OneInTheChamber = false;
     }
 }
+
+public ConfigureCaptcha() {
+    if (StrEqual(Captcha, "1")) {
+        g_Captcha = true;
+        float randomFloat = GetRandomFloat(2.0, 5.0);
+        CreateTimer(GetConVarInt(mp_freezetime) + randomFloat, SendCaptchaTimer);
+    } else {
+        g_Captcha = false;
+    }
+}

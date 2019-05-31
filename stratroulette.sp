@@ -66,6 +66,7 @@ new String:Bodyguard[3];
 new String:ZeusRound[3];
 new String:PocketTP[3];
 new String:OneInTheChamber[3];
+new String:Captcha[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -97,6 +98,7 @@ new bool:g_Bodyguard = false;
 new bool:g_ZeusRound = false;
 new bool:g_PocketTP = false;
 new bool:g_OneInTheChamber = false;
+new bool:g_Captcha = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -160,8 +162,13 @@ new StringMap:smokeMap;
 // Weapons
 char primaryWeapon[256];
 char secondaryWeapon[256];
+// Captcha
+char captchaAnswer[64];
+ArrayList captchaClients;
 
-// Round setting command
+// Round variables
+int lastRound = -1;
+
 new bool:setNextRound = false;
 new String:forceRoundNumber[16];
 
@@ -318,6 +325,25 @@ public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3
     return Plugin_Continue;
 }
 
+public Action:OnClientSayCommand(int client, const char[] command, const char[] sArgs) {
+    if (g_Captcha) {
+        if (captchaClients.FindValue(client) != -1) {
+            if (StrEqual(sArgs, captchaAnswer)) {
+                GivePlayerItem(client, primaryWeapon);
+                GivePlayerItem(client, secondaryWeapon);
+                captchaClients.Erase(captchaClients.FindValue(client));
+            } else {
+                char message[256];
+                Format(message, sizeof(message), "{DARK_RED}Wrong{NORMAL} answer!");
+                Colorize(message, sizeof(message));
+                CPrintToChat(client, message);
+            }
+            return Plugin_Stop;
+        }
+    }
+    return Plugin_Continue;
+}
+
 public OnConfigsExecuted() {
 
 	//** CVARS **//
@@ -364,6 +390,7 @@ public OnConfigsExecuted() {
     chickenHealth = CreateTrie();
     positionMap = CreateTrie();
     smokeMap = CreateTrie();
+    captchaClients = new ArrayList();
 }
 
 public SetServerConvars() {

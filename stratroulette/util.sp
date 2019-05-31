@@ -161,39 +161,42 @@ public SendVIPMessage(team) {
 public RemoveWeapons() {
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-
-            // Primary = 0
-            // Secondary = 1
-            // Knife = 2
-            // C4 = 4
-            // Shield = 11
-
-			new primary = GetPlayerWeaponSlot(client, 0);
-			new secondary = GetPlayerWeaponSlot(client, 1);
-            new c4 = GetPlayerWeaponSlot(client, 4);
-            new shield = GetPlayerWeaponSlot(client, 11);
-
-			if (primary > -1) {
-				RemovePlayerItem(client, primary);
-				RemoveEdict(primary);
-			}
-
-			if (secondary > -1) {
-				RemovePlayerItem(client, secondary);
-				RemoveEdict(secondary);
-			}
-
-            if (StrEqual(NoC4, "1") && c4 > -1) {
-                RemovePlayerItem(client, c4);
-				RemoveEdict(c4);
-            }
-
-            if (shield > -1) {
-                RemovePlayerItem(client, shield);
-				RemoveEdict(shield);
-            }
+            RemoveWeaponsClient(client);
 		}
 	}
+}
+
+public RemoveWeaponsClient(int client) {
+    // Primary = 0
+    // Secondary = 1
+    // Knife = 2
+    // C4 = 4
+    // Shield = 11
+
+    new primary = GetPlayerWeaponSlot(client, 0);
+    new secondary = GetPlayerWeaponSlot(client, 1);
+    new c4 = GetPlayerWeaponSlot(client, 4);
+    new shield = GetPlayerWeaponSlot(client, 11);
+
+    if (primary > -1) {
+        RemovePlayerItem(client, primary);
+        RemoveEdict(primary);
+    }
+
+    if (secondary > -1) {
+        RemovePlayerItem(client, secondary);
+        RemoveEdict(secondary);
+    }
+
+    if (StrEqual(NoC4, "1") && c4 > -1) {
+        RemovePlayerItem(client, c4);
+        RemoveEdict(c4);
+    }
+
+    if (shield > -1) {
+        RemovePlayerItem(client, shield);
+        RemoveEdict(shield);
+    }
 }
 
 public RemoveNades() {
