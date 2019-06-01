@@ -307,6 +307,8 @@ public Action:cmd_end(client, args) {
             ServerCommand("mp_warmup_start");
             ServerCommand("mp_warmup_pausetimer 1");
             inGame = false;
+            
+            ResetConfiguration();
         } else {
             ReplyToCommand(client, "Game is not in progress!");
         }
