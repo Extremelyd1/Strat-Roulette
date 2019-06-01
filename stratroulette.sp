@@ -318,7 +318,8 @@ public Action:cmd_srslots(client, args) {
 }
 
 public Action:cmd_srtest(client, args) {
-    CreateRoundVoteMenu();
+    new knife = GetPlayerWeaponSlot(client, 2);
+    EquipPlayerWeapon(client, knife);
 }
 
 public Action:CommandDrop(int client, const char[] command, int args) {
@@ -553,7 +554,7 @@ public int VoteMenuHandler(Menu menu, MenuAction action, int param1, int param2)
                 SendMessage(i, message);
             }
         }
-
+        
         delete menu;
     }
 }

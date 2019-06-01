@@ -95,9 +95,44 @@ public ReadNewRound() {
     kv.GetString("monkeysee", MonkeySee, sizeof(MonkeySee), "0");
     kv.GetString("stealth", Stealth, sizeof(Stealth), "0");
 
-    SendMessageAll("{DARK_BLUE}----------------------------------------");
-    SendMessageAll(RoundName);
-    SendMessageAll("{DARK_BLUE}----------------------------------------");
+    char descriptionOverride[3];
+    kv.GetString("descoverride", descriptionOverride, sizeof(descriptionOverride), "0");
+
+    char roundNameDisplay[128];
+    Format(roundNameDisplay, sizeof(roundNameDisplay), "{LIGHT_BLUE}%s", RoundName);
+
+    char description[1024];
+    kv.GetString("description", description, sizeof(description), "");
+
+    SendMessageAll("");
+    SendMessageAll("");
+    SendMessageAll("{GRAY}-----------------------------------------------------------------------------------------");
+    SendMessageAll(roundNameDisplay);
+    SendMessageAll(description);
+    SendMessageAll("{GRAY}-----------------------------------------------------------------------------------------");
+    SendMessageAll("");
+    SendMessageAll("");
+
+    for (int client = 1; client <= MaxClients; client++) {
+        if (IsClientInGame(client) && !IsFakeClient(client)) {
+            PrintToConsole(client, "Round name:");
+            PrintToConsole(client, "    %s", RoundName);
+
+            PrintToConsole(client, "Description:");
+            PrintToConsole(client, "    %s", description);
+            if (StrEqual(descriptionOverride, "0")) {
+                if (StrEqual(KillRound, "1")) {
+                    PrintToConsole(client, "    Round ends when either team is eliminated.");
+                } else if (StrEqual(Winner, "t")) {
+                    PrintToConsole(client, "    Round ends when bomb explodes, is defused, time is up or either team is eliminated. Terrorists win on time limit.");
+                } else if (StrEqual(Winner, "draw")) {
+                    PrintToConsole(client, "    Round ends when bomb explodes, is defused, time is up or either team is eliminated. Round ends in a draw on time limit.");
+                } else {
+                    PrintToConsole(client, "    Round ends when bomb explodes, is defused, time is up or either team is eliminated.");
+                }
+            }
+        }
+    }
 
     PrintCenterTextAll(RoundName);
 

@@ -108,8 +108,12 @@ public Action:CheckLeaderTimer(Handle timer) {
 
     float ctPos[3];
     float tPos[3];
-    GetClientEyePosition(ctLeader, ctPos);
-    GetClientEyePosition(tLeader, tPos);
+    if (ctLeader != -1) {
+        GetClientEyePosition(ctLeader, ctPos);
+    }
+    if (tLeader != -1) {
+        GetClientEyePosition(tLeader, tPos);
+    }
 
     for (int i = 1; i <= MaxClients; i++) {
         if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
@@ -218,6 +222,8 @@ public Action:StartMonkeyTimer(Handle timer) {
                 }
             }
         }
+        new knife = GetPlayerWeaponSlot(client, 2);
+        EquipPlayerWeapon(client, knife);
     }
 
     CreateTimer(0.5, CheckMonkeyTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);

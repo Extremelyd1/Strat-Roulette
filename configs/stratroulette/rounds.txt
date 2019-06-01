@@ -3,6 +3,7 @@
 	"1"
 	{
 		"name"			"Third Person"
+		"description"	"Everyone plays in third person mode."
 		"thirdperson"	"1"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"infiniteammo"	"2"
@@ -13,6 +14,7 @@
 	"2"
 	{
 		"name"			"Baby hit me one more time"
+		"description"	"Everyone has 1 HP and unlimited decoy grenades."
 		"weapon"		"weapon_decoy"
 		"health"		"1"
 		"decoysound"	"0"
@@ -23,6 +25,7 @@
 	"3"
 	{
 		"name"			"I am speed"
+		"description"	"Everyone moves at high speed."
 		"weapon"		"weapon_ak47;weapon_deagle"
 		"speed"			"5"
 		"gravity"		"300"
@@ -32,6 +35,7 @@
 	"4"
 	{
 		"name"			"Straight shooter"
+		"description"	"Weapon have no recoil or spread, all bullets hit where your crosshair is."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"infiniteammo"	"2"
 		"norecoil"		"1"
@@ -42,6 +46,7 @@
 	"5"
 	{
 		"name"			"One Battery in the Chamber"
+		"description"	"Everyone has a single zeus, but a kill rewards you with another."
 		"weapon"		"weapon_taser"
 		"armor"			"100"
 		"helmet"		"1"
@@ -52,6 +57,7 @@
 	"6"
 	{
 		"name"			"Speed Knife"
+		"description"	"Everyone moves at high speed."
 		"speed"			"4"
 		"weapon"		"none"
 		"defuser"		"1"
@@ -59,6 +65,7 @@
 	"7"
 	{
 		"name"			"Shielded"
+		"description"	"Everyone has a shield and a five-seven."
 		"weapon"		"weapon_shield;weapon_fiveseven"
 		"noknife"		"1"
 		"tinymags"		"1"
@@ -69,6 +76,7 @@
 	"8"
 	{
 		"name"			"No-scopes Only"
+		"description"	"You can no longer scope with your weapon."
 		"weapon"		"weapon_ssg08"
 		"noscope"		"1"
 		"helmet"		"1"
@@ -76,6 +84,7 @@
 	"9"
 	{
 		"name"			"Laser Gun"
+		"description"	"Everyone has a negev without any recoil or spread."
 		"weapon"		"weapon_negev"
 		"norecoil"		"1"
 		"health"		"1000"
@@ -86,6 +95,7 @@
 	"10"
 	{
 		"name"			"Random Guns"
+		"description"	"Guns are randomly assigned periodically."
 		"weapon"		"none"
 		"noknife"		"1"
 		"infiniteammo"	"2"
@@ -98,6 +108,7 @@
 	"11"
 	{
 		"name"			"Space AWP"
+		"description"	"Everyone has a AWP and low gravity."
 		"weapon"		"weapon_awp"
 		"gravity"		"200"
 		"norecoil"		"1"
@@ -108,6 +119,7 @@
 	"12"
 	{
 		"name"			"Space semi-auto Zeus"
+		"description"	"Everyone has a zeus with infinite charges and low gravity."
 		"weapon"		"weapon_taser"
 		"gravity"		"200"
 		"infiniteammo"	"1"
@@ -119,6 +131,7 @@
 	"13"
 	{
 		"name"			"Vampire"
+		"description"	"Hitting a player will reward you health depending on the damage done."
 		"weapon"		"weapon_usp_silencer"
 		"vampire"		"1"
 		"infiniteammo"	"2"
@@ -128,6 +141,7 @@
 	"14"
 	{
 		"name"			"In Reverse"
+		"description"	"Movement controls are reversed."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"backwards"		"1"
 		"armor"			"100"
@@ -136,6 +150,7 @@
 	"15"
 	{
 		"name"			"Peripheral Vision"
+		"description"	"Everyone has increased field of view."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"fov"			"150"
 		"defuser"		"1"
@@ -145,6 +160,7 @@
 	"16"
 	{
 		"name"			"Third Person"
+		"description"	"Everyone plays in third person with lower field of view."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"fov"			"35"
 		"thirdperson"	"1"
@@ -155,6 +171,7 @@
 	"17"
 	{
 		"name"			"Chicken Defuse"
+		"description"	"When the bomb is planted it is put on a moving chicken."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"chickendef"	"1"
 		"defuser"		"1"
@@ -164,6 +181,7 @@
 	"18"
 	{
 		"name"			"Headshot Only"
+		"description"	"Shots only count when they are headshots."
 		"weapon"		"weapon_bizon"
 		"headshot"		"1"
 		"noknife"		"1"
@@ -174,6 +192,7 @@
 	"19"
 	{
 		"name"			"Space Swag7"
+		"description"	"Everyone has a Mag7 and low gravity."
 		"weapon"		"weapon_mag7"
 		"gravity"		"300"
 		"infiniteammo"	"2"
@@ -183,6 +202,7 @@
 	"20"
 	{
 		"name"			"Slow Motion"
+		"description"	"Time is slowed down periodically."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"slowmotion"	"1"
 		"defuser"		"1"
@@ -193,6 +213,7 @@
 	"21"
 	{
 		"name"			"Juan Deag"
+		"description"	"Everyone has a deagle, but only headshots count."
 		"weapon"		"weapon_deagle"
 		"noknife"		"1"
 		"headshot"		"1"
@@ -203,6 +224,7 @@
 	"22"
 	{
 		"name"			"Trigger Spazm"
+		"description"	"When shooting your weapon, you get huge amounts of recoil and spread."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"recoilview"	"100"
 		"defuser"		"1"
@@ -212,6 +234,7 @@
 	"23"
 	{
 		"name"			"Don't stop me now"
+		"description"	"You can no longer stop moving."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"alwaysmove"	"1"
 		"defuser"		"1"
@@ -221,6 +244,7 @@
 	"24"
 	{
 		"name"			"Clumsy"
+		"description"	"Everyone drops their weapon periodically."
 		"health"		"200"
 		"weapon"		"weapon_glock"
 		"noknife"		"1"
@@ -231,6 +255,7 @@
 	"25"
 	{
 		"name"			"Smoke Weed Everyday"
+		"description"	"Everyone receives unlimited smokes."
 		"weapon"		"weapon_smokegrenade"
 		"infinitenade"	"1"
 		"defuser"		"1"
@@ -238,6 +263,7 @@
 	"26"
 	{
 		"name"			"Burn Baby Burn"
+		"description"	"Everyone receives unlimited molotovs."
 		"weapon"		"weapon_molotov"
 		"infinitenade"	"1"
 		"noknife"		"1"
@@ -247,6 +273,7 @@
 	"27"
 	{
 		"name"			"Milk, Milk Everywhere"
+		"description"	"Everyone receives unlimited flashbangs."
 		"health"		"1"
 		"weapon"		"weapon_flashbang"
 		"infinitenade"	"1"
@@ -257,6 +284,7 @@
 	"28"
 	{
 		"name"			"Frag Out!"
+		"description"	"Everyone receives unlimited high explosive grenades."
 		"weapon"		"weapon_hegrenade"
 		"infinitenade"	"1"
 		"noknife"		"1"
@@ -266,14 +294,15 @@
 	"29"
 	{
 		"name"			"Tiny Magazines"
+		"description"	"All weapons have a single bullet in their magazine."
 		"weapon"		"weapon_random"
 		"tinymags"		"1"
 		"noknife"		"1"
-		
 	}
 	"30"
 	{
 		"name"			"Follow the Leader"
+		"description"	"One player of each team is assigned leader and other must follow them."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"followleader"	"1"
 		"defuser"		"1"
@@ -283,6 +312,7 @@
 	"31"
 	{
 		"name"			"Invisibility"
+		"description"	"Everyone is invisible."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"invisible"		"1"
 		"infiniteammo"	"2"
@@ -292,25 +322,29 @@
 	"32"
 	{
 		"name"			"Monkey see, Monkey do"
+		"description"	"One player of each team is assigned leader and must lose their followers."
 		"weapon"		"none"
 		"noc4"			"1"
 		"monkeysee"		"1"
 		"collision"		"none"
+		"descoverride"	"1"
 	}
 	"33"
 	{
 		"name"			"Zombie Invasion"
-		"weapon"		"weapon_negev;weapon_fiveseven"
-		"infiniteammo"	"1"
+		"description"	"Terrorists must kill the counter terrorist with their knives. Counter terrorists must survive."
+		"weapon"		"weapon_bizon;weapon_fiveseven"
+		"infiniteammo"	"2"
 		"noc4"			"1"
 		"armor"			"100"
 		"helmet"		"1"
-		"health"		"1000"
+		"health"		"5000"
 		"zombies"		"1"
 	}
 	"34"
 	{
 		"name"			"Axe Throwing Contest"
+		"description"	"Everyone receives unlimited axes."
 		"weapon"		"none"
 		"axe"			"1"
 		"noc4"			"1"
@@ -321,6 +355,7 @@
 	"35"
 	{
 		"name"			"Bar Fight"
+		"description"	"Simply a fist fight."
 		"weapon"		"none"
 		"fists"			"1"
 		"noc4"			"1"
@@ -332,6 +367,7 @@
 	"36"
 	{
 		"name"			"Hit Swap"
+		"description"	"Hitting a player will make you swap places with them."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"armor"			"100"
 		"helmet"		"1"
@@ -340,12 +376,14 @@
 	"37"
 	{
 		"name"			"Buddy System"
+		"description"	"Everyone is invincible, but if your chicken dies, you die."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"buddysystem"	"1"
 	}
 	"38"
 	{
 		"name"			"It's High Noon"
+		"description"	"Everyone receives a R8 revolver."
 		"weapon"		"weapon_revolver"
 		"armor"			"100"
 		"helmet"		"1"
@@ -354,7 +392,8 @@
 	}
 	"39"
 	{
-		"name"			"{DARK_RED}Red{NORMAL} Light, {GREEN}Green{NORMAL} Light"
+		"name"			"Red Light, Green Light"
+		"description"	"Moving during red light will damage you."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"armor"			"100"
 		"helmet"		"1"
@@ -363,6 +402,7 @@
 	"40"
 	{
 		"name"			"Manhunt"
+		"description"	"One player of each team is assigned the target. If the target is killed, the whole team dies."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"armor"			"100"
 		"helmet"		"1"
@@ -373,6 +413,7 @@
 	"41"
 	{
 		"name"			"Hot Potato"
+		"description"	"A random player gets the hot potato (five-seven), which kills after a while. Hit another player to transfer the hot potato to them."
 		"weapon"		"none"
 		"armor"			"100"
 		"helmet"		"1"
@@ -387,6 +428,7 @@
 	"42"
 	{
 		"name"			"Bomberman"
+		"description"	"Everyone receives unlimited C4 and can plant anywhere."
 		"weapon"		"weapon_c4"
 		"health"		"500"
 		"bomberman"		"1"
@@ -398,6 +440,7 @@
 	"43"
 	{
 		"name"			"Random Nades"
+		"description"	"Everyone receives unlimited, but randomized grenades."
 		"weapon"		"weapon_hegrenade"
 		"noknife"		"1"
 		"randomnade"	"1"
@@ -407,6 +450,7 @@
 	"44"
 	{
 		"name"			"Don't Miss"
+		"description"	"Missing your shots will damage you, be careful when you fire."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"dontmiss"		"1"
 		"killround"		"1"
@@ -417,6 +461,7 @@
 	"45"
 	{
 		"name"			"Crab Walk"
+		"description"	"Movement is restricted to only strafing left and right."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"crabwalk"		"1"
 		"armor"			"100"
@@ -425,6 +470,7 @@
 	"46"
 	{
 		"name"			"Poison Cloud"
+		"description"	"Smokes are transformed into poison clouds, which damage nearby players over time."
 		"weapon"		"weapon_smokegrenade"
 		"infinitenade"	"1"
 		"defuser"		"1"
@@ -437,6 +483,7 @@
 	"47"
 	{
 		"name"			"Bodyguard"
+		"description"	"One player of each team is assigned VIP, while the others are bodyguards. Bodyguards cannot die, but when the VIP dies, the whole team dies."
 		"weapon"		"none"
 		"noknife"		"1"
 		"killround"		"1"
@@ -449,6 +496,7 @@
 	"48"
 	{
 		"name"			"Pocket Teleporter"
+		"description"	"Your secondary is your pocket teleported. You teleport to the position you hit with it."
 		"weapon"		"weapon_nova;weapon_usp_silencer"
 		"pockettp"		"1"
 		"infiniteammo"	"2"
@@ -460,6 +508,7 @@
 	"49"
 	{
 		"name"			"One in the Chamber"
+		"description"	"Everyone has 1 HP and a single bullet, if you kill someone, you receive another bullet."
 		"weapon"		"weapon_random"
 		"oitc"			"1"
 		"noc4"			"1"
@@ -469,6 +518,7 @@
 	"50"
 	{
 		"name"			"Captcha"
+		"description"	"Everyone receives a captcha periodically, solve the captcha to receive your weapons again."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"captcha"		"1"
 		"noc4"			"1"
@@ -480,6 +530,7 @@
 	"51"
 	{
 		"name"			"Stealth"
+		"description"	"Standing still or slow-walking grants you invisibility, moving or firing renders you visible."
 		"weapon"		"weapon_secondary_random"
 		"stealth"		"1"
 		"armor"			"100"

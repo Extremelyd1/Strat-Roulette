@@ -131,12 +131,12 @@ public SendLeaderMessage(team) {
 }
 
 public SendMessage(client, char[] message) {
-    Colorize(message, 256);
+    Colorize(message, 512);
     CPrintToChat(client, message);
 }
 
 public SendMessageAll(char[] message) {
-    Colorize(message, 256);
+    Colorize(message, 512);
     for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && !IsFakeClient(client)) {
             CPrintToChat(client, message);
