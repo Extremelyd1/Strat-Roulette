@@ -6,7 +6,6 @@
 #include "include/adt_trie.inc"
 #include "include/colors.inc"
 #include "include/keyvalues.inc"
-#include "include/pugsetup.inc"
 
 #define STRAT_FILE "addons/sourcemod/configs/stratroulette/rounds.txt"
 #define PRIMARY_LENGTH 24
@@ -148,6 +147,9 @@ new const SecondaryDamage[SECONDARY_LENGTH] = {
 // Grenades
 new const GrenadesAll[] =  { 15, 17, 16, 14, 18, 17 };
 
+new bool:inGame = false;
+new bool:pugSetupLoaded = false;
+
 new g_Health;
 // Leader/Manhunt/Hot potato
 new String:ctLeaderName[128];
@@ -220,6 +222,7 @@ new Handle:mp_solid_teammates;
 #include "stratroulette/hooks.sp"
 #include "stratroulette/timers.sp"
 #include "stratroulette/util.sp"
+#include "stratroulette/pugsetup-integration.sp"
 
 #pragma semicolon 1
 
@@ -232,9 +235,12 @@ public Plugin:myinfo =  {
 
 public OnPluginStart() {
     //** Commands **//
+    RegAdminCmd("sm_start", cmd_start, ADMFLAG_ROOT, "Command to start the match");
+    RegAdminCmd("sm_end", cmd_end, ADMFLAG_ROOT, "Command to end the match");
     RegAdminCmd("sm_setround", cmd_setround, ADMFLAG_ROOT, "Command to forcefully set the next round strat");
     RegAdminCmd("sm_sr", cmd_setround, ADMFLAG_ROOT, "Command to forcefully set the next round strat");
     RegAdminCmd("sm_endround", cmd_endround, ADMFLAG_ROOT, "Command to forcefully end the round");
+
     RegAdminCmd("sm_srslots", cmd_srslots, ADMFLAG_ROOT, "Command to output items in weapons slots");
     RegAdminCmd("sm_srtest", cmd_srtest, ADMFLAG_ROOT, "Command to test something");
 	//** Event **//
@@ -263,11 +269,50 @@ public OnPluginStart() {
 }
 
 public void OnMapStart() {
-    // Nothing here yet
+    // Check if PugSetup is loaded
+    if (GetFeatureStatus(FeatureType_Native, "PugSetup_IsMatchLive") == FeatureStatus_Available) {
+        pugSetupLoaded = true;
+        PrintToServer("PugSetup is loaded, using it for match handling");
+    } else {
+        pugSetupLoaded = false;
+    }
+
+    inGame = false;
+    if (!pugSetupLoaded) {
+        // Indefinite warmup
+        ServerCommand("mp_do_warmup_period 1");
+        ServerCommand("mp_warmup_start");
+        ServerCommand("mp_warmup_pausetimer 1");
+        ServerCommand("mp_warmup_pausetimer 1");
+    }
 }
 
 public OnClientPutInServer(client) {
     SDKHook(client, SDKHook_OnTakeDamage, Hook_OnTakeDamage);
+}
+
+public Action:cmd_start(client, args) {
+    if (!pugSetupLoaded) {
+        ServerCommand("mp_warmup_end 1");
+        inGame = true;
+    } else {
+        SendMessage(client, "Match handling is done by {LIGHT_GREEN}PugSetup{NORMAL}, please use that");
+    }
+}
+
+public Action:cmd_end(client, args) {
+    if (!pugSetupLoaded) {
+        if (inGame) {
+            ServerCommand("mp_do_warmup_period 1");
+            ServerCommand("mp_warmup_start");
+            ServerCommand("mp_warmup_pausetimer 1");
+            inGame = false;
+        } else {
+            ReplyToCommand(client, "Game is not in progress!");
+        }
+    } else {
+        SendMessage(client, "Match handling is done by {LIGHT_GREEN}PugSetup{NORMAL}, please use that");
+    }
 }
 
 public Action:cmd_setround(client, args) {
@@ -435,6 +480,9 @@ public SetServerConvars() {
 	SetConVarInt(mp_maxmoney, 0);
 	SetConVarString(mp_ct_default_secondary, "");
 	SetConVarString(mp_t_default_secondary, "");
+    if (!pugSetupLoaded) {
+        SetConVarInt(mp_freezetime, 5, true, false);
+    }
 }
 
 public void PugSetup_OnLive() {
@@ -554,7 +602,7 @@ public int VoteMenuHandler(Menu menu, MenuAction action, int param1, int param2)
                 SendMessage(i, message);
             }
         }
-        
+
         delete menu;
     }
 }

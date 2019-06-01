@@ -171,7 +171,7 @@
 	"17"
 	{
 		"name"			"Chicken Defuse"
-		"description"	"When the bomb is planted it is put on a moving chicken."
+		"description"	"When the bomb is planted, it is put on a moving chicken."
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"chickendef"	"1"
 		"defuser"		"1"
@@ -496,7 +496,7 @@
 	"48"
 	{
 		"name"			"Pocket Teleporter"
-		"description"	"Your secondary is your pocket teleported. You teleport to the position you hit with it."
+		"description"	"Your secondary is your pocket teleporter. You teleport to the position you hit with it."
 		"weapon"		"weapon_nova;weapon_usp_silencer"
 		"pockettp"		"1"
 		"infiniteammo"	"2"

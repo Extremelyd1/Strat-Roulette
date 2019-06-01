@@ -1,3 +1,7 @@
+public Action SrEventMatchOver(Handle:event, const String:name[], bool:dontBroadcast) {
+    ServerCommand("mp_match_restart_delay 600");
+}
+
 public Action:SrEventRoundEnd(Handle:event, const String:name[], bool:dontBroadcast) {
     if (voteTimer != INVALID_HANDLE) {
         CloseHandle(voteTimer);
@@ -6,7 +10,7 @@ public Action:SrEventRoundEnd(Handle:event, const String:name[], bool:dontBroadc
 }
 
 public Action:SrEventRoundStart(Handle:event, const String:name[], bool:dontBroadcast) {
-    if (PugSetup_IsMatchLive()) {
+    if (IsPugSetupMatchLive() || inGame) {
        ReadNewRound();
        voteTimer = CreateTimer(GetConVarInt(mp_freezetime) + 15.0, VoteTimer);
    }
