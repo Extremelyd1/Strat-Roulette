@@ -1,3 +1,15 @@
+public ConfigureCollision() {
+    if (StrEqual(Collision, "team")) {
+        SetConVarInt(mp_solid_teammates, 0, true, false);
+    } else if (StrEqual(Collision, "none")) {
+        for (int client = 1; client <= MaxClients; client++) {
+            if (IsClientInGame(client) && IsPlayerAlive(client)) {
+                SetEntData(client, g_offsCollisionGroup, 2, 4, true);
+            }
+        }
+    }
+}
+
 public ConfigureThirdPerson() {
     if (StrEqual(ThirdPerson, "1")) {
 		SetConVarInt(sv_allow_thirdperson, 1, true, false);
@@ -562,8 +574,6 @@ public ConfigureMonkeySee() {
     if (StrEqual(MonkeySee, "1")) {
         g_MonkeySee = true;
 
-        SetConVarInt(mp_solid_teammates, 0, true, false);
-
         int ctPlayers = 0;
         int tPlayers = 0;
 
@@ -575,6 +585,10 @@ public ConfigureMonkeySee() {
                     tPlayers++;
                 }
             }
+        }
+
+        if (ctPlayers + tPlayers < 2) {
+            return;
         }
 
         if (ctPlayers + tPlayers < 4) {

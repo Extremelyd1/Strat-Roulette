@@ -70,6 +70,8 @@ public ResetConfiguration() {
             SetEntData(client, FindSendPropInfo("CCSPlayer", "m_bHasHelmet"), 0);
             // Color
             SetEntityRenderColor(client, 255, 255, 255, 0);
+            // Collision
+            SetEntData(client, g_offsCollisionGroup, 5, 4, true);
         }
     }
 }

@@ -60,6 +60,7 @@ public ReadNewRound() {
 
     kv.GetString("name", RoundName, sizeof(RoundName), "No name round!");
     kv.GetString("thirdperson", ThirdPerson, sizeof(ThirdPerson), "0");
+    kv.GetString("collision", Collision, sizeof(Collision), "default");
     kv.GetString("weapon", Weapon, sizeof(Weapon), "weapon_none");
     kv.GetString("health", Health, sizeof(Health), "100");
     kv.GetString("decoysound", DecoySound, sizeof(DecoySound), "1");
@@ -124,6 +125,8 @@ public ReadNewRound() {
 
     ResetConfiguration();
 
+    //** Collision **//
+    ConfigureCollision();
     //** Zombies **//
     ConfigureZombies();
 	//** Third person **//

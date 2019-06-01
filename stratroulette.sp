@@ -17,6 +17,7 @@
 
 // KeyValue strings
 new String:RoundName[200];
+new String:Collision[20];
 new String:ThirdPerson[3];
 new String:Weapon[70];
 new String:Health[70];
@@ -180,6 +181,8 @@ int lastRound = -1;
 new bool:setNextRound = false;
 new String:forceRoundNumber[16];
 
+int g_offsCollisionGroup;
+
 // Cvars
 new Handle:sv_allow_thirdperson;
 new Handle:sv_infinite_ammo;
@@ -311,6 +314,8 @@ public Action:cmd_srslots(client, args) {
 }
 
 public Action:cmd_srtest(client, args) {
+    Format(Collision, sizeof(Collision), "none");
+    ConfigureCollision();
 }
 
 public Action:CommandDrop(int client, const char[] command, int args) {
@@ -391,6 +396,8 @@ public OnConfigsExecuted() {
     mp_anyone_can_pickup_c4 = FindConVar("mp_anyone_can_pickup_c4");
     mp_death_drop_grenade = FindConVar("mp_death_drop_grenade");
     mp_solid_teammates = FindConVar("mp_solid_teammates");
+
+    g_offsCollisionGroup = FindSendPropInfo("CBaseEntity", "m_CollisionGroup");
 
 	//** KEYVALUES **//
 	new flags = GetConVarFlags(sv_gravity);
