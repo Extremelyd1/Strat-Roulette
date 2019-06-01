@@ -1,31 +1,9 @@
 public ReadNewRound() {
-    KeyValues kv = new KeyValues("Strats");
-
-    if (!kv.ImportFromFile(STRAT_FILE)) {
-        PrintToServer("Strat file could not be found!");
-
-        delete kv;
-        return 0;
-    }
-
-    if (!kv.GotoFirstSubKey(false)) {
-        PrintToServer("No strats in strat file!");
-
-        delete kv;
-        return 0;
-    }
-
-    int numberOfStrats = 0;
-
-    do {
-        if (kv.GetDataType(NULL_STRING) == KvData_None) {
-            numberOfStrats++;
-        }
-    } while (kv.GotoNextKey(false));
+    int numberOfStrats = GetNumberOfStrats();
 
     /* PrintToServer("Number of strats: %d", numberOfStrats); */
 
-    kv = new KeyValues("Strats");
+    KeyValues kv = new KeyValues("Strats");
     kv.ImportFromFile(STRAT_FILE);
 
     ArrayList possibleRoundNumbers = new ArrayList();
@@ -40,10 +18,14 @@ public ReadNewRound() {
 
     char roundNumberString[16];
 
-    if (setNextRound) {
-        Format(roundNumberString, sizeof(roundNumberString), "%s", forceRoundNumber);
-        setNextRound = false;
-        lastRound = StringToInt(forceRoundNumber);
+    if (forceNextRound) {
+        Format(roundNumberString, sizeof(roundNumberString), forceRoundNumber);
+        forceNextRound = false;
+        lastRound = StringToInt(voteRoundNumber);
+    } else if (nextRoundVoted) {
+        Format(roundNumberString, sizeof(roundNumberString), voteRoundNumber);
+        nextRoundVoted = false;
+        lastRound = StringToInt(voteRoundNumber);
     } else {
         IntToString(roundNumber, roundNumberString, sizeof(roundNumberString));
         lastRound = roundNumber;
@@ -113,15 +95,11 @@ public ReadNewRound() {
     kv.GetString("monkeysee", MonkeySee, sizeof(MonkeySee), "0");
     kv.GetString("stealth", Stealth, sizeof(Stealth), "0");
 
-    new String:divider[] = "{DARK_BLUE}----------------------------------------";
-    Colorize(divider, sizeof(divider));
+    SendMessageAll("{DARK_BLUE}----------------------------------------");
+    SendMessageAll(RoundName);
+    SendMessageAll("{DARK_BLUE}----------------------------------------");
 
-    Colorize(RoundName, sizeof(RoundName));
-
-	PrintCenterTextAll(RoundName);
-	CPrintToChatAll(divider);
-	CPrintToChatAll(RoundName);
-	CPrintToChatAll(divider);
+    PrintCenterTextAll(RoundName);
 
     ResetConfiguration();
 

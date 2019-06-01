@@ -1,9 +1,14 @@
 public Action:SrEventRoundEnd(Handle:event, const String:name[], bool:dontBroadcast) {
+    if (voteTimer != INVALID_HANDLE) {
+        CloseHandle(voteTimer);
+        voteTimer = INVALID_HANDLE;
+    }
 }
 
 public Action:SrEventRoundStart(Handle:event, const String:name[], bool:dontBroadcast) {
     if (PugSetup_IsMatchLive()) {
        ReadNewRound();
+       voteTimer = CreateTimer(GetConVarInt(mp_freezetime) + 15.0, VoteTimer);
    }
 }
 
@@ -292,18 +297,17 @@ public Action:SrEventPlayerDeathPre(Handle:event, const String:name[], bool:dont
         }
     }
 
-    if (g_BuddySystem || g_Bomberman) {
-        new userid = GetEventInt(event, "userid");
-        new attackerUserid = GetEventInt(event, "attacker");
+    new userid = GetEventInt(event, "userid");
+    new attackerUserid = GetEventInt(event, "attacker");
 
-        if (attackerUserid == 13371337) {
-            SetEventInt(event, "attacker", userid);
-            return Plugin_Continue;
-        }
+    if (attackerUserid == 13371337) {
+        SetEventInt(event, "attacker", userid);
+        return Plugin_Continue;
+    }
 
-        if (userid == attackerUserid) {
-            return Plugin_Stop;
-        }
+    if (userid == attackerUserid && skipNextKill) {
+        skipNextKill = false;
+        return Plugin_Stop;
     }
 
     return Plugin_Continue;

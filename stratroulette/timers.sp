@@ -1,4 +1,9 @@
-public Action:EnableThirdPerson(Handle:timer) {
+public Action:VoteTimer(Handle timer) {
+    CreateRoundVoteMenu();
+    voteTimer = INVALID_HANDLE;
+}
+
+public Action:EnableThirdPerson(Handle timer) {
 	for (new i = 1; i <= MaxClients; i++) {
 		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
 			ClientCommand(i, "thirdperson");
@@ -101,59 +106,26 @@ public Action:CheckLeaderTimer(Handle timer) {
         return Plugin_Stop;
     }
 
-    ArrayList ctPlayers = new ArrayList();
-    ArrayList tPlayers = new ArrayList();
+    float ctPos[3];
+    float tPos[3];
+    GetClientEyePosition(ctLeader, ctPos);
+    GetClientEyePosition(tLeader, tPos);
 
     for (int i = 1; i <= MaxClients; i++) {
         if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+            float pos[3];
+            GetClientEyePosition(i, pos);
+
+            float distance = -1.0;
             if (GetClientTeam(i) == CS_TEAM_CT) {
-                ctPlayers.Push(i);
+                distance = GetVectorDistance(pos, ctPos);
             } else if (GetClientTeam(i) == CS_TEAM_T) {
-                tPlayers.Push(i);
+                distance = GetVectorDistance(pos, tPos);
             }
-        }
-    }
-
-    if (ctPlayers.Length > 0 && ctLeader != -1) {
-        float vec[3];
-        GetClientEyePosition(ctLeader, vec);
-
-        for (int i = 0; i < ctPlayers.Length; i++) {
-            int client = ctPlayers.Get(i);
-
-            float pos[3];
-            GetClientEyePosition(client, pos);
-
-            float distance = GetVectorDistance(vec, pos);
 
             if (distance > 300) {
-                DamagePlayer(client, 5);
-                new String:message[256];
-                Format(message, sizeof(message), "{DARK_RED}Warning {NORMAL}too far from the {YELLOW}leader");
-                Colorize(message, sizeof(message));
-                CPrintToChat(client, message);
-            }
-        }
-    }
-
-    if (tPlayers.Length > 0 && tLeader != -1) {
-        float vec[3];
-        GetClientEyePosition(tLeader, vec);
-
-        for (int i = 0; i < tPlayers.Length; i++) {
-            int client = tPlayers.Get(i);
-
-            float pos[3];
-            GetClientEyePosition(client, pos);
-
-            float distance = GetVectorDistance(vec, pos);
-
-            if (distance > 300) {
-                DamagePlayer(client, 5);
-                new String:message[256];
-                Format(message, sizeof(message), "{DARK_RED}Warning {NORMAL}too far from the {YELLOW}leader");
-                Colorize(message, sizeof(message));
-                CPrintToChat(client, message);
+                DamagePlayer(i, 5);
+                SendMessage(i, "{DARK_RED}Warning {NORMAL}too far from the {YELLOW}leader");
             }
         }
     }
@@ -230,14 +202,14 @@ public Action:StartMonkeyTimer(Handle timer) {
 
     for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            if (GetClientTeam(client) == CS_TEAM_CT && monkeyOneTeam != CS_TEAM_CT) {
+            if (GetClientTeam(client) == CS_TEAM_CT) {
                 if (client == ctLeader) {
                     SendMessage(client, "Try to lose the {DARK_RED}Terrorists");
                 } else {
                     SendMessage(client, "Try to keep up with the {DARK_RED}Terrorist{NORMAL} leader");
                     TeleportEntity(client, tPos, NULL_VECTOR, NULL_VECTOR);
                 }
-            } else if (GetClientTeam(client) == CS_TEAM_T && monkeyOneTeam != CS_TEAM_T) {
+            } else if (GetClientTeam(client) == CS_TEAM_T) {
                 if (client == tLeader) {
                     SendMessage(client, "Try to lose the {DARK_RED}Counter-Terrorists");
                 } else {
@@ -245,8 +217,6 @@ public Action:StartMonkeyTimer(Handle timer) {
                     TeleportEntity(client, ctPos, NULL_VECTOR, NULL_VECTOR);
                 }
             }
-            new knife = GivePlayerItem(client, "weapon_knife");
-            EquipPlayerWeapon(client, knife);
         }
     }
 
@@ -314,12 +284,7 @@ public Action:RedGreenMessageTimer(Handle timer) {
         g_RedLight = false;
         CreateNewRedGreenTimer();
     }
-    Colorize(message, sizeof(message));
-    for (new i = 1; i <= MaxClients; i++) {
-        if (IsClientInGame(i) && !IsFakeClient(i)) {
-            CPrintToChat(i, message);
-        }
-    }
+    SendMessageAll(message);
 
     return Plugin_Continue;
 }
@@ -349,9 +314,6 @@ public Action:RedGreenDamageTimer(Handle timer) {
     if (!g_RedGreen) {
         return Plugin_Stop;
     }
-    new String:message[256];
-    Format(message, sizeof(message), "Don't {DARK_RED}move{NORMAL} during {DARK_RED}red{NORMAL} light");
-    Colorize(message, sizeof(message));
 
     for (new i = 1; i <= MaxClients; i++) {
         if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
@@ -374,7 +336,7 @@ public Action:RedGreenDamageTimer(Handle timer) {
                     } else {
                         ForcePlayerSuicide(i);
                     }
-                    CPrintToChat(i, message);
+                    SendMessage(i, "Don't {DARK_RED}move{NORMAL} during {DARK_RED}red{NORMAL} light");
                 }
             }
 
@@ -400,19 +362,13 @@ public Action:NewHotPotatoTimer(Handle timer) {
 
 public Action:HotPotatoMessage1Timer(Handle timer) {
     if (ctLeader != -1) {
-        new String:message[256];
-        Format(message, sizeof(message), "That is one {DARK_RED}hot potato{NORMAL}!", ctLeaderName);
-        Colorize(message, sizeof(message));
-        CPrintToChat(ctLeader, message);
+        SendMessage(ctLeader, "That is one {DARK_RED}hot potato{NORMAL}!");
     }
 }
 
 public Action:HotPotatoMessage2Timer(Handle timer) {
     if (ctLeader != -1) {
-        new String:message[256];
-        Format(message, sizeof(message), "I can't hold this {DARK_RED}hot potato{NORMAL} much longer!", ctLeaderName);
-        Colorize(message, sizeof(message));
-        CPrintToChat(ctLeader, message);
+        SendMessage(ctLeader, "I can't hold this {DARK_RED}hot potato{NORMAL} much longer!");
     }
 }
 
@@ -427,12 +383,7 @@ public Action:HotPotatoTimer(Handle timer) {
 
         new String:message[256];
         Format(message, sizeof(message), "{YELLOW}%s died with the {DARK_RED}hot potato{NORMAL}!", ctLeaderName);
-        Colorize(message, sizeof(message));
-        for (new i = 1; i <= MaxClients; i++) {
-            if (IsClientInGame(i) && !IsFakeClient(i)) {
-                CPrintToChat(i, message);
-            }
-        }
+        SendMessageAll(message);
 
         bool ctWiped = true;
         bool tWiped = true;
@@ -553,10 +504,7 @@ public Action:PoisonDamageTimer(Handle timer) {
 
                 if (distance < SMOKE_RADIUS) {
                     DamagePlayer(client, 5);
-                    new String:message[256];
-                    Format(message, sizeof(message), "{DARK_RED}Warning {NORMAL}the smoke is {DARK_RED}toxic");
-                    Colorize(message, sizeof(message));
-                    CPrintToChat(client, message);
+                    SendMessage(client, "{DARK_RED}Warning {NORMAL}the smoke is {DARK_RED}toxic");
                 }
             }
             // Free snapshot variable
@@ -624,18 +572,14 @@ public Action:SendCaptchaTimer(Handle timer) {
 
     IntToString(randomInt1 + randomInt2, captchaAnswer, sizeof(captchaAnswer));
 
-    char message1[256];
-    char message2[256];
-    Format(message1, sizeof(message1),
+    char message[256];
+    Format(message, sizeof(message),
         "{GREEN}Solve{NORMAL} %d + %d to get your {LIGHT_GREEN}weapons{NORMAL} back!",
         randomInt1, randomInt2);
-    Format(message2, sizeof(message2), "Type the {LIGHT_GREEN}answer{NORMAL} in chat.");
-    Colorize(message1, sizeof(message1));
-    Colorize(message2, sizeof(message2));
+    SendMessageAll(message);
+    SendMessageAlive("Type the {LIGHT_GREEN}answer{NORMAL} in chat.");
     for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            CPrintToChat(client, message1);
-            CPrintToChat(client, message2);
             // Client is not on list
             if (captchaClients.FindValue(client) == -1) {
                 captchaClients.Push(client);

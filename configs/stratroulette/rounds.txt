@@ -295,6 +295,7 @@
 		"weapon"		"none"
 		"noc4"			"1"
 		"monkeysee"		"1"
+		"collision"		"none"
 	}
 	"33"
 	{

@@ -76,6 +76,36 @@ public ResetConfiguration() {
     }
 }
 
+public int GetNumberOfStrats() {
+    KeyValues kv = new KeyValues("Strats");
+
+    if (!kv.ImportFromFile(STRAT_FILE)) {
+        PrintToServer("Strat file could not be found!");
+
+        delete kv;
+        return -1;
+    }
+
+    if (!kv.GotoFirstSubKey(false)) {
+        PrintToServer("No strats in strat file!");
+
+        delete kv;
+        return -1;
+    }
+
+    int numberOfStrats = 0;
+
+    do {
+        if (kv.GetDataType(NULL_STRING) == KvData_None) {
+            numberOfStrats++;
+        }
+    } while (kv.GotoNextKey(false));
+
+    delete kv;
+
+    return numberOfStrats;
+}
+
 public CreateNewDropWeaponsTimer(client) {
     float randomFloat = GetRandomFloat(3.0, 6.0);
     DataPack data = new DataPack();
@@ -93,19 +123,34 @@ public SendLeaderMessage(team) {
                 } else {
                     Format(message, sizeof(message), "{LIGHT_GREEN}New {NORMAL}leader is {YELLOW}%s", tLeaderName);
                 }
-                Colorize(message, sizeof(message));
-                CPrintToChat(client, message);
-                Format(message, sizeof(message), "{LIGHT_GREEN}Follow {NORMAL}the leader or you {DARK_RED}die");
-                Colorize(message, sizeof(message));
-                CPrintToChat(client, message);
+                SendMessage(client, message);
             }
         }
     }
+    SendMessageAlive("{LIGHT_GREEN}Follow {NORMAL}the leader or you {DARK_RED}die");
 }
 
 public SendMessage(client, char[] message) {
     Colorize(message, 256);
     CPrintToChat(client, message);
+}
+
+public SendMessageAll(char[] message) {
+    Colorize(message, 256);
+    for (int client = 1; client <= MaxClients; client++) {
+        if (IsClientInGame(client) && !IsFakeClient(client)) {
+            CPrintToChat(client, message);
+        }
+    }
+}
+
+public SendMessageAlive(char[] message) {
+    Colorize(message, 256);
+    for (int client = 1; client <= MaxClients; client++) {
+        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+            CPrintToChat(client, message);
+        }
+    }
 }
 
 public CreateNewRedGreenTimer() {
@@ -160,10 +205,8 @@ public SendVIPMessage(team) {
                     Format(message1, sizeof(message1), "Your {DARK_RED}target{NORMAL} is {YELLOW}%s", ctLeaderName);
                     Format(message2, sizeof(message2), "{GREEN}Defend{NORMAL} your VIP {YELLOW}%s", tLeaderName);
                 }
-                Colorize(message1, sizeof(message1));
-                Colorize(message2, sizeof(message2));
-                CPrintToChat(client, message1);
-                CPrintToChat(client, message2);
+                SendMessage(client, message1);
+                SendMessage(client, message2);
             }
         }
     }
@@ -270,11 +313,9 @@ stock void SelectHotPotato(int client = -1) {
 
     GetClientName(ctLeader, ctLeaderName, sizeof(ctLeaderName));
 
-    new String:message[256];
-    Format(message, sizeof(message), "You have the {DARK_RED}hot potato{NORMAL}, hit someone to give it to them!");
-    Colorize(message, sizeof(message));
-    CPrintToChat(ctLeader, message);
+    SendMessage(ctLeader, "You have the {DARK_RED}hot potato{NORMAL}, hit someone to give it to them!")
 
+    char message[256];
     Format(message, sizeof(message), "{YELLOW}%s has the {DARK_RED}hot potato{NORMAL}, don't get hit!", ctLeaderName);
     Colorize(message, sizeof(message));
     for (int i = 0; i < players.Length; i++) {
@@ -346,6 +387,7 @@ stock void KillPlayer(int client, int killerUserid=-1, char[] weapon="knife", in
             FireEvent(event, false);
         }
     }
+    skipNextKill = true;
     ForcePlayerSuicide(client);
 }
 
@@ -388,7 +430,7 @@ public SetReserveAmmo(client, ammo) {
 stock void Colorize(char[] msg, int size, bool stripColor = false) {
     for (int colorNameIndex = 0; colorNameIndex < sizeof(_colorNames); colorNameIndex++) {
         if (stripColor) {
-            ReplaceString(msg, size, _colorNames[colorNameIndex], "\x01");  // replace with white
+            ReplaceString(msg, size, _colorNames[colorNameIndex], "");  // replace with white
         } else {
             ReplaceString(msg, size, _colorNames[colorNameIndex], _colorCodes[colorNameIndex]);
         }

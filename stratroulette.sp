@@ -174,11 +174,15 @@ ArrayList captchaClients;
 int monkeyOneTeam = -1;
 // Stealth
 new stealthVisible[MAXPLAYERS + 1];
+// Kill method
+new bool:skipNextKill = false;
 
 // Round variables
 int lastRound = -1;
-
-new bool:setNextRound = false;
+new Handle:voteTimer = INVALID_HANDLE;
+new bool:nextRoundVoted = false;
+new String:voteRoundNumber[16];
+new bool:forceNextRound = false;
 new String:forceRoundNumber[16];
 
 int g_offsCollisionGroup;
@@ -286,8 +290,8 @@ public Action:cmd_setround(client, args) {
         return Plugin_Handled;
     }
 
-    setNextRound = true;
     Format(forceRoundNumber, sizeof(forceRoundNumber), "%s", roundArg);
+    forceNextRound = true;
 
     ReplyToCommand(client, "Next round set to strat %s", roundArg);
 
@@ -314,8 +318,7 @@ public Action:cmd_srslots(client, args) {
 }
 
 public Action:cmd_srtest(client, args) {
-    Format(Collision, sizeof(Collision), "none");
-    ConfigureCollision();
+    CreateRoundVoteMenu();
 }
 
 public Action:CommandDrop(int client, const char[] command, int args) {
@@ -357,10 +360,7 @@ public Action:OnClientSayCommand(int client, const char[] command, const char[] 
                 GivePlayerItem(client, secondaryWeapon);
                 captchaClients.Erase(captchaClients.FindValue(client));
             } else {
-                char message[256];
-                Format(message, sizeof(message), "{DARK_RED}Wrong{NORMAL} answer!");
-                Colorize(message, sizeof(message));
-                CPrintToChat(client, message);
+                SendMessage(client, "{DARK_RED}Wrong{NORMAL} answer!");
             }
             return Plugin_Stop;
         }
@@ -486,6 +486,76 @@ public OnEntitySpawned(iGrenade) {
             GivePlayerItem(client, "weapon_incgrenade");
         }
 	}
+}
+
+public CreateRoundVoteMenu() {
+    Menu menu = new Menu(VoteMenuHandler, MENU_ACTIONS_ALL);
+    menu.SetTitle("Vote for a new round:");
+
+    ArrayList options = new ArrayList();
+    int numberOfStrats = GetNumberOfStrats();
+    for (int i = 1; i <= numberOfStrats; i++) {
+        if (i != lastRound) {
+            options.Push(i);
+        }
+    }
+
+    for (int i = 1; i < 6; i++) {
+        if (options.Length == 0) {
+            break;
+        }
+
+        int randomRound = options.Get(GetRandomInt(0, options.Length - 1));
+
+        options.Erase(options.FindValue(randomRound));
+
+        char randomRoundString[16];
+        IntToString(randomRound, randomRoundString, sizeof(randomRoundString));
+
+        KeyValues kv = new KeyValues("Strats");
+        kv.ImportFromFile(STRAT_FILE);
+
+        if (!kv.JumpToKey(randomRoundString)) {
+            PrintToServer("Strat number %s could not be found for voting!", randomRoundString);
+
+            delete kv;
+            continue;
+        }
+
+        kv.GetString("name", RoundName, sizeof(RoundName), "No name round!");
+        Colorize(RoundName, sizeof(RoundName), true);
+
+        menu.AddItem(randomRoundString, RoundName);
+
+        delete kv;
+    }
+
+    menu.ExitButton = false;
+
+    menu.DisplayVoteToAll(20);
+}
+
+public int VoteMenuHandler(Menu menu, MenuAction action, int param1, int param2) {
+    if (action == MenuAction_VoteEnd) {
+        char winningRound[32];
+        char winningRoundName[256];
+        int style;
+        menu.GetItem(param1, winningRound, sizeof(winningRound), style, winningRoundName, sizeof(winningRoundName));
+
+        Format(voteRoundNumber, sizeof(voteRoundNumber), winningRound);
+        nextRoundVoted = true;
+
+        char message[256];
+        Format(message, sizeof(message), "Map voting {LIGHT_GREEN}finished{NORMAL}, next round is {DARK_BLUE}%s", winningRoundName);
+
+        for (int i = 1; i <= MaxClients; i++) {
+            if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+                SendMessage(i, message);
+            }
+        }
+
+        delete menu;
+    }
 }
 
 public bool:RayFilter(entity, mask, any:data) {
