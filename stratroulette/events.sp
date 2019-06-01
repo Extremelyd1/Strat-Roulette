@@ -139,58 +139,6 @@ public Action:SrEventWeaponFire(Handle:event, const String:name[], bool:dontBroa
     return Plugin_Continue;
 }
 
-public Action:SrEventPlayerHurt(Handle:event, const String:name[], bool:dontBroadcast) {
-    new victim = GetClientOfUserId(GetEventInt(event, "userid"));
-    new attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
-	if (g_HeadShot) {
-		new hitgroup = GetEventInt(event, "hitgroup");
-		new damageDone = GetEventInt(event, "dmg_health");
-		new newHealth = GetEventInt(event, "health");
-
-		if (hitgroup != 1) {
-			if (attacker != victim && victim != 0 && attacker != 0) {
-				if (damageDone > 0) {
-					new giveHealth = newHealth + damageDone;
-					SetEntityHealth(victim, giveHealth);
-				}
-			}
-		}
-	}
-
-    if (g_DontMiss) {
-        char weapon[128];
-        GetEventString(event, "weapon", weapon, sizeof(weapon));
-        Format(weapon, sizeof(weapon), "weapon_%s", weapon);
-
-        for (int i = 0; i < PRIMARY_LENGTH; i++) {
-            if (StrEqual(weapon, WeaponPrimary[i])) {
-                DamagePlayer(attacker, -PrimaryDamage[i]);
-                return Plugin_Continue;
-            }
-        }
-        for (int i = 0; i < SECONDARY_LENGTH; i++) {
-            if (StrEqual(weapon, WeaponSecondary[i])) {
-                DamagePlayer(attacker, -SecondaryDamage[i]);
-                return Plugin_Continue;
-            }
-        }
-    }
-
-    if (g_HitSwap) {
-        if (attacker != victim && victim != 0 && attacker != 0) {
-            float victimPos[3];
-            GetEntPropVector(victim, Prop_Send, "m_vecOrigin", victimPos);
-            float attackerPos[3];
-            GetEntPropVector(attacker, Prop_Send, "m_vecOrigin", attackerPos);
-
-            TeleportEntity(victim, attackerPos, NULL_VECTOR, NULL_VECTOR);
-            TeleportEntity(attacker, victimPos, NULL_VECTOR, NULL_VECTOR);
-        }
-    }
-
-    return Plugin_Continue;
-}
-
 public Action:SrBombPlanted_Event(Handle:event, const String:name[], bool:dontBroadcast) {
 	if (g_ChickenDefuse) {
 		new c4 = -1;

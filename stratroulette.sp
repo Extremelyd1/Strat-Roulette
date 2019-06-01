@@ -247,7 +247,6 @@ public OnPluginStart() {
 	HookEvent("decoy_started", SrEventDecoyStarted);
 	HookEvent("weapon_zoom", SrEventWeaponZoom, EventHookMode_Post);
 	HookEvent("bomb_planted", SrBombPlanted_Event);
-	HookEvent("player_hurt", SrEventPlayerHurt, EventHookMode_Pre);
 	HookEvent("inspect_weapon", SrEventInspectWeapon);
 	HookEvent("round_end", SrEventRoundEnd);
 	HookEvent("round_start", SrEventRoundStart);
@@ -307,7 +306,7 @@ public Action:cmd_end(client, args) {
             ServerCommand("mp_warmup_start");
             ServerCommand("mp_warmup_pausetimer 1");
             inGame = false;
-            
+
             ResetConfiguration();
         } else {
             ReplyToCommand(client, "Game is not in progress!");

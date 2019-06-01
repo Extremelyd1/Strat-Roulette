@@ -119,5 +119,65 @@ public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &d
         return Plugin_Handled;
     }
 
+    if (g_HeadShot) {
+        if(damagetype == DMG_FALL
+			|| damagetype == DMG_GENERIC
+			|| damagetype == DMG_CRUSH
+			|| damagetype == DMG_SLASH
+			|| damagetype == DMG_BURN
+			|| damagetype == DMG_VEHICLE
+			|| damagetype == DMG_FALL
+			|| damagetype == DMG_BLAST
+			|| damagetype == DMG_SHOCK
+			|| damagetype == DMG_SONIC
+			|| damagetype == DMG_ENERGYBEAM
+			|| damagetype == DMG_DROWN
+			|| damagetype == DMG_PARALYZE
+			|| damagetype == DMG_NERVEGAS
+			|| damagetype == DMG_POISON
+			|| damagetype == DMG_ACID
+			|| damagetype == DMG_AIRBOAT
+			|| damagetype == DMG_PLASMA
+			|| damagetype == DMG_RADIATION
+			|| damagetype == DMG_SLOWBURN
+			|| attacker == 0
+		) {
+            return Plugin_Continue;
+        }
+		if (!(damagetype & CS_DMG_HEADSHOT)) {
+            return Plugin_Handled;
+        }
+	}
+
+    if (g_HitSwap) {
+        if (attacker != victim && victim != 0 && attacker != 0) {
+            float victimPos[3];
+            GetEntPropVector(victim, Prop_Send, "m_vecOrigin", victimPos);
+            float attackerPos[3];
+            GetEntPropVector(attacker, Prop_Send, "m_vecOrigin", attackerPos);
+
+            TeleportEntity(victim, attackerPos, NULL_VECTOR, NULL_VECTOR);
+            TeleportEntity(attacker, victimPos, NULL_VECTOR, NULL_VECTOR);
+        }
+    }
+
+    if (g_DontMiss) {
+        char weaponname[128];
+        Client_GetActiveWeaponName(attacker, weaponname, sizeof(weaponname));
+
+        for (int i = 0; i < PRIMARY_LENGTH; i++) {
+            if (StrEqual(weaponname, WeaponPrimary[i])) {
+                DamagePlayer(attacker, -PrimaryDamage[i]);
+                return Plugin_Continue;
+            }
+        }
+        for (int i = 0; i < SECONDARY_LENGTH; i++) {
+            if (StrEqual(weaponname, WeaponSecondary[i])) {
+                DamagePlayer(attacker, -SecondaryDamage[i]);
+                return Plugin_Continue;
+            }
+        }
+    }
+
     return Plugin_Continue;
 }
