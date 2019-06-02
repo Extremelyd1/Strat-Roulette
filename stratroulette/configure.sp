@@ -639,3 +639,11 @@ public ConfigureStealth() {
         }
     }
 }
+
+public ConfigureFlashDmg() {
+    if (StrEqual(FlashDmg, "1")) {
+        g_FlashDmg = true;
+    } else {
+        g_FlashDmg = false;
+    }
+}

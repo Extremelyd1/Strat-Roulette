@@ -536,4 +536,13 @@
 		"armor"			"100"
 		"helmet"		"1"
 	}
+	"52"
+	{
+		"name"			"Blinding Light"
+		"description"	"Getting flashed by a flashbang damages players depending on duration."
+		"weapon"		"weapon_flashbang"
+		"infinitenade"	"1"
+		"noknife"		"1"
+		"flashdmg"		"1"
+	}
 }

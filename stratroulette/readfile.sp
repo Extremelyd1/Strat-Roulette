@@ -94,6 +94,7 @@ public ReadNewRound() {
     kv.GetString("captcha", Captcha, sizeof(Captcha), "0");
     kv.GetString("monkeysee", MonkeySee, sizeof(MonkeySee), "0");
     kv.GetString("stealth", Stealth, sizeof(Stealth), "0");
+    kv.GetString("flashdmg", FlashDmg, sizeof(FlashDmg), "0");
 
     char descriptionOverride[3];
     kv.GetString("descoverride", descriptionOverride, sizeof(descriptionOverride), "0");
@@ -236,6 +237,8 @@ public ReadNewRound() {
     ConfigureMonkeySee();
     //** Stealth **//
     ConfigureStealth();
+    //** Flash damage **//
+    ConfigureFlashDmg();
 
     delete kv;
 

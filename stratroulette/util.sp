@@ -347,14 +347,14 @@ public ClearBuddySystemChickens() {
 
 // Used to damage player by amount of damage, can also be used to heal
 // with negative damage
-stock void DamagePlayer(int client, int damage, int attacker=-1) {
+stock void DamagePlayer(int client, int damage, int attackerUserid=-1, char[] weapon="knife") {
     new currentHealth = GetEntProp(client, Prop_Send, "m_iHealth");
     new newHealth = currentHealth - damage;
     if (damage > 0) {
         if (newHealth > 0) {
             SetEntityHealth(client, newHealth);
         } else {
-            KillPlayer(client, attacker);
+            KillPlayer(client, attackerUserid, weapon);
         }
     } else if (damage < 0) {
         if (newHealth <= g_Health) {

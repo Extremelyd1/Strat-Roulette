@@ -69,6 +69,7 @@ new String:OneInTheChamber[3];
 new String:Captcha[3];
 new String:MonkeySee[3];
 new String:Stealth[3];
+new String:FlashDmg[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -103,6 +104,7 @@ new bool:g_OneInTheChamber = false;
 new bool:g_Captcha = false;
 new bool:g_MonkeySee = false;
 new bool:g_Stealth = false;
+new bool:g_FlashDmg = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -256,6 +258,7 @@ public OnPluginStart() {
     HookEvent("weapon_fire", SrEventWeaponFire);
     HookEvent("smokegrenade_detonate", SrEventSmokeDetonate);
     HookEvent("smokegrenade_expired", SrEventSmokeExpired);
+    HookEvent("player_blind", SrEventPlayerBlind);
 
     AddCommandListener(CommandDrop, "drop");
 
@@ -364,8 +367,6 @@ public Action:cmd_srslots(client, args) {
 }
 
 public Action:cmd_srtest(client, args) {
-    new knife = GetPlayerWeaponSlot(client, 2);
-    EquipPlayerWeapon(client, knife);
 }
 
 public Action:CommandDrop(int client, const char[] command, int args) {
@@ -457,6 +458,8 @@ public OnConfigsExecuted() {
     SetConVarFlags(sv_friction, flags & ~FCVAR_NOTIFY);
     flags = GetConVarFlags(sv_cheats);
     SetConVarFlags(sv_cheats, flags & ~FCVAR_NOTIFY);
+    flags = GetConVarFlags(mp_c4timer);
+    SetConVarFlags(mp_c4timer, flags & ~FCVAR_NOTIFY);
 
 	SetServerConvars();
 
@@ -475,12 +478,14 @@ public SetServerConvars() {
 	new Handle:mp_maxmoney = FindConVar("mp_maxmoney");
 	new Handle:mp_ct_default_secondary = FindConVar("mp_ct_default_secondary");
 	new Handle:mp_t_default_secondary = FindConVar("mp_t_default_secondary");
+    new Handle:mp_autokick = FindConVar("mp_autokick");
 	SetConVarInt(bot_quota, 0);
 	SetConVarString(bot_quota_mode, "none");
 	SetConVarInt(mp_buytime, 0);
 	SetConVarInt(mp_maxmoney, 0);
 	SetConVarString(mp_ct_default_secondary, "");
 	SetConVarString(mp_t_default_secondary, "");
+    SetConVarInt(mp_autokick, 0);
     if (!pugSetupLoaded) {
         SetConVarInt(mp_freezetime, 5, true, false);
     }

@@ -252,6 +252,10 @@ public Action:SrEventPlayerDeathPre(Handle:event, const String:name[], bool:dont
     new userid = GetEventInt(event, "userid");
     new attackerUserid = GetEventInt(event, "attacker");
 
+    if (IsFakeClient(GetClientOfUserId(userid)) || IsFakeClient(GetClientOfUserId(userid))) {
+        return Plugin_Stop;
+    }
+
     if (attackerUserid == 13371337) {
         SetEventInt(event, "attacker", userid);
         return Plugin_Continue;
@@ -271,6 +275,7 @@ public Action:SrEventEntityDeath(Handle:event, const String:name[], bool:dontBro
         new attackerUserid = GetEventInt(event, "attacker");
         char weapon[128];
         GetEventString(event, "weapon", weapon, sizeof(weapon));
+        PrintToServer("weapon=%s", weapon);
         for (new i = 1; i <= MaxClients; i++) {
             if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
                 // Convert player id to string
@@ -312,5 +317,17 @@ public Action:SrEventSmokeExpired(Handle:event, const String:name[], bool:dontBr
         IntToString(entity, entityIdString, sizeof(entityIdString));
 
         smokeMap.Remove(entityIdString);
+    }
+}
+
+public Action:SrEventPlayerBlind(Handle:event, const String:name[], bool:dontBroadcast) {
+    if (g_FlashDmg) {
+        int client = GetClientOfUserId(GetEventInt(event, "userid"));
+        int attackerUserid = GetEventInt(event, "attacker");
+        float blindDuration = GetEventFloat(event, "blind_duration");
+
+        int damage = RoundToNearest(blindDuration * 8.5);
+
+        DamagePlayer(client, damage, attackerUserid, "flashbang");
     }
 }
