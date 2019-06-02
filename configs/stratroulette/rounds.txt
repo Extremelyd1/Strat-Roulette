@@ -192,7 +192,7 @@
 	"19"
 	{
 		"name"			"Space Swag7"
-		"description"	"Everyone has a Mag7 and low gravity."
+		"description"	"Everyone has a MAG-7 and low gravity."
 		"weapon"		"weapon_mag7"
 		"gravity"		"300"
 		"infiniteammo"	"2"
