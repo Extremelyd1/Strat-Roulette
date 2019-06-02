@@ -16,7 +16,7 @@ public Action:SrEventRoundStart(Handle:event, const String:name[], bool:dontBroa
        if (voteTimer == INVALID_HANDLE) {
            voteTimer = CreateTimer(GetConVarInt(mp_freezetime) + 15.0, VoteTimer);
        }
-   }
+    }
 }
 
 public Action:SrEventDecoyStarted(Handle:event, const String:name[], bool:dontBroadcast) {
@@ -178,12 +178,23 @@ public Action:SrEventPlayerDeath(Handle:event, const String:name[], bool:dontBro
 
 	if (IsClientInGame(client)) {
 
-        if (g_Leader) {
-            // Follow the leader
+        if (g_Leader && !IsWiped()) {
             if (client == ctLeader) {
                 SetLeader(CS_TEAM_CT);
             } else if (client == tLeader) {
                 SetLeader(CS_TEAM_T);
+            }
+        }
+
+        if (g_KillList && !IsWiped()) {
+            if (client == ctLeader) {
+                SetLeader(CS_TEAM_CT);
+                SendMessage(ctLeader, "You are on the top of the {DARK_RED}Kill List{NORMAL}, watch out!");
+                SendKillListMessage(CS_TEAM_T);
+            } else if (client == tLeader) {
+                SetLeader(CS_TEAM_T);
+                SendMessage(tLeader, "You are on the top of the {DARK_RED}Kill List{NORMAL}, watch out!");
+                SendKillListMessage(CS_TEAM_CT);
             }
         }
 
@@ -232,23 +243,8 @@ public Action:SrEventPlayerDeath(Handle:event, const String:name[], bool:dontBro
 
 public Action:SrEventPlayerDeathPre(Handle:event, const String:name[], bool:dontBroadcast) {
     if (g_KillRound && !g_Bomberman) {
-        bool ctWiped = true;
-        bool tWiped = true;
-
-        for (int client = 1; client <= MaxClients; client++) {
-            if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-                if (GetClientTeam(client) == CS_TEAM_CT) {
-                    ctWiped = false;
-                } else if (GetClientTeam(client) == CS_TEAM_T) {
-                    tWiped = false;
-                }
-            }
-        }
-
-        if (ctWiped || tWiped) {
+        if (IsWiped()) {
             SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
-
-            return Plugin_Continue;
         }
     }
 
@@ -278,7 +274,6 @@ public Action:SrEventEntityDeath(Handle:event, const String:name[], bool:dontBro
         new attackerUserid = GetEventInt(event, "attacker");
         char weapon[128];
         GetEventString(event, "weapon", weapon, sizeof(weapon));
-        PrintToServer("weapon=%s", weapon);
         for (new i = 1; i <= MaxClients; i++) {
             if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
                 // Convert player id to string

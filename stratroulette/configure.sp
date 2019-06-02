@@ -582,3 +582,20 @@ public ConfigureFlashDmg() {
         g_FlashDmg = true;
     }
 }
+
+public ConfigureKillList() {
+    if (StrEqual(KillList, "1")) {
+        g_KillList = true;
+        SetLeader(CS_TEAM_CT);
+        SetLeader(CS_TEAM_T);
+
+        if (ctLeader != -1) {
+            SendMessage(ctLeader, "You are on the top of the {DARK_RED}Kill List{NORMAL}, watch out!");
+            SendKillListMessage(CS_TEAM_T);
+        }
+        if (tLeader != -1) {
+            SendMessage(tLeader, "You are on the top of the {DARK_RED}Kill List{NORMAL}, watch out!");
+            SendKillListMessage(CS_TEAM_CT);
+        }
+    }
+}

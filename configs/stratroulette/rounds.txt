@@ -545,4 +545,15 @@
 		"noknife"		"1"
 		"flashdmg"		"1"
 	}
+	"53"
+	{
+		"name"			"Kill List"
+		"description"	"One player of each team is on the top of the kill list. Only this player can be killed, attempted to kill others results in death."
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"killlist"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"noc4"			"1"
+		"killround"		"1"
+	}
 }

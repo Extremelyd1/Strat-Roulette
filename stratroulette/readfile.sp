@@ -95,6 +95,7 @@ public ReadNewRound() {
     kv.GetString("monkeysee", MonkeySee, sizeof(MonkeySee), "0");
     kv.GetString("stealth", Stealth, sizeof(Stealth), "0");
     kv.GetString("flashdmg", FlashDmg, sizeof(FlashDmg), "0");
+    kv.GetString("killlist", KillList, sizeof(KillList), "0");
 
     char descriptionOverride[3];
     kv.GetString("descoverride", descriptionOverride, sizeof(descriptionOverride), "0");
@@ -239,6 +240,8 @@ public ReadNewRound() {
     ConfigureStealth();
     //** Flash damage **//
     ConfigureFlashDmg();
+    //** Kill List **//
+    ConfigureKillList();
 
     delete kv;
 

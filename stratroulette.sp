@@ -70,6 +70,7 @@ new String:Captcha[3];
 new String:MonkeySee[3];
 new String:Stealth[3];
 new String:FlashDmg[3];
+new String:KillList[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -105,6 +106,7 @@ new bool:g_Captcha = false;
 new bool:g_MonkeySee = false;
 new bool:g_Stealth = false;
 new bool:g_FlashDmg = false;
+new bool:g_KillList = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {

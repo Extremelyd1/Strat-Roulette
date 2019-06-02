@@ -109,6 +109,7 @@ public ResetConfiguration() {
     g_MonkeySee = false;
     g_Stealth = false;
     g_FlashDmg = false;
+    g_KillList = false;
 }
 
 public int GetNumberOfStrats() {
@@ -188,6 +189,17 @@ public SendMessageAlive(char[] message) {
     }
 }
 
+public SendMessageTeam(char[] message, int team) {
+    Colorize(message, 256);
+    for (int client = 1; client <= MaxClients; client++) {
+        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+            if (team == GetClientTeam(client)) {
+                CPrintToChat(client, message);
+            }
+        }
+    }
+}
+
 public CreateNewRedGreenTimer() {
     float randomFloat;
     if (g_RedLight) {
@@ -245,6 +257,18 @@ public SendVIPMessage(team) {
             }
         }
     }
+}
+
+public SendKillListMessage(team) {
+    new String:message[256];
+
+    if (team == CS_TEAM_CT) {
+        Format(message, sizeof(message), "Your new {DARK_RED}target{NORMAL} is {YELLOW}%s", tLeaderName);
+    } else if (team == CS_TEAM_T) {
+        Format(message, sizeof(message), "Your new {DARK_RED}target{NORMAL} is {YELLOW}%s", ctLeaderName);
+    }
+
+    SendMessageTeam(message, team);
 }
 
 public RemoveWeapons() {
@@ -325,6 +349,23 @@ public GiveAllPlayersItem(char[] item) {
             }
         }
     }
+}
+
+public bool IsWiped() {
+    bool ctWiped = true;
+    bool tWiped = true;
+
+    for (int client = 1; client <= MaxClients; client++) {
+        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+            if (GetClientTeam(client) == CS_TEAM_CT) {
+                ctWiped = false;
+            } else if (GetClientTeam(client) == CS_TEAM_T) {
+                tWiped = false;
+            }
+        }
+    }
+
+    return ctWiped || tWiped;
 }
 
 stock void SelectHotPotato(int client = -1) {

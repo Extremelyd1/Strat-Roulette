@@ -197,11 +197,11 @@ public Action:StartMonkeyTimer(Handle timer) {
 
     if (monkeyOneTeam != CS_TEAM_T) {
         GetEntPropVector(ctLeader, Prop_Send, "m_vecOrigin", ctPos);
-        ctPos[2] += CLIENTHEIGHT * 1.5;
+        ctPos[2] += CLIENTHEIGHT * 2.0;
     }
     if (monkeyOneTeam != CS_TEAM_CT) {
         GetEntPropVector(tLeader, Prop_Send, "m_vecOrigin", tPos);
-        tPos[2] += CLIENTHEIGHT * 1.5;
+        tPos[2] += CLIENTHEIGHT * 2.0;
     }
 
     for (int client = 1; client <= MaxClients; client++) {
@@ -221,15 +221,12 @@ public Action:StartMonkeyTimer(Handle timer) {
                     TeleportEntity(client, ctPos, NULL_VECTOR, NULL_VECTOR);
                 }
             }
-            new knife = GetPlayerWeaponSlot(client, 2);
-            if (knife == -1) {
-                knife = GivePlayerItem(client, "weapon_knife");
-            }
-            EquipPlayerWeapon(client, knife);
         }
     }
 
     CreateTimer(0.5, CheckMonkeyTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+
+    return Plugin_Stop;
 }
 
 public Action:CheckAxeFistsTimer(Handle timer) {
