@@ -74,6 +74,41 @@ public ResetConfiguration() {
             SetEntData(client, g_offsCollisionGroup, 5, 4, true);
         }
     }
+
+    // Setting all state variables to false
+    g_DecoySound = false;
+    g_InfiniteNade = false;
+    g_NoScope = false;
+    g_Vampire = false;
+    g_ChickenDefuse = false;
+    g_HeadShot = false;
+    g_SlowMotion = false;
+    g_DropWeapons = false;
+    g_TinyMags = false;
+    g_Leader = false;
+    g_Axe = false;
+    g_Fists = false;
+    g_BuddySystem = false;
+    g_RandomNade = false;
+    g_Zombies = false;
+    g_HitSwap = false;
+    g_RedGreen = false;
+    g_Manhunt = false;
+    g_HotPotato = false;
+    g_KillRound = false;
+    g_Bomberman = false;
+    g_DontMiss = false;
+    g_CrabWalk = false;
+    g_RandomGuns = false;
+    g_Poison = false;
+    g_Bodyguard = false;
+    g_ZeusRound = false;
+    g_PocketTP = false;
+    g_OneInTheChamber = false;
+    g_Captcha = false;
+    g_MonkeySee = false;
+    g_Stealth = false;
+    g_FlashDmg = false;
 }
 
 public int GetNumberOfStrats() {

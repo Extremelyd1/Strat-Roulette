@@ -97,8 +97,6 @@ public ConfigureHealth() {
 public ConfigureDecoySound() {
     if (StrEqual(DecoySound, "1")) {
 		g_DecoySound = true;
-	} else {
-		g_DecoySound = false;
 	}
 }
 
@@ -119,8 +117,6 @@ public ConfigureInfiniteNades() {
     if (StrEqual(InfiniteNade, "1")) {
 		g_InfiniteNade = true;
         SetConVarInt(mp_death_drop_grenade, 0, true, false);
-	} else {
-		g_InfiniteNade = false;
 	}
 }
 
@@ -158,16 +154,12 @@ public ConfigureNoRecoil() {
 public ConfigureNoScope() {
     if (StrEqual(NoScope, "1")) {
 		g_NoScope = true;
-	} else {
-		g_NoScope = false;
 	}
 }
 
 public ConfigureVampire() {
     if (StrEqual(Vampire, "1")) {
 		g_Vampire = true;
-	} else {
-		g_Vampire = false;
 	}
 }
 
@@ -219,16 +211,12 @@ public ConfigureFov() {
 public ConfigureChickenDefuse() {
     if (StrEqual(ChickenDefuse, "1")) {
 		g_ChickenDefuse = true;
-	} else {
-		g_ChickenDefuse = false;
 	}
 }
 
 public ConfigureHeadshotOnly() {
     if (StrEqual(HeadShot, "1")) {
 		g_HeadShot = true;
-	} else {
-		g_HeadShot = false;
 	}
 }
 
@@ -236,8 +224,6 @@ public ConfigureSlowMotion() {
     if (StrEqual(SlowMotion, "1")) {
 		g_SlowMotion = true;
         CreateTimer(1.0, SlowMotionTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
-	} else {
-		g_SlowMotion = false;
 	}
 }
 
@@ -264,8 +250,6 @@ public ConfigureDropWeapons() {
             }
         }
         CreateTimer(5.0, DropWeaponsTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
-    } else {
-        g_DropWeapons = false;
     }
 }
 
@@ -278,8 +262,6 @@ public ConfigureTinyMags() {
             }
         }
         CreateTimer(0.1, SetTinyMagsTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
-    } else {
-        g_TinyMags = false;
     }
 }
 
@@ -293,8 +275,6 @@ public ConfigureLeader() {
 
         int freezeTime = GetConVarInt(mp_freezetime);
         CreateTimer(freezeTime + 1.0, StartLeaderTimer);
-    } else {
-        g_Leader = false;
     }
 }
 
@@ -327,9 +307,6 @@ public ConfigureAxeFists() {
     } else if (StrEqual(Fists, "1")) {
         g_Fists = true;
         CreateTimer(1.0, CheckAxeFistsTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
-    } else {
-        g_Axe = false;
-        g_Fists = false;
     }
 }
 
@@ -365,8 +342,6 @@ public ConfigureBuddySystem() {
         }
         // Create timer to enforce leader of chicken
         CreateTimer(0.1, BuddyTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
-    } else {
-        g_BuddySystem = false;
     }
 }
 
@@ -374,24 +349,18 @@ public ConfigureRandomNade() {
     if (StrEqual(RandomNade, "1")) {
         g_RandomNade = true;
         SetConVarInt(mp_death_drop_grenade, 0, true, false);
-    } else {
-        g_RandomNade = false;
     }
 }
 
 public ConfigureZombies() {
     if (StrEqual(Zombies, "1")) {
         g_Zombies = true;
-    } else {
-        g_Zombies = false;
     }
 }
 
 public ConfigureHitSwap() {
     if (StrEqual(HitSwap, "1")) {
         g_HitSwap = true;
-    } else {
-        g_HitSwap = false;
     }
 }
 
@@ -400,9 +369,6 @@ public ConfigureRedGreen() {
         g_RedGreen = true;
         CreateTimer(0.5, RedGreenDamageTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
         CreateNewRedGreenTimer();
-    } else {
-        g_RedGreen = false;
-        g_RedLight = false;
     }
 }
 
@@ -413,8 +379,6 @@ public ConfigureManhunt() {
         SetLeader(CS_TEAM_T);
         SendVIPMessage(CS_TEAM_CT);
         SendVIPMessage(CS_TEAM_T);
-    } else {
-        g_Manhunt = false;
     }
 }
 
@@ -433,8 +397,6 @@ public ConfigureHotPotato() {
         int freezeTime = GetConVarInt(mp_freezetime);
 
         CreateTimer(freezeTime + 10.0, NewHotPotatoTimer);
-    } else {
-        g_HotPotato = false;
     }
 }
 
@@ -442,8 +404,6 @@ public ConfigureKillRound() {
     if (StrEqual(KillRound, "1")) {
         g_KillRound = true;
         SetConVarInt(mp_ignore_round_win_conditions, 1, true, false);
-    } else {
-        g_KillRound = false;
     }
 }
 
@@ -455,24 +415,18 @@ public ConfigureBomberman() {
         SetConVarInt(mp_c4_cannot_be_defused, 1, true, false);
         SetConVarInt(mp_anyone_can_pickup_c4, 1, true, false);
         CreateTimer(0.1, CheckC4Timer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
-    } else {
-        g_Bomberman = false;
     }
 }
 
 public ConfigureDontMiss() {
     if (StrEqual(DontMiss, "1")) {
         g_DontMiss = true;
-    } else {
-        g_DontMiss = false;
     }
 }
 
 public ConfigureCrabWalk() {
     if (StrEqual(CrabWalk, "1")) {
         g_CrabWalk = true;
-    } else {
-        g_CrabWalk = false;
     }
 }
 
@@ -480,8 +434,6 @@ public ConfigureRandomGuns() {
     if (StrEqual(RandomGuns, "1")) {
         g_RandomGuns = true;
         CreateTimer(1.0, RandomGunsTimer);
-    } else {
-        g_RandomGuns = false;
     }
 }
 
@@ -490,8 +442,6 @@ public ConfigurePoison() {
         smokeMap.Clear();
         g_Poison = true;
         CreateTimer(0.5, PoisonDamageTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
-    } else {
-        g_Poison = false;
     }
 }
 
@@ -521,16 +471,12 @@ public ConfigureBodyguard() {
                  GivePlayerItem(client, "weapon_shield");
             }
         }
-    } else {
-        g_Bodyguard = false;
     }
 }
 
 public ConfigureZeusRound() {
     if (StrEqual(ZeusRound, "1")) {
         g_ZeusRound = true;
-    } else {
-        g_ZeusRound = false;
     }
 }
 
@@ -542,8 +488,6 @@ public ConfigurePocketTP() {
                 SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", 0.0);
             }
         }
-    } else {
-        g_PocketTP = false;
     }
 }
 
@@ -555,8 +499,6 @@ public ConfigureOneInTheChamber() {
                 SetClipAmmo(client, 1);
             }
         }
-    } else {
-        g_OneInTheChamber = false;
     }
 }
 
@@ -565,8 +507,6 @@ public ConfigureCaptcha() {
         g_Captcha = true;
         float randomFloat = GetRandomFloat(2.0, 5.0);
         CreateTimer(GetConVarInt(mp_freezetime) + randomFloat, SendCaptchaTimer);
-    } else {
-        g_Captcha = false;
     }
 }
 
@@ -616,8 +556,6 @@ public ConfigureMonkeySee() {
         }
 
         CreateTimer(1.5, StartMonkeyTimer);
-    } else {
-        g_MonkeySee = false;
     }
 }
 
@@ -631,7 +569,6 @@ public ConfigureStealth() {
             }
         }
     } else {
-        g_Stealth = false;
         for (int client = 1; client <= MaxClients; client++) {
             if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
                 SDKUnhook(client, SDKHook_SetTransmit, Hook_StealthTransmit);
@@ -643,7 +580,5 @@ public ConfigureStealth() {
 public ConfigureFlashDmg() {
     if (StrEqual(FlashDmg, "1")) {
         g_FlashDmg = true;
-    } else {
-        g_FlashDmg = false;
     }
 }

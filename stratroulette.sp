@@ -183,7 +183,9 @@ new bool:skipNextKill = false;
 
 // Round variables
 int lastRound = -1;
+
 new Handle:voteTimer = INVALID_HANDLE;
+
 new bool:nextRoundVoted = false;
 new String:voteRoundNumber[16];
 new bool:forceNextRound = false;
@@ -266,6 +268,33 @@ public OnPluginStart() {
     for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && !IsFakeClient(client)) {
             SDKHook(client, SDKHook_OnTakeDamage, Hook_OnTakeDamage);
+        }
+    }
+
+    if (voteTimer != INVALID_HANDLE) {
+        CloseHandle(voteTimer);
+        voteTimer = INVALID_HANDLE;
+    }
+}
+
+public OnPluginEnd() {
+    UnhookEvent("decoy_started", SrEventDecoyStarted);
+	UnhookEvent("weapon_zoom", SrEventWeaponZoom, EventHookMode_Post);
+	UnhookEvent("bomb_planted", SrBombPlanted_Event);
+	UnhookEvent("inspect_weapon", SrEventInspectWeapon);
+	UnhookEvent("round_end", SrEventRoundEnd);
+	UnhookEvent("round_start", SrEventRoundStart);
+	UnhookEvent("player_death", SrEventPlayerDeath);
+    UnhookEvent("player_death", SrEventPlayerDeathPre, EventHookMode_Pre);
+    UnhookEvent("other_death", SrEventEntityDeath);
+    UnhookEvent("weapon_fire", SrEventWeaponFire);
+    UnhookEvent("smokegrenade_detonate", SrEventSmokeDetonate);
+    UnhookEvent("smokegrenade_expired", SrEventSmokeExpired);
+    UnhookEvent("player_blind", SrEventPlayerBlind);
+
+    for (int client = 1; client <= MaxClients; client++) {
+        if (IsClientInGame(client) && !IsFakeClient(client)) {
+            SDKUnhook(client, SDKHook_OnTakeDamage, Hook_OnTakeDamage);
         }
     }
 }

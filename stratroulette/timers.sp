@@ -221,9 +221,12 @@ public Action:StartMonkeyTimer(Handle timer) {
                     TeleportEntity(client, ctPos, NULL_VECTOR, NULL_VECTOR);
                 }
             }
+            new knife = GetPlayerWeaponSlot(client, 2);
+            if (knife == -1) {
+                knife = GivePlayerItem(client, "weapon_knife");
+            }
+            EquipPlayerWeapon(client, knife);
         }
-        new knife = GetPlayerWeaponSlot(client, 2);
-        EquipPlayerWeapon(client, knife);
     }
 
     CreateTimer(0.5, CheckMonkeyTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);

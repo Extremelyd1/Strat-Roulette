@@ -12,7 +12,10 @@ public Action:SrEventRoundEnd(Handle:event, const String:name[], bool:dontBroadc
 public Action:SrEventRoundStart(Handle:event, const String:name[], bool:dontBroadcast) {
     if (IsPugSetupMatchLive() || inGame) {
        ReadNewRound();
-       voteTimer = CreateTimer(GetConVarInt(mp_freezetime) + 15.0, VoteTimer);
+       // Don't create new timer if another already exists
+       if (voteTimer == INVALID_HANDLE) {
+           voteTimer = CreateTimer(GetConVarInt(mp_freezetime) + 15.0, VoteTimer);
+       }
    }
 }
 
