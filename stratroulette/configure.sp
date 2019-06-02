@@ -607,3 +607,9 @@ public ConfigureBreach() {
         CreateTimer(1.0, CheckBreachTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
     }
 }
+
+public ConfigureDrones() {
+    if (StrEqual(Drones, "1")) {
+        g_Drones = true;
+    }
+}

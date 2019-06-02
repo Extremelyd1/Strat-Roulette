@@ -13,7 +13,7 @@ public Action:SrEventRoundStart(Handle:event, const String:name[], bool:dontBroa
     if (IsPugSetupMatchLive() || inGame) {
        ReadNewRound();
        // Don't create new timer if another already exists
-       if (voteTimer == INVALID_HANDLE) {
+       if (voteTimer == INVALID_HANDLE && !nextRoundVoted) {
            voteTimer = CreateTimer(GetConVarInt(mp_freezetime) + 15.0, VoteTimer);
        }
     }
@@ -26,6 +26,32 @@ public Action:SrEventDecoyStarted(Handle:event, const String:name[], bool:dontBr
 			RemoveEdict(entity);
 		}
 	}
+
+    if (g_Drones) {
+        new entity = GetEventInt(event, "entityid");
+        if (IsValidEntity(entity)) {
+            RemoveEntity(entity);
+
+            new client = GetClientOfUserId(GetEventInt(event, "userid"));
+
+            int dronegun = CreateEntityByName("dronegun");
+
+            SetEntData(dronegun, g_offsCollisionGroup, 5, 4, true);
+            SetEntPropEnt(dronegun, Prop_Send, "m_hOwnerEntity", client);
+
+            float pos[3];
+            pos[0] = GetEventFloat(event, "x");
+            pos[1] = GetEventFloat(event, "y");
+            pos[2] = GetEventFloat(event, "z");
+
+            TeleportEntity(dronegun, pos, NULL_VECTOR, NULL_VECTOR);
+            DispatchSpawn(dronegun);
+
+            new String:entityIdString[64];
+            IntToString(dronegun, entityIdString, sizeof(entityIdString));
+            droneMap.SetValue(entityIdString, client);
+        }
+    }
 }
 
 public Action:SrEventWeaponZoom(Handle:event, const String:name[], bool:dontBroadcast) {
@@ -269,8 +295,9 @@ public Action:SrEventPlayerDeathPre(Handle:event, const String:name[], bool:dont
 }
 
 public Action:SrEventEntityDeath(Handle:event, const String:name[], bool:dontBroadcast) {
+    new entity = GetEventInt(event, "otherid");
+
     if (g_BuddySystem) {
-        new entity = GetEventInt(event, "otherid");
         new attackerUserid = GetEventInt(event, "attacker");
         char weapon[128];
         GetEventString(event, "weapon", weapon, sizeof(weapon));
@@ -288,6 +315,18 @@ public Action:SrEventEntityDeath(Handle:event, const String:name[], bool:dontBro
                     chickenMap.Remove(playerIdString);
                 }
             }
+        }
+    }
+
+    if (g_Drones) {
+        new String:entityIdString[64];
+        IntToString(entity, entityIdString, sizeof(entityIdString));
+
+        int client;
+        if (droneMap.GetValue(entityIdString, client)) {
+            droneMap.Remove(entityIdString);
+
+            GivePlayerItem(client, "weapon_decoy");
         }
     }
 }
@@ -321,11 +360,13 @@ public Action:SrEventSmokeExpired(Handle:event, const String:name[], bool:dontBr
 public Action:SrEventPlayerBlind(Handle:event, const String:name[], bool:dontBroadcast) {
     if (g_FlashDmg) {
         int client = GetClientOfUserId(GetEventInt(event, "userid"));
-        int attackerUserid = GetEventInt(event, "attacker");
-        float blindDuration = GetEventFloat(event, "blind_duration");
+        if (IsPlayerAlive(client)) {
+            int attackerUserid = GetEventInt(event, "attacker");
+            float blindDuration = GetEventFloat(event, "blind_duration");
 
-        int damage = RoundToNearest(blindDuration * 8.5);
+            int damage = RoundToNearest(blindDuration * 8.5);
 
-        DamagePlayer(client, damage, attackerUserid, "flashbang");
+            DamagePlayer(client, damage, attackerUserid, "flashbang");
+        }
     }
 }

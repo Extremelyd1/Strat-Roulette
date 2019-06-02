@@ -57,6 +57,8 @@ public ResetConfiguration() {
     SetConVarInt(mp_solid_teammates, 1, true, false);
     // Monkey see
     monkeyOneTeam = -1;
+    // Drones
+
     // Client loop
     for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
@@ -111,6 +113,7 @@ public ResetConfiguration() {
     g_FlashDmg = false;
     g_KillList = false;
     g_Breach = false;
+    g_Drones = false;
 }
 
 public int GetNumberOfStrats() {
@@ -164,12 +167,14 @@ public SendLeaderMessage(team) {
             }
         }
     }
-    SendMessageAlive("{LIGHT_GREEN}Follow {NORMAL}the leader or you {DARK_RED}die");
+    SendMessageTeam("{LIGHT_GREEN}Follow {NORMAL}the leader or you {DARK_RED}die", team);
 }
 
 public SendMessage(client, char[] message) {
-    Colorize(message, 512);
-    CPrintToChat(client, message);
+    if (IsClientInGame(client) && !IsFakeClient(client)) {
+        Colorize(message, 512);
+        CPrintToChat(client, message);
+    }
 }
 
 public SendMessageAll(char[] message) {
@@ -300,6 +305,13 @@ public RemoveWeaponsClient(int client) {
     if (secondary > -1) {
         RemovePlayerItem(client, secondary);
         RemoveEdict(secondary);
+    }
+
+    char classname[128];
+    if (c4 != -1) {
+        GetEdictClassname(c4, classname, sizeof(classname));
+
+        PrintToServer("edict classname: %s", classname);
     }
 
     if (StrEqual(NoC4, "1") && c4 > -1) {

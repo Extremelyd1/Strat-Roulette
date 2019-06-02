@@ -72,6 +72,7 @@ new String:Stealth[3];
 new String:FlashDmg[3];
 new String:KillList[3];
 new String:Breach[3];
+new String:Drones[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -109,6 +110,7 @@ new bool:g_Stealth = false;
 new bool:g_FlashDmg = false;
 new bool:g_KillList = false;
 new bool:g_Breach = false;
+new bool:g_Drones = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -182,6 +184,8 @@ ArrayList captchaClients;
 int monkeyOneTeam = -1;
 // Stealth
 new stealthVisible[MAXPLAYERS + 1];
+// Drones
+new StringMap:droneMap;
 // Kill method
 new bool:skipNextKill = false;
 
@@ -223,6 +227,7 @@ new Handle:mp_c4_cannot_be_defused;
 new Handle:mp_anyone_can_pickup_c4;
 new Handle:mp_death_drop_grenade;
 new Handle:mp_solid_teammates;
+new Handle:host_timescale;
 
 #include "stratroulette/configure.sp"
 #include "stratroulette/readfile.sp"
@@ -320,6 +325,34 @@ public void OnMapStart() {
         ServerCommand("mp_warmup_pausetimer 1");
         ServerCommand("mp_warmup_pausetimer 1");
     }
+
+    // Precache necessary models
+    int precache = PrecacheModel("models/props_survival/dronegun/dronegun.mdl", true);
+    if (precache == 0) {
+        SetFailState("models/props_survival/dronegun/dronegun.mdl not precached !");
+    }
+
+    PrecacheModel("models/props_survival/dronegun/dronegun_gib1.mdl", true);
+    PrecacheModel("models/props_survival/dronegun/dronegun_gib2.mdl", true);
+    PrecacheModel("models/props_survival/dronegun/dronegun_gib3.mdl", true);
+    PrecacheModel("models/props_survival/dronegun/dronegun_gib4.mdl", true);
+    PrecacheModel("models/props_survival/dronegun/dronegun_gib5.mdl", true);
+    PrecacheModel("models/props_survival/dronegun/dronegun_gib6.mdl", true);
+    PrecacheModel("models/props_survival/dronegun/dronegun_gib7.mdl", true);
+    PrecacheModel("models/props_survival/dronegun/dronegun_gib8.mdl", true);
+
+    PrecacheSound("sound/survival/turret_death_01.wav", true);
+    PrecacheSound("sound/survival/turret_idle_01.wav", true);
+
+    PrecacheSound("sound/survival/turret_takesdamage_01.wav", true);
+    PrecacheSound("sound/survival/turret_takesdamage_02.wav", true);
+    PrecacheSound("sound/survival/turret_takesdamage_03.wav", true);
+
+    PrecacheSound("sound/survival/turret_lostplayer_01.wav", true);
+    PrecacheSound("sound/survival/turret_lostplayer_02.wav", true);
+    PrecacheSound("sound/survival/turret_lostplayer_03.wav", true);
+
+    PrecacheSound("sound/survival/turret_sawplayer_01.wav", true);
 }
 
 public OnClientPutInServer(client) {
@@ -400,22 +433,6 @@ public Action:cmd_srslots(client, args) {
 }
 
 public Action:cmd_srtest(client, args) {
-    if (args == 1) {
-        for (new i = 1; i <= MaxClients; i++) {
-            if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-                SetClipAmmo(i, 4);
-            }
-        }
-    } else {
-        RemoveWeapons();
-        RemoveNades();
-        for (new i = 1; i <= MaxClients; i++) {
-            if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-                new breach = GivePlayerItem(i, "weapon_breachcharge");
-                EquipPlayerWeapon(i, breach);
-            }
-        }
-    }
 }
 
 public Action:CommandDrop(int client, const char[] command, int args) {
@@ -493,6 +510,7 @@ public OnConfigsExecuted() {
     mp_anyone_can_pickup_c4 = FindConVar("mp_anyone_can_pickup_c4");
     mp_death_drop_grenade = FindConVar("mp_death_drop_grenade");
     mp_solid_teammates = FindConVar("mp_solid_teammates");
+    host_timescale = FindConVar("host_timescale");
 
     g_offsCollisionGroup = FindSendPropInfo("CBaseEntity", "m_CollisionGroup");
 
@@ -509,6 +527,8 @@ public OnConfigsExecuted() {
     SetConVarFlags(sv_cheats, flags & ~FCVAR_NOTIFY);
     flags = GetConVarFlags(mp_c4timer);
     SetConVarFlags(mp_c4timer, flags & ~FCVAR_NOTIFY);
+    flags = GetConVarFlags(host_timescale);
+    SetConVarFlags(host_timescale, flags & ~FCVAR_CHEAT);
 
 	SetServerConvars();
 
@@ -516,6 +536,7 @@ public OnConfigsExecuted() {
     chickenHealth = CreateTrie();
     positionMap = CreateTrie();
     smokeMap = CreateTrie();
+    droneMap = CreateTrie();
     captchaClients = new ArrayList();
 }
 
