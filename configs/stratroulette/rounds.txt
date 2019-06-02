@@ -372,6 +372,7 @@
 		"armor"			"100"
 		"helmet"		"1"
 		"hitswap"		"1"
+		"defuser"		"1"
 	}
 	"37"
 	{
@@ -555,5 +556,17 @@
 		"helmet"		"1"
 		"noc4"			"1"
 		"killround"		"1"
+	}
+	"54"
+	{
+		"name"			"Breach, breach, breach!"
+		"description"	"Everyone has unlimited breach charges, however you can only have 3 active at a time."
+		"weapon"		"none"
+		"breach"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"noc4"			"1"
+		"killround"		"1"
+		"noknife"		"1"
 	}
 }

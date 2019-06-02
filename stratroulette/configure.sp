@@ -599,3 +599,11 @@ public ConfigureKillList() {
         }
     }
 }
+
+public ConfigureBreach() {
+    if (StrEqual(Breach, "1")) {
+        g_Breach = true;
+
+        CreateTimer(1.0, CheckBreachTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+    }
+}

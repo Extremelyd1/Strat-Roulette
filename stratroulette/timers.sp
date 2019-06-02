@@ -253,6 +253,26 @@ public Action:CheckAxeFistsTimer(Handle timer) {
     return Plugin_Continue;
 }
 
+public Action:CheckBreachTimer(Handle timer) {
+    if (!g_Breach) {
+        return Plugin_Stop;
+    }
+
+    for (new i = 1; i <= MaxClients; i++) {
+        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+            new breachSlot = GetPlayerWeaponSlot(i, 4);
+
+            if (breachSlot < 0) {
+                new breach = GivePlayerItem(i, "weapon_breachcharge");
+                EquipPlayerWeapon(i, breach);
+            } else {
+            }
+        }
+    }
+
+    return Plugin_Continue;
+}
+
 public Action:BuddyTimer(Handle timer) {
     if (!g_BuddySystem) {
         return Plugin_Stop;

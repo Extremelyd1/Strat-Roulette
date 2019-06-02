@@ -110,6 +110,7 @@ public ResetConfiguration() {
     g_Stealth = false;
     g_FlashDmg = false;
     g_KillList = false;
+    g_Breach = false;
 }
 
 public int GetNumberOfStrats() {

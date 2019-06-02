@@ -71,6 +71,7 @@ new String:MonkeySee[3];
 new String:Stealth[3];
 new String:FlashDmg[3];
 new String:KillList[3];
+new String:Breach[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -107,6 +108,7 @@ new bool:g_MonkeySee = false;
 new bool:g_Stealth = false;
 new bool:g_FlashDmg = false;
 new bool:g_KillList = false;
+new bool:g_Breach = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -398,10 +400,26 @@ public Action:cmd_srslots(client, args) {
 }
 
 public Action:cmd_srtest(client, args) {
+    if (args == 1) {
+        for (new i = 1; i <= MaxClients; i++) {
+            if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+                SetClipAmmo(i, 4);
+            }
+        }
+    } else {
+        RemoveWeapons();
+        RemoveNades();
+        for (new i = 1; i <= MaxClients; i++) {
+            if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+                new breach = GivePlayerItem(i, "weapon_breachcharge");
+                EquipPlayerWeapon(i, breach);
+            }
+        }
+    }
 }
 
 public Action:CommandDrop(int client, const char[] command, int args) {
-    if (g_HotPotato || g_Bomberman || g_Bodyguard) {
+    if (g_HotPotato || g_Bomberman || g_Bodyguard || g_RandomGuns) {
         return Plugin_Stop;
     }
 
