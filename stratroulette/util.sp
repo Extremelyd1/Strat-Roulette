@@ -32,6 +32,9 @@ public ResetConfiguration() {
     // Acceleration
     SetConVarFloat(sv_accelerate, 5.5, true, false);
     SetConVarInt(sv_airaccelerate, 12, true, false);
+    // Leader
+    ctLeader = -1;
+    tLeader = -1;
     // Friction
     SetConVarFloat(sv_friction, 5.2, true, false);
     // All on map
@@ -294,7 +297,7 @@ public RemoveWeaponsClient(int client) {
 
     new primary = GetPlayerWeaponSlot(client, 0);
     new secondary = GetPlayerWeaponSlot(client, 1);
-    new c4 = GetPlayerWeaponSlot(client, 4);
+    new c4Slot = GetPlayerWeaponSlot(client, 4);
     new shield = GetPlayerWeaponSlot(client, 11);
 
     if (primary > -1) {
@@ -308,15 +311,13 @@ public RemoveWeaponsClient(int client) {
     }
 
     char classname[128];
-    if (c4 != -1) {
-        GetEdictClassname(c4, classname, sizeof(classname));
+    if (c4Slot != -1) {
+        GetEdictClassname(c4Slot, classname, sizeof(classname));
 
-        PrintToServer("edict classname: %s", classname);
-    }
-
-    if (StrEqual(NoC4, "1") && c4 > -1) {
-        RemovePlayerItem(client, c4);
-        RemoveEdict(c4);
+        if (!StrEqual(classname, "weapon_c4") || StrEqual(NoC4, "1")) {
+            RemovePlayerItem(client, c4Slot);
+            RemoveEdict(c4Slot);
+        }
     }
 
     if (shield > -1) {

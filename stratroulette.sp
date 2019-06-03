@@ -433,6 +433,12 @@ public Action:cmd_srslots(client, args) {
 }
 
 public Action:cmd_srtest(client, args) {
+    for (int i = 0; i < 30; i++) {
+        int roundResult = GameRules_GetProp("m_iMatchStats_RoundResults", 8, i);
+        int tAlive = GameRules_GetProp("m_iMatchStats_PlayersAlive_T", 6, i);
+        int ctAlive = GameRules_GetProp("m_iMatchStats_PlayersAlive_CT", 6, i);
+        PrintToServer("Round %d, result=%d, tAlive=%d, ctAlive=%d", i, roundResult, tAlive, ctAlive);
+    }
 }
 
 public Action:CommandDrop(int client, const char[] command, int args) {
