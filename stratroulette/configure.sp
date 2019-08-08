@@ -621,3 +621,9 @@ public ConfigureDrones() {
         g_Drones = true;
     }
 }
+
+public ConfigurePanic() {
+    if (StrEqual(Panic, "1")) {
+        g_Panic = true;
+    }
+}

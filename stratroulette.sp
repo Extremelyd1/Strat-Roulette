@@ -78,6 +78,7 @@ new String:KillList[3];
 new String:Breach[3];
 new String:Drones[3];
 new String:Bumpmine[3];
+new String:Panic[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -117,6 +118,7 @@ new bool:g_KillList = false;
 new bool:g_Breach = false;
 new bool:g_Drones = false;
 new bool:g_Bumpmine = false;
+new bool:g_Panic = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {

@@ -193,5 +193,12 @@ public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &d
         }
     }
 
+    if (g_Panic) {
+        new ent = GetPlayerWeaponSlot(victim, 0);
+        if (ent >= 0) {
+            CS_DropWeapon(victim, ent, true, true);
+        }
+    }
+
     return Plugin_Continue;
 }

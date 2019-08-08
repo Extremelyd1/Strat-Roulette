@@ -98,7 +98,8 @@ public ReadNewRound() {
     kv.GetString("killlist", KillList, sizeof(KillList), "0");
     kv.GetString("breach", Breach, sizeof(Breach), "0");
     kv.GetString("drones", Drones, sizeof(Drones), "0");
-    kv.GetString("bumpmine", Bumpmine, sizeof(Bumpmine), "0")
+    kv.GetString("bumpmine", Bumpmine, sizeof(Bumpmine), "0");
+    kv.GetString("panic", Panic, sizeof(Panic), "0");
 
     char descriptionOverride[3];
     kv.GetString("descoverride", descriptionOverride, sizeof(descriptionOverride), "0");
@@ -251,6 +252,8 @@ public ReadNewRound() {
     ConfigureDrones();
     //** Bumpmine **//
     ConfigureBumpmine();
+    //** Panic **//
+    ConfigurePanic();
 
     delete kv;
 
