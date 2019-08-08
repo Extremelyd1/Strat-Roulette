@@ -273,6 +273,26 @@ public Action:CheckBreachTimer(Handle timer) {
     return Plugin_Continue;
 }
 
+public Action:CheckBumpmineTimer(Handle timer) {
+    if (!g_Bumpmine) {
+        return Plugin_Stop;
+    }
+
+    for (new i = 1; i <= MaxClients; i++) {
+        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+            new mineSlot = GetPlayerWeaponSlot(i, 4);
+
+            if (mineSlot < 0) {
+                new mine = GivePlayerItem(i, "weapon_bumpmine");
+                EquipPlayerWeapon(i, mine);
+            } else {
+            }
+        }
+    }
+
+    return Plugin_Continue;
+}
+
 public Action:BuddyTimer(Handle timer) {
     if (!g_BuddySystem) {
         return Plugin_Stop;

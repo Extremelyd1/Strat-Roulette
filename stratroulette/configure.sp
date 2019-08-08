@@ -608,6 +608,14 @@ public ConfigureBreach() {
     }
 }
 
+public ConfigureBumpmine() {
+    if (StrEqual(Bumpmine, "1")) {
+        g_Bumpmine = true;
+
+        CreateTimer(1.0, CheckBumpmineTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+    }
+}
+
 public ConfigureDrones() {
     if (StrEqual(Drones, "1")) {
         g_Drones = true;

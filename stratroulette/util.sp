@@ -117,6 +117,7 @@ public ResetConfiguration() {
     g_KillList = false;
     g_Breach = false;
     g_Drones = false;
+    g_Bumpmine = false;
 }
 
 public int GetNumberOfStrats() {
