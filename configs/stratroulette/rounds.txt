@@ -445,8 +445,6 @@
 		"weapon"		"weapon_hegrenade"
 		"noknife"		"1"
 		"randomnade"	"1"
-		"killround"		"1"
-		"noc4"			"1"
 	}
 	"44"
 	{
@@ -556,6 +554,7 @@
 		"helmet"		"1"
 		"noc4"			"1"
 		"killround"		"1"
+		"showallmap"	"1"
 	}
 	"54"
 	{
@@ -567,6 +566,41 @@
 		"helmet"		"1"
 		"noc4"			"1"
 		"killround"		"1"
+		"noknife"		"1"
+		"health"		"200"
+	}
+	"55"
+	{
+		"name"			"Tower Defense"
+		"description"	"Throw your decoy to spawn a turret on its location."
+		"weapon"		"weapon_decoy"
+		"drones"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+	}
+	"56"
+	{
+		"name"			"Minefield"
+		"description"	"Everyone has unlimited bump mines and 200 health."
+		"weapon"		"none"
+		"bumpmine"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"noc4"			"1"
+		"killround"		"1"
+		"noknife"		"1"
+		"health"		"200"
+	}
+	"57"
+	{
+		"name"			"Panic"
+		"description"	"Whenever a player gets hit, they drop their weapon."
+		"weapon"		"weapon_primary_random"
+		"panic"			"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"health"		"100"
+		"tinymags"		"1"
 		"noknife"		"1"
 	}
 }
