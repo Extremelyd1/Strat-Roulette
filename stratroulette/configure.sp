@@ -627,3 +627,9 @@ public ConfigurePanic() {
         g_Panic = true;
     }
 }
+
+public ConfigureDropshot() {
+    if (StrEqual(Dropshot, "1")) {
+        g_Dropshot = true;
+    }
+}

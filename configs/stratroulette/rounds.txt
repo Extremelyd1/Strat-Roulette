@@ -594,7 +594,7 @@
 	"57"
 	{
 		"name"			"Panic"
-		"description"	"Whenever a player gets hit, they drop their weapon."
+		"description"	"Whenever you get hit, you drop your weapon."
 		"weapon"		"weapon_primary_random"
 		"panic"			"1"
 		"armor"			"100"
@@ -602,5 +602,15 @@
 		"health"		"100"
 		"tinymags"		"1"
 		"noknife"		"1"
+	}
+	"58"
+	{
+		"name"			"Dropshot"
+		"description"	"Whenever you shoot a gun, you drop it."
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"dropshot"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"health"		"100"
 	}
 }

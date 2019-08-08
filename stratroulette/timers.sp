@@ -639,3 +639,17 @@ public Action:SendCaptchaTimer(Handle timer) {
 
     return Plugin_Continue;
 }
+
+public Action:DropShotWeapon(Handle timer, DataPack data) {
+    if (!g_Dropshot) {
+        return Plugin_Stop;
+    }
+
+    data.Reset();
+    int client = data.ReadCell();
+    new weapon = data.ReadCell();
+
+    CS_DropWeapon(client, weapon, true, true);
+
+    return Plugin_Continue;
+}

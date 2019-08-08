@@ -119,6 +119,7 @@ public ResetConfiguration() {
     g_Drones = false;
     g_Bumpmine = false;
     g_Panic = false;
+    g_Dropshot = false;
 }
 
 public int GetNumberOfStrats() {

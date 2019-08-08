@@ -165,6 +165,18 @@ public Action:SrEventWeaponFire(Handle:event, const String:name[], bool:dontBroa
         }
     }
 
+    if (g_Dropshot) {
+        new client = GetClientOfUserId(GetEventInt(event, "userid"));
+
+        new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
+        if (weapon > 0) {
+            DataPack data = new DataPack();
+            data.WriteCell(client);
+            data.WriteCell(weapon);
+            CreateTimer(0.1, DropShotWeapon, data);
+        }
+    }
+
     return Plugin_Continue;
 }
 
