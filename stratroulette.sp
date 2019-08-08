@@ -693,16 +693,18 @@ public int VoteMenuHandler(Menu menu, MenuAction action, int param1, int param2)
         nextRoundVoted = true;
 
         char message[256];
-        Format(message, sizeof(message), "Map voting {LIGHT_GREEN}finished{NORMAL}, next round is {DARK_BLUE}%s", winningRoundName);
+        Format(message, sizeof(message), "Round voting {LIGHT_GREEN}finished{NORMAL}, next round is {DARK_BLUE}%s", winningRoundName);
 
         for (int i = 1; i <= MaxClients; i++) {
             if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
                 SendMessage(i, message);
             }
         }
-
-        delete menu;
     }
+    
+    if (action == MenuAction_End) {
+		delete menu;
+	}
 }
 
 public bool:RayFilter(entity, mask, any:data) {
