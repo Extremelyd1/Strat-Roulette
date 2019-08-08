@@ -14,6 +14,10 @@
 #define	CLIENTWIDTH	35.0
 #define	CLIENTHEIGHT 90.0
 
+// Convar handles
+ConVar g_AutoStart;
+ConVar g_AutoStartMinPlayers;
+
 // KeyValue strings
 new String:RoundName[200];
 new String:Collision[20];
@@ -247,6 +251,17 @@ public Plugin:myinfo =  {
 }
 
 public OnPluginStart() {
+
+    //** Convars **//
+    g_AutoStart = CreateConVar(
+        "sm_sr_auto_start", "0",
+        "Whether to automagically start the game when enough players are present"
+    );
+    g_AutoStartMinPlayers = CreateConVar(
+        "sm_sr_auto_start_min_players", "4",
+        "The minimum number of players required to automagically start the game"
+    );
+
     //** Commands **//
     RegAdminCmd("sm_start", cmd_start, ADMFLAG_ROOT, "Command to start the match");
     RegAdminCmd("sm_end", cmd_end, ADMFLAG_ROOT, "Command to end the match");
@@ -270,6 +285,7 @@ public OnPluginStart() {
     HookEvent("smokegrenade_detonate", SrEventSmokeDetonate);
     HookEvent("smokegrenade_expired", SrEventSmokeExpired);
     HookEvent("player_blind", SrEventPlayerBlind);
+    HookEvent("switch_team", SrEventSwitchTeam);
 
     AddCommandListener(CommandDrop, "drop");
 
@@ -414,7 +430,7 @@ public Action:cmd_setround(client, args) {
 }
 
 public Action:cmd_endround(client, args) {
-    CS_TerminateRound(1.0, CSRoundEnd_Draw, true);
+    CS_TerminateRound(1.0, CSRoundEnd_Draw, false);
 
     return Plugin_Handled;
 }
@@ -433,12 +449,6 @@ public Action:cmd_srslots(client, args) {
 }
 
 public Action:cmd_srtest(client, args) {
-    for (int i = 0; i < 30; i++) {
-        int roundResult = GameRules_GetProp("m_iMatchStats_RoundResults", 8, i);
-        int tAlive = GameRules_GetProp("m_iMatchStats_PlayersAlive_T", 6, i);
-        int ctAlive = GameRules_GetProp("m_iMatchStats_PlayersAlive_CT", 6, i);
-        PrintToServer("Round %d, result=%d, tAlive=%d, ctAlive=%d", i, roundResult, tAlive, ctAlive);
-    }
 }
 
 public Action:CommandDrop(int client, const char[] command, int args) {

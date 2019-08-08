@@ -38,7 +38,7 @@ public ReadNewRound() {
         return 0;
     }
 
-    PrintToServer("Picked strat %s", roundNumberString);
+    /* PrintToServer("Picked strat %s", roundNumberString); */
 
     kv.GetString("name", RoundName, sizeof(RoundName), "No name round!");
     kv.GetString("thirdperson", ThirdPerson, sizeof(ThirdPerson), "0");

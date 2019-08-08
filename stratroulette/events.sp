@@ -370,3 +370,15 @@ public Action:SrEventPlayerBlind(Handle:event, const String:name[], bool:dontBro
         }
     }
 }
+
+public Action:SrEventSwitchTeam(Event event, const char[] name, bool dontBroadcast) {
+
+    if (!pugSetupLoaded && !inGame && g_AutoStart.IntValue == 1) {
+        int numPlayers = GetEventInt(event, "numPlayers");
+
+        if (numPlayers >= g_AutoStartMinPlayers.IntValue) {
+            ServerCommand("mp_warmup_end 5");
+            inGame = true;
+        }
+    }
+}
