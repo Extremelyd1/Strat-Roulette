@@ -1,0 +1,5 @@
+"MonitorScreen"
+{
+	"$basetexture" "overlays/stratroulette/tunnel_vision_overlay"
+	"$translucent" 1
+}

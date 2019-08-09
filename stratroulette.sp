@@ -3,13 +3,12 @@
 #include <sdkhooks>
 #include <cstrike>
 #include <smlib>
-#include <overlays>
 #include "include/adt_trie.inc"
 #include "include/colors.inc"
 #include "include/keyvalues.inc"
 
 #define STRAT_FILE "addons/sourcemod/configs/stratroulette/rounds.txt"
-#define SMALL_OPENING_OVERLAY "overlays/stratroulette/small_opening_overlay"
+#define TUNNEL_VISION_OVERLAY "overlays/stratroulette/tunnel_vision_overlay"
 #define PRIMARY_LENGTH 24
 #define SECONDARY_LENGTH 10
 #define SMOKE_RADIUS 165
@@ -83,6 +82,7 @@ new String:Bumpmine[3];
 new String:Panic[3];
 new String:Dropshot[3];
 new String:Hardcore[3];
+new String:TunnelVision[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -382,7 +382,7 @@ public void OnMapStart() {
 
     PrecacheSound("sound/survival/turret_sawplayer_01.wav", true);
 
-    PrecacheDecalAnyDownload(SMALL_OPENING_OVERLAY);
+    PrecacheDecalAnyDownload(TUNNEL_VISION_OVERLAY);
 }
 
 public OnClientPutInServer(client) {

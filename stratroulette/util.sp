@@ -60,6 +60,8 @@ public ResetConfiguration() {
     SetConVarInt(mp_solid_teammates, 1, true, false);
     // Monkey see
     monkeyOneTeam = -1;
+    // Tunnel vision
+    RemoveOverlayAll();
 
     // Client loop
     for (int client = 1; client <= MaxClients; client++) {
@@ -531,4 +533,66 @@ stock void Colorize(char[] msg, int size, bool stripColor = false) {
             ReplaceString(msg, size, _colorNames[colorNameIndex], _colorCodes[colorNameIndex]);
         }
     }
+}
+
+// Precache & prepare download for overlays & decals
+stock void PrecacheDecalAnyDownload(char[] sOverlay)
+{
+    char sBuffer[256];
+    Format(sBuffer, sizeof(sBuffer), "%s.vmt", sOverlay);
+    PrecacheDecal(sBuffer, true);
+    Format(sBuffer, sizeof(sBuffer), "materials/%s.vmt", sOverlay);
+    AddFileToDownloadsTable(sBuffer);
+
+    Format(sBuffer, sizeof(sBuffer), "%s.vtf", sOverlay);
+    PrecacheDecal(sBuffer, true);
+    Format(sBuffer, sizeof(sBuffer), "materials/%s.vtf", sOverlay);
+    AddFileToDownloadsTable(sBuffer);
+}
+
+// Show overlay to a client with lifetime | 0.0 = no auto remove
+stock void ShowOverlay(int client, char[] path, float lifetime)
+{
+    if (!IsClientInGame(client) || IsFakeClient(client) || IsClientSourceTV(client) || IsClientReplay(client))
+        return;
+
+    ClientCommand(client, "r_screenoverlay \"%s.vtf\"", path);
+
+    if (lifetime != 0.0)
+        CreateTimer(lifetime, DeleteOverlay, GetClientUserId(client));
+}
+
+// Show overlay to all clients with lifetime | 0.0 = no auto remove
+stock void ShowOverlayAll(char[] path, float lifetime) {
+    for (int i = 1; i <= MaxClients; i++) {
+        if (!IsClientInGame(i) || IsFakeClient(i) || IsClientSourceTV(i) || IsClientReplay(i)) {
+            continue;
+        }
+
+        ClientCommand(i, "r_screenoverlay \"%s.vtf\"", path);
+
+        if (lifetime != 0.0) {
+            CreateTimer(lifetime, DeleteOverlay, GetClientUserId(i));
+        }
+    }
+}
+
+stock void RemoveOverlayAll() {
+    for (int i = 1; i <= MaxClients; i++) {
+        if (!IsClientInGame(i) || IsFakeClient(i) || IsClientSourceTV(i) || IsClientReplay(i)) {
+            continue;
+        }
+
+        ClientCommand(i, "r_screenoverlay \"\"");
+    }
+}
+
+// Remove overlay from a client - Timer!
+stock Action DeleteOverlay(Handle timer, any userid)
+{
+    int client = GetClientOfUserId(userid);
+    if (client <= 0 || !IsClientInGame(client) || IsFakeClient(client) || IsClientSourceTV(client) || IsClientReplay(client))
+        return;
+
+    ClientCommand(client, "r_screenoverlay \"\"");
 }

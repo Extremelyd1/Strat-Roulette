@@ -625,4 +625,14 @@
 		"infiniteammo"	"2"
 		"noknife"		"1"
 	}
+	"60"
+	{
+		"name"			"Tunnel vision"
+		"description"	"Everyone has tunnel vision."
+		"weapon"		"weapon_random"
+		"tunnelvision"	"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"health"		"100"
+	}
 }

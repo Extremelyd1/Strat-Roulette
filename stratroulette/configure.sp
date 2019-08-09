@@ -640,3 +640,9 @@ public ConfigureHardcore() {
         CreateTimer(freezeTime - 1.0, StartHardcore);
     }
 }
+
+public ConfigureTunnelVision() {
+    if (StrEqual(TunnelVision, "1")) {
+        ShowOverlayAll(TUNNEL_VISION_OVERLAY, 0.0);
+    }
+}
