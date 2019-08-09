@@ -8,6 +8,6 @@ For example:
 * Reverse controls
 * One in the chamber
 * Knife rounds
-* And many more!
+* And many more (over 60 strats)!
 
 This plugin integrates with [PugSetup](https://github.com/splewis/csgo-pug-setup) if it is loaded.
