@@ -602,6 +602,7 @@
 		"health"		"100"
 		"tinymags"		"1"
 		"noknife"		"1"
+		"defuser"		"1"
 	}
 	"58"
 	{
@@ -612,6 +613,7 @@
 		"armor"			"100"
 		"helmet"		"1"
 		"health"		"100"
+		"defuser"		"1"
 	}
 	"59"
 	{
@@ -624,6 +626,7 @@
 		"health"		"100"
 		"infiniteammo"	"2"
 		"noknife"		"1"
+		"defuser"		"1"
 	}
 	"60"
 	{
@@ -634,6 +637,7 @@
 		"armor"			"100"
 		"helmet"		"1"
 		"health"		"100"
+		"defuser"		"1"
 	}
 	"61"
 	{
@@ -644,5 +648,17 @@
 		"armor"			"100"
 		"helmet"		"1"
 		"health"		"100"
+		"defuser"		"1"
+	}
+	"62"
+	{
+		"name"			"Knife Mid?"
+		"description"	"Simply a knife round"
+		"weapon"		"none"
+		"armor"			"100"
+		"helmet"		"1"
+		"health"		"100"
+		"noc4"			"1"
+		"killround"		"1"
 	}
 }
