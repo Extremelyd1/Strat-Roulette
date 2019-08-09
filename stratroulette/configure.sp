@@ -633,3 +633,10 @@ public ConfigureDropshot() {
         g_Dropshot = true;
     }
 }
+
+public ConfigureHardcore() {
+    if (StrEqual(Hardcore, "1")) {
+        int freezeTime = GetConVarInt(mp_freezetime);
+        CreateTimer(freezeTime - 1.0, StartHardcore);
+    }
+}

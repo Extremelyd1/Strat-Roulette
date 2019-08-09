@@ -82,6 +82,7 @@ new String:Drones[3];
 new String:Bumpmine[3];
 new String:Panic[3];
 new String:Dropshot[3];
+new String:Hardcore[3];
 
 // State variables
 new bool:g_DecoySound = false;

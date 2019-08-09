@@ -60,23 +60,26 @@ public ResetConfiguration() {
     SetConVarInt(mp_solid_teammates, 1, true, false);
     // Monkey see
     monkeyOneTeam = -1;
-    // Drones
 
     // Client loop
     for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            // Third person
-            ClientCommand(client, "firstperson");
-            // Defuser
-            SetEntProp(client, Prop_Send, "m_bHasDefuser", 0);
-            // Armor
-            Client_SetArmor(client, 0);
-            // Helmet
-            SetEntData(client, FindSendPropInfo("CCSPlayer", "m_bHasHelmet"), 0);
-            // Color
-            SetEntityRenderColor(client, 255, 255, 255, 0);
-            // Collision
-            SetEntData(client, g_offsCollisionGroup, 5, 4, true);
+        if (IsClientInGame(client) && !IsFakeClient(client)) {
+            if (IsPlayerAlive(client)) {
+                // Third person
+                ClientCommand(client, "firstperson");
+                // Defuser
+                SetEntProp(client, Prop_Send, "m_bHasDefuser", 0);
+                // Armor
+                Client_SetArmor(client, 0);
+                // Helmet
+                SetEntData(client, FindSendPropInfo("CCSPlayer", "m_bHasHelmet"), 0);
+                // Collision
+                SetEntData(client, g_offsCollisionGroup, 5, 4, true);
+                // Color
+                SetEntityRenderColor(client, 255, 255, 255, 0);
+            }
+            // Hardcore
+            Client_SetHideHud(client, 2050);
         }
     }
 

@@ -101,6 +101,7 @@ public ReadNewRound() {
     kv.GetString("bumpmine", Bumpmine, sizeof(Bumpmine), "0");
     kv.GetString("panic", Panic, sizeof(Panic), "0");
     kv.GetString("dropshot", Dropshot, sizeof(Dropshot), "0");
+    kv.GetString("hardcore", Hardcore, sizeof(Hardcore), "0");
 
     char descriptionOverride[3];
     kv.GetString("descoverride", descriptionOverride, sizeof(descriptionOverride), "0");
@@ -257,6 +258,8 @@ public ReadNewRound() {
     ConfigurePanic();
     //** Dropshot **//
     ConfigureDropshot();
+    //** Hardcore **//
+    ConfigureHardcore();
 
     delete kv;
 

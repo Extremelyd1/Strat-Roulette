@@ -613,4 +613,16 @@
 		"helmet"		"1"
 		"health"		"100"
 	}
+	"59"
+	{
+		"name"			"Hardcore"
+		"description"	"Hardcore mode, HUD is disabled. Plant C4 with the 'Use' key."
+		"weapon"		"weapon_random"
+		"hardcore"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"health"		"100"
+		"infiniteammo"	"2"
+		"noknife"		"1"
+	}
 }
