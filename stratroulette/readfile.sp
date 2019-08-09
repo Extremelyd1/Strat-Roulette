@@ -103,6 +103,7 @@ public ReadNewRound() {
     kv.GetString("dropshot", Dropshot, sizeof(Dropshot), "0");
     kv.GetString("hardcore", Hardcore, sizeof(Hardcore), "0");
     kv.GetString("tunnelvision", TunnelVision, sizeof(TunnelVision), "0");
+    kv.GetString("downunder", DownUnder, sizeof(DownUnder), "0");
 
     char descriptionOverride[3];
     kv.GetString("descoverride", descriptionOverride, sizeof(descriptionOverride), "0");
@@ -263,6 +264,8 @@ public ReadNewRound() {
     ConfigureHardcore();
     //** Tunnel Vision **//
     ConfigureTunnelVision();
+    //** Down Under **//
+    ConfigureDownUnder();
 
     delete kv;
 

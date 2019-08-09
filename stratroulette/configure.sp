@@ -646,3 +646,31 @@ public ConfigureTunnelVision() {
         ShowOverlayAll(TUNNEL_VISION_OVERLAY, 0.0);
     }
 }
+
+public ConfigureDownUnder() {
+    if (StrEqual(DownUnder, "1")) {
+
+        for (int client = 1; client <= MaxClients; client++) {
+            if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+                float position[3];
+                GetClientEyePosition(client, position);
+
+                int entity = CreateViewEntity(client, position);
+
+                float angle[3];
+                GetEntPropVector(entity, Prop_Send, "m_angRotation", angle);
+
+                angle[2] = 180.0;
+
+                TeleportEntity(entity, NULL_VECTOR, angle, NULL_VECTOR);
+
+                // Store client and entity
+                new String:playerIdString[64];
+                IntToString(client, playerIdString, sizeof(playerIdString));
+                downUnderMap.SetValue(playerIdString, entity);
+            }
+        }
+
+        g_DownUnder = true;
+    }
+}

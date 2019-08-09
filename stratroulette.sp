@@ -9,6 +9,7 @@
 
 #define STRAT_FILE "addons/sourcemod/configs/stratroulette/rounds.txt"
 #define TUNNEL_VISION_OVERLAY "overlays/stratroulette/tunnel_vision_overlay"
+#define SPRITE 	"materials/sprites/dot.vmt"
 #define PRIMARY_LENGTH 24
 #define SECONDARY_LENGTH 10
 #define SMOKE_RADIUS 165
@@ -83,6 +84,7 @@ new String:Panic[3];
 new String:Dropshot[3];
 new String:Hardcore[3];
 new String:TunnelVision[3];
+new String:DownUnder[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -124,6 +126,7 @@ new bool:g_Drones = false;
 new bool:g_Bumpmine = false;
 new bool:g_Panic = false;
 new bool:g_Dropshot = false;
+new bool:g_DownUnder = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -201,6 +204,8 @@ new stealthVisible[MAXPLAYERS + 1];
 new StringMap:droneMap;
 // Kill method
 new bool:skipNextKill = false;
+// Down Under
+new StringMap:downUnderMap;
 
 // Round variables
 int lastRound = -1;
@@ -493,6 +498,30 @@ public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3
         }
     }
 
+    if (g_DownUnder) {
+        // Convert player id to string
+        new String:playerIdString[64];
+        IntToString(client, playerIdString, sizeof(playerIdString));
+        // Get entity that belongs to player
+        new entity;
+        if (downUnderMap.GetValue(playerIdString, entity)) {
+            if (entity != 0 && IsValidEntity(entity)) {
+                // Set position and angles
+                float eyeAngles[3];
+                GetClientEyeAngles(client, eyeAngles);
+
+                float position[3];
+                GetClientEyePosition(client, position);
+
+                eyeAngles[2] = 180.0;
+
+                TeleportEntity(entity, position, eyeAngles, NULL_VECTOR);
+
+                SetClientViewEntity(client, entity);
+            }
+        }
+    }
+
     return Plugin_Continue;
 }
 
@@ -567,6 +596,7 @@ public OnConfigsExecuted() {
     positionMap = CreateTrie();
     smokeMap = CreateTrie();
     droneMap = CreateTrie();
+    downUnderMap = CreateTrie();
     captchaClients = new ArrayList();
 }
 

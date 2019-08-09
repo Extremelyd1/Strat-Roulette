@@ -627,10 +627,20 @@
 	}
 	"60"
 	{
-		"name"			"Tunnel vision"
+		"name"			"Tunnel Vision"
 		"description"	"Everyone has tunnel vision."
 		"weapon"		"weapon_random"
 		"tunnelvision"	"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"health"		"100"
+	}
+	"61"
+	{
+		"name"			"Down Under"
+		"description"	"Everyone has their view turned upside down."
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"downunder"		"1"
 		"armor"			"100"
 		"helmet"		"1"
 		"health"		"100"

@@ -62,6 +62,8 @@ public ResetConfiguration() {
     monkeyOneTeam = -1;
     // Tunnel vision
     RemoveOverlayAll();
+    // Down Under
+    ClearDownUnder();
 
     // Client loop
     for (int client = 1; client <= MaxClients; client++) {
@@ -443,6 +445,26 @@ public ClearBuddySystemChickens() {
     }
 }
 
+public ClearDownUnder() {
+    downUnderMap.Clear();
+    g_DownUnder = false;
+
+    for (new i = 1; i <= MaxClients; i++) {
+        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+            // Reset player angle
+            float angles[3];
+            GetClientEyeAngles(i, angles);
+
+            angles[2] = 0.0;
+
+            TeleportEntity(i, NULL_VECTOR, angles, NULL_VECTOR);
+
+            // Reset view
+            SetClientViewEntity(i, i);
+        }
+    }
+}
+
 // Used to damage player by amount of damage, can also be used to heal
 // with negative damage
 stock void DamagePlayer(int client, int damage, int attackerUserid=-1, char[] weapon="knife") {
@@ -536,8 +558,7 @@ stock void Colorize(char[] msg, int size, bool stripColor = false) {
 }
 
 // Precache & prepare download for overlays & decals
-stock void PrecacheDecalAnyDownload(char[] sOverlay)
-{
+stock void PrecacheDecalAnyDownload(char[] sOverlay) {
     char sBuffer[256];
     Format(sBuffer, sizeof(sBuffer), "%s.vmt", sOverlay);
     PrecacheDecal(sBuffer, true);
@@ -551,15 +572,16 @@ stock void PrecacheDecalAnyDownload(char[] sOverlay)
 }
 
 // Show overlay to a client with lifetime | 0.0 = no auto remove
-stock void ShowOverlay(int client, char[] path, float lifetime)
-{
-    if (!IsClientInGame(client) || IsFakeClient(client) || IsClientSourceTV(client) || IsClientReplay(client))
+stock void ShowOverlay(int client, char[] path, float lifetime) {
+    if (!IsClientInGame(client) || IsFakeClient(client) || IsClientSourceTV(client) || IsClientReplay(client)) {
         return;
+    }
 
     ClientCommand(client, "r_screenoverlay \"%s.vtf\"", path);
 
-    if (lifetime != 0.0)
+    if (lifetime != 0.0) {
         CreateTimer(lifetime, DeleteOverlay, GetClientUserId(client));
+    }
 }
 
 // Show overlay to all clients with lifetime | 0.0 = no auto remove
@@ -588,11 +610,34 @@ stock void RemoveOverlayAll() {
 }
 
 // Remove overlay from a client - Timer!
-stock Action DeleteOverlay(Handle timer, any userid)
-{
+stock Action DeleteOverlay(Handle timer, any userid) {
+
     int client = GetClientOfUserId(userid);
-    if (client <= 0 || !IsClientInGame(client) || IsFakeClient(client) || IsClientSourceTV(client) || IsClientReplay(client))
+    if (client <= 0 || !IsClientInGame(client) || IsFakeClient(client) || IsClientSourceTV(client) || IsClientReplay(client)) {
         return;
+    }
 
     ClientCommand(client, "r_screenoverlay \"\"");
+}
+
+int CreateViewEntity(int client, float pos[3]) {
+
+	int entity = CreateEntityByName("env_sprite");
+	if (entity != -1) {
+		DispatchKeyValue(entity, "model", SPRITE);
+		DispatchKeyValue(entity, "renderamt", "0");
+		DispatchKeyValue(entity, "rendercolor", "0 0 0");
+		DispatchSpawn(entity);
+
+		float angle[3];
+		GetClientEyeAngles(client, angle);
+
+		TeleportEntity(entity, pos, angle, NULL_VECTOR);
+		TeleportEntity(client, NULL_VECTOR, angle, NULL_VECTOR);
+
+		SetClientViewEntity(client, entity);
+		return entity;
+	}
+
+	return -1;
 }
