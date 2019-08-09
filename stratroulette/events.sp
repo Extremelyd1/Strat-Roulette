@@ -60,7 +60,7 @@ public Action:SrEventWeaponZoom(Handle:event, const String:name[], bool:dontBroa
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
 			new ent = GetPlayerWeaponSlot(client, 0);
 			CS_DropWeapon(client, ent, true, true);
-			PrintToChat(client, "This is noscope round! Don't try to scope!");
+			PrintToChat(client, "You can't scope in a noscope round!");
 		}
 	}
 }

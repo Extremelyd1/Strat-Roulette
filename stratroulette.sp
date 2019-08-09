@@ -3,11 +3,13 @@
 #include <sdkhooks>
 #include <cstrike>
 #include <smlib>
+#include <overlays>
 #include "include/adt_trie.inc"
 #include "include/colors.inc"
 #include "include/keyvalues.inc"
 
 #define STRAT_FILE "addons/sourcemod/configs/stratroulette/rounds.txt"
+#define SMALL_OPENING_OVERLAY "overlays/stratroulette/small_opening_overlay"
 #define PRIMARY_LENGTH 24
 #define SECONDARY_LENGTH 10
 #define SMOKE_RADIUS 165
@@ -375,6 +377,8 @@ public void OnMapStart() {
     PrecacheSound("sound/survival/turret_lostplayer_03.wav", true);
 
     PrecacheSound("sound/survival/turret_sawplayer_01.wav", true);
+
+    PrecacheDecalAnyDownload(SMALL_OPENING_OVERLAY);
 }
 
 public OnClientPutInServer(client) {
@@ -595,46 +599,6 @@ public OnEntityCreated(iEntity, const String:classname[]) {
 	}
 }
 
-/*  Edict class names:
-    smokegrenade_projectile
-    flashbang_projectile
-    decoy_projectile
-    hegrenade_projectile
-    molotov_projectile
-    incgrenade_projectile
-*/
-public OnEntitySpawned(iGrenade) {
-	new client = GetEntPropEnt(iGrenade, Prop_Send, "m_hOwnerEntity");
-	if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-		new nadeslot = GetPlayerWeaponSlot(client, 3);
-		if (nadeslot > -1) {
-			RemovePlayerItem(client, nadeslot);
-		}
-        RemoveEdict(nadeslot);
-        char className[128];
-        int randomInt = -1;
-        if (g_RandomNade) {
-            randomInt = GetRandomInt(1, 6);
-        } else {
-            GetEdictClassname(iGrenade, className, sizeof(className));
-        }
-
-        if (StrEqual(className, "smokegrenade_projectile") || randomInt == 1) {
-            GivePlayerItem(client, "weapon_smokegrenade");
-        } else if (StrEqual(className, "flashbang_projectile") || randomInt == 2) {
-            GivePlayerItem(client, "weapon_flashbang");
-        } else if (StrEqual(className, "decoy_projectile") || randomInt == 3) {
-            GivePlayerItem(client, "weapon_decoy");
-        } else if (StrEqual(className, "hegrenade_projectile") || randomInt == 4) {
-            GivePlayerItem(client, "weapon_hegrenade");
-        } else if (StrEqual(className, "molotov_projectile") || randomInt == 5) {
-            GivePlayerItem(client, "weapon_molotov");
-        } else if (StrEqual(className, "incgrenade_projectile") || randomInt == 6) {
-            GivePlayerItem(client, "weapon_incgrenade");
-        }
-	}
-}
-
 public CreateRoundVoteMenu() {
     Menu menu = new Menu(VoteMenuHandler, MENU_ACTIONS_ALL);
     menu.SetTitle("Vote for a new round:");
@@ -701,7 +665,7 @@ public int VoteMenuHandler(Menu menu, MenuAction action, int param1, int param2)
             }
         }
     }
-    
+
     if (action == MenuAction_End) {
 		delete menu;
 	}
