@@ -270,6 +270,9 @@ public OnPluginStart() {
         "The minimum number of players required to automagically start the game"
     );
 
+    //** Create and exec plugin's configuration file **//
+    AutoExecConfig(true, "stratroulette", "sourcemod/stratroulette");
+
     //** Commands **//
     RegAdminCmd("sm_start", cmd_start, ADMFLAG_ROOT, "Command to start the match");
     RegAdminCmd("sm_end", cmd_end, ADMFLAG_ROOT, "Command to end the match");
