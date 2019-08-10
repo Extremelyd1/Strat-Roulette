@@ -60,7 +60,7 @@ public Action:SrEventWeaponZoom(Handle:event, const String:name[], bool:dontBroa
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
 			new ent = GetPlayerWeaponSlot(client, 0);
 			CS_DropWeapon(client, ent, true, true);
-			PrintToChat(client, "You can't scope in a noscope round!");
+			SendMessage(client, "%t", "DontScope");
 		}
 	}
 }
@@ -226,13 +226,13 @@ public Action:SrEventPlayerDeath(Handle:event, const String:name[], bool:dontBro
 
         if (g_KillList && !IsWiped()) {
             if (client == ctLeader) {
-                SetLeader(CS_TEAM_CT);
-                SendMessage(ctLeader, "You are on the top of the {DARK_RED}Kill List{NORMAL}, watch out!");
-                SendKillListMessage(CS_TEAM_T);
+				SetLeader(CS_TEAM_CT);
+				SendMessage(ctLeader, "%t", "TopKillList");
+				SendKillListMessage(CS_TEAM_T);
             } else if (client == tLeader) {
-                SetLeader(CS_TEAM_T);
-                SendMessage(tLeader, "You are on the top of the {DARK_RED}Kill List{NORMAL}, watch out!");
-                SendKillListMessage(CS_TEAM_CT);
+				SetLeader(CS_TEAM_T);
+				SendMessage(tLeader, "%t", "TopKillList");
+				SendKillListMessage(CS_TEAM_CT);
             }
         }
 

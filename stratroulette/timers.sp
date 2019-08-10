@@ -128,8 +128,8 @@ public Action:CheckLeaderTimer(Handle timer) {
             }
 
             if (distance > 300) {
-                DamagePlayer(i, 5);
-                SendMessage(i, "{DARK_RED}Warning {NORMAL}too far from the {YELLOW}leader");
+				DamagePlayer(i, 5);
+				SendMessage(i, "%t", "TooFarFromLeader");
             }
         }
     }
@@ -171,8 +171,8 @@ public Action:CheckMonkeyTimer(Handle timer) {
                 }
 
                 if (distance > 500) {
-                    DamagePlayer(client, 5);
-                    SendMessage(client, "{DARK_RED}Warning{NORMAL} too far from the {YELLOW}leader");
+					DamagePlayer(client, 5);
+					SendMessage(client, "%t", "TooFarFromLeader");
                 }
             }
         }
@@ -208,17 +208,17 @@ public Action:StartMonkeyTimer(Handle timer) {
         if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
             if (GetClientTeam(client) == CS_TEAM_CT) {
                 if (client == ctLeader) {
-                    SendMessage(client, "Try to lose the {DARK_RED}Terrorists");
+					SendMessage(client, "%t", "LoseTerrorists");
                 } else {
-                    SendMessage(client, "Try to keep up with the {DARK_RED}Terrorist{NORMAL} leader");
-                    TeleportEntity(client, tPos, NULL_VECTOR, NULL_VECTOR);
+					SendMessage(client, "%t", "KeepUpWithTerrorist");
+					TeleportEntity(client, tPos, NULL_VECTOR, NULL_VECTOR);
                 }
             } else if (GetClientTeam(client) == CS_TEAM_T) {
                 if (client == tLeader) {
-                    SendMessage(client, "Try to lose the {DARK_RED}Counter-Terrorists");
+                    SendMessage(client, "%t", "LoseCounterTerrorists");
                 } else {
-                    SendMessage(client, "Try to keep up with the {DARK_RED}Counter-Terrorist{NORMAL} leader");
-                    TeleportEntity(client, ctPos, NULL_VECTOR, NULL_VECTOR);
+					SendMessage(client, "%t", "KeepUpWithCounterTerrorist");
+					TeleportEntity(client, ctPos, NULL_VECTOR, NULL_VECTOR);
                 }
             }
         }
@@ -319,18 +319,16 @@ public Action:RedGreenMessageTimer(Handle timer) {
     if (!g_RedGreen) {
         return Plugin_Stop;
     }
-    new String:message[256];
     if (!g_RedLight) {
-        Format(message, sizeof(message), "{DARK_RED}Red light{NORMAL}: Don't move!");
-        // Only enforce no move after certain time
-        CreateTimer(1.0, RedLightTimer);
+		SendMessageAll("%t", "RedLight");
+		// Only enforce no move after certain time
+		CreateTimer(1.0, RedLightTimer);
     } else {
-        Format(message, sizeof(message), "{GREEN}Green light{NORMAL}: You can move!");
-        // Immediately enforce move period
-        g_RedLight = false;
-        CreateNewRedGreenTimer();
+		SendMessageAll("%t", "GreenLight");
+		// Immediately enforce move period
+		g_RedLight = false;
+		CreateNewRedGreenTimer();
     }
-    SendMessageAll(message);
 
     return Plugin_Continue;
 }
@@ -376,13 +374,13 @@ public Action:RedGreenDamageTimer(Handle timer) {
                 float distance = GetVectorDistance(oldPlayerPos, playerPos);
 
                 if (g_RedLight && distance > 10) {
-                    new currentHealth = GetEntProp(i, Prop_Send, "m_iHealth");
-                    if (currentHealth > 5) {
-                        SetEntityHealth(i, currentHealth - 5);
-                    } else {
-                        ForcePlayerSuicide(i);
-                    }
-                    SendMessage(i, "Don't {DARK_RED}move{NORMAL} during {DARK_RED}red{NORMAL} light");
+					new currentHealth = GetEntProp(i, Prop_Send, "m_iHealth");
+					if (currentHealth > 5) {
+						SetEntityHealth(i, currentHealth - 5);
+					} else {
+						ForcePlayerSuicide(i);
+					}
+					SendMessage(i, "%t", "DontMoveRedLight");
                 }
             }
 
@@ -408,13 +406,13 @@ public Action:NewHotPotatoTimer(Handle timer) {
 
 public Action:HotPotatoMessage1Timer(Handle timer) {
     if (ctLeader != -1) {
-        SendMessage(ctLeader, "That is one {DARK_RED}hot potato{NORMAL}!");
+		SendMessage(ctLeader, "%t", "HotPotatoStage1");
     }
 }
 
 public Action:HotPotatoMessage2Timer(Handle timer) {
     if (ctLeader != -1) {
-        SendMessage(ctLeader, "I can't hold this {DARK_RED}hot potato{NORMAL} much longer!");
+        SendMessage(ctLeader, "%t", "HotPotatoStage2");
     }
 }
 
@@ -549,8 +547,8 @@ public Action:PoisonDamageTimer(Handle timer) {
                 float distance = GetVectorDistance(playerPos, smokePos);
 
                 if (distance < SMOKE_RADIUS) {
-                    DamagePlayer(client, 5);
-                    SendMessage(client, "{DARK_RED}Warning {NORMAL}the smoke is {DARK_RED}toxic");
+					DamagePlayer(client, 5);
+					SendMessage(client, "%t", "SmokeToxic");
                 }
             }
             // Free snapshot variable
@@ -609,35 +607,32 @@ public Action:AwardOITCWeapon(Handle timer, int client) {
 }
 
 public Action:SendCaptchaTimer(Handle timer) {
-    if (!g_Captcha) {
-        return Plugin_Stop;
-    }
+	if (!g_Captcha) {
+		return Plugin_Stop;
+	}
 
-    int randomInt1 = GetRandomInt(5, 20);
-    int randomInt2 = GetRandomInt(5, 20);
+	int randomInt1 = GetRandomInt(5, 20);
+	int randomInt2 = GetRandomInt(5, 20);
 
-    IntToString(randomInt1 + randomInt2, captchaAnswer, sizeof(captchaAnswer));
+	IntToString(randomInt1 + randomInt2, captchaAnswer, sizeof(captchaAnswer));
 
-    char message[256];
-    Format(message, sizeof(message),
-        "{GREEN}Solve{NORMAL} %d + %d to get your {LIGHT_GREEN}weapons{NORMAL} back!",
-        randomInt1, randomInt2);
-    SendMessageAll(message);
-    SendMessageAlive("Type the {LIGHT_GREEN}answer{NORMAL} in chat.");
-    for (int client = 1; client <= MaxClients; client++) {
+	SendMessageAll("%t", "CaptchaQuestion", randomInt1, randomInt2);
+	SendMessageAlive("%t", "CaptchaTypeAnswerChat");
+
+	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            // Client is not on list
-            if (captchaClients.FindValue(client) == -1) {
-                captchaClients.Push(client);
-                RemoveWeaponsClient(client);
-            }
-        }
-    }
+			// Client is not on list
+			if (captchaClients.FindValue(client) == -1) {
+				captchaClients.Push(client);
+				RemoveWeaponsClient(client);
+			}
+		}
+	}
 
-    float randomFloat = GetRandomFloat(8.0, 15.0);
-    CreateTimer(randomFloat, SendCaptchaTimer);
+	float randomFloat = GetRandomFloat(8.0, 15.0);
+	CreateTimer(randomFloat, SendCaptchaTimer);
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:DropShotWeapon(Handle timer, DataPack data) {

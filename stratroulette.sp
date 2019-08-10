@@ -4,7 +4,6 @@
 #include <cstrike>
 #include <smlib>
 #include "include/adt_trie.inc"
-#include "include/colors.inc"
 #include "include/keyvalues.inc"
 
 #define STRAT_FILE "addons/sourcemod/configs/stratroulette/rounds.txt"
@@ -15,6 +14,7 @@
 #define SMOKE_RADIUS 165
 #define	CLIENTWIDTH	35.0
 #define	CLIENTHEIGHT 90.0
+#define MAX_MESSAGE_LENGTH 250
 
 // Convar handles
 ConVar g_AutoStart;
@@ -306,6 +306,8 @@ public OnPluginStart() {
 
 	AddCommandListener(CommandDrop, "drop");
 
+	LoadTranslations("stratroulette.phrases");
+
 	// Hook players after plugin reload
 	for (int client = 1; client <= MaxClients; client++) {
 	    if (IsClientInGame(client) && !IsFakeClient(client)) {
@@ -399,7 +401,7 @@ public Action:cmd_start(client, args) {
 	    ServerCommand("mp_warmup_end 1");
 	    inGame = true;
 	} else {
-	    SendMessage(client, "Match handling is done by {LIGHT_GREEN}PugSetup{NORMAL}, please use that");
+		SendMessage(client, "%t", "MatchHandlingPugSetup");
 	}
 }
 
@@ -416,7 +418,7 @@ public Action:cmd_end(client, args) {
 	        ReplyToCommand(client, "Game is not in progress!");
 	    }
 	} else {
-	    SendMessage(client, "Match handling is done by {LIGHT_GREEN}PugSetup{NORMAL}, please use that");
+	    SendMessage(client, "%t", "MatchHandlingPugSetup");
 	}
 }
 
@@ -443,7 +445,7 @@ public Action:cmd_setround(client, args) {
 	Format(forceRoundNumber, sizeof(forceRoundNumber), "%s", roundArg);
 	forceNextRound = true;
 
-	ReplyToCommand(client, "Next round set to strat %s", roundArg);
+	SendMessage(client, "%t", "ForceRoundSet", roundArg);
 
 	return Plugin_Handled;
 }
@@ -533,7 +535,7 @@ public Action:OnClientSayCommand(int client, const char[] command, const char[] 
 	            GivePlayerItem(client, secondaryWeapon);
 	            captchaClients.Erase(captchaClients.FindValue(client));
 	        } else {
-	            SendMessage(client, "{DARK_RED}Wrong{NORMAL} answer!");
+				SendMessage(client, "%t", "CaptchaWrong");
 	        }
 	        return Plugin_Stop;
 	    }
@@ -635,7 +637,7 @@ public OnEntityCreated(iEntity, const String:classname[]) {
 
 public CreateRoundVoteMenu() {
 	Menu menu = new Menu(VoteMenuHandler, MENU_ACTIONS_ALL);
-	menu.SetTitle("Vote for a new round:");
+	menu.SetTitle("RoundVoteTitle");
 
 	ArrayList options = new ArrayList();
 	int numberOfStrats = GetNumberOfStrats();
@@ -682,27 +684,52 @@ public CreateRoundVoteMenu() {
 
 public int VoteMenuHandler(Menu menu, MenuAction action, int param1, int param2) {
 	if (action == MenuAction_VoteEnd) {
-	    char winningRound[32];
-	    char winningRoundName[256];
-	    int style;
-	    menu.GetItem(param1, winningRound, sizeof(winningRound), style, winningRoundName, sizeof(winningRoundName));
+		char winningRound[32];
+		char winningRoundName[256];
+		int style;
+		menu.GetItem(param1, winningRound, sizeof(winningRound), style, winningRoundName, sizeof(winningRoundName));
 
-	    Format(voteRoundNumber, sizeof(voteRoundNumber), winningRound);
-	    nextRoundVoted = true;
+		Format(voteRoundNumber, sizeof(voteRoundNumber), winningRound);
+		nextRoundVoted = true;
 
-	    char message[256];
-	    Format(message, sizeof(message), "Round voting {LIGHT_GREEN}finished{NORMAL}, next round is {DARK_BLUE}%s", winningRoundName);
+		for (new i = 1; i <= MaxClients; i++) {
+			if (IsClientInGame(i) && !IsFakeClient(i)) {
+				char translatedRoundName[128];
+				Format(translatedRoundName, sizeof(translatedRoundName), "%T", winningRoundName, i);
+				SendMessage(i, "%t", "RoundVotingFinished", translatedRoundName);
+			}
+		}
+	}
 
-	    for (int i = 1; i <= MaxClients; i++) {
-	        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-	            SendMessage(i, message);
-	        }
-	    }
+	if (action == MenuAction_DisplayItem) {
+		/* Get the display string, we'll use it as a translation phrase */
+		char display[64];
+		menu.GetItem(param2, "", 0, _, display, sizeof(display));
+
+		/* Translate the string to the client's language */
+		char buffer[255];
+		Format(buffer, sizeof(buffer), "%T", display, param1);
+
+		/* Override the text */
+		return RedrawMenuItem(buffer);
+	}
+
+	if (action == MenuAction_Display) {
+		/* Panel Handle is the second parameter */
+		Panel panel = view_as<Panel>(param2);
+
+		/* Translate to our phrase */
+		char buffer[255];
+		Format(buffer, sizeof(buffer), "%T", "RoundVoteTitle", param1);
+
+		panel.SetTitle(buffer);
 	}
 
 	if (action == MenuAction_End) {
 		delete menu;
 	}
+
+	return 0;
 }
 
 public bool:RayFilter(entity, mask, any:data) {

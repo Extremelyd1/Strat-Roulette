@@ -170,53 +170,90 @@ public SendLeaderMessage(team) {
     for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
             if (GetClientTeam(client) == team) {
-                new String:message[256];
-                if (team == CS_TEAM_CT) {
-                    Format(message, sizeof(message), "{LIGHT_GREEN}New {NORMAL}leader is {YELLOW}%s", ctLeaderName);
-                } else {
-                    Format(message, sizeof(message), "{LIGHT_GREEN}New {NORMAL}leader is {YELLOW}%s", tLeaderName);
+				if (team == CS_TEAM_CT) {
+					SendMessage(client, "%t", "NewLeader", ctLeaderName);
+				} else {
+					SendMessage(client, "%t", "NewLeader", tLeaderName);
                 }
-                SendMessage(client, message);
             }
         }
     }
-    SendMessageTeam("{LIGHT_GREEN}Follow {NORMAL}the leader or you {DARK_RED}die", team);
+    SendMessageTeam(team, "%t", "FollowLeader");
 }
 
-public SendMessage(client, char[] message) {
-    if (IsClientInGame(client) && !IsFakeClient(client)) {
-        Colorize(message, 512);
-        CPrintToChat(client, message);
-    }
+public SendMessage(client, String:szMessage[], any:...) {
+	if (client <= 0 || client > MaxClients) {
+		ThrowError("Invalid client index %d", client);
+	}
+
+	if (!IsClientInGame(client)) {
+		ThrowError("Client %d is not in game", client);
+	}
+
+	decl String:szCMessage[MAX_MESSAGE_LENGTH];
+
+	SetGlobalTransTarget(client);
+
+	VFormat(szCMessage, sizeof(szCMessage), szMessage, 3);
+
+	Colorize(szCMessage, MAX_MESSAGE_LENGTH);
+
+	Format(szCMessage, sizeof(szCMessage), " \x01\x0B\x01%s", szCMessage);
+
+	PrintToChat(client, "%s", szCMessage);
 }
 
-public SendMessageAll(char[] message) {
-    Colorize(message, 512);
-    for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && !IsFakeClient(client)) {
-            CPrintToChat(client, message);
-        }
-    }
+public SendMessageAll(String:szMessage[], any:...) {
+	decl String:szBuffer[MAX_MESSAGE_LENGTH];
+
+	for (new i = 1; i <= MaxClients; i++) {
+		if (IsClientInGame(i) && !IsFakeClient(i)) {
+			SetGlobalTransTarget(i);
+			VFormat(szBuffer, sizeof(szBuffer), szMessage, 2);
+
+			Colorize(szBuffer, MAX_MESSAGE_LENGTH);
+
+			Format(szBuffer, sizeof(szBuffer), " \x01\x0B\x01%s", szBuffer);
+
+			PrintToChat(i, "%s", szBuffer);
+		}
+	}
 }
 
-public SendMessageAlive(char[] message) {
-    Colorize(message, 256);
-    for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            CPrintToChat(client, message);
-        }
-    }
+public SendMessageAlive(String:szMessage[], any:...) {
+	decl String:szBuffer[MAX_MESSAGE_LENGTH];
+
+	for (new i = 1; i <= MaxClients; i++) {
+		if (IsClientInGame(i) && !IsFakeClient(i) && IsPlayerAlive(i)) {
+			SetGlobalTransTarget(i);
+			VFormat(szBuffer, sizeof(szBuffer), szMessage, 2);
+
+			Colorize(szBuffer, MAX_MESSAGE_LENGTH);
+
+			Format(szBuffer, sizeof(szBuffer), " \x01\x0B\x01%s", szBuffer);
+
+			PrintToChat(i, "%s", szBuffer);
+		}
+	}
 }
 
-public SendMessageTeam(char[] message, int team) {
-    Colorize(message, 256);
-    for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            if (team == GetClientTeam(client)) {
-                CPrintToChat(client, message);
-            }
-        }
-    }
+public SendMessageTeam(int team, String:szMessage[], any:...) {
+	decl String:szBuffer[MAX_MESSAGE_LENGTH];
+
+	for (new i = 1; i <= MaxClients; i++) {
+		if (IsClientInGame(i) && !IsFakeClient(i)) {
+			if (team == GetClientTeam(i)) {
+				SetGlobalTransTarget(i);
+				VFormat(szBuffer, sizeof(szBuffer), szMessage, 3);
+
+				Colorize(szBuffer, MAX_MESSAGE_LENGTH);
+
+				Format(szBuffer, sizeof(szBuffer), " \x01\x0B\x01%s", szBuffer);
+
+				PrintToChat(i, "%s", szBuffer);
+			}
+		}
+	}
 }
 
 public CreateNewRedGreenTimer() {
@@ -262,32 +299,24 @@ public SendVIPMessage(team) {
     for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
             if (GetClientTeam(client) == team) {
-                new String:message1[256];
-                new String:message2[256];
                 if (team == CS_TEAM_CT) {
-                    Format(message1, sizeof(message1), "Your {DARK_RED}target{NORMAL} is {YELLOW}%s", tLeaderName);
-                    Format(message2, sizeof(message2), "{GREEN}Defend{NORMAL} your VIP {YELLOW}%s", ctLeaderName);
+					SendMessage(client, "%t", "VIPTarget", tLeaderName);
+					SendMessage(client, "%t", "VIPProtect", ctLeaderName);
                 } else {
-                    Format(message1, sizeof(message1), "Your {DARK_RED}target{NORMAL} is {YELLOW}%s", ctLeaderName);
-                    Format(message2, sizeof(message2), "{GREEN}Defend{NORMAL} your VIP {YELLOW}%s", tLeaderName);
+					SendMessage(client, "%t", "VIPTarget", ctLeaderName);
+					SendMessage(client, "%t", "VIPProtect", tLeaderName);
                 }
-                SendMessage(client, message1);
-                SendMessage(client, message2);
             }
         }
     }
 }
 
 public SendKillListMessage(team) {
-    new String:message[256];
-
     if (team == CS_TEAM_CT) {
-        Format(message, sizeof(message), "Your new {DARK_RED}target{NORMAL} is {YELLOW}%s", tLeaderName);
+		SendMessageTeam(team, "%t", "NewTarget", tLeaderName);
     } else if (team == CS_TEAM_T) {
-        Format(message, sizeof(message), "Your new {DARK_RED}target{NORMAL} is {YELLOW}%s", ctLeaderName);
+		SendMessageTeam(team, "%t", "NewTarget", ctLeaderName);
     }
-
-    SendMessageTeam(message, team);
 }
 
 public RemoveWeapons() {
@@ -393,39 +422,36 @@ public bool IsWiped() {
 }
 
 stock void SelectHotPotato(int client = -1) {
-    RemoveWeapons();
-    ArrayList players = new ArrayList();
+	RemoveWeapons();
+	ArrayList players = new ArrayList();
 
-    for (int i = 1; i <= MaxClients; i++) {
-        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-            players.Push(i);
-        }
-    }
+	for (int i = 1; i <= MaxClients; i++) {
+		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+			players.Push(i);
+		}
+	}
 
-    if (client == -1) {
-        int randomInt = GetRandomInt(0, players.Length - 1);
-        // Used to store hot potato holder,
-        // has nothing to do with CT
-        ctLeader = players.Get(randomInt);
-    } else {
-        ctLeader = client;
-    }
+	if (client == -1) {
+		int randomInt = GetRandomInt(0, players.Length - 1);
+		// Used to store hot potato holder,
+		// has nothing to do with CT
+		ctLeader = players.Get(randomInt);
+	} else {
+		ctLeader = client;
+	}
 
-    GetClientName(ctLeader, ctLeaderName, sizeof(ctLeaderName));
+	GetClientName(ctLeader, ctLeaderName, sizeof(ctLeaderName));
 
-    SendMessage(ctLeader, "You have the {DARK_RED}hot potato{NORMAL}, hit someone to give it to them!")
+	SendMessage(ctLeader, "%t", "ReceivedPotato");
 
-    char message[256];
-    Format(message, sizeof(message), "{YELLOW}%s has the {DARK_RED}hot potato{NORMAL}, don't get hit!", ctLeaderName);
-    Colorize(message, sizeof(message));
-    for (int i = 0; i < players.Length; i++) {
-        int otherClient = players.Get(i);
-        if (otherClient != ctLeader) {
-            CPrintToChat(otherClient, message);
-        }
-    }
+	for (int i = 0; i < players.Length; i++) {
+		int otherClient = players.Get(i);
+		if (otherClient != ctLeader) {
+			SendMessage(otherClient, "%t", "PlayerHasPotato", ctLeaderName);
+		}
+	}
 
-    GivePlayerItem(ctLeader, "weapon_fiveseven");
+	GivePlayerItem(ctLeader, "weapon_fiveseven");
 }
 
 public ClearBuddySystemChickens() {
@@ -547,13 +573,13 @@ public SetReserveAmmo(client, ammo) {
     SetEntProp(client, Prop_Send, "m_iAmmo", ammo, _, ammotype);
 }
 
-stock void Colorize(char[] msg, int size, bool stripColor = false) {
-    for (int colorNameIndex = 0; colorNameIndex < sizeof(_colorNames); colorNameIndex++) {
-        if (stripColor) {
-            ReplaceString(msg, size, _colorNames[colorNameIndex], "");  // replace with white
-        } else {
-            ReplaceString(msg, size, _colorNames[colorNameIndex], _colorCodes[colorNameIndex]);
-        }
+stock void Colorize(String:msg[], int size, bool stripColor = false) {
+	for (int colorNameIndex = 0; colorNameIndex < sizeof(_colorNames); colorNameIndex++) {
+		if (stripColor) {
+			ReplaceString(msg, size, _colorNames[colorNameIndex], "");  // replace with white
+		} else {
+			ReplaceString(msg, size, _colorNames[colorNameIndex], _colorCodes[colorNameIndex]);
+		}
     }
 }
 

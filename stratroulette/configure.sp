@@ -590,11 +590,11 @@ public ConfigureKillList() {
 	    SetLeader(CS_TEAM_T);
 
 	    if (ctLeader != -1) {
-	        SendMessage(ctLeader, "You are on the top of the {DARK_RED}Kill List{NORMAL}, watch out!");
-	        SendKillListMessage(CS_TEAM_T);
+			SendMessage(ctLeader, "%t", "TopKillList");
+			SendKillListMessage(CS_TEAM_T);
 	    }
 	    if (tLeader != -1) {
-	        SendMessage(tLeader, "You are on the top of the {DARK_RED}Kill List{NORMAL}, watch out!");
+	        SendMessage(tLeader, "%t", "TopKillList");
 	        SendKillListMessage(CS_TEAM_CT);
 	    }
 	}

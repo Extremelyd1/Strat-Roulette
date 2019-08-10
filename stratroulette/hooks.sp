@@ -180,16 +180,16 @@ public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &d
     }
 
     if (g_KillList) {
-        if (victim != ctLeader && victim != tLeader) {
-            SendMessage(attacker, "That was not the {DARK_RED}target!");
+		if (victim != ctLeader && victim != tLeader) {
+			SendMessage(attacker, "%t", "KillListWrongTarget");
 
-            char weaponname[128];
-            Client_GetActiveWeaponName(attacker, weaponname, sizeof(weaponname));
-            ReplaceString(weaponname, sizeof(weaponname), "weapon_", "");
+			char weaponname[128];
+			Client_GetActiveWeaponName(attacker, weaponname, sizeof(weaponname));
+			ReplaceString(weaponname, sizeof(weaponname), "weapon_", "");
 
-            KillPlayer(attacker, GetClientUserId(victim), weaponname);
+			KillPlayer(attacker, GetClientUserId(victim), weaponname);
 
-            return Plugin_Handled;
+			return Plugin_Handled;
         }
     }
 
