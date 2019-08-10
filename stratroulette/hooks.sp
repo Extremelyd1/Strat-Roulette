@@ -104,16 +104,16 @@ public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &d
     }
 
     if (g_Vampire) {
-		if (attacker == 0) {
-			return Plugin_Continue;
-		}
+    	if (attacker == 0) {
+    		return Plugin_Continue;
+    	}
 
-		new attackerHealth = GetEntProp(attacker, Prop_Send, "m_iHealth");
-		if (IsClientInGame(attacker) && IsPlayerAlive(attacker) && !IsFakeClient(attacker)) {
-			new giveHealth = RoundToNearest(attackerHealth + damage);
+    	new attackerHealth = GetEntProp(attacker, Prop_Send, "m_iHealth");
+    	if (IsClientInGame(attacker) && IsPlayerAlive(attacker) && !IsFakeClient(attacker)) {
+    		new giveHealth = RoundToNearest(attackerHealth + damage);
     		SetEntityHealth(attacker, giveHealth);
-		}
-	}
+    	}
+    }
 
     if (g_MonkeySee) {
         return Plugin_Handled;
@@ -121,33 +121,33 @@ public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &d
 
     if (g_HeadShot) {
         if(damagetype == DMG_FALL
-			|| damagetype == DMG_GENERIC
-			|| damagetype == DMG_CRUSH
-			|| damagetype == DMG_SLASH
-			|| damagetype == DMG_BURN
-			|| damagetype == DMG_VEHICLE
-			|| damagetype == DMG_FALL
-			|| damagetype == DMG_BLAST
-			|| damagetype == DMG_SHOCK
-			|| damagetype == DMG_SONIC
-			|| damagetype == DMG_ENERGYBEAM
-			|| damagetype == DMG_DROWN
-			|| damagetype == DMG_PARALYZE
-			|| damagetype == DMG_NERVEGAS
-			|| damagetype == DMG_POISON
-			|| damagetype == DMG_ACID
-			|| damagetype == DMG_AIRBOAT
-			|| damagetype == DMG_PLASMA
-			|| damagetype == DMG_RADIATION
-			|| damagetype == DMG_SLOWBURN
-			|| attacker == 0
-		) {
+    		|| damagetype == DMG_GENERIC
+    		|| damagetype == DMG_CRUSH
+    		|| damagetype == DMG_SLASH
+    		|| damagetype == DMG_BURN
+    		|| damagetype == DMG_VEHICLE
+    		|| damagetype == DMG_FALL
+    		|| damagetype == DMG_BLAST
+    		|| damagetype == DMG_SHOCK
+    		|| damagetype == DMG_SONIC
+    		|| damagetype == DMG_ENERGYBEAM
+    		|| damagetype == DMG_DROWN
+    		|| damagetype == DMG_PARALYZE
+    		|| damagetype == DMG_NERVEGAS
+    		|| damagetype == DMG_POISON
+    		|| damagetype == DMG_ACID
+    		|| damagetype == DMG_AIRBOAT
+    		|| damagetype == DMG_PLASMA
+    		|| damagetype == DMG_RADIATION
+    		|| damagetype == DMG_SLOWBURN
+    		|| attacker == 0
+    	) {
             return Plugin_Continue;
         }
-		if (!(damagetype & CS_DMG_HEADSHOT)) {
+    	if (!(damagetype & CS_DMG_HEADSHOT)) {
             return Plugin_Handled;
         }
-	}
+    }
 
     if (g_HitSwap) {
         if (attacker != victim && victim != 0 && attacker != 0) {
@@ -212,12 +212,12 @@ public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &d
     incgrenade_projectile
 */
 public OnEntitySpawned(iGrenade) {
-	new client = GetEntPropEnt(iGrenade, Prop_Send, "m_hOwnerEntity");
-	if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-		new nadeslot = GetPlayerWeaponSlot(client, 3);
-		if (nadeslot > -1) {
-			RemovePlayerItem(client, nadeslot);
-		}
+    new client = GetEntPropEnt(iGrenade, Prop_Send, "m_hOwnerEntity");
+    if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+    	new nadeslot = GetPlayerWeaponSlot(client, 3);
+    	if (nadeslot > -1) {
+    		RemovePlayerItem(client, nadeslot);
+    	}
         RemoveEdict(nadeslot);
         char className[128];
         int randomInt = -1;
@@ -240,5 +240,5 @@ public OnEntitySpawned(iGrenade) {
         } else if (StrEqual(className, "incgrenade_projectile") || randomInt == 6) {
             GivePlayerItem(client, "weapon_incgrenade");
         }
-	}
+    }
 }

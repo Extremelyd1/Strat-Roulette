@@ -14,7 +14,7 @@ public ReadNewRound() {
         }
     }
 
-	int roundNumber = possibleRoundNumbers.Get(GetRandomInt(0, possibleRoundNumbers.Length - 1));
+    int roundNumber = possibleRoundNumbers.Get(GetRandomInt(0, possibleRoundNumbers.Length - 1));
 
     char roundNumberString[16];
 
@@ -152,48 +152,48 @@ public ReadNewRound() {
     ConfigureCollision();
     //** Zombies **//
     ConfigureZombies();
-	//** Third person **//
-	ConfigureThirdPerson();
-	//** Weapons **//
-	ConfigureWeapons();
+    //** Third person **//
+    ConfigureThirdPerson();
+    //** Weapons **//
+    ConfigureWeapons();
     //** Armor and kits **//
     ConfigureArmorDefuser();
-	//** Health **//
-	ConfigureHealth();
-	//** Decoy sound **//
-	ConfigureDecoySound();
+    //** Health **//
+    ConfigureHealth();
+    //** Decoy sound **//
+    ConfigureDecoySound();
     //** No knife **//
     ConfigureNoKnife();
-	//** Infinite ammo **//
-	ConfigureInfiniteAmmo();
-	//** Infinite  nade **//
-	ConfigureInfiniteNades();
-	//** Speed **//
-	ConfigureSpeed();
-	//** Gravity **//
-	ConfigureGravity();
-	//** No recoil **//
-	ConfigureNoRecoil();
-	//** Noscope **//
-	ConfigureNoScope();
-	//** Vampire **//
-	ConfigureVampire();
-	//** Player color **//
-	ConfigurePlayerColors();
-	//** Backwards **//
-	ConfigureBackwards();
-	//** Fov **//
-	ConfigureFov();
-	//** Chicken defuse **//
-	ConfigureChickenDefuse();
-	//** Headshot only **//
-	ConfigureHeadshotOnly();
-	//** Speedchange **//
-	ConfigureSlowMotion();
-	//** Weird recoil view **//
-	ConfigureWeirdRecoilView();
-	//** Friction **//
-	ConfigureFriction();
+    //** Infinite ammo **//
+    ConfigureInfiniteAmmo();
+    //** Infinite  nade **//
+    ConfigureInfiniteNades();
+    //** Speed **//
+    ConfigureSpeed();
+    //** Gravity **//
+    ConfigureGravity();
+    //** No recoil **//
+    ConfigureNoRecoil();
+    //** Noscope **//
+    ConfigureNoScope();
+    //** Vampire **//
+    ConfigureVampire();
+    //** Player color **//
+    ConfigurePlayerColors();
+    //** Backwards **//
+    ConfigureBackwards();
+    //** Fov **//
+    ConfigureFov();
+    //** Chicken defuse **//
+    ConfigureChickenDefuse();
+    //** Headshot only **//
+    ConfigureHeadshotOnly();
+    //** Speedchange **//
+    ConfigureSlowMotion();
+    //** Weird recoil view **//
+    ConfigureWeirdRecoilView();
+    //** Friction **//
+    ConfigureFriction();
     //** Drop weapons **//
     ConfigureDropWeapons();
     //** One in the chamber **//

@@ -20,12 +20,12 @@ public Action:SrEventRoundStart(Handle:event, const String:name[], bool:dontBroa
 }
 
 public Action:SrEventDecoyStarted(Handle:event, const String:name[], bool:dontBroadcast) {
-	if (g_DecoySound) {
-		new entity = GetEventInt(event, "entityid");
-		if (IsValidEntity(entity)) {
-			RemoveEdict(entity);
-		}
-	}
+    if (g_DecoySound) {
+    	new entity = GetEventInt(event, "entityid");
+    	if (IsValidEntity(entity)) {
+    		RemoveEdict(entity);
+    	}
+    }
 
     if (g_Drones) {
         new entity = GetEventInt(event, "entityid");
@@ -208,13 +208,13 @@ public Action:SrEventInspectWeapon(Handle:event, const String:name[], bool:dontB
 }
 
 public Action:SrEventPlayerDeath(Handle:event, const String:name[], bool:dontBroadcast) {
-	new client = GetClientOfUserId(GetEventInt(event, "userid"));
+    new client = GetClientOfUserId(GetEventInt(event, "userid"));
     new killerUserid = GetEventInt(event, "attacker");
     new assisterUserid = GetEventInt(event, "assister");
     char weapon[128];
     GetEventString(event, "weapon", weapon, sizeof(weapon));
 
-	if (IsClientInGame(client)) {
+    if (IsClientInGame(client)) {
 
         if (g_Leader && !IsWiped()) {
             if (client == ctLeader) {
@@ -276,7 +276,7 @@ public Action:SrEventPlayerDeath(Handle:event, const String:name[], bool:dontBro
         	SetEntProp(client, Prop_Send, "m_iDefaultFOV", 90);
         	SetEntProp(client, Prop_Send, "m_iFOV", 90);
         }
-	}
+    }
 }
 
 public Action:SrEventPlayerDeathPre(Handle:event, const String:name[], bool:dontBroadcast) {
