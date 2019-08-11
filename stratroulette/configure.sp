@@ -354,7 +354,10 @@ public ConfigureRandomNade() {
 
 public ConfigureZombies() {
 	if (StrEqual(Zombies, "1")) {
-	    g_Zombies = true;
+		g_Zombies = true;
+		SetConVarInt(mp_death_drop_gun, 0, true, false);
+		SetConVarInt(mp_death_drop_defuser, 0, true, false);
+		SetConVarInt(mp_death_drop_grenade, 0, true, false);
 	}
 }
 

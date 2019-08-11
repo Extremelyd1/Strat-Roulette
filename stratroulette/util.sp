@@ -7,126 +7,130 @@ static char _colorCodes[][] = {"\x01", "\x02", "\x03", "\x04", "\x05", "\x06",
 // Used before each round to reset all remaining modifiers from
 // previous round
 public ResetConfiguration() {
-    // Third person
-    SetConVarInt(sv_allow_thirdperson, 0, true, false);
-    // Weapons
-    primaryWeapon = "";
-    secondaryWeapon = "";
-    RemoveWeapons();
-    RemoveNades();
-    // Knife
-    SetKnife(true);
-    // Infinite ammo
-    SetConVarInt(sv_infinite_ammo, 0, true, false);
-    // Gravity
-    SetConVarInt(sv_gravity, 800, true, false);
-    // Recoil related
-    SetConVarInt(weapon_accuracy_nospread, 0, true, false);
-    SetConVarFloat(weapon_recoil_cooldown, 0.55, true, false);
-    SetConVarFloat(weapon_recoil_decay1_exp, 3.5, true, false);
-    SetConVarInt(weapon_recoil_decay2_exp, 8, true, false);
-    SetConVarInt(weapon_recoil_decay2_lin, 18, true, false);
-    SetConVarInt(weapon_recoil_scale, 2, true, false);
-    SetConVarInt(weapon_recoil_suppression_shots, 4, true, false);
-    SetConVarFloat(weapon_recoil_view_punch_extra, 0.0555, true, false);
-    // Acceleration
-    SetConVarFloat(sv_accelerate, 5.5, true, false);
-    SetConVarInt(sv_airaccelerate, 12, true, false);
-    // Leader
-    ctLeader = -1;
-    tLeader = -1;
-    // Friction
-    SetConVarFloat(sv_friction, 5.2, true, false);
-    // All on map
-    SetConVarInt(mp_radar_showall, 0, true, false);
-    // Buddy System
-    ClearBuddySystemChickens();
-    // Red Green
-    positionMap.Clear();
-    // Winner
-    SetConVarInt(mp_default_team_winner_no_objective, 3, true, false);
-    // Kill round
-    SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
-    // Bomberman
-    SetConVarInt(mp_plant_c4_anywhere, 0, true, false);
-    SetConVarInt(mp_c4timer, 40, true, false);
-    SetConVarInt(mp_c4_cannot_be_defused, 0, true, false);
-    SetConVarInt(mp_anyone_can_pickup_c4, 0, true, false);
-    // Drop grenade
-    SetConVarInt(mp_death_drop_grenade, 1, true, false);
-    // Poison
-    smokeMap.Clear();
-    // Solid teammates
-    SetConVarInt(mp_solid_teammates, 1, true, false);
-    // Monkey see
-    monkeyOneTeam = -1;
-    // Tunnel vision
-    RemoveOverlayAll();
-    // Down Under
-    ClearDownUnder();
+	// Third person
+	SetConVarInt(sv_allow_thirdperson, 0, true, false);
+	// Weapons
+	primaryWeapon = "";
+	secondaryWeapon = "";
+	RemoveWeapons();
+	RemoveNades();
+	// Knife
+	SetKnife(true);
+	// Infinite ammo
+	SetConVarInt(sv_infinite_ammo, 0, true, false);
+	// Gravity
+	SetConVarInt(sv_gravity, 800, true, false);
+	// Recoil related
+	SetConVarInt(weapon_accuracy_nospread, 0, true, false);
+	SetConVarFloat(weapon_recoil_cooldown, 0.55, true, false);
+	SetConVarFloat(weapon_recoil_decay1_exp, 3.5, true, false);
+	SetConVarInt(weapon_recoil_decay2_exp, 8, true, false);
+	SetConVarInt(weapon_recoil_decay2_lin, 18, true, false);
+	SetConVarInt(weapon_recoil_scale, 2, true, false);
+	SetConVarInt(weapon_recoil_suppression_shots, 4, true, false);
+	SetConVarFloat(weapon_recoil_view_punch_extra, 0.0555, true, false);
+	// Acceleration
+	SetConVarFloat(sv_accelerate, 5.5, true, false);
+	SetConVarInt(sv_airaccelerate, 12, true, false);
+	// Leader
+	ctLeader = -1;
+	tLeader = -1;
+	// Friction
+	SetConVarFloat(sv_friction, 5.2, true, false);
+	// All on map
+	SetConVarInt(mp_radar_showall, 0, true, false);
+	// Buddy System
+	ClearBuddySystemChickens();
+	// Red Green
+	positionMap.Clear();
+	// Winner
+	SetConVarInt(mp_default_team_winner_no_objective, 3, true, false);
+	// Kill round
+	SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
+	// Bomberman
+	SetConVarInt(mp_plant_c4_anywhere, 0, true, false);
+	SetConVarInt(mp_c4timer, 40, true, false);
+	SetConVarInt(mp_c4_cannot_be_defused, 0, true, false);
+	SetConVarInt(mp_anyone_can_pickup_c4, 0, true, false);
+	// Drop grenade
+	SetConVarInt(mp_death_drop_grenade, 1, true, false);
+	// Drop defuser
+	SetConVarInt(mp_death_drop_defuser, 1, true, false);
+	// Drop gun
+	SetConVarInt(mp_death_drop_grenade, 1, true, false);
+	// Poison
+	smokeMap.Clear();
+	// Solid teammates
+	SetConVarInt(mp_solid_teammates, 1, true, false);
+	// Monkey see
+	monkeyOneTeam = -1;
+	// Tunnel vision
+	RemoveOverlayAll();
+	// Down Under
+	ClearDownUnder();
 
-    // Client loop
-    for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && !IsFakeClient(client)) {
-            if (IsPlayerAlive(client)) {
-                // Third person
-                ClientCommand(client, "firstperson");
-                // Defuser
-                SetEntProp(client, Prop_Send, "m_bHasDefuser", 0);
-                // Armor
-                Client_SetArmor(client, 0);
-                // Helmet
-                SetEntData(client, FindSendPropInfo("CCSPlayer", "m_bHasHelmet"), 0);
-                // Collision
-                SetEntData(client, g_offsCollisionGroup, 5, 4, true);
-                // Color
-                SetEntityRenderColor(client, 255, 255, 255, 0);
-            }
-            // Hardcore
-            Client_SetHideHud(client, 2050);
-        }
-    }
+	// Client loop
+	for (int client = 1; client <= MaxClients; client++) {
+	    if (IsClientInGame(client) && !IsFakeClient(client)) {
+	        if (IsPlayerAlive(client)) {
+	            // Third person
+	            ClientCommand(client, "firstperson");
+	            // Defuser
+	            SetEntProp(client, Prop_Send, "m_bHasDefuser", 0);
+	            // Armor
+	            Client_SetArmor(client, 0);
+	            // Helmet
+	            SetEntData(client, FindSendPropInfo("CCSPlayer", "m_bHasHelmet"), 0);
+	            // Collision
+	            SetEntData(client, g_offsCollisionGroup, 5, 4, true);
+	            // Color
+	            SetEntityRenderColor(client, 255, 255, 255, 0);
+	        }
+	        // Hardcore
+	        Client_SetHideHud(client, 2050);
+	    }
+	}
 
-    // Setting all state variables to false
-    g_DecoySound = false;
-    g_InfiniteNade = false;
-    g_NoScope = false;
-    g_Vampire = false;
-    g_ChickenDefuse = false;
-    g_HeadShot = false;
-    g_SlowMotion = false;
-    g_DropWeapons = false;
-    g_TinyMags = false;
-    g_Leader = false;
-    g_Axe = false;
-    g_Fists = false;
-    g_BuddySystem = false;
-    g_RandomNade = false;
-    g_Zombies = false;
-    g_HitSwap = false;
-    g_RedGreen = false;
-    g_Manhunt = false;
-    g_HotPotato = false;
-    g_KillRound = false;
-    g_Bomberman = false;
-    g_DontMiss = false;
-    g_CrabWalk = false;
-    g_RandomGuns = false;
-    g_Poison = false;
-    g_Bodyguard = false;
-    g_ZeusRound = false;
-    g_PocketTP = false;
-    g_OneInTheChamber = false;
-    g_Captcha = false;
-    g_MonkeySee = false;
-    g_Stealth = false;
-    g_FlashDmg = false;
-    g_KillList = false;
-    g_Breach = false;
-    g_Drones = false;
-    g_Bumpmine = false;
-    g_Panic = false;
-    g_Dropshot = false;
+	// Setting all state variables to false
+	g_DecoySound = false;
+	g_InfiniteNade = false;
+	g_NoScope = false;
+	g_Vampire = false;
+	g_ChickenDefuse = false;
+	g_HeadShot = false;
+	g_SlowMotion = false;
+	g_DropWeapons = false;
+	g_TinyMags = false;
+	g_Leader = false;
+	g_Axe = false;
+	g_Fists = false;
+	g_BuddySystem = false;
+	g_RandomNade = false;
+	g_Zombies = false;
+	g_HitSwap = false;
+	g_RedGreen = false;
+	g_Manhunt = false;
+	g_HotPotato = false;
+	g_KillRound = false;
+	g_Bomberman = false;
+	g_DontMiss = false;
+	g_CrabWalk = false;
+	g_RandomGuns = false;
+	g_Poison = false;
+	g_Bodyguard = false;
+	g_ZeusRound = false;
+	g_PocketTP = false;
+	g_OneInTheChamber = false;
+	g_Captcha = false;
+	g_MonkeySee = false;
+	g_Stealth = false;
+	g_FlashDmg = false;
+	g_KillList = false;
+	g_Breach = false;
+	g_Drones = false;
+	g_Bumpmine = false;
+	g_Panic = false;
+	g_Dropshot = false;
 }
 
 public int GetNumberOfStrats() {

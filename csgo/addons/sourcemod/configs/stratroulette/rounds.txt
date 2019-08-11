@@ -618,7 +618,7 @@
 	"59"
 	{
 		"name"			"RoundHardcoreName"
-		"description"	"RoundHardcoreName mode, HUD is disabled. Plant C4 with the 'Use' key."
+		"description"	"RoundHardcoreDesc"
 		"weapon"		"weapon_random"
 		"hardcore"		"1"
 		"armor"			"100"

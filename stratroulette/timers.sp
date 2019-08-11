@@ -636,17 +636,21 @@ public Action:SendCaptchaTimer(Handle timer) {
 }
 
 public Action:DropShotWeapon(Handle timer, DataPack data) {
-    if (!g_Dropshot) {
-        return Plugin_Stop;
-    }
+	if (!g_Dropshot) {
+		return Plugin_Stop;
+	}
 
-    data.Reset();
-    int client = data.ReadCell();
-    new weapon = data.ReadCell();
+	data.Reset();
+	int client = data.ReadCell();
+	new weapon = data.ReadCell();
 
-    CS_DropWeapon(client, weapon, true, true);
+	int weaponOwner = EntRefToEntIndex(Weapon_GetOwner(weapon));
 
-    return Plugin_Continue;
+	if (weaponOwner == client) {
+	    CS_DropWeapon(client, weapon, true, true);
+	}
+
+	return Plugin_Continue;
 }
 
 public Action:StartHardcore(Handle timer) {
