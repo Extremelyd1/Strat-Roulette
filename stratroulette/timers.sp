@@ -62,37 +62,19 @@ public Action:DropWeaponsTimer(Handle timer, DataPack data) {
     return Plugin_Stop;
 }
 
-public Action:SetTinyMagsTimer(Handle timer) {
-    if (!g_TinyMags) {
-        return Plugin_Stop;
-    }
+public Action:WaitForReloadTimer(Handle timer, int weapon) {
+	if (!g_TinyMags) {
+		return Plugin_Stop;
+	}
 
-    for (new i = 1; i <= MaxClients; i++) {
-        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-            if (GetClipAmmo(i) > 1) {
-                SetClipAmmo(i, 1);
-            }
+	if (!GetEntProp(weapon, Prop_Data, "m_bInReload")) {
+		SetReserveAmmo(weapon, magazineSize);
 
-            SetReserveAmmo(i, 1);
-        }
-    }
+		return Plugin_Stop;
+	}
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
-
-/* public Action:RemoveReserveAmmoTimer(Handle timer) {
-    if (!g_OneInTheChamber) {
-        return Plugin_Stop;
-    }
-
-    for (new i = 1; i <= MaxClients; i++) {
-        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-            SetReserveAmmo(i, 0);
-        }
-    }
-
-    return Plugin_Continue;
-} */
 
 // Simply here to delay starting the timer
 // so players can walk to their leader at
@@ -584,28 +566,6 @@ public Action:RemoveOITCWeapon(Handle timer, DataPack data) {
     return Plugin_Continue;
 }
 
-public Action:AwardOITCWeapon(Handle timer, int client) {
-    if (!g_OneInTheChamber) {
-        return Plugin_Stop;
-    }
-
-    char weaponname[128];
-    Client_GetActiveWeaponName(client, weaponname, sizeof(weaponname));
-    if (!StrEqual(weaponname, "weapon_knife") && GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon") > 0) {
-        SetClipAmmo(client, GetClipAmmo(client) + 1);
-    } else {
-        if (!StrEqual(primaryWeapon, "")) {
-            GivePlayerItem(client, primaryWeapon);
-        }
-        if (!StrEqual(secondaryWeapon, "")) {
-            GivePlayerItem(client, secondaryWeapon);
-        }
-        SetClipAmmo(client, 1);
-    }
-
-    return Plugin_Continue;
-}
-
 public Action:SendCaptchaTimer(Handle timer) {
 	if (!g_Captcha) {
 		return Plugin_Stop;
@@ -636,17 +596,21 @@ public Action:SendCaptchaTimer(Handle timer) {
 }
 
 public Action:DropShotWeapon(Handle timer, DataPack data) {
-    if (!g_Dropshot) {
-        return Plugin_Stop;
-    }
+	if (!g_Dropshot) {
+		return Plugin_Stop;
+	}
 
-    data.Reset();
-    int client = data.ReadCell();
-    new weapon = data.ReadCell();
+	data.Reset();
+	int client = data.ReadCell();
+	new weapon = data.ReadCell();
 
-    CS_DropWeapon(client, weapon, true, true);
+	int weaponOwner = EntRefToEntIndex(Weapon_GetOwner(weapon));
 
-    return Plugin_Continue;
+	if (weaponOwner == client) {
+	    CS_DropWeapon(client, weapon, true, true);
+	}
+
+	return Plugin_Continue;
 }
 
 public Action:StartHardcore(Handle timer) {

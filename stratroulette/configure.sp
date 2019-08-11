@@ -254,14 +254,30 @@ public ConfigureDropWeapons() {
 }
 
 public ConfigureTinyMags() {
-	if (StrEqual(TinyMags, "1")) {
-	    g_TinyMags = true;
-	    for (int client = 1; client <= MaxClients; client++) {
-	        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-	            SetClipAmmo(client, 1);
-	        }
-	    }
-	    CreateTimer(0.1, SetTinyMagsTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+	if (!StrEqual(TinyMags, "0")) {
+		g_TinyMags = true;
+		magazineSize = StringToInt(TinyMags);
+		for (int client = 1; client <= MaxClients; client++) {
+			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+				int primary = GetPlayerWeaponSlot(client, CS_SLOT_PRIMARY);
+				if (primary > 0) {
+					SetClipAmmo(primary, magazineSize);
+					SetReserveAmmo(primary, magazineSize);
+
+					SDKHook(primary, SDKHook_Reload, Hook_OnWeaponReload);
+					SDKHook(primary, SDKHook_ReloadPost, Hook_OnWeaponReloadPost);
+				}
+
+				int secondary = GetPlayerWeaponSlot(client, CS_SLOT_SECONDARY);
+				if (secondary > 0) {
+					SetClipAmmo(secondary, magazineSize);
+					SetReserveAmmo(secondary, magazineSize);
+
+					SDKHook(secondary, SDKHook_Reload, Hook_OnWeaponReload);
+					SDKHook(secondary, SDKHook_ReloadPost, Hook_OnWeaponReloadPost);
+				}
+			}
+		}
 	}
 }
 
@@ -354,7 +370,10 @@ public ConfigureRandomNade() {
 
 public ConfigureZombies() {
 	if (StrEqual(Zombies, "1")) {
-	    g_Zombies = true;
+		g_Zombies = true;
+		SetConVarInt(mp_death_drop_gun, 0, true, false);
+		SetConVarInt(mp_death_drop_defuser, 0, true, false);
+		SetConVarInt(mp_death_drop_grenade, 0, true, false);
 	}
 }
 
@@ -493,12 +512,22 @@ public ConfigurePocketTP() {
 
 public ConfigureOneInTheChamber() {
 	if (StrEqual(OneInTheChamber, "1")) {
-	    g_OneInTheChamber = true;
-	    for (int client = 1; client <= MaxClients; client++) {
-	        if (IsClientInGame(client) && IsPlayerAlive(client)) {
-	            SetClipAmmo(client, 1);
-	        }
-	    }
+		g_OneInTheChamber = true;
+		for (int client = 1; client <= MaxClients; client++) {
+			if (IsClientInGame(client) && IsPlayerAlive(client)) {
+				int primary = GetPlayerWeaponSlot(client, CS_SLOT_PRIMARY);
+				if (primary > 0) {
+					SetClipAmmo(primary, 1);
+					SetReserveAmmo(primary, 0);
+				}
+
+				int secondary = GetPlayerWeaponSlot(client, CS_SLOT_SECONDARY);
+				if (secondary > 0) {
+					SetClipAmmo(secondary, 1);
+					SetReserveAmmo(secondary, 0);
+				}
+			}
+		}
 	}
 }
 

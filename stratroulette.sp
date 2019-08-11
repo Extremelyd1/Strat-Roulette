@@ -44,7 +44,7 @@ new String:SlowMotion[3];
 new String:RecoilView[7];
 new String:AlwaysMove[3];
 new String:DropWeapons[3];
-new String:TinyMags[3];
+new String:TinyMags[20];
 new String:Leader[3];
 new String:AllOnMap[3];
 new String:Invisible[3];
@@ -206,6 +206,7 @@ new StringMap:droneMap;
 new bool:skipNextKill = false;
 // Down Under
 new StringMap:downUnderMap;
+int magazineSize;
 
 // Round variables
 int lastRound = -1;
@@ -243,6 +244,8 @@ new Handle:mp_plant_c4_anywhere;
 new Handle:mp_c4timer;
 new Handle:mp_c4_cannot_be_defused;
 new Handle:mp_anyone_can_pickup_c4;
+new Handle:mp_death_drop_gun;
+new Handle:mp_death_drop_defuser;
 new Handle:mp_death_drop_grenade;
 new Handle:mp_solid_teammates;
 new Handle:host_timescale;
@@ -261,7 +264,7 @@ public Plugin:myinfo =  {
 	name = "Strat Roulette",
 	author = "Extremelyd1",
 	description = "Random strats every round",
-	version = "1.0"
+	version = "2.1"
 }
 
 public OnPluginStart() {
@@ -473,7 +476,7 @@ public Action:cmd_srtest(client, args) {
 }
 
 public Action:CommandDrop(int client, const char[] command, int args) {
-	if (g_HotPotato || g_Bomberman || g_Bodyguard || g_RandomGuns) {
+	if (g_HotPotato || g_Bomberman || g_Bodyguard || g_RandomGuns || g_Zombies) {
 	    return Plugin_Stop;
 	}
 
@@ -569,6 +572,8 @@ public OnConfigsExecuted() {
 	mp_c4timer = FindConVar("mp_c4timer");
 	mp_c4_cannot_be_defused = FindConVar("mp_c4_cannot_be_defused");
 	mp_anyone_can_pickup_c4 = FindConVar("mp_anyone_can_pickup_c4");
+	mp_death_drop_gun = FindConVar("mp_death_drop_gun");
+	mp_death_drop_defuser = FindConVar("mp_death_drop_defuser");
 	mp_death_drop_grenade = FindConVar("mp_death_drop_grenade");
 	mp_solid_teammates = FindConVar("mp_solid_teammates");
 	host_timescale = FindConVar("host_timescale");
