@@ -421,7 +421,6 @@
 		"hotpotato"		"1"
 		"noc4"			"1"
 		"killround"		"1"
-		"infiniteammo"	"2"
 		"noknife"		"1"
 		"tinymags"		"1"
 		"showallmap"	"1"

@@ -67,6 +67,10 @@ public Action:WaitForReloadTimer(Handle timer, int weapon) {
 		return Plugin_Stop;
 	}
 
+	if (!IsValidEntity(weapon)) {
+		return Plugin_Stop;
+	}
+
 	if (!GetEntProp(weapon, Prop_Data, "m_bInReload")) {
 		SetReserveAmmo(weapon, magazineSize);
 

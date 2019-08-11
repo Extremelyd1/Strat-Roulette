@@ -459,7 +459,19 @@ stock void SelectHotPotato(int client = -1) {
 		}
 	}
 
-	GivePlayerItem(ctLeader, "weapon_fiveseven");
+	GiveHotPotato(ctLeader);
+}
+
+public GiveHotPotato(client) {
+	GivePlayerItem(client, "weapon_fiveseven");
+
+	int potato = GetPlayerWeaponSlot(client, CS_SLOT_SECONDARY);
+
+	SetClipAmmo(potato, magazineSize);
+	SetReserveAmmo(potato, magazineSize);
+
+	SDKHook(potato, SDKHook_Reload, Hook_OnWeaponReload);
+	SDKHook(potato, SDKHook_ReloadPost, Hook_OnWeaponReloadPost);
 }
 
 public ClearBuddySystemChickens() {
