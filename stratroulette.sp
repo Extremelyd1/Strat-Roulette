@@ -263,7 +263,7 @@ public Plugin:myinfo =  {
 	name = "Strat Roulette",
 	author = "Extremelyd1",
 	description = "Random strats every round",
-	version = "1.0"
+	version = "2.0"
 }
 
 public OnPluginStart() {
