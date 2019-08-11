@@ -104,6 +104,7 @@ public ReadNewRound() {
 	kv.GetString("hardcore", Hardcore, sizeof(Hardcore), "0");
 	kv.GetString("tunnelvision", TunnelVision, sizeof(TunnelVision), "0");
 	kv.GetString("downunder", DownUnder, sizeof(DownUnder), "0");
+	kv.GetString("reincarnation", Reincarnation, sizeof(Reincarnation), "0");
 
 	char descriptionOverride[3];
 	kv.GetString("descoverride", descriptionOverride, sizeof(descriptionOverride), "0");
@@ -262,6 +263,8 @@ public ReadNewRound() {
 	ConfigureTunnelVision();
 	//** Down Under **//
 	ConfigureDownUnder();
+	//** Reincarnation **//
+	ConfigureReincarnation();
 
 	delete kv;
 

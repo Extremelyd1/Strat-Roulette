@@ -68,6 +68,9 @@ public ResetConfiguration() {
 	RemoveOverlayAll();
 	// Down Under
 	ClearDownUnder();
+	// Reincarnation
+	SetConVarInt(mp_respawn_on_death_ct, 0, true, false);
+	SetConVarInt(mp_respawn_on_death_t, 0, true, false);
 
 	// Client loop
 	for (int client = 1; client <= MaxClients; client++) {
@@ -131,6 +134,7 @@ public ResetConfiguration() {
 	g_Bumpmine = false;
 	g_Panic = false;
 	g_Dropshot = false;
+	g_Reincarnation = false;
 }
 
 public int GetNumberOfStrats() {

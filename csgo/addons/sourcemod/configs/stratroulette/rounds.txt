@@ -661,4 +661,15 @@
 		"noc4"			"1"
 		"killround"		"1"
 	}
+	"63"
+	{
+		"name"			"RoundIncarnationName"
+		"description"	"RoundIncarnationDesc"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"armor"			"100"
+		"helmet"		"1"
+		"health"		"100"
+		"reincarnation"	"1"
+		"defuser"		"1"
+	}
 }

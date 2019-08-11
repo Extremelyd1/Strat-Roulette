@@ -3,20 +3,24 @@ public Action SrEventMatchOver(Handle:event, const String:name[], bool:dontBroad
 }
 
 public Action:SrEventRoundEnd(Handle:event, const String:name[], bool:dontBroadcast) {
-    if (voteTimer != INVALID_HANDLE) {
-        CloseHandle(voteTimer);
-        voteTimer = INVALID_HANDLE;
-    }
+	if (voteTimer != INVALID_HANDLE) {
+		CloseHandle(voteTimer);
+		voteTimer = INVALID_HANDLE;
+	}
+
+	roundHasEnded = true;
 }
 
 public Action:SrEventRoundStart(Handle:event, const String:name[], bool:dontBroadcast) {
-    if (IsPugSetupMatchLive() || inGame) {
-       ReadNewRound();
-       // Don't create new timer if another already exists
-       if (voteTimer == INVALID_HANDLE && !nextRoundVoted) {
-           voteTimer = CreateTimer(GetConVarInt(mp_freezetime) + 15.0, VoteTimer);
-       }
-    }
+	if (IsPugSetupMatchLive() || inGame) {
+		ReadNewRound();
+		// Don't create new timer if another already exists
+		if (voteTimer == INVALID_HANDLE && !nextRoundVoted) {
+			voteTimer = CreateTimer(GetConVarInt(mp_freezetime) + 15.0, VoteTimer);
+		}
+	}
+
+	roundHasEnded = false;
 }
 
 public Action:SrEventDecoyStarted(Handle:event, const String:name[], bool:dontBroadcast) {
@@ -392,4 +396,38 @@ public Action:SrEventSwitchTeam(Event event, const char[] name, bool dontBroadca
             inGame = true;
         }
     }
+}
+
+public Action:SrEventPlayerSpawn(Event event, const char[] name, bool dontBroadcast) {
+	if (g_Reincarnation && !roundHasEnded) {
+		int client = GetClientOfUserId(GetEventInt(event, "userid"));
+
+		// Give player weapons again
+		GivePlayerItem(client, primaryWeapon);
+		GivePlayerItem(client, secondaryWeapon);
+
+		// Give defuser if enabled
+		if (StrEqual(Defuser, "1")) {
+			SetEntProp(client, Prop_Send, "m_bHasDefuser", 1);
+		}
+
+		// Give armor if enabled
+		if (!StrEqual(Armor, "0")) {
+			new armorInt = StringToInt(Armor);
+			Client_SetArmor(client, armorInt);
+		}
+
+		// Give helmet if enabled
+		if (StrEqual(Helmet, "1")) {
+			SetEntData(client, FindSendPropInfo("CCSPlayer", "m_bHasHelmet"), 1);
+		}
+
+		// Set health
+		SetEntityHealth(client, g_Health);
+
+		// Remove knife if enabled
+		if (StrEqual(NoKnife, "1")) {
+			SetKnife(false);
+		}
+	}
 }

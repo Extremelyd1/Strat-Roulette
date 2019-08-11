@@ -498,7 +498,7 @@
 	}
 	"RoundVoteTitle"
 	{
-		"en"		"Vote for next round:"
+		"en"		"Vote for a new round:"
 	}
 	"NewLeader"
 	{
@@ -640,5 +640,12 @@
 	{
 		"en"		"Description:"
 	}
+	"RoundIncarnationName"
+	{
+		"en"		"Reincarnation"
+	}
+	"RoundIncarnationDesc"
+	{
+		"en"		"Normal round except that all player respawn infinitely."
+	}
 }
-

@@ -703,3 +703,12 @@ public ConfigureDownUnder() {
 		g_DownUnder = true;
 	}
 }
+
+public ConfigureReincarnation() {
+	if (StrEqual(Reincarnation, "1")) {
+		g_Reincarnation = true;
+		
+		SetConVarInt(mp_respawn_on_death_ct, 1, true, false);
+		SetConVarInt(mp_respawn_on_death_t, 1, true, false);
+	}
+}
