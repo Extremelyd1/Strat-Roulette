@@ -3,641 +3,799 @@
 	"RoundThirdPersonName"
 	{
 		"en"		"Third Person"
+		"it"		"Terza Persona"
 	}
 	"RoundThirdPersonDesc"
 	{
 		"en"		"Everyone plays in third person mode."
+		"it"		"Tutti giocano in terza persona."
 	}
 	"RoundBabyHitMeName"
 	{
 		"en"		"Baby hit me one more time"
+		"it"		"Colpiscimi di nuovo"
 	}
 	"RoundBabyHitMeDesc"
 	{
 		"en"		"Everyone has 1 HP and unlimited decoy grenades."
+		"it"		"Tutti hanno 1HP e infinite granate diversive."
 	}
 	"RoundSpeedName"
 	{
 		"en"		"I am speed"
+		"it"		"Io sono velocità"
 	}
 	"RoundSpeedDesc"
 	{
 		"en"		"Everyone moves at high speed."
+		"it"		"Tutti si muovono a velocità elevata."
 	}
 	"RoundNoRecoilName"
 	{
 		"en"		"Straight Shooter"
+		"it"		""
 	}
 	"RoundNoRecoilDesc"
 	{
 		"en"		"Weapon have no recoil or spread, all bullets hit where your crosshair is."
+		"it"		"Le armi non hanno nè recoil nè spread, tutti i colpi vanno dritti dov'è il mirino."
 	}
 	"RoundZeusOITCName"
 	{
 		"en"		"One Battery in the Chamber"
+		"it"		"Una Batteria in Canna"
 	}
 	"RoundZeusOITCDesc"
 	{
 		"en"		"Everyone has a single zeus, but a kill rewards you with another."
+		"it"		"Tutti hanno un solo Taser, ma una kill te ne farà avere uno nuovo."
 	}
 	"RoundSpeedKnifeName"
 	{
 		"en"		"Speed Knife"
+		"it"		"Coltelli Veloci"
 	}
 	"RoundSpeedKnifeDesc"
 	{
 		"en"		"Everyone moves at high speed."
+		"it"		"Tutti si muovono velocemente con solo il coltello."
 	}
 	"RoundShieldName"
 	{
 		"en"		"Shielded"
+		"it"		"Difesa"
 	}
 	"RoundShieldDesc"
 	{
 		"en"		"Everyone has a shield and a five-seven."
+		"it"		"Tutti hanno un kevlar e una five-seven."
 	}
 	"RoundNoScopeName"
 	{
 		"en"		"No-scopes Only"
+		"it"		"Solo No-Scope"
 	}
 	"RoundNoScopeDesc"
 	{
 		"en"		"You can no longer scope with your weapon."
+		"it"		"Non potrai più mirare con la tua arma."
 	}
 	"RoundNegevLaserName"
 	{
 		"en"		"Laser Gun"
+		"it"		"Laser Gun"
 	}
 	"RoundNegevLaserDesc"
 	{
 		"en"		"Everyone has a negev without any recoil or spread."
+		"it"		"Tutti hanno un negev senza recoil né spread."
 	}
 	"RoundRandomGunsName"
 	{
 		"en"		"Random Guns"
+		"it"		"Roulette delle Armi"
 	}
 	"RoundRandomGunsDesc"
 	{
 		"en"		"Guns are randomly assigned periodically."
+		"it"		"Le armi sono periodicamente assegnate random."
 	}
 	"RoundSpaceAWPName"
 	{
 		"en"		"Space AWP"
+		"it"		"Spaziale questo AWP"
 	}
 	"RoundSpaceAWPDesc"
 	{
 		"en"		"Everyone has a AWP and low gravity."
+		"it"		"Tutti hanno un AWP e bassa gravità."
 	}
 	"RoundSemiZeusName"
 	{
 		"en"		"Space semi-auto Zeus"
+		"it"		"Spaziale questo Taser!"
 	}
 	"RoundSemiZeusDesc"
 	{
 		"en"		"Everyone has a zeus with infinite charges and low gravity."
+		"it"		"Tutti hanno un Taser con infinite cariche e bassa gravità."
 	}
 	"RoundVampireName"
 	{
 		"en"		"Vampire"
+		"it"		"Vampiro"
 	}
 	"RoundVampireDesc"
 	{
 		"en"		"Hitting a player will reward you health depending on the damage done."
+		"it"		"Colpendo un giocatore riceverai gli HP del tuo nemico, rispetto al danno fatto."
 	}
 	"RoundReverseName"
 	{
 		"en"		"In Reverse"
+		"it"		"Tutto al Contrario"
 	}
 	"RoundReverseDesc"
 	{
 		"en"		"Movement controls are reversed."
+		"it"		"I controlli di movimento sono invertiti."
 	}
 	"RoundPeripheralVisionName"
 	{
 		"en"		"Peripheral Vision"
+		"it"		"Visione Periferica"
 	}
 	"RoundPeripheralVisionDesc"
 	{
 		"en"		"Everyone has increased field of view."
+		"it"		"Tutti hanno un POV più elevato."
 	}
 	"RoundThirdPersonLowerFOVName"
 	{
 		"en"		"Third Person"
+		"it"		"Terza Persona"
 	}
 	"RoundThirdPersonLowerFOVDesc"
 	{
 		"en"		"Everyone plays in third person with lower field of view."
+		"it"		"Tutti giocano in terza persona con un POV ristretto."
 	}
 	"RoundChickenDefuseName"
 	{
 		"en"		"Chicken Defuse"
+		"it"		"Chicken Defuse"
 	}
 	"RoundChickenDefuseDesc"
 	{
 		"en"		"When the bomb is planted, it is put on a moving chicken."
+		"it"		"Quando la bomba è piantata, essa verrà agganciata ad una gallina scorrazzante."
 	}
 	"RoundHeadshotOnlyName"
 	{
 		"en"		"Headshot Only"
+		"it"		"Solo Headshot"
 	}
 	"RoundHeadshotOnlyDesc"
 	{
 		"en"		"Shots only count when they are headshots."
+		"it"		"I veri colpi che contano sono gli HS."
 	}
 	"RoundSpaceMag7Name"
 	{
 		"en"		"Space Swag7"
+		"it"		"Spaziale questo Swag7"
 	}
 	"RoundSpaceMag7Desc"
 	{
 		"en"		"Everyone has a MAG-7 and low gravity."
+		"it"		"Tutti hanno un MAG-7 e bassa gravità."
 	}
 	"RoundSlowMotionName"
 	{
 		"en"		"Slow Motion"
+		"it"		"Slow Motion"
 	}
 	"RoundSlowMotionDesc"
 	{
 		"en"		"Time is slowed down periodically."
+		"it"		"Il tempo rallenta periodicamente."
 	}
 	"RoundJuanDeagName"
 	{
 		"en"		"Juan Deag"
+		"it"		"Juan Deag"
 	}
 	"RoundJuanDeagDesc"
 	{
 		"en"		"Everyone has a deagle, but only headshots count."
+		"it"		"Tutti hanno una deagle, ma solo gli HS contano."
 	}
 	"RoundTriggerSpazmName"
 	{
 		"en"		"Trigger Spazm"
+		"it"		"Spasmi"
 	}
 	"RoundTriggerSpazmDesc"
 	{
 		"en"		"When shooting your weapon, you get huge amounts of recoil and spread."
+		"it"		"Quando spari con la tua arma, ci sarà un sacco di recoil e spread."
 	}
 	"RoundNoStopName"
 	{
 		"en"		"Don't stop me now"
+		"it"		"Non fermarmi ora"
 	}
 	"RoundNoStopDesc"
 	{
 		"en"		"You can no longer stop moving."
+		"it"		"Non puoi più fermarti."
 	}
 	"RoundClumsyName"
 	{
 		"en"		"Clumsy"
+		"it"		"Maldestro"
 	}
 	"RoundClumsyDesc"
 	{
 		"en"		"Everyone drops their weapon periodically."
+		"it"		"Tutti droppano le armi periodicamente."
 	}
 	"RoundSmokeOnlyName"
 	{
 		"en"		"Smoke Weed Everyday"
+		"it"		"Smoke Weed Everyday"
 	}
 	"RoundSmokeOnlyDesc"
 	{
 		"en"		"Everyone receives unlimited smokes."
+		"it"		"Tutti ricevono infinite smoke."
 	}
 	"RoundMolotovOnlyName"
 	{
 		"en"		"Burn Baby Burn"
+		"it"		"Brucia, Baby, Brucia!"
 	}
 	"RoundMolotovOnlyDesc"
 	{
 		"en"		"Everyone receives unlimited molotovs."
+		"it"		"Tutti ricevono infinite molotov."
 	}
 	"RoundFlashbangOnlyName"
 	{
 		"en"		"Milk, Milk Everywhere"
+		"it"		"Latte, Latte Ovunque"
 	}
 	"RoundFlashbangOnlyDesc"
 	{
 		"en"		"Everyone receives unlimited flashbangs."
+		"it"		"Tutti ricevono infinite flashbangs."
 	}
 	"RoundFragOnlyName"
 	{
 		"en"		"Frag Out!"
+		"it"		"A Pezzi!"
 	}
 	"RoundFragOnlyDesc"
 	{
 		"en"		"Everyone receives unlimited high explosive grenades."
+		"it"		"Tutti ricevono illimitate granate esplosive."
 	}
 	"RoundTinyMagsName"
 	{
 		"en"		"Tiny Magazines"
+		"it"		"Piccoli Caricatori"
 	}
 	"RoundTinyMagsDesc"
 	{
 		"en"		"All weapons have a single bullet in their magazine."
+		"it"		"Tutte le armi hanno un solo colpo nel caricatore."
 	}
 	"RoundFollowLeaderName"
 	{
 		"en"		"Follow the Leader"
+		"it"		"Segui il Leader"
 	}
 	"RoundFollowLeaderDesc"
 	{
 		"en"		"One player of each team is assigned leader and other must follow them."
+		"it"		"Un player per ogni team è designato come Leader, e gli altri devono seguirlo."
 	}
 	"RoundInvisibilityName"
 	{
 		"en"		"Invisibility"
+		"it"		"Invisibilità"
 	}
 	"RoundInvisibilityDesc"
 	{
 		"en"		"Everyone is invisible."
+		"it"		"Tutti sono invisibili."
 	}
 	"RoundMonkeySeeName"
 	{
 		"en"		"Monkey see, Monkey do"
+		"it"		"La Scimmia vede, la Scimmia fa"
 	}
 	"RoundMonkeySeeDesc"
 	{
 		"en"		"One player of each team is assigned leader and must lose their followers."
+		"it"		"Un player di ogni squadra è designato come leader e deve perdere i suoi seguaci."
 	}
 	"RoundZombieInvasionName"
 	{
 		"en"		"Zombie Invasion"
+		"it"		"Invasione Zombie"
 	}
 	"RoundZombieInvasionDesc"
 	{
 		"en"		"Terrorists must kill the counter terrorist with their knives. Counter terrorists must survive."
+		"it"		"I Terroristi devono uccidere i CT con i SOLI coltelli. I CT devono sopravvivere."
 	}
 	"RoundAxeThrowingName"
 	{
 		"en"		"Axe Throwing Contest"
+		"it"		"Contest dell'Ascia"
 	}
 	"RoundAxeThrowingDesc"
 	{
 		"en"		"Everyone receives unlimited axes."
+		"it"		"Tutti ricevono asce illimitate"
 	}
 	"RoundBarFightName"
 	{
 		"en"		"Bar Fight"
+		"it"		"Rissa da Bar"
 	}
 	"RoundBarFightDesc"
 	{
 		"en"		"Simply a fist fight."
+		"it"		"Semplicemente una rissa con pugni."
 	}
 	"RoundHitSwapName"
 	{
 		"en"		"Hit Swap"
+		"it"		"Colpo e Scambio"
 	}
 	"RoundHitSwapDesc"
 	{
 		"en"		"Hitting a player will make you swap places with them."
+		"it"		"Colpendo un giocatore ti farà scambiare di posizione con esso."
 	}
 	"RoundBuddySystemName"
 	{
 		"en"		"Buddy System"
+		"it"		"Il Sistema Amico"
 	}
 	"RoundBuddySystemDesc"
 	{
 		"en"		"Everyone is invincible, but if your chicken dies, you die."
+		"it"		"Tutti sono invincibili, ma se la tua gallina muore, anche tu farai la stessa fine."
 	}
 	"RoundRevolverOnlyName"
 	{
 		"en"		"It's High Noon"
+		"it"		"Mezzogiorno in Punto"
 	}
 	"RoundRevolverOnlyDesc"
 	{
 		"en"		"Everyone receives a R8 revolver."
+		"it"		"Tutti ricevono un R8 Revolver."
 	}
 	"RoundRedGreenName"
 	{
 		"en"		"Red Light, Green Light"
+		"it"		"Luce Rossa, Luce Verde"
 	}
 	"RoundRedGreenDesc"
 	{
 		"en"		"Moving during red light will damage you."
+		"it"		"Muoversi durante la luce rossa ti ferirà."
 	}
 	"RoundManhuntName"
 	{
 		"en"		"Manhunt"
+		"it"		"Cacciatore"
 	}
 	"RoundManhuntDesc"
 	{
 		"en"		"One player of each team is assigned the target. If the target is killed, the whole team dies."
+		"it"		"Un player per ogni team ha un preciso obiettivo da uccidere. Se l'obiettivo viene ucciso, tutto il team morirà."
 	}
 	"RoundHotPotatoName"
 	{
 		"en"		"Hot Potato"
+		"it"		"Patata bollente"
 	}
 	"RoundHotPotatoDesc"
 	{
 		"en"		"A random player gets the hot potato (five-seven), which kills after a while. Hit another player to transfer the hot potato to them."
+		"it"		"Un player random riceverà la patata bollente (five-seven), che ucciderà dopo un po'. Colpisci un altro giocatore per trasferire la patata bollente."
 	}
 	"RoundBombermanName"
 	{
 		"en"		"Bomberman"
+		"it"		"Bomberman"
 	}
 	"RoundBombermanDesc"
 	{
 		"en"		"Everyone receives unlimited C4 and can plant anywhere."
+		"it"		"Tutti ricevono infiniti C4 che possono piazzare dove meglio credono."
 	}
 	"RoundRandomNadesName"
 	{
 		"en"		"Random Nades"
+		"it"		"Granate Random"
 	}
 	"RoundRandomNadesDesc"
 	{
 		"en"		"Everyone receives unlimited, but randomized grenades."
+		"it"		"Tutti ricevono granate infinite, ma random."
 	}
 	"RoundDontMissName"
 	{
 		"en"		"Don't Miss"
+		"it"		"Non sbagliare!"
 	}
 	"RoundDontMissDesc"
 	{
 		"en"		"Missing your shots will damage you, be careful when you fire."
+		"it"		"Se non becchi nessuno con i tuoi colpi mentre spari, verrai ferito. Sii prudente quando spari."
 	}
 	"RoundCrabWalkName"
 	{
 		"en"		"Crab Walk"
+		"it"		"Rave del Granchio"
 	}
 	"RoundCrabWalkDesc"
 	{
 		"en"		"Movement is restricted to only strafing left and right."
+		"it"		"Il movimento è soltanto consentito a sinistra e a destra."
 	}
 	"RoundPoisonCloudName"
 	{
 		"en"		"Poison Cloud"
+		"it"		"Nuvola Velenosa"
 	}
 	"RoundPoisonCloudDesc"
 	{
 		"en"		"Smokes are transformed into poison clouds, which damage nearby players over time."
+		"it"		"Le smokes sono diventate nuvole velenose, che danneggiano i giocatori vicini nel tempo."
 	}
 	"RoundBodyguardName"
 	{
 		"en"		"Bodyguard"
+		"it"		"Guardia del Corpo"
 	}
 	"RoundBodyguardDesc"
 	{
 		"en"		"One player of each team is assigned VIP, while the others are bodyguards. Bodyguards cannot die, but when the VIP dies, the whole team dies."
+		"it"		"Un player di ogni squadra è scelto come VIP, mentre gli altri sono guardie. Le guardie non possono morire, ma quando il VIP muore, tutto il team perirà."
 	}
 	"RoundPocketTPName"
 	{
 		"en"		"Pocket Teleporter"
+		"it"		"Teletrasporto portatile"
 	}
 	"RoundPocketTPDesc"
 	{
 		"en"		"Your secondary is your pocket teleporter. You teleport to the position you hit with it."
+		"it"		"La tua arma secondaria è il tuo teletrasportatore portatile. Puoi teletrasportarti nella posizione in cui spari."
 	}
 	"RoundOITCName"
 	{
 		"en"		"One in the Chamber"
+		"it"		"Uno in Canna"
 	}
 	"RoundOITCDesc"
 	{
 		"en"		"Everyone has 1 HP and a single bullet, if you kill someone, you receive another bullet."
+		"it"		"Tutti hanno 1HP e un solo proiettile, se ucciderai qualcuno, riceverai un proiettile nuovo."
 	}
 	"RoundCaptchaName"
 	{
 		"en"		"Captcha"
+		"it"		"Captcha"
 	}
 	"RoundCaptchaDesc"
 	{
 		"en"		"Everyone receives a captcha periodically, solve the captcha to receive your weapons again."
+		"it"		"Tutti ricevono un captcha periodico. Completa il captcha per riavere di nuovo le tue armi."
 	}
 	"RoundStealthName"
 	{
 		"en"		"Stealth"
+		"it"		"Stealth"
 	}
 	"RoundStealthDesc"
 	{
 		"en"		"Standing still or slow-walking grants you invisibility, moving or firing renders you visible."
+		"it"		"Stando fermo o camminando lentamente sarai invisibile, ma non appena ti muoverai o sparerai sarai di nuovo visibile."
 	}
 	"RoundBlindLightName"
 	{
 		"en"		"Blinding Light"
+		"it"		"Luce Accecante"
 	}
 	"RoundBlindLightDesc"
 	{
 		"en"		"Getting flashed by a flashbang damages players depending on duration."
+		"it"		"Essere flashati da un flashbang danneggia i giocatori a seconda della durata."
 	}
 	"RoundKillListName"
 	{
 		"en"		"Kill List"
+		"it"		"Lista delle Uccisioni"
 	}
 	"RoundKillListDesc"
 	{
 		"en"		"One player of each team is on the top of the kill list. Only this player can be killed, attempted to kill others results in death."
+		"it"		"Un player di ogni team è in cima alla lista uccisioni. Solo questo player può essere ucciso. Uccidere altri giocatori comporterà la tua morte."
 	}
 	"RoundBreachName"
 	{
 		"en"		"Breach, breach, breach!"
+		"it"		"Carica, carica, carica!"
 	}
 	"RoundBreachDesc"
 	{
 		"en"		"Everyone has unlimited breach charges, however you can only have 3 active at a time."
+		"it"		"Tutti hanno infinite cariche di irruzione, ma non ne puoi avere più di 3 attive contemporaneamente."
 	}
 	"RoundTowerDefenseName"
 	{
 		"en"		"Tower Defense"
+		"it"		"Difendi la Torre"
 	}
 	"RoundTowerDefenseDesc"
 	{
 		"en"		"Throw your decoy to spawn a turret on its location."
+		"it"		"Lancia la tua decoy per spawnare una torretta."
 	}
 	"RoundMinefieldName"
 	{
 		"en"		"Minefield"
+		"it"		"Campo Minato"
 	}
 	"RoundMinefieldDesc"
 	{
 		"en"		"Everyone has unlimited bump mines and 200 health."
+		"it"		"Tutti hanno mine illimitate e 200 HP."
 	}
 	"RoundPanicName"
 	{
 		"en"		"Panic"
+		"it"		"PANICO"
 	}
 	"RoundPanicDesc"
 	{
 		"en"		"Whenever you get hit, you drop your weapon."
+		"it"		"Non appena sei colpito, droppi la tua arma."
 	}
 	"RoundDropshotName"
 	{
 		"en"		"Dropshot"
+		"it"		"Dropshot"
 	}
 	"RoundDropshotDesc"
 	{
 		"en"		"Whenever you shoot a gun, you drop it."
+		"it"		"Quando spari con un'arma, la droppi."
 	}
 	"RoundHardcoreName"
 	{
 		"en"		"Hardcore"
+		"it"		"Hardcore"
 	}
 	"RoundHardcoreDesc"
 	{
 		"en"		"Hardcore mode, HUD is disabled. Plant C4 with the 'Use' key."
+		"it"		"Modalità Hardcore, HUD disabilitata. Pianta il C4 con il tasto 'Usa'"
 	}
 	"RoundTunnelVisionName"
 	{
 		"en"		"Tunnel Vision"
+		"it"		"Visione Limitata"
 	}
 	"RoundTunnelVisionDesc"
 	{
 		"en"		"Everyone has tunnel vision."
+		"it"		"Tutti hanno una visione limitata."
 	}
 	"RoundDownUnderName"
 	{
 		"en"		"Down Under"
+		"it"		"Sottosopra"
 	}
 	"RoundDownUnderDesc"
 	{
 		"en"		"Everyone has their view turned upside down."
+		"it"		"Tutti hanno la visione al contrario."
 	}
 	"RoundKnifeMidName"
 	{
 		"en"		"Knife Mid?"
+		"it"		"Knife Mid?"
 	}
 	"RoundKnifeMidDesc"
 	{
 		"en"		"Simply a knife round"
+		"it"		"Un classico Knife Round"
 	}
 	"RoundVoteTitle"
 	{
-		"en"		"Vote for a new round:"
+		"en"		"Vote for next round:"
+		"it"		"Vota per il prossimo round:"
 	}
 	"NewLeader"
 	{
 		"#format"	"{1:s}"
 		"en"		"{LIGHT_GREEN}New {NORMAL}leader is {YELLOW}{1}"
+		"it"		"{LIGHT_GREEN}Il nuovo {NORMAL}leader è {YELLOW}{1}"
 	}
 	"FollowLeader"
 	{
 		"en"		"{LIGHT_GREEN}Follow {NORMAL}the leader or you {DARK_RED}die"
+		"it"		"{LIGHT_GREEN}Segui {NORMAL}il leader o tu {DARK_RED}morirai"
 	}
 	"VIPTarget"
 	{
 		"#format"	"{1:s}"
 		"en"		"Your {DARK_RED}target{NORMAL} is {YELLOW}{1}"
+		"it"		"Il tuo {DARK_RED}obiettivo{NORMAL} è {YELLOW}{1}"
 	}
 	"VIPProtect"
 	{
 		"#format"	"{1:s}"
 		"en"		"{GREEN}Defend{NORMAL} your VIP {YELLOW}{1}"
+		"it"		"{GREEN}Difendi{NORMAL} il tuo VIP {YELLOW}{1}"
 	}
 	"NewTarget"
 	{
 		"#format"	"{1:s}"
 		"en"		"Your new {DARK_RED}target{NORMAL} is {YELLOW}{1}"
+		"it"		"Il tuo nuovo {DARK_RED}obiettivo{NORMAL} è {YELLOW}{1}"
 	}
 	"ReceivedPotato"
 	{
 		"en"		"You have the {DARK_RED}hot potato{NORMAL}, hit someone to give it to them!"
+		"it"		"Hai la {DARK_RED}patata bollente{NORMAL}, colpisci qualcuno per liberartene!"
 	}
 	"PlayerHasPotato"
 	{
 		"#format"	"{1:s}"
 		"en"		"{YELLOW}{1} has the {DARK_RED}hot potato{NORMAL}, don't get hit!"
+		"it"		"{YELLOW}{1} ha la {DARK_RED}patata bollente{NORMAL}, non farti colpire!"
 	}
 	"MatchHandlingPugSetup"
 	{
 		"en"		"Match handling is done by {LIGHT_GREEN}PugSetup{NORMAL}, please use that"
+		"it"		"Il controllo del match è fatto da {LIGHT_GREEN}PugSetup{NORMAL}, per favore usa esso"
 	}
 	"ForceRoundSet"
 	{
 		"#format"	"{1:s}"
 		"en"		"Next round set to strat {1}"
+		"it"		"Il prossimo round avrà la strat {1}"
 	}
 	"RoundVotingFinished"
 	{
 		"#format"	"{1:s}"
 		"en"		"Round voting {LIGHT_GREEN}finished{NORMAL}, next round is {DARK_BLUE}{1}"
+		"it"		"Voto per il round {LIGHT_GREEN}terminato{NORMAL}, il prossimo round sarà {DARK_BLUE}{1}"
 	}
 	"CaptchaWrong"
 	{
 		"en"		"{DARK_RED}Wrong{NORMAL} answer!"
+		"it"		"Risposta {DARK_RED}sbagliata{NORMAL}!"
 	}
 	"TopKillList"
 	{
 		"en"		"You are on the top of the {DARK_RED}Kill List{NORMAL}, watch out!"
+		"it"		"Sei in cima alla {DARK_RED}Lista di Uccisioni{NORMAL}, occhio!"
 	}
 	"KillListWrongTarget"
 	{
 		"en"		"That was not the {DARK_RED}target!"
+		"it"		"Quello non era l'{DARK_RED}obiettivo!"
 	}
 	"TooFarFromLeader"
 	{
 		"en"		"{DARK_RED}Warning {NORMAL}too far from the {YELLOW}leader"
+		"it"		"{DARK_RED}Attenzione: {NORMAL}sei troppo lontano dal {YELLOW}leader"
 	}
 	"LoseTerrorists"
 	{
 		"en"		"Try to lose the {DARK_RED}Terrorists"
+		"it"		"Prova a perdere i {DARK_RED}Terroristi"
 	}
 	"LoseCounterTerrorists"
 	{
 		"en"		"Try to lose the {DARK_RED}Counter-Terrorists"
+		"it"		"Prova a perdere i {DARK_RED}CT"
 	}
 	"KeepUpWithTerrorist"
 	{
 		"en"		"Try to keep up with the {DARK_RED}Terrorist{NORMAL} leader"
+		"it"		"Prova a tenere il passo con il leader dei {DARK_RED}Terroristi"
 	}
 	"KeepUpWithCounterTerrorist"
 	{
 		"en"		"Try to keep up with the {DARK_RED}Counter-Terrorist{NORMAL} leader"
+		"it"		"Prova a tenere il passo con il leader dei {DARK_RED}CT"
 	}
 	"RedLight"
 	{
 		"en"		"{DARK_RED}Red light{NORMAL}: Don't move!"
+		"it"		"{DARK_RED}Luce rossa{NORMAL}: NON muoverti!"
 	}
 	"GreenLight"
 	{
 		"en"		"{GREEN}Green light{NORMAL}: You can move!"
+		"it"		"{GREEN}Luce verde{NORMAL}: Puoi muoverti!"
 	}
 	"DontMoveRedLight"
 	{
 		"en"		"Don't {DARK_RED}move{NORMAL} during {DARK_RED}red{NORMAL} light"
+		"it"		"Non {DARK_RED}muoverti{NORMAL} durante la luce {DARK_RED}rossa{NORMAL}"
 	}
 	"HotPotatoStage1"
 	{
 		"en"		"That is one {DARK_RED}hot potato{NORMAL}!"
+		"it"		"Quella è una {DARK_RED}patata bollente{NORMAL}!"
 	}
 	"HotPotatoStage2"
 	{
 		"en"		"I can't hold this {DARK_RED}hot potato{NORMAL} much longer!"
+		"it"		"Non posso tenere questa {DARK_RED}patata bollente{NORMAL} ancora di più!"
 	}
 	"SmokeToxic"
 	{
 		"en"		"{DARK_RED}Warning {NORMAL}the smoke is {DARK_RED}toxic"
+		"it"		"{DARK_RED}Attenzione: {NORMAL}la smoke è {DARK_RED}tossica"
 	}
 	"CaptchaQuestion"
 	{
 		"#format"	"{1:d},{2:d}"
 		"en"		"{GREEN}Solve{NORMAL} {1} + {2} to get your {LIGHT_GREEN}weapons{NORMAL} back!"
+		"it"		"{GREEN}Risolvi{NORMAL} {1} + {2} per riavere le tue {LIGHT_GREEN}armi{NORMAL}!"
 	}
 	"CaptchaTypeAnswerChat"
 	{
 		"en"		"Type the {LIGHT_GREEN}answer{NORMAL} in chat."
+		"it"		"Scrivi la {LIGHT_GREEN}risposta{NORMAL} in chat."
 	}
 	"DontScope"
 	{
 		"en"		"You can't {DARK_RED}scope {NORMAL}in a noscope round!"
+		"it"		"Non puoi {DARK_RED}mirare {NORMAL}in un round noscope!"
 	}
 	"ConsoleRoundInfoElimination"
 	{
 		"en"		"    Round ends when either team is eliminated."
+		"it"		"    Il Round termina quando almeno un team è eliminato."
 	}
 	"ConsoleRoundInfoEliminationTerroristWinTimeUp"
 	{
 		"en"		"    Round ends when bomb explodes, is defused, time is up or either team is eliminated. Terrorists win on time limit."
+		"it"		"    Il Round termina quando la bomba esplode, è disinnescata, il tempo è finito oppure uno dei team è eliminato. I Terroristi vincono alla fine del tempo."
 	}
 	"ConsoleRoundInfoEliminationDrawTimeUp"
 	{
 		"en"		"    Round ends when bomb explodes, is defused, time is up or either team is eliminated. Round ends in a draw on time limit."
+		"it"		"    Il Round termina quando la bomba esplode, è disinnescata, il tempo è finito oppure uno dei team è eliminato. Alla fine del tempo il round finirà in pareggio."
 	}
 	"ConsoleRoundInfoDefault"
 	{
 		"en"		"    Round ends when bomb explodes, is defused, time is up or either team is eliminated."
+		"it"		"    Il Round termina quando la bomba esplode, è disinnescata, il tempo è finito oppure uno dei team è eliminato."
 	}
 	"ConsoleRoundName"
 	{
 		"en"		"Round name:"
+		"it"		"Nome Round:"
 	}
 	"ConsoleDescription"
 	{
 		"en"		"Description:"
+		"it"		"Descrizione:"
 	}
 }
