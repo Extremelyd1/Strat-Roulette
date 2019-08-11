@@ -541,40 +541,43 @@ stock void KillPlayer(int client, int killerUserid=-1, char[] weapon="knife", in
     ForcePlayerSuicide(client);
 }
 
-public SetClipAmmo(client, ammo) {
+public SetClipAmmo(weapon, ammo) {
+	SetEntProp(weapon, Prop_Send, "m_iClip1", ammo);
+}
+
+public SetActiveWeaponClipAmmo(client, ammo) {
     new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
     if(weapon < 1) {
         return;
     }
 
-    SetEntProp(weapon, Prop_Send, "m_iClip1", 1);
+    SetClipAmmo(weapon, ammo);
 }
 
-public int GetClipAmmo(client) {
+public int GetClipAmmo(weapon) {
+	return GetEntProp(weapon, Prop_Send, "m_iClip1");
+}
+
+public int GetActiveWeaponClipAmmo(client) {
     new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
     if(weapon < 1) {
         return -1;
     }
 
-    return GetEntProp(weapon, Prop_Send, "m_iClip1");
+    return GetClipAmmo(weapon);
 }
 
-public SetReserveAmmo(client, ammo) {
+public SetReserveAmmo(weapon, ammo) {
+	SetEntProp(weapon, Prop_Send, "m_iPrimaryReserveAmmoCount", ammo);
+}
+
+public SetActiveWeaponReserveAmmo(client, ammo) {
     new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
     if(weapon < 1) {
         return;
     }
 
-    if (bool:GetEntProp(weapon, Prop_Data, "m_bInReload", true)) {
-        return;
-    }
-
-    new ammotype = GetEntProp(weapon, Prop_Send, "m_iPrimaryAmmoType");
-    if(ammotype == -1) {
-        return;
-    }
-
-    SetEntProp(client, Prop_Send, "m_iAmmo", ammo, _, ammotype);
+    SetReserveAmmo(weapon, ammo);
 }
 
 stock void Colorize(String:msg[], int size, bool stripColor = false) {

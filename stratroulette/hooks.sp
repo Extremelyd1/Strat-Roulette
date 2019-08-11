@@ -242,3 +242,21 @@ public OnEntitySpawned(iGrenade) {
         }
     }
 }
+
+public Action:Hook_OnWeaponReload(int weapon) {
+	if (g_TinyMags) {
+		if (GetClipAmmo(weapon) == magazineSize) {
+			return Plugin_Stop;
+		}
+	}
+
+	return Plugin_Continue;
+}
+
+public Hook_OnWeaponReloadPost(int weapon, bool bSuccessful) {
+	if (g_TinyMags) {
+		if (bSuccessful) {
+			CreateTimer(0.1, WaitForReloadTimer, weapon, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+		}
+	}
+}

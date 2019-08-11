@@ -63,7 +63,7 @@ public ReadNewRound() {
 	kv.GetString("recoilview", RecoilView, sizeof(RecoilView), "0.0555");
 	kv.GetString("alwaysmove", AlwaysMove, sizeof(AlwaysMove), "0");
 	kv.GetString("dropweapons", DropWeapons, sizeof(DropWeapons), "0");
-	kv.GetString("TinyMags", TinyMags, sizeof(TinyMags), "0");
+	kv.GetString("tinymags", TinyMags, sizeof(TinyMags), "0");
 	kv.GetString("followleader", Leader, sizeof(Leader), "0");
 	kv.GetString("showallmap", AllOnMap, sizeof(AllOnMap), "0");
 	kv.GetString("invisible", Invisible, sizeof(Invisible), "0");

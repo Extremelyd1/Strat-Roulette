@@ -44,7 +44,7 @@ new String:SlowMotion[3];
 new String:RecoilView[7];
 new String:AlwaysMove[3];
 new String:DropWeapons[3];
-new String:TinyMags[3];
+new String:TinyMags[20];
 new String:Leader[3];
 new String:AllOnMap[3];
 new String:Invisible[3];
@@ -206,6 +206,7 @@ new StringMap:droneMap;
 new bool:skipNextKill = false;
 // Down Under
 new StringMap:downUnderMap;
+int magazineSize;
 
 // Round variables
 int lastRound = -1;
@@ -263,7 +264,7 @@ public Plugin:myinfo =  {
 	name = "Strat Roulette",
 	author = "Extremelyd1",
 	description = "Random strats every round",
-	version = "2.0"
+	version = "2.1"
 }
 
 public OnPluginStart() {

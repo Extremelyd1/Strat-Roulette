@@ -148,23 +148,6 @@ public Action:SrEventWeaponFire(Handle:event, const String:name[], bool:dontBroa
         CloseHandle(lookTrace);
     }
 
-    if (g_OneInTheChamber) {
-        new client = GetClientOfUserId(GetEventInt(event, "userid"));
-
-        char weaponname[128];
-        Client_GetActiveWeaponName(client, weaponname, sizeof(weaponname));
-
-        if (!StrEqual(weaponname, "weapon_knife")) {
-            new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
-            if (weapon > 0 && GetClipAmmo(client) > 0) {
-                DataPack data = new DataPack();
-                data.WriteCell(client);
-                data.WriteCell(weapon);
-                CreateTimer(0.1, RemoveOITCWeapon, data);
-            }
-        }
-    }
-
     if (g_Dropshot) {
         new client = GetClientOfUserId(GetEventInt(event, "userid"));
 
@@ -208,75 +191,91 @@ public Action:SrEventInspectWeapon(Handle:event, const String:name[], bool:dontB
 }
 
 public Action:SrEventPlayerDeath(Handle:event, const String:name[], bool:dontBroadcast) {
-    new client = GetClientOfUserId(GetEventInt(event, "userid"));
-    new killerUserid = GetEventInt(event, "attacker");
-    new assisterUserid = GetEventInt(event, "assister");
-    char weapon[128];
-    GetEventString(event, "weapon", weapon, sizeof(weapon));
+	new client = GetClientOfUserId(GetEventInt(event, "userid"));
+	new killerUserid = GetEventInt(event, "attacker");
+	new assisterUserid = GetEventInt(event, "assister");
+	char weapon[128];
+	GetEventString(event, "weapon", weapon, sizeof(weapon));
 
-    if (IsClientInGame(client)) {
+	if (IsClientInGame(client)) {
 
-        if (g_Leader && !IsWiped()) {
-            if (client == ctLeader) {
-                SetLeader(CS_TEAM_CT);
-            } else if (client == tLeader) {
-                SetLeader(CS_TEAM_T);
-            }
-        }
+		if (g_Leader && !IsWiped()) {
+			if (client == ctLeader) {
+				SetLeader(CS_TEAM_CT);
+			} else if (client == tLeader) {
+				SetLeader(CS_TEAM_T);
+			}
+		}
 
-        if (g_KillList && !IsWiped()) {
-            if (client == ctLeader) {
+		if (g_KillList && !IsWiped()) {
+			if (client == ctLeader) {
 				SetLeader(CS_TEAM_CT);
 				SendMessage(ctLeader, "%t", "TopKillList");
 				SendKillListMessage(CS_TEAM_T);
-            } else if (client == tLeader) {
+			} else if (client == tLeader) {
 				SetLeader(CS_TEAM_T);
 				SendMessage(tLeader, "%t", "TopKillList");
 				SendKillListMessage(CS_TEAM_CT);
-            }
-        }
+			}
+		}
 
-        if (g_Manhunt || g_Bodyguard) {
-            // Manhunt
-            new killTeam;
-            if (client == ctLeader) {
-                killTeam = CS_TEAM_CT;
-            } else if (client == tLeader) {
-                killTeam = CS_TEAM_T;
-            }
-            if (killTeam == CS_TEAM_CT || CS_TEAM_T) {
-                for (int i = 1; i <= MaxClients; i++) {
-                    if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)
-                                          && GetClientTeam(i) == killTeam) {
-                        KillPlayer(i, killerUserid, weapon, assisterUserid);
-                    }
-                }
-            }
-        }
+		if (g_Manhunt || g_Bodyguard) {
+			// Manhunt
+			new killTeam;
+			if (client == ctLeader) {
+				killTeam = CS_TEAM_CT;
+			} else if (client == tLeader) {
+				killTeam = CS_TEAM_T;
+			}
+			if (killTeam == CS_TEAM_CT || CS_TEAM_T) {
+				for (int i = 1; i <= MaxClients; i++) {
+					if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i) && GetClientTeam(i) == killTeam) {
+						KillPlayer(i, killerUserid, weapon, assisterUserid);
+					}
+				}
+			}
+		}
 
-        if (g_ZeusRound) {
-            int killer = GetClientOfUserId(killerUserid);
-            if (IsClientInGame(killer) && !IsFakeClient(killer) && IsPlayerAlive(killer)) {
-                CreateTimer(1.2, AwardZeusTimer, killer);
-            }
-        }
+		if (g_ZeusRound) {
+			int killer = GetClientOfUserId(killerUserid);
+			if (IsClientInGame(killer) && !IsFakeClient(killer) && IsPlayerAlive(killer)) {
+				CreateTimer(1.2, AwardZeusTimer, killer);
+			}
+		}
 
-        if (g_OneInTheChamber) {
-            int killer = GetClientOfUserId(killerUserid);
-            if (IsClientInGame(killer) && !IsFakeClient(killer) && IsPlayerAlive(killer)) {
-                CreateTimer(0.2, AwardOITCWeapon, killer);
-            }
-        }
+		if (g_OneInTheChamber) {
+			int killer = GetClientOfUserId(killerUserid);
+			if (IsClientInGame(killer) && !IsFakeClient(killer) && IsPlayerAlive(killer)) {
+				if (!StrEqual(weapon, "weapon_knife")) {
+					// Not killed with knife
+					SetActiveWeaponClipAmmo(killer, GetActiveWeaponClipAmmo(client) + 1);
+				} else {
+					// Killed with knife, find weapon to award ammo
+					int weaponInSlot = GetPlayerWeaponSlot(client, CS_SLOT_PRIMARY);
+					if (weaponInSlot <= 0) {
+						// Primary does not exist, pick secondary
+						weaponInSlot = GetPlayerWeaponSlot(client, CS_SLOT_SECONDARY);
+						if (weaponInSlot <= 0) {
+							// No primary, nor secondary, can't award ammo
+							return Plugin_Continue;
+						}
+					}
+					SetClipAmmo(weaponInSlot, GetClipAmmo(weaponInSlot) + 1);
+				}
+			}
+		}
 
-        if (!IsFakeClient(client)) {
-            // Third person
-        	SendConVarValue(client, sv_allow_thirdperson, "0");
+		if (!IsFakeClient(client)) {
+			// Third person
+			SendConVarValue(client, sv_allow_thirdperson, "0");
 
-        	// Fov
-        	SetEntProp(client, Prop_Send, "m_iDefaultFOV", 90);
-        	SetEntProp(client, Prop_Send, "m_iFOV", 90);
-        }
-    }
+			// Fov
+			SetEntProp(client, Prop_Send, "m_iDefaultFOV", 90);
+			SetEntProp(client, Prop_Send, "m_iFOV", 90);
+		}
+	}
+
+	return Plugin_Continue;
 }
 
 public Action:SrEventPlayerDeathPre(Handle:event, const String:name[], bool:dontBroadcast) {
