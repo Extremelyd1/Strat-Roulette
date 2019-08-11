@@ -482,7 +482,7 @@
 	"47"
 	{
 		"name"			"RoundBodyguardName"
-		"description"	"One player of each team is assigned VIP, while the others are bodyguards. RoundBodyguardNames cannot die, but when the VIP dies, the whole team dies."
+		"description"	"RoundBodyguardDesc"
 		"weapon"		"none"
 		"noknife"		"1"
 		"killround"		"1"
