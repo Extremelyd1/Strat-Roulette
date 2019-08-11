@@ -33,7 +33,7 @@
 	"RoundNoRecoilName"
 	{
 		"en"		"Straight Shooter"
-		"it"		""
+		"it"		"Tiratore Scelto"
 	}
 	"RoundNoRecoilDesc"
 	{
