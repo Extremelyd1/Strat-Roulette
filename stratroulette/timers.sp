@@ -411,9 +411,7 @@ public Action:HotPotatoTimer(Handle timer) {
     if (ctLeader != -1) {
         ForcePlayerSuicide(ctLeader);
 
-        new String:message[256];
-        Format(message, sizeof(message), "{YELLOW}%s died with the {DARK_RED}hot potato{NORMAL}!", ctLeaderName);
-        SendMessageAll(message);
+        SendMessageAll("%t", "HotPotatoDied", ctLeaderName);
 
         bool ctWiped = true;
         bool tWiped = true;

@@ -599,6 +599,11 @@
 	{
 		"en"		"I can't hold this {DARK_RED}hot potato{NORMAL} much longer!"
 	}
+	"HotPotatoDied"
+	{
+		"#format"	"{1:s}"
+		"en"		"{YELLOW}{1} died with the {DARK_RED}hot potato{NORMAL}!"
+	}
 	"SmokeToxic"
 	{
 		"en"		"{DARK_RED}Warning {NORMAL}the smoke is {DARK_RED}toxic"
