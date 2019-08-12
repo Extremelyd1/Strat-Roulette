@@ -85,6 +85,8 @@ new String:Dropshot[3];
 new String:Hardcore[3];
 new String:TunnelVision[3];
 new String:DownUnder[3];
+new String:Reincarnation[3];
+new String:TeamLives[20];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -127,6 +129,8 @@ new bool:g_Bumpmine = false;
 new bool:g_Panic = false;
 new bool:g_Dropshot = false;
 new bool:g_DownUnder = false;
+new bool:g_Reincarnation = false;
+new bool:g_TeamLives = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -207,9 +211,14 @@ new bool:skipNextKill = false;
 // Down Under
 new StringMap:downUnderMap;
 int magazineSize;
+// Team Lives
+int teamLives = 0;
+int ctLives = 0;
+int tLives = 0;
 
 // Round variables
 int lastRound = -1;
+new bool:roundHasEnded = false;
 
 new Handle:voteTimer = INVALID_HANDLE;
 
@@ -248,6 +257,8 @@ new Handle:mp_death_drop_gun;
 new Handle:mp_death_drop_defuser;
 new Handle:mp_death_drop_grenade;
 new Handle:mp_solid_teammates;
+new Handle:mp_respawn_on_death_ct;
+new Handle:mp_respawn_on_death_t;
 new Handle:host_timescale;
 
 #include "stratroulette/configure.sp"
@@ -306,6 +317,7 @@ public OnPluginStart() {
 	HookEvent("smokegrenade_expired", SrEventSmokeExpired);
 	HookEvent("player_blind", SrEventPlayerBlind);
 	HookEvent("switch_team", SrEventSwitchTeam);
+	HookEvent("player_spawn", SrEventPlayerSpawn, EventHookMode_Post);
 
 	AddCommandListener(CommandDrop, "drop");
 
@@ -576,6 +588,8 @@ public OnConfigsExecuted() {
 	mp_death_drop_defuser = FindConVar("mp_death_drop_defuser");
 	mp_death_drop_grenade = FindConVar("mp_death_drop_grenade");
 	mp_solid_teammates = FindConVar("mp_solid_teammates");
+	mp_respawn_on_death_ct = FindConVar("mp_respawn_on_death_ct");
+	mp_respawn_on_death_t = FindConVar("mp_respawn_on_death_t");
 	host_timescale = FindConVar("host_timescale");
 
 	g_offsCollisionGroup = FindSendPropInfo("CBaseEntity", "m_CollisionGroup");

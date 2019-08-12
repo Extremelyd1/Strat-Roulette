@@ -1,0 +1,643 @@
+"Phrases"
+{
+	"RoundThirdPersonName"
+	{
+		"it"		"Terza Persona"
+	}
+	"RoundThirdPersonDesc"
+	{
+		"it"		"Tutti giocano in terza persona."
+	}
+	"RoundBabyHitMeName"
+	{
+		"it"		"Colpiscimi di nuovo"
+	}
+	"RoundBabyHitMeDesc"
+	{
+		"it"		"Tutti hanno 1HP e infinite granate diversive."
+	}
+	"RoundSpeedName"
+	{
+		"it"		"Io sono velocità"
+	}
+	"RoundSpeedDesc"
+	{
+		"it"		"Tutti si muovono a velocità elevata."
+	}
+	"RoundNoRecoilName"
+	{
+		"it"		"Tiratore Scelto"
+	}
+	"RoundNoRecoilDesc"
+	{
+		"it"		"Le armi non hanno nè recoil nè spread, tutti i colpi vanno dritti dov'è il mirino."
+	}
+	"RoundZeusOITCName"
+	{
+		"it"		"Una Batteria in Canna"
+	}
+	"RoundZeusOITCDesc"
+	{
+		"it"		"Tutti hanno un solo Taser, ma una kill te ne farà avere uno nuovo."
+	}
+	"RoundSpeedKnifeName"
+	{
+		"it"		"Coltelli Veloci"
+	}
+	"RoundSpeedKnifeDesc"
+	{
+		"it"		"Tutti si muovono velocemente con solo il coltello."
+	}
+	"RoundShieldName"
+	{
+		"it"		"Difesa"
+	}
+	"RoundShieldDesc"
+	{
+		"it"		"Tutti hanno un kevlar e una five-seven."
+	}
+	"RoundNoScopeName"
+	{
+		"it"		"Solo No-Scope"
+	}
+	"RoundNoScopeDesc"
+	{
+		"it"		"Non potrai più mirare con la tua arma."
+	}
+	"RoundNegevLaserName"
+	{
+		"it"		"Laser Gun"
+	}
+	"RoundNegevLaserDesc"
+	{
+		"it"		"Tutti hanno un negev senza recoil né spread."
+	}
+	"RoundRandomGunsName"
+	{
+		"it"		"Roulette delle Armi"
+	}
+	"RoundRandomGunsDesc"
+	{
+		"it"		"Le armi sono periodicamente assegnate random."
+	}
+	"RoundSpaceAWPName"
+	{
+		"it"		"Spaziale questo AWP"
+	}
+	"RoundSpaceAWPDesc"
+	{
+		"it"		"Tutti hanno un AWP e bassa gravità."
+	}
+	"RoundSemiZeusName"
+	{
+		"it"		"Spaziale questo Taser!"
+	}
+	"RoundSemiZeusDesc"
+	{
+		"it"		"Tutti hanno un Taser con infinite cariche e bassa gravità."
+	}
+	"RoundVampireName"
+	{
+		"it"		"Vampiro"
+	}
+	"RoundVampireDesc"
+	{
+		"it"		"Colpendo un giocatore riceverai gli HP del tuo nemico, rispetto al danno fatto."
+	}
+	"RoundReverseName"
+	{
+		"it"		"Tutto al Contrario"
+	}
+	"RoundReverseDesc"
+	{
+		"it"		"I controlli di movimento sono invertiti."
+	}
+	"RoundPeripheralVisionName"
+	{
+		"it"		"Visione Periferica"
+	}
+	"RoundPeripheralVisionDesc"
+	{
+		"it"		"Tutti hanno un POV più elevato."
+	}
+	"RoundThirdPersonLowerFOVName"
+	{
+		"it"		"Terza Persona"
+	}
+	"RoundThirdPersonLowerFOVDesc"
+	{
+		"it"		"Tutti giocano in terza persona con un POV ristretto."
+	}
+	"RoundChickenDefuseName"
+	{
+		"it"		"Chicken Defuse"
+	}
+	"RoundChickenDefuseDesc"
+	{
+		"it"		"Quando la bomba è piantata, essa verrà agganciata ad una gallina scorrazzante."
+	}
+	"RoundHeadshotOnlyName"
+	{
+		"it"		"Solo Headshot"
+	}
+	"RoundHeadshotOnlyDesc"
+	{
+		"it"		"I veri colpi che contano sono gli HS."
+	}
+	"RoundSpaceMag7Name"
+	{
+		"it"		"Spaziale questo Swag7"
+	}
+	"RoundSpaceMag7Desc"
+	{
+		"it"		"Tutti hanno un MAG-7 e bassa gravità."
+	}
+	"RoundSlowMotionName"
+	{
+		"it"		"Slow Motion"
+	}
+	"RoundSlowMotionDesc"
+	{
+		"it"		"Il tempo rallenta periodicamente."
+	}
+	"RoundJuanDeagName"
+	{
+		"it"		"Juan Deag"
+	}
+	"RoundJuanDeagDesc"
+	{
+		"it"		"Tutti hanno una deagle, ma solo gli HS contano."
+	}
+	"RoundTriggerSpazmName"
+	{
+		"it"		"Spasmi"
+	}
+	"RoundTriggerSpazmDesc"
+	{
+		"it"		"Quando spari con la tua arma, ci sarà un sacco di recoil e spread."
+	}
+	"RoundNoStopName"
+	{
+		"it"		"Non fermarmi ora"
+	}
+	"RoundNoStopDesc"
+	{
+		"it"		"Non puoi più fermarti."
+	}
+	"RoundClumsyName"
+	{
+		"it"		"Maldestro"
+	}
+	"RoundClumsyDesc"
+	{
+		"it"		"Tutti droppano le armi periodicamente."
+	}
+	"RoundSmokeOnlyName"
+	{
+		"it"		"Smoke Weed Everyday"
+	}
+	"RoundSmokeOnlyDesc"
+	{
+		"it"		"Tutti ricevono infinite smoke."
+	}
+	"RoundMolotovOnlyName"
+	{
+		"it"		"Brucia, Baby, Brucia!"
+	}
+	"RoundMolotovOnlyDesc"
+	{
+		"it"		"Tutti ricevono infinite molotov."
+	}
+	"RoundFlashbangOnlyName"
+	{
+		"it"		"Latte, Latte Ovunque"
+	}
+	"RoundFlashbangOnlyDesc"
+	{
+		"it"		"Tutti ricevono infinite flashbangs."
+	}
+	"RoundFragOnlyName"
+	{
+		"it"		"A Pezzi!"
+	}
+	"RoundFragOnlyDesc"
+	{
+		"it"		"Tutti ricevono illimitate granate esplosive."
+	}
+	"RoundTinyMagsName"
+	{
+		"it"		"Piccoli Caricatori"
+	}
+	"RoundTinyMagsDesc"
+	{
+		"it"		"Tutte le armi hanno un solo colpo nel caricatore."
+	}
+	"RoundFollowLeaderName"
+	{
+		"it"		"Segui il Leader"
+	}
+	"RoundFollowLeaderDesc"
+	{
+		"it"		"Un player per ogni team è designato come Leader, e gli altri devono seguirlo."
+	}
+	"RoundInvisibilityName"
+	{
+		"it"		"Invisibilità"
+	}
+	"RoundInvisibilityDesc"
+	{
+		"it"		"Tutti sono invisibili."
+	}
+	"RoundMonkeySeeName"
+	{
+		"it"		"La Scimmia vede, la Scimmia fa"
+	}
+	"RoundMonkeySeeDesc"
+	{
+		"it"		"Un player di ogni squadra è designato come leader e deve perdere i suoi seguaci."
+	}
+	"RoundZombieInvasionName"
+	{
+		"it"		"Invasione Zombie"
+	}
+	"RoundZombieInvasionDesc"
+	{
+		"it"		"I Terroristi devono uccidere i CT con i SOLI coltelli. I CT devono sopravvivere."
+	}
+	"RoundAxeThrowingName"
+	{
+		"it"		"Contest dell'Ascia"
+	}
+	"RoundAxeThrowingDesc"
+	{
+		"it"		"Tutti ricevono asce illimitate"
+	}
+	"RoundBarFightName"
+	{
+		"it"		"Rissa da Bar"
+	}
+	"RoundBarFightDesc"
+	{
+		"it"		"Semplicemente una rissa con pugni."
+	}
+	"RoundHitSwapName"
+	{
+		"it"		"Colpo e Scambio"
+	}
+	"RoundHitSwapDesc"
+	{
+		"it"		"Colpendo un giocatore ti farà scambiare di posizione con esso."
+	}
+	"RoundBuddySystemName"
+	{
+		"it"		"Il Sistema Amico"
+	}
+	"RoundBuddySystemDesc"
+	{
+		"it"		"Tutti sono invincibili, ma se la tua gallina muore, anche tu farai la stessa fine."
+	}
+	"RoundRevolverOnlyName"
+	{
+		"it"		"Mezzogiorno in Punto"
+	}
+	"RoundRevolverOnlyDesc"
+	{
+		"it"		"Tutti ricevono un R8 Revolver."
+	}
+	"RoundRedGreenName"
+	{
+		"it"		"Luce Rossa, Luce Verde"
+	}
+	"RoundRedGreenDesc"
+	{
+		"it"		"Muoversi durante la luce rossa ti ferirà."
+	}
+	"RoundManhuntName"
+	{
+		"it"		"Cacciatore"
+	}
+	"RoundManhuntDesc"
+	{
+		"it"		"Un player per ogni team ha un preciso obiettivo da uccidere. Se l'obiettivo viene ucciso, tutto il team morirà."
+	}
+	"RoundHotPotatoName"
+	{
+		"it"		"Patata bollente"
+	}
+	"RoundHotPotatoDesc"
+	{
+		"it"		"Un player random riceverà la patata bollente (five-seven), che ucciderà dopo un po'. Colpisci un altro giocatore per trasferire la patata bollente."
+	}
+	"RoundBombermanName"
+	{
+		"it"		"Bomberman"
+	}
+	"RoundBombermanDesc"
+	{
+		"it"		"Tutti ricevono infiniti C4 che possono piazzare dove meglio credono."
+	}
+	"RoundRandomNadesName"
+	{
+		"it"		"Granate Random"
+	}
+	"RoundRandomNadesDesc"
+	{
+		"it"		"Tutti ricevono granate infinite, ma random."
+	}
+	"RoundDontMissName"
+	{
+		"it"		"Non sbagliare!"
+	}
+	"RoundDontMissDesc"
+	{
+		"it"		"Se non becchi nessuno con i tuoi colpi mentre spari, verrai ferito. Sii prudente quando spari."
+	}
+	"RoundCrabWalkName"
+	{
+		"it"		"Rave del Granchio"
+	}
+	"RoundCrabWalkDesc"
+	{
+		"it"		"Il movimento è soltanto consentito a sinistra e a destra."
+	}
+	"RoundPoisonCloudName"
+	{
+		"it"		"Nuvola Velenosa"
+	}
+	"RoundPoisonCloudDesc"
+	{
+		"it"		"Le smokes sono diventate nuvole velenose, che danneggiano i giocatori vicini nel tempo."
+	}
+	"RoundBodyguardName"
+	{
+		"it"		"Guardia del Corpo"
+	}
+	"RoundBodyguardDesc"
+	{
+		"it"		"Un player di ogni squadra è scelto come VIP, mentre gli altri sono guardie. Le guardie non possono morire, ma quando il VIP muore, tutto il team perirà."
+	}
+	"RoundPocketTPName"
+	{
+		"it"		"Teletrasporto portatile"
+	}
+	"RoundPocketTPDesc"
+	{
+		"it"		"La tua arma secondaria è il tuo teletrasportatore portatile. Puoi teletrasportarti nella posizione in cui spari."
+	}
+	"RoundOITCName"
+	{
+		"it"		"Uno in Canna"
+	}
+	"RoundOITCDesc"
+	{
+		"it"		"Tutti hanno 1HP e un solo proiettile, se ucciderai qualcuno, riceverai un proiettile nuovo."
+	}
+	"RoundCaptchaName"
+	{
+		"it"		"Captcha"
+	}
+	"RoundCaptchaDesc"
+	{
+		"it"		"Tutti ricevono un captcha periodico. Completa il captcha per riavere di nuovo le tue armi."
+	}
+	"RoundStealthName"
+	{
+		"it"		"Stealth"
+	}
+	"RoundStealthDesc"
+	{
+		"it"		"Stando fermo o camminando lentamente sarai invisibile, ma non appena ti muoverai o sparerai sarai di nuovo visibile."
+	}
+	"RoundBlindLightName"
+	{
+		"it"		"Luce Accecante"
+	}
+	"RoundBlindLightDesc"
+	{
+		"it"		"Essere flashati da un flashbang danneggia i giocatori a seconda della durata."
+	}
+	"RoundKillListName"
+	{
+		"it"		"Lista delle Uccisioni"
+	}
+	"RoundKillListDesc"
+	{
+		"it"		"Un player di ogni team è in cima alla lista uccisioni. Solo questo player può essere ucciso. Uccidere altri giocatori comporterà la tua morte."
+	}
+	"RoundBreachName"
+	{
+		"it"		"Carica, carica, carica!"
+	}
+	"RoundBreachDesc"
+	{
+		"it"		"Tutti hanno infinite cariche di irruzione, ma non ne puoi avere più di 3 attive contemporaneamente."
+	}
+	"RoundTowerDefenseName"
+	{
+		"it"		"Difendi la Torre"
+	}
+	"RoundTowerDefenseDesc"
+	{
+		"it"		"Lancia la tua decoy per spawnare una torretta."
+	}
+	"RoundMinefieldName"
+	{
+		"it"		"Campo Minato"
+	}
+	"RoundMinefieldDesc"
+	{
+		"it"		"Tutti hanno mine illimitate e 200 HP."
+	}
+	"RoundPanicName"
+	{
+		"it"		"PANICO"
+	}
+	"RoundPanicDesc"
+	{
+		"it"		"Non appena sei colpito, droppi la tua arma."
+	}
+	"RoundDropshotName"
+	{
+		"it"		"Dropshot"
+	}
+	"RoundDropshotDesc"
+	{
+		"it"		"Quando spari con un'arma, la droppi."
+	}
+	"RoundHardcoreName"
+	{
+		"it"		"Hardcore"
+	}
+	"RoundHardcoreDesc"
+	{
+		"it"		"Modalità Hardcore, HUD disabilitata. Pianta il C4 con il tasto 'Usa'"
+	}
+	"RoundTunnelVisionName"
+	{
+		"it"		"Visione Limitata"
+	}
+	"RoundTunnelVisionDesc"
+	{
+		"it"		"Tutti hanno una visione limitata."
+	}
+	"RoundDownUnderName"
+	{
+		"it"		"Sottosopra"
+	}
+	"RoundDownUnderDesc"
+	{
+		"it"		"Tutti hanno la visione al contrario."
+	}
+	"RoundKnifeMidName"
+	{
+		"it"		"Knife Mid?"
+	}
+	"RoundKnifeMidDesc"
+	{
+		"it"		"Un classico Knife Round"
+	}
+	"RoundVoteTitle"
+	{
+		"it"		"Vota per il prossimo round:"
+	}
+	"NewLeader"
+	{
+		"#format"	"{1:s}"
+		"it"		"{LIGHT_GREEN}Il nuovo {NORMAL}leader è {YELLOW}{1}"
+	}
+	"FollowLeader"
+	{
+		"it"		"{LIGHT_GREEN}Segui {NORMAL}il leader o tu {DARK_RED}morirai"
+	}
+	"VIPTarget"
+	{
+		"#format"	"{1:s}"
+		"it"		"Il tuo {DARK_RED}obiettivo{NORMAL} è {YELLOW}{1}"
+	}
+	"VIPProtect"
+	{
+		"#format"	"{1:s}"
+		"it"		"{GREEN}Difendi{NORMAL} il tuo VIP {YELLOW}{1}"
+	}
+	"NewTarget"
+	{
+		"#format"	"{1:s}"
+		"it"		"Il tuo nuovo {DARK_RED}obiettivo{NORMAL} è {YELLOW}{1}"
+	}
+	"ReceivedPotato"
+	{
+		"it"		"Hai la {DARK_RED}patata bollente{NORMAL}, colpisci qualcuno per liberartene!"
+	}
+	"PlayerHasPotato"
+	{
+		"#format"	"{1:s}"
+		"it"		"{YELLOW}{1} ha la {DARK_RED}patata bollente{NORMAL}, non farti colpire!"
+	}
+	"MatchHandlingPugSetup"
+	{
+		"it"		"Il controllo del match è fatto da {LIGHT_GREEN}PugSetup{NORMAL}, per favore usa esso"
+	}
+	"ForceRoundSet"
+	{
+		"#format"	"{1:s}"
+		"it"		"Il prossimo round avrà la strat {1}"
+	}
+	"RoundVotingFinished"
+	{
+		"#format"	"{1:s}"
+		"it"		"Voto per il round {LIGHT_GREEN}terminato{NORMAL}, il prossimo round sarà {DARK_BLUE}{1}"
+	}
+	"CaptchaWrong"
+	{
+		"it"		"Risposta {DARK_RED}sbagliata{NORMAL}!"
+	}
+	"TopKillList"
+	{
+		"it"		"Sei in cima alla {DARK_RED}Lista di Uccisioni{NORMAL}, occhio!"
+	}
+	"KillListWrongTarget"
+	{
+		"it"		"Quello non era l'{DARK_RED}obiettivo!"
+	}
+	"TooFarFromLeader"
+	{
+		"it"		"{DARK_RED}Attenzione: {NORMAL}sei troppo lontano dal {YELLOW}leader"
+	}
+	"LoseTerrorists"
+	{
+		"it"		"Prova a perdere i {DARK_RED}Terroristi"
+	}
+	"LoseCounterTerrorists"
+	{
+		"it"		"Prova a perdere i {DARK_RED}CT"
+	}
+	"KeepUpWithTerrorist"
+	{
+		"it"		"Prova a tenere il passo con il leader dei {DARK_RED}Terroristi"
+	}
+	"KeepUpWithCounterTerrorist"
+	{
+		"it"		"Prova a tenere il passo con il leader dei {DARK_RED}CT"
+	}
+	"RedLight"
+	{
+		"it"		"{DARK_RED}Luce rossa{NORMAL}: NON muoverti!"
+	}
+	"GreenLight"
+	{
+		"it"		"{GREEN}Luce verde{NORMAL}: Puoi muoverti!"
+	}
+	"DontMoveRedLight"
+	{
+		"it"		"Non {DARK_RED}muoverti{NORMAL} durante la luce {DARK_RED}rossa{NORMAL}"
+	}
+	"HotPotatoStage1"
+	{
+		"it"		"Quella è una {DARK_RED}patata bollente{NORMAL}!"
+	}
+	"HotPotatoStage2"
+	{
+		"it"		"Non posso tenere questa {DARK_RED}patata bollente{NORMAL} ancora di più!"
+	}
+	"SmokeToxic"
+	{
+		"it"		"{DARK_RED}Attenzione: {NORMAL}la smoke è {DARK_RED}tossica"
+	}
+	"CaptchaQuestion"
+	{
+		"#format"	"{1:d},{2:d}"
+		"it"		"{GREEN}Risolvi{NORMAL} {1} + {2} per riavere le tue {LIGHT_GREEN}armi{NORMAL}!"
+	}
+	"CaptchaTypeAnswerChat"
+	{
+		"it"		"Scrivi la {LIGHT_GREEN}risposta{NORMAL} in chat."
+	}
+	"DontScope"
+	{
+		"it"		"Non puoi {DARK_RED}mirare {NORMAL}in un round noscope!"
+	}
+	"ConsoleRoundInfoElimination"
+	{
+		"it"		"    Il Round termina quando almeno un team è eliminato."
+	}
+	"ConsoleRoundInfoEliminationTerroristWinTimeUp"
+	{
+		"it"		"    Il Round termina quando la bomba esplode, è disinnescata, il tempo è finito oppure uno dei team è eliminato. I Terroristi vincono alla fine del tempo."
+	}
+	"ConsoleRoundInfoEliminationDrawTimeUp"
+	{
+		"it"		"    Il Round termina quando la bomba esplode, è disinnescata, il tempo è finito oppure uno dei team è eliminato. Alla fine del tempo il round finirà in pareggio."
+	}
+	"ConsoleRoundInfoDefault"
+	{
+		"it"		"    Il Round termina quando la bomba esplode, è disinnescata, il tempo è finito oppure uno dei team è eliminato."
+	}
+	"ConsoleRoundName"
+	{
+		"it"		"Nome Round:"
+	}
+	"ConsoleDescription"
+	{
+		"it"		"Descrizione:"
+	}
+}

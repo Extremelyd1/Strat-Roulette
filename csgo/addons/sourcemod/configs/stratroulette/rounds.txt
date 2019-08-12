@@ -421,7 +421,6 @@
 		"hotpotato"		"1"
 		"noc4"			"1"
 		"killround"		"1"
-		"infiniteammo"	"2"
 		"noknife"		"1"
 		"tinymags"		"1"
 		"showallmap"	"1"
@@ -658,6 +657,29 @@
 		"armor"			"100"
 		"helmet"		"1"
 		"health"		"100"
+		"noc4"			"1"
+		"killround"		"1"
+	}
+	"63"
+	{
+		"name"			"RoundIncarnationName"
+		"description"	"RoundIncarnationDesc"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"armor"			"100"
+		"helmet"		"1"
+		"health"		"100"
+		"reincarnation"	"1"
+		"defuser"		"1"
+	}
+	"64"
+	{
+		"name"			"RoundTeamLivesName"
+		"description"	"RoundTeamLivesDesc"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"armor"			"100"
+		"helmet"		"1"
+		"health"		"100"
+		"teamlives"		"10"
 		"noc4"			"1"
 		"killround"		"1"
 	}

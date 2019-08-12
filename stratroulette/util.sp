@@ -44,7 +44,7 @@ public ResetConfiguration() {
 	// Red Green
 	positionMap.Clear();
 	// Winner
-	SetConVarInt(mp_default_team_winner_no_objective, 3, true, false);
+	SetConVarInt(mp_default_team_winner_no_objective, -1, true, false);
 	// Kill round
 	SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
 	// Bomberman
@@ -68,6 +68,9 @@ public ResetConfiguration() {
 	RemoveOverlayAll();
 	// Down Under
 	ClearDownUnder();
+	// Reincarnation
+	SetConVarInt(mp_respawn_on_death_ct, 0, true, false);
+	SetConVarInt(mp_respawn_on_death_t, 0, true, false);
 
 	// Client loop
 	for (int client = 1; client <= MaxClients; client++) {
@@ -131,6 +134,7 @@ public ResetConfiguration() {
 	g_Bumpmine = false;
 	g_Panic = false;
 	g_Dropshot = false;
+	g_Reincarnation = false;
 }
 
 public int GetNumberOfStrats() {
@@ -409,20 +413,27 @@ public GiveAllPlayersItem(char[] item) {
 }
 
 public bool IsWiped() {
-    bool ctWiped = true;
-    bool tWiped = true;
+	bool ctWiped = true;
+	bool tWiped = true;
 
-    for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            if (GetClientTeam(client) == CS_TEAM_CT) {
-                ctWiped = false;
-            } else if (GetClientTeam(client) == CS_TEAM_T) {
-                tWiped = false;
-            }
-        }
-    }
+	if (GetConVarInt(mp_respawn_on_death_ct) == 1) {
+		ctWiped = false;
+	}
+	if (GetConVarInt(mp_respawn_on_death_t) == 1) {
+		tWiped = false;
+	}
 
-    return ctWiped || tWiped;
+	for (int client = 1; client <= MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+			if (GetClientTeam(client) == CS_TEAM_CT) {
+				ctWiped = false;
+			} else if (GetClientTeam(client) == CS_TEAM_T) {
+				tWiped = false;
+			}
+		}
+	}
+
+	return ctWiped || tWiped;
 }
 
 stock void SelectHotPotato(int client = -1) {
@@ -455,7 +466,19 @@ stock void SelectHotPotato(int client = -1) {
 		}
 	}
 
-	GivePlayerItem(ctLeader, "weapon_fiveseven");
+	GiveHotPotato(ctLeader);
+}
+
+public GiveHotPotato(client) {
+	GivePlayerItem(client, "weapon_fiveseven");
+
+	int potato = GetPlayerWeaponSlot(client, CS_SLOT_SECONDARY);
+
+	SetClipAmmo(potato, magazineSize);
+	SetReserveAmmo(potato, magazineSize);
+
+	SDKHook(potato, SDKHook_Reload, Hook_OnWeaponReload);
+	SDKHook(potato, SDKHook_ReloadPost, Hook_OnWeaponReloadPost);
 }
 
 public ClearBuddySystemChickens() {
