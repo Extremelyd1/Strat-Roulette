@@ -105,6 +105,7 @@ public ReadNewRound() {
 	kv.GetString("tunnelvision", TunnelVision, sizeof(TunnelVision), "0");
 	kv.GetString("downunder", DownUnder, sizeof(DownUnder), "0");
 	kv.GetString("reincarnation", Reincarnation, sizeof(Reincarnation), "0");
+	kv.GetString("teamlives", TeamLives, sizeof(TeamLives), "0");
 
 	char descriptionOverride[3];
 	kv.GetString("descoverride", descriptionOverride, sizeof(descriptionOverride), "0");
@@ -265,6 +266,8 @@ public ReadNewRound() {
 	ConfigureDownUnder();
 	//** Reincarnation **//
 	ConfigureReincarnation();
+	//** Team Lives **//
+	ConfigureTeamLives();
 
 	delete kv;
 

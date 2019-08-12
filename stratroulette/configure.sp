@@ -707,8 +707,23 @@ public ConfigureDownUnder() {
 public ConfigureReincarnation() {
 	if (StrEqual(Reincarnation, "1")) {
 		g_Reincarnation = true;
-		
+
 		SetConVarInt(mp_respawn_on_death_ct, 1, true, false);
 		SetConVarInt(mp_respawn_on_death_t, 1, true, false);
+	}
+}
+
+public ConfigureTeamLives() {
+	if (!StrEqual(TeamLives, "0")) {
+		g_TeamLives = true;
+
+		teamLives = StringToInt(TeamLives);
+		ctLives = teamLives;
+		tLives = teamLives;
+
+		SetConVarInt(mp_respawn_on_death_ct, 1, true, false);
+		SetConVarInt(mp_respawn_on_death_t, 1, true, false);
+
+		SendMessageAll("%t", "LivesRemaining", teamLives);
 	}
 }

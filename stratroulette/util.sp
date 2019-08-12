@@ -413,20 +413,27 @@ public GiveAllPlayersItem(char[] item) {
 }
 
 public bool IsWiped() {
-    bool ctWiped = true;
-    bool tWiped = true;
+	bool ctWiped = true;
+	bool tWiped = true;
 
-    for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            if (GetClientTeam(client) == CS_TEAM_CT) {
-                ctWiped = false;
-            } else if (GetClientTeam(client) == CS_TEAM_T) {
-                tWiped = false;
-            }
-        }
-    }
+	if (GetConVarInt(mp_respawn_on_death_ct) == 1) {
+		ctWiped = false;
+	}
+	if (GetConVarInt(mp_respawn_on_death_t) == 1) {
+		tWiped = false;
+	}
 
-    return ctWiped || tWiped;
+	for (int client = 1; client <= MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+			if (GetClientTeam(client) == CS_TEAM_CT) {
+				ctWiped = false;
+			} else if (GetClientTeam(client) == CS_TEAM_T) {
+				tWiped = false;
+			}
+		}
+	}
+
+	return ctWiped || tWiped;
 }
 
 stock void SelectHotPotato(int client = -1) {

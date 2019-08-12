@@ -326,7 +326,7 @@
 	}
 	"RoundHotPotatoDesc"
 	{
-		"en"		"A random player gets the hot potato (five-seven), which kills after a while. Hit another player to transfer the hot potato to them."
+		"en"		"A random player gets the hot potato (five-seven), which kills you after a while. Hit another player to transfer the hot potato to them."
 	}
 	"RoundBombermanName"
 	{
@@ -646,6 +646,27 @@
 	}
 	"RoundIncarnationDesc"
 	{
-		"en"		"Normal round except that all player respawn infinitely."
+		"en"		"Normal round except that all players respawn infinitely."
+	}
+	"RoundTeamLivesName"
+	{
+		"en"		"Team Lives"
+	}
+	"RoundTeamLivesDesc"
+	{
+		"en"		"Your team can respawn a limited number of times."
+	}
+	"LivesRemaining"
+	{
+		"#format"	"{1:d}"
+		"en"		"Your team has {GREEN}{1} {NORMAL}lives remaining!"
+	}
+	"OneLifeRemaining"
+	{
+		"en"		"Your team has {ORANGE}1 {NORMAL}life remaining!"
+	}
+	"NoLivesRemaining"
+	{
+		"en"		"Your team has {DARK_RED}no lives {NORMAL}remaining, you can no longer respawn!"
 	}
 }

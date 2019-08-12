@@ -671,4 +671,16 @@
 		"reincarnation"	"1"
 		"defuser"		"1"
 	}
+	"64"
+	{
+		"name"			"RoundTeamLivesName"
+		"description"	"RoundTeamLivesDesc"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"armor"			"100"
+		"helmet"		"1"
+		"health"		"100"
+		"teamlives"		"10"
+		"noc4"			"1"
+		"killround"		"1"
+	}
 }

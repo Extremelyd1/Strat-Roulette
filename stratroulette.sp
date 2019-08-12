@@ -86,6 +86,7 @@ new String:Hardcore[3];
 new String:TunnelVision[3];
 new String:DownUnder[3];
 new String:Reincarnation[3];
+new String:TeamLives[20];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -129,6 +130,7 @@ new bool:g_Panic = false;
 new bool:g_Dropshot = false;
 new bool:g_DownUnder = false;
 new bool:g_Reincarnation = false;
+new bool:g_TeamLives = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -209,6 +211,10 @@ new bool:skipNextKill = false;
 // Down Under
 new StringMap:downUnderMap;
 int magazineSize;
+// Team Lives
+int teamLives = 0;
+int ctLives = 0;
+int tLives = 0;
 
 // Round variables
 int lastRound = -1;

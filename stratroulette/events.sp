@@ -399,7 +399,7 @@ public Action:SrEventSwitchTeam(Event event, const char[] name, bool dontBroadca
 }
 
 public Action:SrEventPlayerSpawn(Event event, const char[] name, bool dontBroadcast) {
-	if (g_Reincarnation && !roundHasEnded) {
+	if ((g_Reincarnation || g_TeamLives) && !roundHasEnded) {
 		int client = GetClientOfUserId(GetEventInt(event, "userid"));
 
 		// Give player weapons again
@@ -428,6 +428,38 @@ public Action:SrEventPlayerSpawn(Event event, const char[] name, bool dontBroadc
 		// Remove knife if enabled
 		if (StrEqual(NoKnife, "1")) {
 			SetKnife(false);
+		}
+
+		if (g_TeamLives) {
+			int team = GetClientTeam(client);
+
+			if (team == CS_TEAM_T) {
+				tLives -= 1;
+
+				if (tLives < 1) {
+					SetConVarInt(mp_respawn_on_death_t, 0, true, false);
+					SendMessageTeam(team, "%t", "NoLivesRemaining");
+				} else {
+					if (tLives == 1) {
+						SendMessageTeam(team, "%t", "OneLifeRemaining");
+					} else {
+						SendMessageTeam(team, "%t", "LivesRemaining", tLives);
+					}
+				}
+			} else if (team == CS_TEAM_CT) {
+				ctLives -= 1;
+
+				if (ctLives < 1) {
+					SetConVarInt(mp_respawn_on_death_ct, 0, true, false);
+					SendMessageTeam(team, "%t", "NoLivesRemaining");
+				} else {
+					if (ctLives == 1) {
+						SendMessageTeam(team, "%t", "OneLifeRemaining");
+					} else {
+						SendMessageTeam(team, "%t", "LivesRemaining", ctLives);
+					}
+				}
+			}
 		}
 	}
 }
