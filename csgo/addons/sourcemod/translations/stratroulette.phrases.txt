@@ -602,7 +602,7 @@
 	"HotPotatoDied"
 	{
 		"#format"	"{1:s}"
-		"en"		"{YELLOW}{1} died with the {DARK_RED}hot potato{NORMAL}!"
+		"en"		"{YELLOW}{1} {NORMAL}died with the {DARK_RED}hot potato{NORMAL}!"
 	}
 	"SmokeToxic"
 	{

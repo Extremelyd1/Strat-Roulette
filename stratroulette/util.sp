@@ -44,7 +44,7 @@ public ResetConfiguration() {
 	// Red Green
 	positionMap.Clear();
 	// Winner
-	SetConVarInt(mp_default_team_winner_no_objective, 3, true, false);
+	SetConVarInt(mp_default_team_winner_no_objective, -1, true, false);
 	// Kill round
 	SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
 	// Bomberman
