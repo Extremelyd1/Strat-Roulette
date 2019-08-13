@@ -599,6 +599,11 @@
 	{
 		"it"		"Non posso tenere questa {DARK_RED}patata bollente{NORMAL} ancora di più!"
 	}
+	"HotPotatoDied"
+	{
+		"#format"	"{1:s}"
+		"it"		"{YELLOW}{1} {NORMAL}è morto con la {DARK_RED}patata bollente{NORMAL}!"
+	}
 	"SmokeToxic"
 	{
 		"it"		"{DARK_RED}Attenzione: {NORMAL}la smoke è {DARK_RED}tossica"
@@ -639,5 +644,34 @@
 	"ConsoleDescription"
 	{
 		"it"		"Descrizione:"
+	}
+	"RoundIncarnationName"
+	{
+		"it"		"Reincarnazione"
+	}
+	"RoundIncarnationDesc"
+	{
+		"it"		"Un round normale, ad eccezione che tutti i giocatori rinascono infinitamente."
+	}
+	"RoundTeamLivesName"
+	{
+		"it"		"Vite Squadra"
+	}
+	"RoundTeamLivesDesc"
+	{
+		"it"		"Il tuo team può rinascere un numero limitato di volte."
+	}
+	"LivesRemaining"
+	{
+		"#format"	"{1:d}"
+		"it"		"Il tuo team ha {GREEN}{1} {NORMAL}vite rimanenti!"
+	}
+	"OneLifeRemaining"
+	{
+		"it"		"Il tuo team ha {ORANGE}1 {NORMAL}vita rimanente!"
+	}
+	"NoLivesRemaining"
+	{
+		"it"		"Il tuo team {DARK_RED}non ha più vite {NORMAL}rimanenti, non puoi più rinascere!"
 	}
 }
