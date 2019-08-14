@@ -89,6 +89,7 @@ new String:Reincarnation[3];
 new String:TeamLives[20];
 new String:Jumpshot[3];
 new String:NoFallDamage[3];
+new String:ForwardOnly[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -135,6 +136,7 @@ new bool:g_Reincarnation = false;
 new bool:g_TeamLives = false;
 new bool:g_Jumpshot = false;
 new bool:g_NoFallDamage = false;
+new bool:g_ForwardOnly = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -524,16 +526,19 @@ public Action:CommandDrop(int client, const char[] command, int args) {
 
 public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3], float angles[3], int& weapon, int& subtype, int& cmdnum, int& tickcount, int& seed, int mouse[2]) {
 	if (g_CrabWalk) {
-		if (buttons & IN_FORWARD) {
+		if (buttons & IN_FORWARD || buttons & IN_BACK) {
 			return Plugin_Handled;
 		}
-		if (buttons & IN_BACK) {
+	}
+
+	if (g_ForwardOnly) {
+		if (buttons & IN_BACK || buttons & IN_MOVELEFT || buttons & IN_MOVERIGHT) {
 			return Plugin_Handled;
 		}
 	}
 
 	if (g_Stealth) {
-		int walkMask = IN_FORWARD | IN_BACK | IN_LEFT | IN_RIGHT;
+		int walkMask = IN_FORWARD | IN_BACK | IN_MOVELEFT | IN_MOVERIGHT;
 		int otherMask = IN_ATTACK | IN_RELOAD;
 		if (buttons & otherMask || (buttons & walkMask && !(buttons & IN_SPEED))) {
 			stealthVisible[client] = true;

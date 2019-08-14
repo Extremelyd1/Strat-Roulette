@@ -690,4 +690,12 @@
 	{
 		"en"		"Normal round, but with infinite bump mines."
 	}
+	"RoundForwardOnlyName"
+	{
+		"en"		"One Direction"
+	}
+	"RoundForwardOnlyDesc"
+	{
+		"en"		"You can only move forward, no strafing."
+	}
 }

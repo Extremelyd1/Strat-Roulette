@@ -747,3 +747,9 @@ public ConfigureNoFallDamage() {
 		g_NoFallDamage = true;
 	}
 }
+
+public ConfigureForwardOnly() {
+	if (StrEqual(ForwardOnly, "1")) {
+		g_ForwardOnly = true;
+	}
+}
