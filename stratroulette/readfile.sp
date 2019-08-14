@@ -107,11 +107,12 @@ public ReadNewRound() {
 	kv.GetString("reincarnation", Reincarnation, sizeof(Reincarnation), "0");
 	kv.GetString("teamlives", TeamLives, sizeof(TeamLives), "0");
 	kv.GetString("jumpshot", Jumpshot, sizeof(Jumpshot), "0");
+	kv.GetString("nofall", NoFallDamage, sizeof(NoFallDamage), "0");
 
 	char descriptionOverride[3];
 	kv.GetString("descoverride", descriptionOverride, sizeof(descriptionOverride), "0");
 
-	char description[1024];
+	char description[2048];
 	kv.GetString("description", description, sizeof(description), "");
 
 	SendMessageAll(" ");
@@ -271,6 +272,8 @@ public ReadNewRound() {
 	ConfigureTeamLives();
 	//** Jumpshot **//
 	ConfigureJumpshot();
+	//** No fall damage **//
+	ConfigureNoFallDamage();
 
 	delete kv;
 

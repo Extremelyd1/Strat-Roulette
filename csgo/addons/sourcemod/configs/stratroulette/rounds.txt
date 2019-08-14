@@ -695,4 +695,15 @@
 		"killround"		"1"
 		"jumpshot"		"1"
 	}
+	"66"
+	{
+		"name"			"RoundBumpName"
+		"description"	"RoundBumpDesc"
+		"weapon"		"weapon_primary_random;weapon_secondary_random;weapon_molotov;weapon_smokegrenade;weapon_flashbang;weapon_hegrenade"
+		"armor"			"100"
+		"health"		"100"
+		"helmet"		"1"
+		"bumpmine"		"1"
+		"nofall"		"1"
+	}
 }

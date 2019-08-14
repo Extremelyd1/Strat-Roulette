@@ -24,7 +24,7 @@ ConVar g_AutoStartMinPlayers;
 new String:RoundName[200];
 new String:Collision[20];
 new String:ThirdPerson[3];
-new String:Weapon[70];
+new String:Weapon[300];
 new String:Health[70];
 new String:DecoySound[70];
 new String:NoKnife[3];
@@ -88,6 +88,7 @@ new String:DownUnder[3];
 new String:Reincarnation[3];
 new String:TeamLives[20];
 new String:Jumpshot[3];
+new String:NoFallDamage[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -133,6 +134,7 @@ new bool:g_DownUnder = false;
 new bool:g_Reincarnation = false;
 new bool:g_TeamLives = false;
 new bool:g_Jumpshot = false;
+new bool:g_NoFallDamage = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {

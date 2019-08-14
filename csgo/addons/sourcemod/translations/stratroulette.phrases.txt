@@ -680,6 +680,14 @@
 	}
 	"RoundJumpshotDesc"
 	{
-		"en"		"You can only shoot your weapon while in the air"
+		"en"		"You can only shoot your weapon while in the air."
+	}
+	"RoundBumpName"
+	{
+		"en"		"Bumpy road"
+	}
+	"RoundBumpDesc"
+	{
+		"en"		"Normal round, but with infinite bump mines."
 	}
 }

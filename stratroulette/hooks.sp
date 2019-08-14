@@ -31,6 +31,12 @@ public Action:Hook_StealthTransmit(entity, client) {
 }
 
 public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damagetype) {
+	if (g_NoFallDamage) {
+		if (damagetype == DMG_FALL) {
+			return Plugin_Handled;
+		}
+	}
+	
 	if (g_Bomberman) {
 		new victimHealth = GetEntProp(victim, Prop_Send, "m_iHealth");
 		if (victimHealth <= damage) {

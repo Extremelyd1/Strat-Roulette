@@ -741,3 +741,9 @@ public ConfigureJumpshot() {
 		}
 	}
 }
+
+public ConfigureNoFallDamage() {
+	if (StrEqual(NoFallDamage, "1")) {
+		g_NoFallDamage = true;
+	}
+}
