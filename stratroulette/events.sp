@@ -169,15 +169,14 @@ public Action:SrEventWeaponFire(Handle:event, const String:name[], bool:dontBroa
 
 public Action:SrBombPlanted_Event(Handle:event, const String:name[], bool:dontBroadcast) {
 	if (g_ChickenDefuse) {
-		new c4 = -1;
-		c4 = FindEntityByClassname(c4, "planted_c4");
+		new c4 = FindEntityByClassname(c4, "planted_c4");
 		if (c4 != -1) {
 			new chicken = CreateEntityByName("chicken");
 			if (chicken != -1) {
 				new player = GetClientOfUserId(GetEventInt(event, "userid"));
 				decl Float:pos[3];
 				GetEntPropVector(player, Prop_Data, "m_vecOrigin", pos);
-				pos[2] += -15.0;
+				pos[2] -= 15.0;
 				DispatchSpawn(chicken);
 				SetEntProp(chicken, Prop_Data, "m_takedamage", 0);
 				SetEntProp(chicken, Prop_Send, "m_fEffects", 0);
