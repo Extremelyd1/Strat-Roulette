@@ -94,6 +94,12 @@ public ResetConfiguration() {
 				jumpshotState[client] = 1;
 				lastClipAmmo[client] = -1;
 				lastReserveAmmo[client] = -1;
+				// Stealth
+				SDKUnhook(client, SDKHook_OnTakeDamage, Hook_OnTakeDamage);
+				// Invisibility
+				SDKUnhook(client, SDKHook_SetTransmit, Hook_DenyTransmit);
+				// Mobile turret
+				SDKUnhook(client, SDKHook_WeaponSwitch, Hook_SwitchWeapon);
 			}
 			// Hardcore
 			Client_SetHideHud(client, 2050);

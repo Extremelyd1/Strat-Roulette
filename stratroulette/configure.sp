@@ -307,12 +307,6 @@ public ConfigureInvisible() {
 				SDKHook(client, SDKHook_SetTransmit, Hook_DenyTransmit);
 			}
 		}
-	} else {
-		for (int client = 1; client <= MaxClients; client++) {
-			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-				SDKUnhook(client, SDKHook_SetTransmit, Hook_DenyTransmit);
-			}
-		}
 	}
 }
 
@@ -594,12 +588,6 @@ public ConfigureStealth() {
 				SDKHook(client, SDKHook_SetTransmit, Hook_StealthTransmit);
 			}
 		}
-	} else {
-		for (int client = 1; client <= MaxClients; client++) {
-			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-				SDKUnhook(client, SDKHook_SetTransmit, Hook_StealthTransmit);
-			}
-		}
 	}
 }
 
@@ -751,5 +739,17 @@ public ConfigureNoFallDamage() {
 public ConfigureOneDirection() {
 	if (StrEqual(OneDirection, "1")) {
 		g_OneDirection = true;
+	}
+}
+
+public ConfigureMobileTurret() {
+	if (StrEqual(MobileTurret, "1")) {
+		g_MobileTurret = true;
+
+		for (int client = 1; client <= MaxClients; client++) {
+			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+				SDKHook(client, SDKHook_WeaponSwitch, Hook_SwitchWeapon);
+			}
+		}
 	}
 }

@@ -36,7 +36,7 @@ public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &d
 			return Plugin_Handled;
 		}
 	}
-	
+
 	if (g_Bomberman) {
 		new victimHealth = GetEntProp(victim, Prop_Send, "m_iHealth");
 		if (victimHealth <= damage) {
@@ -274,6 +274,18 @@ public Hook_OnWeaponReloadPost(int weapon, bool bSuccessful) {
 			beforeReloadAmmo[weaponOwner] = GetClipAmmo(weapon);
 
 			CreateTimer(0.1, JumpshotWaitForReloadTimer, weapon, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+		}
+	}
+}
+
+public Action:Hook_SwitchWeapon(int client, int weapon) {
+	if (g_MobileTurret) {
+		int primary = GetPlayerWeaponSlot(client, CS_SLOT_PRIMARY);
+
+		if (weapon == primary) {
+			SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", 0.0);
+		} else {
+			SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", 1.0);
 		}
 	}
 }

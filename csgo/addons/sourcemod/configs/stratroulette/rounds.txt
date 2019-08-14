@@ -716,4 +716,14 @@
 		"helmet"		"1"
 		"onedirection"	"1"
 	}
+	"68"
+	{
+		"name"			"RoundMobileTurretName"
+		"description"	"RoundMobileTurretDesc"
+		"weapon"		"weapon_negev"
+		"armor"			"100"
+		"health"		"100"
+		"helmet"		"1"
+		"mobileturret"	"1"
+	}
 }

@@ -698,4 +698,12 @@
 	{
 		"en"		"You can only move backwards, no forward and no strafing."
 	}
+	"RoundMobileTurretName"
+	{
+		"en"		"Mobile Turret"
+	}
+	"RoundMobileTurretDesc"
+	{
+		"en"		"You can only move while holding your knife, not while holding your primary"
+	}
 }
