@@ -90,6 +90,10 @@ public ResetConfiguration() {
 				positions[client][2] = -1.0;
 				// Buddy system
 				chickens[client] = -1;
+				// Jumpshot
+				jumpshotState[client] = 1;
+				lastClipAmmo[client] = -1;
+				lastReserveAmmo[client] = -1;
 			}
 			// Hardcore
 			Client_SetHideHud(client, 2050);
@@ -137,6 +141,7 @@ public ResetConfiguration() {
 	g_Panic = false;
 	g_Dropshot = false;
 	g_Reincarnation = false;
+	g_Jumpshot = false;
 }
 
 public int GetNumberOfStrats() {
@@ -567,6 +572,19 @@ public SetActiveWeaponReserveAmmo(client, ammo) {
 	}
 
 	SetReserveAmmo(weapon, ammo);
+}
+
+public GetReserveAmmo(weapon) {
+	return GetEntProp(weapon, Prop_Send, "m_iPrimaryReserveAmmoCount");
+}
+
+public GetActiveWeaponReserveAmmo(client) {
+	new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
+	if(weapon < 1) {
+		return -1;
+	}
+
+	return GetReserveAmmo(weapon);
 }
 
 stock void Colorize(String:msg[], int size, bool stripColor = false) {

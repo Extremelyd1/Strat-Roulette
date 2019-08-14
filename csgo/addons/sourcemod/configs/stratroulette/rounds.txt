@@ -684,4 +684,15 @@
 		"noc4"			"1"
 		"killround"		"1"
 	}
+	"65"
+	{
+		"name"			"RoundJumpshotName"
+		"description"	"RoundJumpshotDesc"
+		"weapon"		"weapon_random"
+		"armor"			"100"
+		"health"		"100"
+		"noc4"			"1"
+		"killround"		"1"
+		"jumpshot"		"1"
+	}
 }

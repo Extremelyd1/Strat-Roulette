@@ -38,7 +38,7 @@ public ReadNewRound() {
 		return 0;
 	}
 
-	/* PrintToServer("Picked strat %s", roundNumberString); */
+	PrintToServer("Picked strat %s", roundNumberString);
 
 	kv.GetString("name", RoundName, sizeof(RoundName), "No name round!");
 	kv.GetString("thirdperson", ThirdPerson, sizeof(ThirdPerson), "0");
@@ -106,6 +106,7 @@ public ReadNewRound() {
 	kv.GetString("downunder", DownUnder, sizeof(DownUnder), "0");
 	kv.GetString("reincarnation", Reincarnation, sizeof(Reincarnation), "0");
 	kv.GetString("teamlives", TeamLives, sizeof(TeamLives), "0");
+	kv.GetString("jumpshot", Jumpshot, sizeof(Jumpshot), "0");
 
 	char descriptionOverride[3];
 	kv.GetString("descoverride", descriptionOverride, sizeof(descriptionOverride), "0");
@@ -268,6 +269,8 @@ public ReadNewRound() {
 	ConfigureReincarnation();
 	//** Team Lives **//
 	ConfigureTeamLives();
+	//** Jumpshot **//
+	ConfigureJumpshot();
 
 	delete kv;
 

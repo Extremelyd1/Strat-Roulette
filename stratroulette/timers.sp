@@ -62,7 +62,7 @@ public Action:DropWeaponsTimer(Handle timer, DataPack data) {
 	return Plugin_Stop;
 }
 
-public Action:WaitForReloadTimer(Handle timer, int weapon) {
+public Action:TinyMagsWaitForReloadTimer(Handle timer, int weapon) {
 	if (!g_TinyMags) {
 		return Plugin_Stop;
 	}
@@ -78,6 +78,73 @@ public Action:WaitForReloadTimer(Handle timer, int weapon) {
 	}
 
 	return Plugin_Continue;
+}
+
+public Action:JumpshotWaitForReloadTimer(Handle timer, int weapon) {
+	if (!g_Jumpshot) {
+		return Plugin_Stop;
+	}
+
+	if (!IsValidEntity(weapon)) {
+		return Plugin_Stop;
+	}
+
+	if (GetEntProp(weapon, Prop_Data, "m_bInReload")) {
+		return Plugin_Continue;
+	}
+
+	int weaponOwner = EntRefToEntIndex(Weapon_GetOwner(weapon));
+
+	// Check whether the player is current on the ground, therefore the reload would be cancelled
+	if (jumpshotState[weaponOwner] != 0) {
+		return Plugin_Stop;
+	}
+
+	// Check whether the clip ammo has not changed yet
+	if (beforeReloadAmmo[weaponOwner] != lastClipAmmo[weaponOwner]) {
+		return Plugin_Stop;
+	}
+
+	// Get active weapon of player
+	int activeWeapon = GetEntPropEnt(weaponOwner, Prop_Data, "m_hActiveWeapon");
+
+	// Check if the player is still holding that weapon
+	if (weapon != activeWeapon) {
+		return Plugin_Stop;
+	}
+
+	// Get weapon name
+	char className[128];
+	GetEdictClassname(weapon, className, sizeof(className));
+
+	// Get the clip size for this weapon
+	int clipsize = -1;
+
+	for (int i = 0; i < PRIMARY_LENGTH; i++) {
+		if (StrEqual(className, WeaponPrimary[i])) {
+			clipsize = PrimaryClipSize[i];
+		}
+	}
+	for (int i = 0; i < SECONDARY_LENGTH; i++) {
+		if (StrEqual(className, WeaponSecondary[i])) {
+			clipsize = SecondaryClipSize[i];
+		}
+	}
+
+	if (clipsize == -1) {
+		return Plugin_Stop;
+	}
+
+	// Manually reload the clip and reserve values
+	if (clipsize > lastReserveAmmo[weaponOwner]) {
+		lastClipAmmo[weaponOwner] = lastReserveAmmo[weaponOwner];
+		lastReserveAmmo[weaponOwner] = 0;
+	} else {
+		lastClipAmmo[weaponOwner] = clipsize;
+		lastReserveAmmo[weaponOwner] = lastReserveAmmo[weaponOwner] - clipsize;
+	}
+
+	return Plugin_Stop;
 }
 
 // Simply here to delay starting the timer

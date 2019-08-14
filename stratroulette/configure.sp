@@ -721,3 +721,23 @@ public ConfigureTeamLives() {
 		SendMessageAll("%t", "LivesRemaining", teamLives);
 	}
 }
+
+public ConfigureJumpshot() {
+	if (StrEqual(Jumpshot, "1")) {
+		g_Jumpshot = true;
+
+		for (int client = 1; client <= MaxClients; client++) {
+			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+				int primary = GetPlayerWeaponSlot(client, CS_SLOT_PRIMARY);
+				if (primary > 0) {
+					SDKHook(primary, SDKHook_ReloadPost, Hook_OnWeaponReloadPost);
+				}
+
+				int secondary = GetPlayerWeaponSlot(client, CS_SLOT_SECONDARY);
+				if (secondary > 0) {
+					SDKHook(secondary, SDKHook_ReloadPost, Hook_OnWeaponReloadPost);
+				}
+			}
+		}
+	}
+}

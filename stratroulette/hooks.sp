@@ -257,7 +257,17 @@ public Action:Hook_OnWeaponReload(int weapon) {
 public Hook_OnWeaponReloadPost(int weapon, bool bSuccessful) {
 	if (g_TinyMags) {
 		if (bSuccessful) {
-			CreateTimer(0.1, WaitForReloadTimer, weapon, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+			CreateTimer(0.1, TinyMagsWaitForReloadTimer, weapon, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+		}
+	}
+
+	if (g_Jumpshot) {
+		if (bSuccessful) {
+			int weaponOwner = EntRefToEntIndex(Weapon_GetOwner(weapon));
+
+			beforeReloadAmmo[weaponOwner] = GetClipAmmo(weapon);
+
+			CreateTimer(0.1, JumpshotWaitForReloadTimer, weapon, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 		}
 	}
 }

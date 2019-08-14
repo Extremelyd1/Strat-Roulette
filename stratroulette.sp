@@ -87,6 +87,7 @@ new String:TunnelVision[3];
 new String:DownUnder[3];
 new String:Reincarnation[3];
 new String:TeamLives[20];
+new String:Jumpshot[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -131,6 +132,7 @@ new bool:g_Dropshot = false;
 new bool:g_DownUnder = false;
 new bool:g_Reincarnation = false;
 new bool:g_TeamLives = false;
+new bool:g_Jumpshot = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -156,6 +158,18 @@ new const PrimaryDamage[PRIMARY_LENGTH] = {
 	10, 50, 10
 };
 
+// Clip sizes of primary weapons
+new const PrimaryClipSize[PRIMARY_LENGTH] = {
+	30, 30, 64,
+	25, 20, 35,
+	100, 30, 30,
+	5, 30, 30,
+	150, 8, 50,
+	7, 20, 30,
+	10, 25, 7,
+	25, 10, 30
+};
+
 // Secondary weapons
 new const String:WeaponSecondary[SECONDARY_LENGTH][] =  {
 	"weapon_deagle", "weapon_elite", "weapon_fiveseven",
@@ -170,6 +184,14 @@ new const SecondaryDamage[SECONDARY_LENGTH] = {
 	5, 10, 10,
 	5, 5, 10,
 	20
+};
+
+// Clip sizes of secondary weapons
+new const SecondaryClipSize[PRIMARY_LENGTH] = {
+	7, 30, 20,
+	20, 13, 13,
+	18, 12, 12,
+	8
 };
 
 // Grenades
@@ -213,6 +235,11 @@ int magazineSize;
 int teamLives = 0;
 int ctLives = 0;
 int tLives = 0;
+// Jumpshot
+new jumpshotState[MAXPLAYERS + 1];
+new lastClipAmmo[MAXPLAYERS + 1];
+new lastReserveAmmo[MAXPLAYERS + 1];
+new beforeReloadAmmo[MAXPLAYERS + 1];
 
 // Round variables
 int lastRound = -1;
@@ -531,6 +558,46 @@ public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3
 
 				SetClientViewEntity(client, entity);
 			}
+		}
+	}
+
+	if (g_Jumpshot) {
+		int lastJumpshotState = jumpshotState[client];
+		int clientInAir = GetEntityFlags(client) & FL_ONGROUND;
+
+		// Client was in the air, now is not in the air
+		if (lastJumpshotState == 1 && clientInAir) {
+			new weaponInSlot = GetPlayerWeaponSlot(client, CS_SLOT_PRIMARY);
+			if (weaponInSlot < 1) {
+				weaponInSlot = GetPlayerWeaponSlot(client, CS_SLOT_SECONDARY);
+				if (weaponInSlot < 1) {
+					return Plugin_Continue;
+				}
+			}
+
+			lastClipAmmo[client] = GetClipAmmo(weaponInSlot);
+			lastReserveAmmo[client] = GetReserveAmmo(weaponInSlot);
+
+			SetClipAmmo(weaponInSlot, 0);
+			SetReserveAmmo(weaponInSlot, 0);
+		} else if (lastJumpshotState == 0 && !clientInAir) {
+			// Client was on the ground, now is in the air
+			new weaponInSlot = GetPlayerWeaponSlot(client, CS_SLOT_PRIMARY);
+			if (weaponInSlot < 1) {
+				weaponInSlot = GetPlayerWeaponSlot(client, CS_SLOT_SECONDARY);
+				if (weaponInSlot < 1) {
+					return Plugin_Continue;
+				}
+			}
+
+			SetClipAmmo(weaponInSlot, lastClipAmmo[client]);
+			SetReserveAmmo(weaponInSlot, lastReserveAmmo[client]);
+		}
+
+		if (GetEntityFlags(client) & FL_ONGROUND) {
+			jumpshotState[client] = 0;
+		} else {
+			jumpshotState[client] = 1;
 		}
 	}
 

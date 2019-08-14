@@ -674,4 +674,12 @@
 	{
 		"en"		"Your team has {DARK_RED}no lives {NORMAL}remaining, you can no longer respawn!"
 	}
+	"RoundJumpshotName"
+	{
+		"en"		"Jumpshot Galore"
+	}
+	"RoundJumpshotDesc"
+	{
+		"en"		"You can only shoot your weapon while in the air"
+	}
 }
