@@ -143,6 +143,7 @@ public ResetConfiguration() {
 	g_Reincarnation = false;
 	g_Jumpshot = false;
 	g_NoFallDamage = false;
+	g_ForwardOnly = false;
 }
 
 public int GetNumberOfStrats() {
