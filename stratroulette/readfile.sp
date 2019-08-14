@@ -108,7 +108,7 @@ public ReadNewRound() {
 	kv.GetString("teamlives", TeamLives, sizeof(TeamLives), "0");
 	kv.GetString("jumpshot", Jumpshot, sizeof(Jumpshot), "0");
 	kv.GetString("nofall", NoFallDamage, sizeof(NoFallDamage), "0");
-	kv.GetString("forwardonly", ForwardOnly, sizeof(ForwardOnly), "0");
+	kv.GetString("onedirection", OneDirection, sizeof(OneDirection), "0");
 
 	char descriptionOverride[3];
 	kv.GetString("descoverride", descriptionOverride, sizeof(descriptionOverride), "0");
@@ -276,7 +276,7 @@ public ReadNewRound() {
 	//** No fall damage **//
 	ConfigureNoFallDamage();
 	//** Forward only **//
-	ConfigureForwardOnly();
+	ConfigureOneDirection();
 
 	delete kv;
 

@@ -748,8 +748,8 @@ public ConfigureNoFallDamage() {
 	}
 }
 
-public ConfigureForwardOnly() {
-	if (StrEqual(ForwardOnly, "1")) {
-		g_ForwardOnly = true;
+public ConfigureOneDirection() {
+	if (StrEqual(OneDirection, "1")) {
+		g_OneDirection = true;
 	}
 }

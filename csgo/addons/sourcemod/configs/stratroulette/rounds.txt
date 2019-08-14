@@ -708,12 +708,12 @@
 	}
 	"67"
 	{
-		"name"			"RoundForwardOnlyName"
-		"description"	"RoundForwardOnlyDesc"
+		"name"			"RoundOneDirectionName"
+		"description"	"RoundOneDirectionDesc"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"armor"			"100"
 		"health"		"100"
 		"helmet"		"1"
-		"forwardonly"	"1"
+		"onedirection"	"1"
 	}
 }

@@ -89,7 +89,7 @@ new String:Reincarnation[3];
 new String:TeamLives[20];
 new String:Jumpshot[3];
 new String:NoFallDamage[3];
-new String:ForwardOnly[3];
+new String:OneDirection[3];
 
 // State variables
 new bool:g_DecoySound = false;
@@ -136,7 +136,7 @@ new bool:g_Reincarnation = false;
 new bool:g_TeamLives = false;
 new bool:g_Jumpshot = false;
 new bool:g_NoFallDamage = false;
-new bool:g_ForwardOnly = false;
+new bool:g_OneDirection = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -531,8 +531,8 @@ public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3
 		}
 	}
 
-	if (g_ForwardOnly) {
-		if (buttons & IN_BACK || buttons & IN_MOVELEFT || buttons & IN_MOVERIGHT) {
+	if (g_OneDirection) {
+		if (buttons & IN_FORWARD || buttons & IN_MOVELEFT || buttons & IN_MOVERIGHT) {
 			return Plugin_Handled;
 		}
 	}
