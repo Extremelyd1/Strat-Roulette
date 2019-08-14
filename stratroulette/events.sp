@@ -1,5 +1,5 @@
 public Action SrEventMatchOver(Handle:event, const String:name[], bool:dontBroadcast) {
-    ServerCommand("mp_match_restart_delay 600");
+	ServerCommand("mp_match_restart_delay 600");
 }
 
 public Action:SrEventRoundEnd(Handle:event, const String:name[], bool:dontBroadcast) {
@@ -24,38 +24,38 @@ public Action:SrEventRoundStart(Handle:event, const String:name[], bool:dontBroa
 }
 
 public Action:SrEventDecoyStarted(Handle:event, const String:name[], bool:dontBroadcast) {
-    if (g_DecoySound) {
-    	new entity = GetEventInt(event, "entityid");
-    	if (IsValidEntity(entity)) {
-    		RemoveEdict(entity);
-    	}
-    }
+	if (g_DecoySound) {
+		new entity = GetEventInt(event, "entityid");
+		if (IsValidEntity(entity)) {
+			RemoveEdict(entity);
+		}
+	}
 
-    if (g_Drones) {
-        new entity = GetEventInt(event, "entityid");
-        if (IsValidEntity(entity)) {
-            RemoveEntity(entity);
+	if (g_Drones) {
+		new entity = GetEventInt(event, "entityid");
+		if (IsValidEntity(entity)) {
+			RemoveEntity(entity);
 
-            new client = GetClientOfUserId(GetEventInt(event, "userid"));
+			new client = GetClientOfUserId(GetEventInt(event, "userid"));
 
-            int dronegun = CreateEntityByName("dronegun");
+			int dronegun = CreateEntityByName("dronegun");
 
-            SetEntData(dronegun, g_offsCollisionGroup, 5, 4, true);
-            SetEntPropEnt(dronegun, Prop_Send, "m_hOwnerEntity", client);
+			SetEntData(dronegun, g_offsCollisionGroup, 5, 4, true);
+			SetEntPropEnt(dronegun, Prop_Send, "m_hOwnerEntity", client);
 
-            float pos[3];
-            pos[0] = GetEventFloat(event, "x");
-            pos[1] = GetEventFloat(event, "y");
-            pos[2] = GetEventFloat(event, "z");
+			float pos[3];
+			pos[0] = GetEventFloat(event, "x");
+			pos[1] = GetEventFloat(event, "y");
+			pos[2] = GetEventFloat(event, "z");
 
-            TeleportEntity(dronegun, pos, NULL_VECTOR, NULL_VECTOR);
-            DispatchSpawn(dronegun);
+			TeleportEntity(dronegun, pos, NULL_VECTOR, NULL_VECTOR);
+			DispatchSpawn(dronegun);
 
-            new String:entityIdString[64];
-            IntToString(dronegun, entityIdString, sizeof(entityIdString));
-            droneMap.SetValue(entityIdString, client);
-        }
-    }
+			new String:entityIdString[64];
+			IntToString(dronegun, entityIdString, sizeof(entityIdString));
+			droneMap.SetValue(entityIdString, client);
+		}
+	}
 }
 
 public Action:SrEventWeaponZoom(Handle:event, const String:name[], bool:dontBroadcast) {
@@ -70,101 +70,101 @@ public Action:SrEventWeaponZoom(Handle:event, const String:name[], bool:dontBroa
 }
 
 public Action:SrEventWeaponFire(Handle:event, const String:name[], bool:dontBroadcast) {
-    if (g_DontMiss) {
-        new client = GetClientOfUserId(GetEventInt(event, "userid"));
-        char weaponname[128];
-        Client_GetActiveWeaponName(client, weaponname, sizeof(weaponname));
+	if (g_DontMiss) {
+		new client = GetClientOfUserId(GetEventInt(event, "userid"));
+		char weaponname[128];
+		Client_GetActiveWeaponName(client, weaponname, sizeof(weaponname));
 
-        for (int i = 0; i < PRIMARY_LENGTH; i++) {
-            if (StrEqual(weaponname, WeaponPrimary[i])) {
-                DataPack data = new DataPack();
-                data.WriteCell(client);
-                data.WriteCell(PrimaryDamage[i]);
+		for (int i = 0; i < PRIMARY_LENGTH; i++) {
+			if (StrEqual(weaponname, WeaponPrimary[i])) {
+				DataPack data = new DataPack();
+				data.WriteCell(client);
+				data.WriteCell(PrimaryDamage[i]);
 
-                CreateTimer(0.1, DontMissDamageTimer, data);
-                return Plugin_Continue;
-            }
-        }
-        for (int i = 0; i < SECONDARY_LENGTH; i++) {
-            if (StrEqual(weaponname, WeaponSecondary[i])) {
-                DataPack data = new DataPack();
-                data.WriteCell(client);
-                data.WriteCell(SecondaryDamage[i]);
+				CreateTimer(0.1, DontMissDamageTimer, data);
+				return Plugin_Continue;
+			}
+		}
+		for (int i = 0; i < SECONDARY_LENGTH; i++) {
+			if (StrEqual(weaponname, WeaponSecondary[i])) {
+				DataPack data = new DataPack();
+				data.WriteCell(client);
+				data.WriteCell(SecondaryDamage[i]);
 
-                CreateTimer(0.1, DontMissDamageTimer, data);
-                return Plugin_Continue;
-            }
-        }
-    }
+				CreateTimer(0.1, DontMissDamageTimer, data);
+				return Plugin_Continue;
+			}
+		}
+	}
 
-    if (g_PocketTP) {
-        new client = GetClientOfUserId(GetEventInt(event, "userid"));
-        char weapon[128];
-        GetEventString(event, "weapon", weapon, sizeof(weapon));
+	if (g_PocketTP) {
+		new client = GetClientOfUserId(GetEventInt(event, "userid"));
+		char weapon[128];
+		GetEventString(event, "weapon", weapon, sizeof(weapon));
 
-        if (!StrEqual(weapon, "weapon_usp_silencer")) {
-            return Plugin_Continue;
-        }
+		if (!StrEqual(weapon, "weapon_usp_silencer")) {
+			return Plugin_Continue;
+		}
 
-        float origin[3];
-        float angles[3];
+		float origin[3];
+		float angles[3];
 
-        GetClientEyePosition(client, origin);
-        GetClientEyeAngles(client, angles);
+		GetClientEyePosition(client, origin);
+		GetClientEyeAngles(client, angles);
 
-        new Handle:lookTrace = TR_TraceRayFilterEx(origin, angles, MASK_PLAYERSOLID, RayType_Infinite, RayFilter, client);
-        if (TR_DidHit(lookTrace)) {
-            float hitLocation[3];
+		new Handle:lookTrace = TR_TraceRayFilterEx(origin, angles, MASK_PLAYERSOLID, RayType_Infinite, RayFilter, client);
+		if (TR_DidHit(lookTrace)) {
+			float hitLocation[3];
 
-            TR_GetEndPosition(hitLocation, lookTrace);
+			TR_GetEndPosition(hitLocation, lookTrace);
 
-            int tries = 300;
-            bool success = false;
+			int tries = 300;
+			bool success = false;
 
-            hitLocation[2] = hitLocation[2] - 5.0;
+			hitLocation[2] = hitLocation[2] - 5.0;
 
-            float mins[3];
-            mins[0] = -CLIENTWIDTH / 2;
-            mins[1] = -CLIENTWIDTH / 2;
-            mins[2] = 0.0;
+			float mins[3];
+			mins[0] = -CLIENTWIDTH / 2;
+			mins[1] = -CLIENTWIDTH / 2;
+			mins[2] = 0.0;
 
-            float maxs[3];
-            maxs[0] = CLIENTWIDTH / 2;
-            maxs[1] = CLIENTWIDTH / 2;
-            maxs[2] = CLIENTHEIGHT;
+			float maxs[3];
+			maxs[0] = CLIENTWIDTH / 2;
+			maxs[1] = CLIENTWIDTH / 2;
+			maxs[2] = CLIENTHEIGHT;
 
-            while (!success && tries > 0) {
-                hitLocation[2] = hitLocation[2] + 5.0;
+			while (!success && tries > 0) {
+				hitLocation[2] = hitLocation[2] + 5.0;
 
-                new Handle:hitboxTrace = TR_TraceHullEx(hitLocation, hitLocation, mins, maxs, MASK_PLAYERSOLID);
+				new Handle:hitboxTrace = TR_TraceHullEx(hitLocation, hitLocation, mins, maxs, MASK_PLAYERSOLID);
 
-                if (!TR_DidHit(hitboxTrace)) {
-                    TeleportEntity(client, hitLocation, NULL_VECTOR, NULL_VECTOR);
-                    success = true;
-                } else {
-                    tries--;
-                }
+				if (!TR_DidHit(hitboxTrace)) {
+					TeleportEntity(client, hitLocation, NULL_VECTOR, NULL_VECTOR);
+					success = true;
+				} else {
+					tries--;
+				}
 
-                CloseHandle(hitboxTrace);
-            }
-        }
+				CloseHandle(hitboxTrace);
+			}
+		}
 
-        CloseHandle(lookTrace);
-    }
+		CloseHandle(lookTrace);
+	}
 
-    if (g_Dropshot) {
-        new client = GetClientOfUserId(GetEventInt(event, "userid"));
+	if (g_Dropshot) {
+		new client = GetClientOfUserId(GetEventInt(event, "userid"));
 
-        new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
-        if (weapon > 0) {
-            DataPack data = new DataPack();
-            data.WriteCell(client);
-            data.WriteCell(weapon);
-            CreateTimer(0.1, DropShotWeapon, data);
-        }
-    }
+		new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
+		if (weapon > 0) {
+			DataPack data = new DataPack();
+			data.WriteCell(client);
+			data.WriteCell(weapon);
+			CreateTimer(0.1, DropShotWeapon, data);
+		}
+	}
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:SrBombPlanted_Event(Handle:event, const String:name[], bool:dontBroadcast) {
@@ -280,11 +280,11 @@ public Action:SrEventPlayerDeath(Handle:event, const String:name[], bool:dontBro
 }
 
 public Action:SrEventPlayerDeathPre(Handle:event, const String:name[], bool:dontBroadcast) {
-    if (g_KillRound && !g_Bomberman) {
-        if (IsWiped()) {
-            SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
-        }
-    }
+	if (g_KillRound && !g_Bomberman) {
+		if (IsWiped()) {
+			SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
+		}
+	}
 }
 
 public Action:SrEventEntityDeath(Handle:event, const String:name[], bool:dontBroadcast) {
@@ -300,12 +300,11 @@ public Action:SrEventEntityDeath(Handle:event, const String:name[], bool:dontBro
 				new String:playerIdString[64];
 				IntToString(i, playerIdString, sizeof(playerIdString));
 				// Get chicken that belongs to player
-				new chicken;
-				chickenMap.GetValue(playerIdString, chicken);
+				new chicken = chickens[i];
 
 				if (chicken == entity) {
 					SDKHooks_TakeDamage(i, attacker, attacker, float(g_Health), DMG_GENERIC);
-					chickenMap.Remove(playerIdString);
+					chickens[i] = -1;
 
 					break;
 				}
@@ -327,29 +326,29 @@ public Action:SrEventEntityDeath(Handle:event, const String:name[], bool:dontBro
 }
 
 public Action:SrEventSmokeDetonate(Handle:event, const String:name[], bool:dontBroadcast) {
-    if (g_Poison) {
-        new entity = GetEventInt(event, "entityid");
-        float pos[3];
-        pos[0] = GetEventFloat(event, "x");
-        pos[1] = GetEventFloat(event, "y");
-        pos[2] = GetEventFloat(event, "z");
+	if (g_Poison) {
+		new entity = GetEventInt(event, "entityid");
+		float pos[3];
+		pos[0] = GetEventFloat(event, "x");
+		pos[1] = GetEventFloat(event, "y");
+		pos[2] = GetEventFloat(event, "z");
 
-        new String:entityIdString[64];
-        IntToString(entity, entityIdString, sizeof(entityIdString));
+		new String:entityIdString[64];
+		IntToString(entity, entityIdString, sizeof(entityIdString));
 
-        smokeMap.SetArray(entityIdString, pos, 3);
-    }
+		smokeMap.SetArray(entityIdString, pos, 3);
+	}
 }
 
 public Action:SrEventSmokeExpired(Handle:event, const String:name[], bool:dontBroadcast) {
-    if (g_Poison) {
-        new entity = GetEventInt(event, "entityid");
+	if (g_Poison) {
+		new entity = GetEventInt(event, "entityid");
 
-        new String:entityIdString[64];
-        IntToString(entity, entityIdString, sizeof(entityIdString));
+		new String:entityIdString[64];
+		IntToString(entity, entityIdString, sizeof(entityIdString));
 
-        smokeMap.Remove(entityIdString);
-    }
+		smokeMap.Remove(entityIdString);
+	}
 }
 
 public Action:SrEventPlayerBlind(Handle:event, const String:name[], bool:dontBroadcast) {
@@ -369,14 +368,14 @@ public Action:SrEventPlayerBlind(Handle:event, const String:name[], bool:dontBro
 
 public Action:SrEventSwitchTeam(Event event, const char[] name, bool dontBroadcast) {
 
-    if (!pugSetupLoaded && !inGame && g_AutoStart.IntValue == 1) {
-        int numPlayers = GetEventInt(event, "numPlayers");
+	if (!pugSetupLoaded && !inGame && g_AutoStart.IntValue == 1) {
+		int numPlayers = GetEventInt(event, "numPlayers");
 
-        if (numPlayers >= g_AutoStartMinPlayers.IntValue) {
-            ServerCommand("mp_warmup_end 5");
-            inGame = true;
-        }
-    }
+		if (numPlayers >= g_AutoStartMinPlayers.IntValue) {
+			ServerCommand("mp_warmup_end 5");
+			inGame = true;
+		}
+	}
 }
 
 public Action:SrEventPlayerSpawn(Event event, const char[] name, bool dontBroadcast) {

@@ -188,9 +188,9 @@ new tLeader;
 new bool:g_HighSpeed = false;
 // Red light, green light
 new bool:g_RedLight = false;
-new StringMap:positionMap;
+float positions[MAXPLAYERS + 1][3];
 // Buddy system
-new StringMap:chickenMap;
+new chickens[MAXPLAYERS + 1];
 new StringMap:chickenHealth;
 // Poison
 new StringMap:smokeMap;
@@ -207,7 +207,7 @@ new stealthVisible[MAXPLAYERS + 1];
 // Drones
 new StringMap:droneMap;
 // Down Under
-new StringMap:downUnderMap;
+new downUnderArray[MAXPLAYERS + 1];
 int magazineSize;
 // Team Lives
 int teamLives = 0;
@@ -280,12 +280,12 @@ public OnPluginStart() {
 
 	//** Convars **//
 	g_AutoStart = CreateConVar(
-	    "sm_sr_auto_start", "0",
-	    "Whether to automagically start the game when enough players are present"
+		"sm_sr_auto_start", "0",
+		"Whether to automagically start the game when enough players are present"
 	);
 	g_AutoStartMinPlayers = CreateConVar(
-	    "sm_sr_auto_start_min_players", "4",
-	    "The minimum number of players required to automagically start the game"
+		"sm_sr_auto_start_min_players", "4",
+		"The minimum number of players required to automagically start the game"
 	);
 
 	//** Create and exec plugin's configuration file **//
@@ -323,14 +323,14 @@ public OnPluginStart() {
 
 	// Hook players after plugin reload
 	for (int client = 1; client <= MaxClients; client++) {
-	    if (IsClientInGame(client) && !IsFakeClient(client)) {
-	    	SDKHook(client, SDKHook_OnTakeDamage, Hook_OnTakeDamage);
-	    }
+		if (IsClientInGame(client) && !IsFakeClient(client)) {
+			SDKHook(client, SDKHook_OnTakeDamage, Hook_OnTakeDamage);
+		}
 	}
 
 	if (voteTimer != INVALID_HANDLE) {
-	    CloseHandle(voteTimer);
-	    voteTimer = INVALID_HANDLE;
+		CloseHandle(voteTimer);
+		voteTimer = INVALID_HANDLE;
 	}
 }
 
@@ -350,34 +350,34 @@ public OnPluginEnd() {
 	UnhookEvent("player_blind", SrEventPlayerBlind);
 
 	for (int client = 1; client <= MaxClients; client++) {
-	    if (IsClientInGame(client) && !IsFakeClient(client)) {
-	    	SDKUnhook(client, SDKHook_OnTakeDamage, Hook_OnTakeDamage);
-	    }
+		if (IsClientInGame(client) && !IsFakeClient(client)) {
+			SDKUnhook(client, SDKHook_OnTakeDamage, Hook_OnTakeDamage);
+		}
 	}
 }
 
 public void OnMapStart() {
 	// Check if PugSetup is loaded
 	if (GetFeatureStatus(FeatureType_Native, "PugSetup_IsMatchLive") == FeatureStatus_Available) {
-	    pugSetupLoaded = true;
-	    PrintToServer("PugSetup is loaded, using it for match handling");
+		pugSetupLoaded = true;
+		PrintToServer("PugSetup is loaded, using it for match handling");
 	} else {
-	    pugSetupLoaded = false;
+		pugSetupLoaded = false;
 	}
 
 	inGame = false;
 	if (!pugSetupLoaded) {
-	    // Indefinite warmup
-	    ServerCommand("mp_do_warmup_period 1");
-	    ServerCommand("mp_warmup_start");
-	    ServerCommand("mp_warmup_pausetimer 1");
-	    ServerCommand("mp_warmup_pausetimer 1");
+		// Indefinite warmup
+		ServerCommand("mp_do_warmup_period 1");
+		ServerCommand("mp_warmup_start");
+		ServerCommand("mp_warmup_pausetimer 1");
+		ServerCommand("mp_warmup_pausetimer 1");
 	}
 
 	// Precache necessary models
 	int precache = PrecacheModel("models/props_survival/dronegun/dronegun.mdl", true);
 	if (precache == 0) {
-	    SetFailState("models/props_survival/dronegun/dronegun.mdl not precached !");
+		SetFailState("models/props_survival/dronegun/dronegun.mdl not precached !");
 	}
 
 	PrecacheModel("models/props_survival/dronegun/dronegun_gib1.mdl", true);
@@ -411,8 +411,8 @@ public OnClientPutInServer(client) {
 
 public Action:cmd_start(client, args) {
 	if (!pugSetupLoaded) {
-	    ServerCommand("mp_warmup_end 1");
-	    inGame = true;
+		ServerCommand("mp_warmup_end 1");
+		inGame = true;
 	} else {
 		SendMessage(client, "%t", "MatchHandlingPugSetup");
 	}
@@ -420,18 +420,18 @@ public Action:cmd_start(client, args) {
 
 public Action:cmd_end(client, args) {
 	if (!pugSetupLoaded) {
-	    if (inGame) {
-	        ServerCommand("mp_do_warmup_period 1");
-	        ServerCommand("mp_warmup_start");
-	        ServerCommand("mp_warmup_pausetimer 1");
-	        inGame = false;
+		if (inGame) {
+			ServerCommand("mp_do_warmup_period 1");
+			ServerCommand("mp_warmup_start");
+			ServerCommand("mp_warmup_pausetimer 1");
+			inGame = false;
 
-	        ResetConfiguration();
-	    } else {
-	        ReplyToCommand(client, "Game is not in progress!");
-	    }
+			ResetConfiguration();
+		} else {
+			ReplyToCommand(client, "Game is not in progress!");
+		}
 	} else {
-	    SendMessage(client, "%t", "MatchHandlingPugSetup");
+		SendMessage(client, "%t", "MatchHandlingPugSetup");
 	}
 }
 
@@ -442,17 +442,17 @@ public Action:cmd_setround(client, args) {
 	KeyValues kv = new KeyValues("Strats");
 
 	if (!kv.ImportFromFile(STRAT_FILE)) {
-	    PrintToServer("Strat file could not be found!");
+		PrintToServer("Strat file could not be found!");
 
-	    delete kv;
-	    return Plugin_Handled;
+		delete kv;
+		return Plugin_Handled;
 	}
 
 	if (!kv.JumpToKey(roundArg)) {
-	    PrintToServer("Strat number %s could not be found!", roundArg);
+		PrintToServer("Strat number %s could not be found!", roundArg);
 
-	    delete kv;
-	    return Plugin_Handled;
+		delete kv;
+		return Plugin_Handled;
 	}
 
 	Format(forceRoundNumber, sizeof(forceRoundNumber), "%s", roundArg);
@@ -471,14 +471,14 @@ public Action:cmd_endround(client, args) {
 
 public Action:cmd_srslots(client, args) {
 	for (new i = 0; i < 100; i++) {
-	    new edict = GetPlayerWeaponSlot(client, i);
+		new edict = GetPlayerWeaponSlot(client, i);
 
-	    if (edict > -1) {
-	        char className[128];
-	        GetEdictClassname(edict, className, sizeof(className));
+		if (edict > -1) {
+			char className[128];
+			GetEdictClassname(edict, className, sizeof(className));
 
-	        PrintToServer("Slot=%d, name=%s", i, className);
-	    }
+			PrintToServer("Slot=%d, name=%s", i, className);
+		}
 	}
 }
 
@@ -487,7 +487,7 @@ public Action:cmd_srtest(client, args) {
 
 public Action:CommandDrop(int client, const char[] command, int args) {
 	if (g_HotPotato || g_Bomberman || g_Bodyguard || g_RandomGuns || g_Zombies) {
-	    return Plugin_Stop;
+		return Plugin_Stop;
 	}
 
 	return Plugin_Continue;
@@ -495,46 +495,43 @@ public Action:CommandDrop(int client, const char[] command, int args) {
 
 public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3], float angles[3], int& weapon, int& subtype, int& cmdnum, int& tickcount, int& seed, int mouse[2]) {
 	if (g_CrabWalk) {
-	    if (buttons & IN_FORWARD) {
-	        return Plugin_Handled;
-	    }
-	    if (buttons & IN_BACK) {
-	        return Plugin_Handled;
-	    }
+		if (buttons & IN_FORWARD) {
+			return Plugin_Handled;
+		}
+		if (buttons & IN_BACK) {
+			return Plugin_Handled;
+		}
 	}
 
 	if (g_Stealth) {
-	    int walkMask = IN_FORWARD | IN_BACK | IN_LEFT | IN_RIGHT;
-	    int otherMask = IN_ATTACK | IN_RELOAD;
-	    if (buttons & otherMask || (buttons & walkMask && !(buttons & IN_SPEED))) {
-	        stealthVisible[client] = true;
-	    } else {
-	        stealthVisible[client] = false;
-	    }
+		int walkMask = IN_FORWARD | IN_BACK | IN_LEFT | IN_RIGHT;
+		int otherMask = IN_ATTACK | IN_RELOAD;
+		if (buttons & otherMask || (buttons & walkMask && !(buttons & IN_SPEED))) {
+			stealthVisible[client] = true;
+		} else {
+			stealthVisible[client] = false;
+		}
 	}
 
 	if (g_DownUnder) {
-	    // Convert player id to string
-	    new String:playerIdString[64];
-	    IntToString(client, playerIdString, sizeof(playerIdString));
-	    // Get entity that belongs to player
-	    new entity;
-	    if (downUnderMap.GetValue(playerIdString, entity)) {
-			if (entity != 0 && IsValidEntity(entity)) {
-			    // Set position and angles
-			    float eyeAngles[3];
-			    GetClientEyeAngles(client, eyeAngles);
+		// Get entity that belongs to player
+		new entity = downUnderArray[client];
+		if (entity != -1) {
+			if (IsValidEntity(entity)) {
+				// Set position and angles
+				float eyeAngles[3];
+				GetClientEyeAngles(client, eyeAngles);
 
-			    float position[3];
-			    GetClientEyePosition(client, position);
+				float position[3];
+				GetClientEyePosition(client, position);
 
-			    eyeAngles[2] = 180.0;
+				eyeAngles[2] = 180.0;
 
-			    TeleportEntity(entity, position, eyeAngles, NULL_VECTOR);
+				TeleportEntity(entity, position, eyeAngles, NULL_VECTOR);
 
-			    SetClientViewEntity(client, entity);
+				SetClientViewEntity(client, entity);
 			}
-	    }
+		}
 	}
 
 	return Plugin_Continue;
@@ -542,16 +539,16 @@ public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3
 
 public Action:OnClientSayCommand(int client, const char[] command, const char[] sArgs) {
 	if (g_Captcha) {
-	    if (captchaClients.FindValue(client) != -1) {
-	        if (StrEqual(sArgs, captchaAnswer)) {
-	            GivePlayerItem(client, primaryWeapon);
-	            GivePlayerItem(client, secondaryWeapon);
-	            captchaClients.Erase(captchaClients.FindValue(client));
-	        } else {
+		if (captchaClients.FindValue(client) != -1) {
+			if (StrEqual(sArgs, captchaAnswer)) {
+				GivePlayerItem(client, primaryWeapon);
+				GivePlayerItem(client, secondaryWeapon);
+				captchaClients.Erase(captchaClients.FindValue(client));
+			} else {
 				SendMessage(client, "%t", "CaptchaWrong");
-	        }
-	        return Plugin_Stop;
-	    }
+			}
+			return Plugin_Stop;
+		}
 	}
 	return Plugin_Continue;
 }
@@ -610,12 +607,9 @@ public OnConfigsExecuted() {
 
 	SetServerConvars();
 
-	chickenMap = CreateTrie();
 	chickenHealth = CreateTrie();
-	positionMap = CreateTrie();
 	smokeMap = CreateTrie();
 	droneMap = CreateTrie();
-	downUnderMap = CreateTrie();
 	captchaClients = new ArrayList();
 }
 
@@ -636,7 +630,7 @@ public SetServerConvars() {
 	SetConVarString(mp_t_default_secondary, "");
 	SetConVarInt(mp_autokick, 0);
 	if (!pugSetupLoaded) {
-	    SetConVarInt(mp_freezetime, 5, true, false);
+		SetConVarInt(mp_freezetime, 5, true, false);
 	}
 }
 
@@ -659,39 +653,39 @@ public CreateRoundVoteMenu() {
 	ArrayList options = new ArrayList();
 	int numberOfStrats = GetNumberOfStrats();
 	for (int i = 1; i <= numberOfStrats; i++) {
-	    if (i != lastRound) {
-	        options.Push(i);
-	    }
+		if (i != lastRound) {
+			options.Push(i);
+		}
 	}
 
 	for (int i = 1; i < 6; i++) {
-	    if (options.Length == 0) {
-	        break;
-	    }
+		if (options.Length == 0) {
+			break;
+		}
 
-	    int randomRound = options.Get(GetRandomInt(0, options.Length - 1));
+		int randomRound = options.Get(GetRandomInt(0, options.Length - 1));
 
-	    options.Erase(options.FindValue(randomRound));
+		options.Erase(options.FindValue(randomRound));
 
-	    char randomRoundString[16];
-	    IntToString(randomRound, randomRoundString, sizeof(randomRoundString));
+		char randomRoundString[16];
+		IntToString(randomRound, randomRoundString, sizeof(randomRoundString));
 
-	    KeyValues kv = new KeyValues("Strats");
-	    kv.ImportFromFile(STRAT_FILE);
+		KeyValues kv = new KeyValues("Strats");
+		kv.ImportFromFile(STRAT_FILE);
 
-	    if (!kv.JumpToKey(randomRoundString)) {
-	        PrintToServer("Strat number %s could not be found for voting!", randomRoundString);
+		if (!kv.JumpToKey(randomRoundString)) {
+			PrintToServer("Strat number %s could not be found for voting!", randomRoundString);
 
-	        delete kv;
-	        continue;
-	    }
+			delete kv;
+			continue;
+		}
 
-	    kv.GetString("name", RoundName, sizeof(RoundName), "No name round!");
-	    Colorize(RoundName, sizeof(RoundName), true);
+		kv.GetString("name", RoundName, sizeof(RoundName), "No name round!");
+		Colorize(RoundName, sizeof(RoundName), true);
 
-	    menu.AddItem(randomRoundString, RoundName);
+		menu.AddItem(randomRoundString, RoundName);
 
-	    delete kv;
+		delete kv;
 	}
 
 	menu.ExitButton = false;
@@ -751,7 +745,7 @@ public int VoteMenuHandler(Menu menu, MenuAction action, int param1, int param2)
 
 public bool:RayFilter(entity, mask, any:data) {
 	if (entity == data) {
-	    return false;
+		return false;
 	}
 	return true;
 }

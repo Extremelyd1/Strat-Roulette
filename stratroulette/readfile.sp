@@ -124,10 +124,10 @@ public ReadNewRound() {
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && !IsFakeClient(client)) {
 			PrintToConsole(client, "%t", "ConsoleRoundName");
-			PrintToConsole(client, "    %t", RoundName);
+			PrintToConsole(client, "	%t", RoundName);
 
 			PrintToConsole(client, "%t", "ConsoleDescription");
-			PrintToConsole(client, "    %t", description);
+			PrintToConsole(client, "	%t", description);
 			if (StrEqual(descriptionOverride, "0")) {
 				if (StrEqual(KillRound, "1")) {
 					PrintToConsole(client, "%t", "ConsoleRoundInfoElimination");

@@ -1,12 +1,12 @@
 public ConfigureCollision() {
 	if (StrEqual(Collision, "team")) {
-	    SetConVarInt(mp_solid_teammates, 0, true, false);
+		SetConVarInt(mp_solid_teammates, 0, true, false);
 	} else if (StrEqual(Collision, "none")) {
-	    for (int client = 1; client <= MaxClients; client++) {
-	        if (IsClientInGame(client) && IsPlayerAlive(client)) {
-	            SetEntData(client, g_offsCollisionGroup, 2, 4, true);
-	        }
-	    }
+		for (int client = 1; client <= MaxClients; client++) {
+			if (IsClientInGame(client) && IsPlayerAlive(client)) {
+				SetEntData(client, g_offsCollisionGroup, 2, 4, true);
+			}
+		}
 	}
 }
 
@@ -22,16 +22,16 @@ public ConfigureWeapons() {
 	// should be primary of secondary
 	new randomIntCat = -1;
 	if (StrContains(Weapon, "weapon_random") != -1) {
-	    randomIntCat = GetRandomInt(0, 1);
+		randomIntCat = GetRandomInt(0, 1);
 	}
 
 	if (StrContains(Weapon, "weapon_primary_random") != -1 || randomIntCat == 0) {
-	    new randomInt = GetRandomInt(0, PRIMARY_LENGTH - 1);
-	    Format(primaryWeapon, sizeof(primaryWeapon), WeaponPrimary[randomInt]);
+		new randomInt = GetRandomInt(0, PRIMARY_LENGTH - 1);
+		Format(primaryWeapon, sizeof(primaryWeapon), WeaponPrimary[randomInt]);
 	}
 	if (StrContains(Weapon, "weapon_secondary_random") != -1 || randomIntCat == 1) {
-	    new randomInt = GetRandomInt(0, SECONDARY_LENGTH - 1);
-	    Format(secondaryWeapon, sizeof(secondaryWeapon), WeaponSecondary[randomInt]);
+		new randomInt = GetRandomInt(0, SECONDARY_LENGTH - 1);
+		Format(secondaryWeapon, sizeof(secondaryWeapon), WeaponSecondary[randomInt]);
 	}
 
 	// If we need to give a weapon
@@ -40,22 +40,22 @@ public ConfigureWeapons() {
 		new SumOfStrings = ExplodeString(Weapon, ";", bit, sizeof bit, sizeof bit[]);
 
 		for (int string = 0; string < SumOfStrings; string++) {
-	        for (int j = 1; j <= MaxClients; j++) {
-	            if (IsClientInGame(j) && IsPlayerAlive(j) && !IsFakeClient(j)) {
-	                if (!g_Zombies || GetClientTeam(j) == CS_TEAM_CT) {
-		                if (StrEqual(bit[string], "weapon_primary_random")
-		                 || (StrEqual(bit[string], "weapon_random") && randomIntCat == 0)) {
-		                    GivePlayerItem(j, primaryWeapon);
-		                } else if (StrEqual(bit[string], "weapon_secondary_random")
-		                 || (StrEqual(bit[string], "weapon_random") && randomIntCat == 1)) {
-		                    GivePlayerItem(j, secondaryWeapon);
-		                } else {
-		                    GivePlayerItem(j, bit[string]);
-		                }
-	                }
-	            }
-	        }
-	    }
+			for (int j = 1; j <= MaxClients; j++) {
+				if (IsClientInGame(j) && IsPlayerAlive(j) && !IsFakeClient(j)) {
+					if (!g_Zombies || GetClientTeam(j) == CS_TEAM_CT) {
+						if (StrEqual(bit[string], "weapon_primary_random")
+						 || (StrEqual(bit[string], "weapon_random") && randomIntCat == 0)) {
+							GivePlayerItem(j, primaryWeapon);
+						} else if (StrEqual(bit[string], "weapon_secondary_random")
+						 || (StrEqual(bit[string], "weapon_random") && randomIntCat == 1)) {
+							GivePlayerItem(j, secondaryWeapon);
+						} else {
+							GivePlayerItem(j, bit[string]);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	return 1;
@@ -64,33 +64,33 @@ public ConfigureWeapons() {
 public ConfigureArmorDefuser() {
 	// Defuser
 	for (int client = 1; client <= MaxClients; client++) {
-	    if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-	        if (GetClientTeam(client) == CS_TEAM_CT) {
-	            if (StrEqual(Defuser, "1")) {
-	                SetEntProp(client, Prop_Send, "m_bHasDefuser", 1);
-	            }
-	        }
-	        if (!StrEqual(Armor, "0")) {
-	            new armorInt = StringToInt(Armor);
-	            Client_SetArmor(client, armorInt);
-	        }
-	        if (StrEqual(Helmet, "1")) {
-	            SetEntData(client, FindSendPropInfo("CCSPlayer", "m_bHasHelmet"), 1);
-	        }
-	    }
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+			if (GetClientTeam(client) == CS_TEAM_CT) {
+				if (StrEqual(Defuser, "1")) {
+					SetEntProp(client, Prop_Send, "m_bHasDefuser", 1);
+				}
+			}
+			if (!StrEqual(Armor, "0")) {
+				new armorInt = StringToInt(Armor);
+				Client_SetArmor(client, armorInt);
+			}
+			if (StrEqual(Helmet, "1")) {
+				SetEntData(client, FindSendPropInfo("CCSPlayer", "m_bHasHelmet"), 1);
+			}
+		}
 	}
 }
 
 public ConfigureHealth() {
 	g_Health = StringToInt(Health);
 	if (g_Health != 100) {
-	    for (int client = 1; client <= MaxClients; client++) {
-	        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-	            if (!g_Zombies || GetClientTeam(client) == CS_TEAM_T) {
-	                SetEntityHealth(client, g_Health);
-	            }
-	        }
-	    }
+		for (int client = 1; client <= MaxClients; client++) {
+			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+				if (!g_Zombies || GetClientTeam(client) == CS_TEAM_T) {
+					SetEntityHealth(client, g_Health);
+				}
+			}
+		}
 	}
 }
 
@@ -123,9 +123,9 @@ public ConfigureInfiniteNades() {
 public ConfigureSpeed() {
 	new Float:newPlayerSpeed = StringToFloat(PlayerSpeed);
 	for (int client = 1; client <= MaxClients; client++) {
-	    if (IsClientInGame(client) && IsPlayerAlive(client)) {
-	        SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", newPlayerSpeed);
-	    }
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
+			SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", newPlayerSpeed);
+		}
 	}
 }
 
@@ -183,9 +183,9 @@ public ConfigurePlayerColors() {
 
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-	        if (setNewColor) {
-	            SetEntityRenderColor(client, colorR, colorG, colorB, 0);
-	        }
+			if (setNewColor) {
+				SetEntityRenderColor(client, colorR, colorG, colorB, 0);
+			}
 		}
 	}
 }
@@ -201,10 +201,10 @@ public ConfigureFov() {
 	new newFov = StringToInt(Fov);
 
 	for (int client = 1; client <= MaxClients; client++) {
-	    if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
 			SetEntProp(client, Prop_Send, "m_iDefaultFOV", newFov);
 			SetEntProp(client, Prop_Send, "m_iFOV", newFov);
-	    }
+		}
 	}
 }
 
@@ -243,13 +243,13 @@ public ConfigureFriction() {
 
 public ConfigureDropWeapons() {
 	if (StrEqual(DropWeapons, "1")) {
-	    g_DropWeapons = true;
-	    for (int client = 1; client <= MaxClients; client++) {
-	        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-	            CreateNewDropWeaponsTimer(client);
-	        }
-	    }
-	    CreateTimer(5.0, DropWeaponsTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+		g_DropWeapons = true;
+		for (int client = 1; client <= MaxClients; client++) {
+			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+				CreateNewDropWeaponsTimer(client);
+			}
+		}
+		CreateTimer(5.0, DropWeaponsTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 	}
 }
 
@@ -283,88 +283,85 @@ public ConfigureTinyMags() {
 
 public ConfigureLeader() {
 	if (StrEqual(Leader, "1")) {
-	    g_Leader = true;
-	    SetLeader(CS_TEAM_CT);
-	    SetLeader(CS_TEAM_T);
-	    SendLeaderMessage(CS_TEAM_CT);
-	    SendLeaderMessage(CS_TEAM_T);
+		g_Leader = true;
+		SetLeader(CS_TEAM_CT);
+		SetLeader(CS_TEAM_T);
+		SendLeaderMessage(CS_TEAM_CT);
+		SendLeaderMessage(CS_TEAM_T);
 
-	    int freezeTime = GetConVarInt(mp_freezetime);
-	    CreateTimer(freezeTime + 1.0, StartLeaderTimer);
+		int freezeTime = GetConVarInt(mp_freezetime);
+		CreateTimer(freezeTime + 1.0, StartLeaderTimer);
 	}
 }
 
 public ConfigureAllOnMap() {
 	if (StrEqual(AllOnMap, "1")) {
-	    SetConVarInt(mp_radar_showall, 1, true, false);
+		SetConVarInt(mp_radar_showall, 1, true, false);
 	}
 }
 
 public ConfigureInvisible() {
 	if (StrEqual(Invisible, "1")) {
-	    for (int client = 1; client <= MaxClients; client++) {
+		for (int client = 1; client <= MaxClients; client++) {
 			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-	            SDKHook(client, SDKHook_SetTransmit, Hook_DenyTransmit);
-	        }
-	    }
+				SDKHook(client, SDKHook_SetTransmit, Hook_DenyTransmit);
+			}
+		}
 	} else {
-	    for (int client = 1; client <= MaxClients; client++) {
+		for (int client = 1; client <= MaxClients; client++) {
 			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-	            SDKUnhook(client, SDKHook_SetTransmit, Hook_DenyTransmit);
-	        }
-	    }
+				SDKUnhook(client, SDKHook_SetTransmit, Hook_DenyTransmit);
+			}
+		}
 	}
 }
 
 public ConfigureAxeFists() {
 	if (StrEqual(Axe, "1")) {
-	    g_Axe = true;
-	    CreateTimer(1.0, CheckAxeFistsTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+		g_Axe = true;
+		CreateTimer(1.0, CheckAxeFistsTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 	} else if (StrEqual(Fists, "1")) {
-	    g_Fists = true;
-	    CreateTimer(1.0, CheckAxeFistsTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+		g_Fists = true;
+		CreateTimer(1.0, CheckAxeFistsTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 	}
 }
 
 public ConfigureBuddySystem() {
 	if (StrEqual(BuddySystem, "1")) {
-	    g_BuddySystem = true;
-	    for (int client = 1; client <= MaxClients; client++) {
-	        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-	            new chicken = CreateEntityByName("chicken");
-	            float playerPos[3];
-	            GetEntPropVector(client, Prop_Send, "m_vecOrigin", playerPos);
+		g_BuddySystem = true;
+		for (int client = 1; client <= MaxClients; client++) {
+			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+				new chicken = CreateEntityByName("chicken");
+				float playerPos[3];
+				GetEntPropVector(client, Prop_Send, "m_vecOrigin", playerPos);
 
-	            DispatchSpawn(chicken);
-	            SetEntProp(chicken, Prop_Send, "m_fEffects", 0);
+				DispatchSpawn(chicken);
+				SetEntProp(chicken, Prop_Send, "m_fEffects", 0);
 
-	            SDKHookEx(chicken, SDKHook_OnTakeDamage, Hook_OnTakeDamage);
+				SDKHookEx(chicken, SDKHook_OnTakeDamage, Hook_OnTakeDamage);
 
-	            // Teleport chicken to player
-	            TeleportEntity(chicken, playerPos, NULL_VECTOR, NULL_VECTOR);
+				// Teleport chicken to player
+				TeleportEntity(chicken, playerPos, NULL_VECTOR, NULL_VECTOR);
 
-	            // Set chicken to follow player
-	            SetEntPropEnt(chicken, Prop_Send, "m_leader", client);
+				// Set chicken to follow player
+				SetEntPropEnt(chicken, Prop_Send, "m_leader", client);
 
-	            // Store client and chicken
-	            new String:playerIdString[64];
-	            IntToString(client, playerIdString, sizeof(playerIdString));
-	            chickenMap.SetValue(playerIdString, chicken);
+				chickens[client] = chicken;
 
-	            new String:chickenIdString[64];
-	            IntToString(chicken, chickenIdString, sizeof(chickenIdString));
-	            chickenHealth.SetValue(chickenIdString, 200.0);
-	        }
-	    }
-	    // Create timer to enforce leader of chicken
-	    CreateTimer(0.1, BuddyTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+				new String:chickenIdString[64];
+				IntToString(chicken, chickenIdString, sizeof(chickenIdString));
+				chickenHealth.SetValue(chickenIdString, 200.0);
+			}
+		}
+		// Create timer to enforce leader of chicken
+		CreateTimer(0.1, BuddyTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 	}
 }
 
 public ConfigureRandomNade() {
 	if (StrEqual(RandomNade, "1")) {
-	    g_RandomNade = true;
-	    SetConVarInt(mp_death_drop_grenade, 0, true, false);
+		g_RandomNade = true;
+		SetConVarInt(mp_death_drop_grenade, 0, true, false);
 	}
 }
 
@@ -379,134 +376,134 @@ public ConfigureZombies() {
 
 public ConfigureHitSwap() {
 	if (StrEqual(HitSwap, "1")) {
-	    g_HitSwap = true;
+		g_HitSwap = true;
 	}
 }
 
 public ConfigureRedGreen() {
 	if (StrEqual(RedGreen, "1")) {
-	    g_RedGreen = true;
-	    CreateTimer(0.5, RedGreenDamageTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
-	    CreateNewRedGreenTimer();
+		g_RedGreen = true;
+		CreateTimer(0.5, RedGreenDamageTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+		CreateNewRedGreenTimer();
 	}
 }
 
 public ConfigureManhunt() {
 	if (StrEqual(Manhunt, "1")) {
-	    g_Manhunt = true;
-	    SetLeader(CS_TEAM_CT);
-	    SetLeader(CS_TEAM_T);
-	    SendVIPMessage(CS_TEAM_CT);
-	    SendVIPMessage(CS_TEAM_T);
+		g_Manhunt = true;
+		SetLeader(CS_TEAM_CT);
+		SetLeader(CS_TEAM_T);
+		SendVIPMessage(CS_TEAM_CT);
+		SendVIPMessage(CS_TEAM_T);
 	}
 }
 
 public ConfigureWinner() {
 	if (StrEqual(Winner, "t")) {
-	    SetConVarInt(mp_default_team_winner_no_objective, 2, true, false);
+		SetConVarInt(mp_default_team_winner_no_objective, 2, true, false);
 	} else if (StrEqual(Winner, "draw")) {
-	    SetConVarInt(mp_default_team_winner_no_objective, 1, true, false);
+		SetConVarInt(mp_default_team_winner_no_objective, 1, true, false);
 	}
 }
 
 public ConfigureHotPotato() {
 	if (StrEqual(HotPotato, "1")) {
-	    g_HotPotato = true;
-	    ctLeader = -1;
-	    int freezeTime = GetConVarInt(mp_freezetime);
+		g_HotPotato = true;
+		ctLeader = -1;
+		int freezeTime = GetConVarInt(mp_freezetime);
 
-	    CreateTimer(freezeTime + 10.0, NewHotPotatoTimer);
+		CreateTimer(freezeTime + 10.0, NewHotPotatoTimer);
 	}
 }
 
 public ConfigureKillRound() {
 	if (StrEqual(KillRound, "1")) {
-	    g_KillRound = true;
-	    SetConVarInt(mp_ignore_round_win_conditions, 1, true, false);
+		g_KillRound = true;
+		SetConVarInt(mp_ignore_round_win_conditions, 1, true, false);
 	}
 }
 
 public ConfigureBomberman() {
 	if (StrEqual(Bomberman, "1")) {
-	    g_Bomberman = true;
-	    SetConVarInt(mp_plant_c4_anywhere, 1, true, false);
-	    SetConVarInt(mp_c4timer, 10, true, false);
-	    SetConVarInt(mp_c4_cannot_be_defused, 1, true, false);
-	    SetConVarInt(mp_anyone_can_pickup_c4, 1, true, false);
-	    CreateTimer(0.1, CheckC4Timer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+		g_Bomberman = true;
+		SetConVarInt(mp_plant_c4_anywhere, 1, true, false);
+		SetConVarInt(mp_c4timer, 10, true, false);
+		SetConVarInt(mp_c4_cannot_be_defused, 1, true, false);
+		SetConVarInt(mp_anyone_can_pickup_c4, 1, true, false);
+		CreateTimer(0.1, CheckC4Timer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 	}
 }
 
 public ConfigureDontMiss() {
 	if (StrEqual(DontMiss, "1")) {
-	    g_DontMiss = true;
+		g_DontMiss = true;
 	}
 }
 
 public ConfigureCrabWalk() {
 	if (StrEqual(CrabWalk, "1")) {
-	    g_CrabWalk = true;
+		g_CrabWalk = true;
 	}
 }
 
 public ConfigureRandomGuns() {
 	if (StrEqual(RandomGuns, "1")) {
-	    g_RandomGuns = true;
-	    CreateTimer(1.0, RandomGunsTimer);
+		g_RandomGuns = true;
+		CreateTimer(1.0, RandomGunsTimer);
 	}
 }
 
 public ConfigurePoison() {
 	if (StrEqual(Poison, "1")) {
-	    smokeMap.Clear();
-	    g_Poison = true;
-	    CreateTimer(0.5, PoisonDamageTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+		smokeMap.Clear();
+		g_Poison = true;
+		CreateTimer(0.5, PoisonDamageTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 	}
 }
 
 public ConfigureBodyguard() {
 	if (StrEqual(Bodyguard, "1")) {
-	    g_Bodyguard = true;
-	    SetLeader(CS_TEAM_CT);
-	    SetLeader(CS_TEAM_T);
+		g_Bodyguard = true;
+		SetLeader(CS_TEAM_CT);
+		SetLeader(CS_TEAM_T);
 
-	    SendVIPMessage(CS_TEAM_CT);
-	    SendVIPMessage(CS_TEAM_T);
+		SendVIPMessage(CS_TEAM_CT);
+		SendVIPMessage(CS_TEAM_T);
 
-	    if (ctLeader != -1) {
-	        if (IsClientInGame(ctLeader) && IsPlayerAlive(ctLeader) && !IsFakeClient(ctLeader)) {
-	            GivePlayerItem(ctLeader, "weapon_fiveseven");
-	        }
-	    }
-	    if (tLeader != -1) {
-	        if (IsClientInGame(tLeader) && IsPlayerAlive(tLeader) && !IsFakeClient(tLeader)) {
-	            GivePlayerItem(tLeader, "weapon_fiveseven");
-	        }
-	    }
+		if (ctLeader != -1) {
+			if (IsClientInGame(ctLeader) && IsPlayerAlive(ctLeader) && !IsFakeClient(ctLeader)) {
+				GivePlayerItem(ctLeader, "weapon_fiveseven");
+			}
+		}
+		if (tLeader != -1) {
+			if (IsClientInGame(tLeader) && IsPlayerAlive(tLeader) && !IsFakeClient(tLeader)) {
+				GivePlayerItem(tLeader, "weapon_fiveseven");
+			}
+		}
 
-	    for (int client = 1; client <= MaxClients; client++) {
-	        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)
-	         && client != ctLeader && client != tLeader) {
-	             GivePlayerItem(client, "weapon_shield");
-	        }
-	    }
+		for (int client = 1; client <= MaxClients; client++) {
+			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)
+			 && client != ctLeader && client != tLeader) {
+				 GivePlayerItem(client, "weapon_shield");
+			}
+		}
 	}
 }
 
 public ConfigureZeusRound() {
 	if (StrEqual(ZeusRound, "1")) {
-	    g_ZeusRound = true;
+		g_ZeusRound = true;
 	}
 }
 
 public ConfigurePocketTP() {
 	if (StrEqual(PocketTP, "1")) {
-	    g_PocketTP = true;
-	    for (int client = 1; client <= MaxClients; client++) {
-	        if (IsClientInGame(client) && IsPlayerAlive(client)) {
-	            SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", 0.0);
-	        }
-	    }
+		g_PocketTP = true;
+		for (int client = 1; client <= MaxClients; client++) {
+			if (IsClientInGame(client) && IsPlayerAlive(client)) {
+				SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", 0.0);
+			}
+		}
 	}
 }
 
@@ -533,146 +530,146 @@ public ConfigureOneInTheChamber() {
 
 public ConfigureCaptcha() {
 	if (StrEqual(Captcha, "1")) {
-	    g_Captcha = true;
-	    float randomFloat = GetRandomFloat(2.0, 5.0);
-	    CreateTimer(GetConVarInt(mp_freezetime) + randomFloat, SendCaptchaTimer);
+		g_Captcha = true;
+		float randomFloat = GetRandomFloat(2.0, 5.0);
+		CreateTimer(GetConVarInt(mp_freezetime) + randomFloat, SendCaptchaTimer);
 	}
 }
 
 public ConfigureMonkeySee() {
 	if (StrEqual(MonkeySee, "1")) {
-	    g_MonkeySee = true;
+		g_MonkeySee = true;
 
-	    int ctPlayers = 0;
-	    int tPlayers = 0;
+		int ctPlayers = 0;
+		int tPlayers = 0;
 
-	    for (int client = 1; client <= MaxClients; client++) {
-	        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-	            if (GetClientTeam(client) == CS_TEAM_CT) {
-                	ctPlayers++;
-	            } else if (GetClientTeam(client) == CS_TEAM_T) {
-	                tPlayers++;
-	            }
-	        }
-	    }
+		for (int client = 1; client <= MaxClients; client++) {
+			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+				if (GetClientTeam(client) == CS_TEAM_CT) {
+					ctPlayers++;
+				} else if (GetClientTeam(client) == CS_TEAM_T) {
+					tPlayers++;
+				}
+			}
+		}
 
-	    if (ctPlayers + tPlayers < 2) {
-	        return;
-	    }
+		if (ctPlayers + tPlayers < 2) {
+			return;
+		}
 
-	    if (ctPlayers + tPlayers < 4) {
-	        int randomTeam = -1;
-	        if (tPlayers == ctPlayers) {
-	            randomTeam = GetRandomInt(0, 1);
-	        }
+		if (ctPlayers + tPlayers < 4) {
+			int randomTeam = -1;
+			if (tPlayers == ctPlayers) {
+				randomTeam = GetRandomInt(0, 1);
+			}
 
-	        if (tPlayers > ctPlayers || randomTeam == 0) {
-	            monkeyOneTeam = CS_TEAM_CT;
-	            SetConVarInt(mp_default_team_winner_no_objective, 2, true, false);
-	        } else if (ctPlayers > tPlayers || randomTeam == 1) {
-	            monkeyOneTeam = CS_TEAM_T;
-	        }
-	    } else {
-	        g_KillRound = true;
-	        SetConVarInt(mp_ignore_round_win_conditions, 1, true, false);
-	    }
+			if (tPlayers > ctPlayers || randomTeam == 0) {
+				monkeyOneTeam = CS_TEAM_CT;
+				SetConVarInt(mp_default_team_winner_no_objective, 2, true, false);
+			} else if (ctPlayers > tPlayers || randomTeam == 1) {
+				monkeyOneTeam = CS_TEAM_T;
+			}
+		} else {
+			g_KillRound = true;
+			SetConVarInt(mp_ignore_round_win_conditions, 1, true, false);
+		}
 
-	    if (monkeyOneTeam != CS_TEAM_T) {
-	        SetLeader(CS_TEAM_CT);
-	    }
-	    if (monkeyOneTeam != CS_TEAM_CT) {
-	        SetLeader(CS_TEAM_T);
-	    }
+		if (monkeyOneTeam != CS_TEAM_T) {
+			SetLeader(CS_TEAM_CT);
+		}
+		if (monkeyOneTeam != CS_TEAM_CT) {
+			SetLeader(CS_TEAM_T);
+		}
 
-	    CreateTimer(1.5, StartMonkeyTimer);
+		CreateTimer(1.5, StartMonkeyTimer);
 	}
 }
 
 public ConfigureStealth() {
 	if (StrEqual(Stealth, "1")) {
-	    g_Stealth = true;
-	    for (int client = 1; client <= MaxClients; client++) {
-	        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-	            stealthVisible[client] = false;
-	            SDKHook(client, SDKHook_SetTransmit, Hook_StealthTransmit);
-	        }
-	    }
+		g_Stealth = true;
+		for (int client = 1; client <= MaxClients; client++) {
+			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+				stealthVisible[client] = false;
+				SDKHook(client, SDKHook_SetTransmit, Hook_StealthTransmit);
+			}
+		}
 	} else {
-	    for (int client = 1; client <= MaxClients; client++) {
-	        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-	            SDKUnhook(client, SDKHook_SetTransmit, Hook_StealthTransmit);
-	        }
-	    }
+		for (int client = 1; client <= MaxClients; client++) {
+			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+				SDKUnhook(client, SDKHook_SetTransmit, Hook_StealthTransmit);
+			}
+		}
 	}
 }
 
 public ConfigureFlashDmg() {
 	if (StrEqual(FlashDmg, "1")) {
-	    g_FlashDmg = true;
+		g_FlashDmg = true;
 	}
 }
 
 public ConfigureKillList() {
 	if (StrEqual(KillList, "1")) {
-	    g_KillList = true;
-	    SetLeader(CS_TEAM_CT);
-	    SetLeader(CS_TEAM_T);
+		g_KillList = true;
+		SetLeader(CS_TEAM_CT);
+		SetLeader(CS_TEAM_T);
 
-	    if (ctLeader != -1) {
+		if (ctLeader != -1) {
 			SendMessage(ctLeader, "%t", "TopKillList");
 			SendKillListMessage(CS_TEAM_T);
-	    }
-	    if (tLeader != -1) {
-	        SendMessage(tLeader, "%t", "TopKillList");
-	        SendKillListMessage(CS_TEAM_CT);
-	    }
+		}
+		if (tLeader != -1) {
+			SendMessage(tLeader, "%t", "TopKillList");
+			SendKillListMessage(CS_TEAM_CT);
+		}
 	}
 }
 
 public ConfigureBreach() {
 	if (StrEqual(Breach, "1")) {
-	    g_Breach = true;
+		g_Breach = true;
 
-	    CreateTimer(1.0, CheckBreachTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+		CreateTimer(1.0, CheckBreachTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 	}
 }
 
 public ConfigureBumpmine() {
 	if (StrEqual(Bumpmine, "1")) {
-	    g_Bumpmine = true;
+		g_Bumpmine = true;
 
-	    CreateTimer(1.0, CheckBumpmineTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+		CreateTimer(1.0, CheckBumpmineTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 	}
 }
 
 public ConfigureDrones() {
 	if (StrEqual(Drones, "1")) {
-	    g_Drones = true;
+		g_Drones = true;
 	}
 }
 
 public ConfigurePanic() {
 	if (StrEqual(Panic, "1")) {
-	    g_Panic = true;
+		g_Panic = true;
 	}
 }
 
 public ConfigureDropshot() {
 	if (StrEqual(Dropshot, "1")) {
-	    g_Dropshot = true;
+		g_Dropshot = true;
 	}
 }
 
 public ConfigureHardcore() {
 	if (StrEqual(Hardcore, "1")) {
-	    int freezeTime = GetConVarInt(mp_freezetime);
-	    CreateTimer(freezeTime - 1.0, StartHardcore);
+		int freezeTime = GetConVarInt(mp_freezetime);
+		CreateTimer(freezeTime - 1.0, StartHardcore);
 	}
 }
 
 public ConfigureTunnelVision() {
 	if (StrEqual(TunnelVision, "1")) {
-	    ShowOverlayAll(TUNNEL_VISION_OVERLAY, 0.0);
+		ShowOverlayAll(TUNNEL_VISION_OVERLAY, 0.0);
 	}
 }
 
@@ -680,24 +677,21 @@ public ConfigureDownUnder() {
 	if (StrEqual(DownUnder, "1")) {
 
 		for (int client = 1; client <= MaxClients; client++) {
-		    if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-		        float position[3];
-		        GetClientEyePosition(client, position);
+			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+				float position[3];
+				GetClientEyePosition(client, position);
 
-		        int entity = CreateViewEntity(client, position);
+				int entity = CreateViewEntity(client, position);
 
-		        float angle[3];
-		        GetEntPropVector(entity, Prop_Send, "m_angRotation", angle);
+				float angle[3];
+				GetEntPropVector(entity, Prop_Send, "m_angRotation", angle);
 
-		        angle[2] = 180.0;
+				angle[2] = 180.0;
 
-		        TeleportEntity(entity, NULL_VECTOR, angle, NULL_VECTOR);
+				TeleportEntity(entity, NULL_VECTOR, angle, NULL_VECTOR);
 
-		        // Store client and entity
-		        new String:playerIdString[64];
-		        IntToString(client, playerIdString, sizeof(playerIdString));
-		        downUnderMap.SetValue(playerIdString, entity);
-		    }
+				downUnderArray[client] = entity;
+			}
 		}
 
 		g_DownUnder = true;

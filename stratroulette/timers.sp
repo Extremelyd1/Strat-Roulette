@@ -1,6 +1,6 @@
 public Action:VoteTimer(Handle timer) {
-    CreateRoundVoteMenu();
-    voteTimer = INVALID_HANDLE;
+	CreateRoundVoteMenu();
+	voteTimer = INVALID_HANDLE;
 }
 
 public Action:EnableThirdPerson(Handle timer) {
@@ -12,54 +12,54 @@ public Action:EnableThirdPerson(Handle timer) {
 }
 
 public Action:SlowMotionTimer(Handle timer) {
-    if (!g_SlowMotion) {
-        return Plugin_Stop;
-    }
-    int randomInt = GetRandomInt(0, 2);
+	if (!g_SlowMotion) {
+		return Plugin_Stop;
+	}
+	int randomInt = GetRandomInt(0, 2);
 
-    if (randomInt == 0) {
-        for (new i = 1; i <= MaxClients; i++) {
-            if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-                g_HighSpeed = !g_HighSpeed;
-                if (g_HighSpeed) {
-                    SetEntPropFloat(i, Prop_Data, "m_flLaggedMovementValue", 1.0);
-                    SetConVarInt(sv_gravity, 800);
-                } else {
-                    SetEntPropFloat(i, Prop_Data, "m_flLaggedMovementValue", 0.3);
-                    SetConVarInt(sv_gravity, 400);
-                }
-            }
-        }
-    }
+	if (randomInt == 0) {
+		for (new i = 1; i <= MaxClients; i++) {
+			if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+				g_HighSpeed = !g_HighSpeed;
+				if (g_HighSpeed) {
+					SetEntPropFloat(i, Prop_Data, "m_flLaggedMovementValue", 1.0);
+					SetConVarInt(sv_gravity, 800);
+				} else {
+					SetEntPropFloat(i, Prop_Data, "m_flLaggedMovementValue", 0.3);
+					SetConVarInt(sv_gravity, 400);
+				}
+			}
+		}
+	}
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:DropWeaponsTimer(Handle timer, DataPack data) {
-    if (!g_DropWeapons) {
-        return Plugin_Stop;
-    }
+	if (!g_DropWeapons) {
+		return Plugin_Stop;
+	}
 
-    if (data == INVALID_HANDLE) {
-        return Plugin_Stop;
-    }
+	if (data == INVALID_HANDLE) {
+		return Plugin_Stop;
+	}
 
-    data.Reset();
-    new client = data.ReadCell();
+	data.Reset();
+	new client = data.ReadCell();
 
-    if (client == -1) {
-        return Plugin_Stop;
-    }
+	if (client == -1) {
+		return Plugin_Stop;
+	}
 
-    new currentWeapon = GetPlayerWeaponSlot(client, 1);
+	new currentWeapon = GetPlayerWeaponSlot(client, 1);
 
-    if (currentWeapon != -1) {
-        CS_DropWeapon(client, currentWeapon, true, true);
-    }
+	if (currentWeapon != -1) {
+		CS_DropWeapon(client, currentWeapon, true, true);
+	}
 
-    CreateNewDropWeaponsTimer(client);
+	CreateNewDropWeaponsTimer(client);
 
-    return Plugin_Stop;
+	return Plugin_Stop;
 }
 
 public Action:WaitForReloadTimer(Handle timer, int weapon) {
@@ -84,7 +84,7 @@ public Action:WaitForReloadTimer(Handle timer, int weapon) {
 // so players can walk to their leader at
 // start of the round
 public Action:StartLeaderTimer(Handle timer) {
-    CreateTimer(7.0, CheckLeaderTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(7.0, CheckLeaderTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 }
 
 public Action:CheckLeaderTimer(Handle timer) {
@@ -178,188 +178,184 @@ public Action:CheckMonkeyTimer(Handle timer) {
 }
 
 public Action:StartMonkeyTimer(Handle timer) {
-    float ctPos[3];
-    float tPos[3];
+	float ctPos[3];
+	float tPos[3];
 
-    if (monkeyOneTeam != CS_TEAM_T) {
-        GetEntPropVector(ctLeader, Prop_Send, "m_vecOrigin", ctPos);
-        ctPos[2] += CLIENTHEIGHT * 2.0;
-    }
-    if (monkeyOneTeam != CS_TEAM_CT) {
-        GetEntPropVector(tLeader, Prop_Send, "m_vecOrigin", tPos);
-        tPos[2] += CLIENTHEIGHT * 2.0;
-    }
+	if (monkeyOneTeam != CS_TEAM_T) {
+		GetEntPropVector(ctLeader, Prop_Send, "m_vecOrigin", ctPos);
+		ctPos[2] += CLIENTHEIGHT * 2.0;
+	}
+	if (monkeyOneTeam != CS_TEAM_CT) {
+		GetEntPropVector(tLeader, Prop_Send, "m_vecOrigin", tPos);
+		tPos[2] += CLIENTHEIGHT * 2.0;
+	}
 
-    for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            if (GetClientTeam(client) == CS_TEAM_CT) {
-                if (client == ctLeader) {
+	for (int client = 1; client <= MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+			if (GetClientTeam(client) == CS_TEAM_CT) {
+				if (client == ctLeader) {
 					SendMessage(client, "%t", "LoseTerrorists");
-                } else {
+				} else {
 					SendMessage(client, "%t", "KeepUpWithTerrorist");
 					TeleportEntity(client, tPos, NULL_VECTOR, NULL_VECTOR);
-                }
-            } else if (GetClientTeam(client) == CS_TEAM_T) {
-                if (client == tLeader) {
-                    SendMessage(client, "%t", "LoseCounterTerrorists");
-                } else {
+				}
+			} else if (GetClientTeam(client) == CS_TEAM_T) {
+				if (client == tLeader) {
+					SendMessage(client, "%t", "LoseCounterTerrorists");
+				} else {
 					SendMessage(client, "%t", "KeepUpWithCounterTerrorist");
 					TeleportEntity(client, ctPos, NULL_VECTOR, NULL_VECTOR);
-                }
-            }
-        }
-    }
+				}
+			}
+		}
+	}
 
-    CreateTimer(0.5, CheckMonkeyTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(0.5, CheckMonkeyTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 
-    return Plugin_Stop;
+	return Plugin_Stop;
 }
 
 public Action:CheckAxeFistsTimer(Handle timer) {
-    if (!g_Axe && !g_Fists) {
-        return Plugin_Stop;
-    }
+	if (!g_Axe && !g_Fists) {
+		return Plugin_Stop;
+	}
 
-    for (new i = 1; i <= MaxClients; i++) {
-        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-            new meleeSlot = GetPlayerWeaponSlot(i, 2);
+	for (new i = 1; i <= MaxClients; i++) {
+		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+			new meleeSlot = GetPlayerWeaponSlot(i, 2);
 
-            if (meleeSlot < 0) {
-                if (g_Axe) {
-                    new axe = GivePlayerItem(i, "weapon_axe");
-                    EquipPlayerWeapon(i, axe);
-                } else if (g_Fists) {
-                    new fists = GivePlayerItem(i, "weapon_fists");
-                    EquipPlayerWeapon(i, fists);
-                }
-            }
-        }
-    }
+			if (meleeSlot < 0) {
+				if (g_Axe) {
+					new axe = GivePlayerItem(i, "weapon_axe");
+					EquipPlayerWeapon(i, axe);
+				} else if (g_Fists) {
+					new fists = GivePlayerItem(i, "weapon_fists");
+					EquipPlayerWeapon(i, fists);
+				}
+			}
+		}
+	}
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:CheckBreachTimer(Handle timer) {
-    if (!g_Breach) {
-        return Plugin_Stop;
-    }
+	if (!g_Breach) {
+		return Plugin_Stop;
+	}
 
-    for (new i = 1; i <= MaxClients; i++) {
-        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-            new breachSlot = GetPlayerWeaponSlot(i, 4);
+	for (new i = 1; i <= MaxClients; i++) {
+		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+			new breachSlot = GetPlayerWeaponSlot(i, 4);
 
-            if (breachSlot < 0) {
-                new breach = GivePlayerItem(i, "weapon_breachcharge");
-                EquipPlayerWeapon(i, breach);
-            } else {
-            }
-        }
-    }
+			if (breachSlot < 0) {
+				new breach = GivePlayerItem(i, "weapon_breachcharge");
+				EquipPlayerWeapon(i, breach);
+			} else {
+			}
+		}
+	}
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:CheckBumpmineTimer(Handle timer) {
-    if (!g_Bumpmine) {
-        return Plugin_Stop;
-    }
+	if (!g_Bumpmine) {
+		return Plugin_Stop;
+	}
 
-    for (new i = 1; i <= MaxClients; i++) {
-        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-            new mineSlot = GetPlayerWeaponSlot(i, 4);
+	for (new i = 1; i <= MaxClients; i++) {
+		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+			new mineSlot = GetPlayerWeaponSlot(i, 4);
 
-            if (mineSlot < 0) {
-                new mine = GivePlayerItem(i, "weapon_bumpmine");
-                EquipPlayerWeapon(i, mine);
-            } else {
-            }
-        }
-    }
+			if (mineSlot < 0) {
+				new mine = GivePlayerItem(i, "weapon_bumpmine");
+				EquipPlayerWeapon(i, mine);
+			} else {
+			}
+		}
+	}
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:BuddyTimer(Handle timer) {
-    if (!g_BuddySystem) {
-        return Plugin_Stop;
-    }
-    for (new i = 1; i <= MaxClients; i++) {
-        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-            // Convert player id to string
-            new String:playerIdString[64];
-            IntToString(i, playerIdString, sizeof(playerIdString));
-            // Get chicken that belongs to player
-            new chicken;
-            if (chickenMap.GetValue(playerIdString, chicken)) {
-                if (chicken != 0) {
-                    // Set the leader property again
-                    SetEntPropEnt(chicken, Prop_Send, "m_leader", i);
-                }
-            }
-        }
-    }
-    return Plugin_Continue;
+	if (!g_BuddySystem) {
+		return Plugin_Stop;
+	}
+	for (new i = 1; i <= MaxClients; i++) {
+		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+			// Convert player id to string
+			new String:playerIdString[64];
+			IntToString(i, playerIdString, sizeof(playerIdString));
+			// Get chicken that belongs to player
+			if (chickens[i] != -1) {
+				new chicken = chickens[i];
+				if (chicken != 0) {
+					// Set the leader property again
+					SetEntPropEnt(chicken, Prop_Send, "m_leader", i);
+				}
+			}
+		}
+	}
+	return Plugin_Continue;
 }
 
 public Action:RedGreenMessageTimer(Handle timer) {
-    if (!g_RedGreen) {
-        return Plugin_Stop;
-    }
-    if (!g_RedLight) {
+	if (!g_RedGreen) {
+		return Plugin_Stop;
+	}
+	if (!g_RedLight) {
 		SendMessageAll("%t", "RedLight");
 		// Only enforce no move after certain time
 		CreateTimer(1.0, RedLightTimer);
-    } else {
+	} else {
 		SendMessageAll("%t", "GreenLight");
 		// Immediately enforce move period
 		g_RedLight = false;
 		CreateNewRedGreenTimer();
-    }
+	}
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:RedLightTimer(Handle timer) {
-    g_RedLight = true;
+	g_RedLight = true;
 
-    // Save player positions
-    for (new i = 1; i <= MaxClients; i++) {
-        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-            // Store client id in string
-            new String:playerIdString[64];
-            IntToString(i, playerIdString, sizeof(playerIdString));
+	// Save player positions
+	for (new i = 1; i <= MaxClients; i++) {
+		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+			float playerPos[3];
+			GetClientEyePosition(i, playerPos);
 
-            float playerPos[3];
-            GetClientEyePosition(i, playerPos);
-            positionMap.SetArray(playerIdString, playerPos, 3);
-        }
-    }
+			positions[i] = playerPos;
+		}
+	}
 
-    CreateNewRedGreenTimer();
+	CreateNewRedGreenTimer();
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:RedGreenDamageTimer(Handle timer) {
-    if (!g_RedGreen) {
-        return Plugin_Stop;
-    }
+	if (!g_RedGreen) {
+		return Plugin_Stop;
+	}
 
-    for (new i = 1; i <= MaxClients; i++) {
-        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-            // Store client id in string
-            new String:playerIdString[64];
-            IntToString(i, playerIdString, sizeof(playerIdString));
+	for (new i = 1; i <= MaxClients; i++) {
+		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+			float playerPos[3];
+			GetClientEyePosition(i, playerPos);
 
-            float playerPos[3];
-            GetClientEyePosition(i, playerPos);
+			if (positions[i][2] != -1.0) {
+				float oldPlayerPos[3];
+				oldPlayerPos[0] = positions[i][0];
+				oldPlayerPos[1] = positions[i][1];
+				oldPlayerPos[2] = positions[i][2];
 
-            float oldPlayerPos[3];
-            if (positionMap.GetArray(playerIdString, oldPlayerPos, sizeof(oldPlayerPos))) {
+				float distance = GetVectorDistance(oldPlayerPos, playerPos);
 
-                float distance = GetVectorDistance(oldPlayerPos, playerPos);
-
-                if (g_RedLight && distance > 10) {
+				if (g_RedLight && distance > 10) {
 					new currentHealth = GetEntProp(i, Prop_Send, "m_iHealth");
 					if (currentHealth > 5) {
 						SetEntityHealth(i, currentHealth - 5);
@@ -367,108 +363,108 @@ public Action:RedGreenDamageTimer(Handle timer) {
 						ForcePlayerSuicide(i);
 					}
 					SendMessage(i, "%t", "DontMoveRedLight");
-                }
-            }
+				}
+			}
 
-            positionMap.SetArray(playerIdString, playerPos, 3);
-        }
-    }
+			positions[i] = playerPos;
+		}
+	}
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:NewHotPotatoTimer(Handle timer) {
-    if (!g_HotPotato) {
-        return Plugin_Stop;
-    }
+	if (!g_HotPotato) {
+		return Plugin_Stop;
+	}
 
-    SelectHotPotato();
-    CreateTimer(5.0, HotPotatoMessage1Timer);
-    CreateTimer(10.0, HotPotatoMessage2Timer);
-    CreateTimer(15.0, HotPotatoTimer);
+	SelectHotPotato();
+	CreateTimer(5.0, HotPotatoMessage1Timer);
+	CreateTimer(10.0, HotPotatoMessage2Timer);
+	CreateTimer(15.0, HotPotatoTimer);
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:HotPotatoMessage1Timer(Handle timer) {
-    if (ctLeader != -1) {
+	if (ctLeader != -1) {
 		SendMessage(ctLeader, "%t", "HotPotatoStage1");
-    }
+	}
 }
 
 public Action:HotPotatoMessage2Timer(Handle timer) {
-    if (ctLeader != -1) {
-        SendMessage(ctLeader, "%t", "HotPotatoStage2");
-    }
+	if (ctLeader != -1) {
+		SendMessage(ctLeader, "%t", "HotPotatoStage2");
+	}
 }
 
 public Action:HotPotatoTimer(Handle timer) {
-    if (!g_HotPotato) {
-        return Plugin_Stop;
-    }
+	if (!g_HotPotato) {
+		return Plugin_Stop;
+	}
 
-    RemoveWeapons();
-    if (ctLeader != -1) {
-        ForcePlayerSuicide(ctLeader);
+	RemoveWeapons();
+	if (ctLeader != -1) {
+		ForcePlayerSuicide(ctLeader);
 
-        SendMessageAll("%t", "HotPotatoDied", ctLeaderName);
+		SendMessageAll("%t", "HotPotatoDied", ctLeaderName);
 
-        bool ctWiped = true;
-        bool tWiped = true;
+		bool ctWiped = true;
+		bool tWiped = true;
 
-        for (int client = 1; client <= MaxClients; client++) {
-            if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-                if (GetClientTeam(client) == CS_TEAM_CT) {
-                    ctWiped = false;
-                } else if (GetClientTeam(client) == CS_TEAM_T) {
-                    tWiped = false;
-                }
-            }
-        }
+		for (int client = 1; client <= MaxClients; client++) {
+			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+				if (GetClientTeam(client) == CS_TEAM_CT) {
+					ctWiped = false;
+				} else if (GetClientTeam(client) == CS_TEAM_T) {
+					tWiped = false;
+				}
+			}
+		}
 
-        if (ctWiped || tWiped) {
-            return Plugin_Stop;
-        }
-    }
+		if (ctWiped || tWiped) {
+			return Plugin_Stop;
+		}
+	}
 
-    CreateTimer(3.0, NewHotPotatoTimer);
+	CreateTimer(3.0, NewHotPotatoTimer);
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:CheckC4Timer(Handle timer) {
-    if (!g_Bomberman) {
-        return Plugin_Stop;
-    }
+	if (!g_Bomberman) {
+		return Plugin_Stop;
+	}
 
-    for (new i = 1; i <= MaxClients; i++) {
-        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-            new c4Slot = GetPlayerWeaponSlot(i, 4);
+	for (new i = 1; i <= MaxClients; i++) {
+		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+			new c4Slot = GetPlayerWeaponSlot(i, 4);
 
-            if (c4Slot < 0) {
-                new c4 = GivePlayerItem(i, "weapon_c4");
-                EquipPlayerWeapon(i, c4);
-            }
-        }
-    }
+			if (c4Slot < 0) {
+				new c4 = GivePlayerItem(i, "weapon_c4");
+				EquipPlayerWeapon(i, c4);
+			}
+		}
+	}
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:WipeTeamTimer(Handle timer, DataPack data) {
-    SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
+	SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
 
-    data.Reset();
+	data.Reset();
 
-    int team = data.ReadCell();
+	int team = data.ReadCell();
 
-    for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && !IsFakeClient(client)) {
-            if (GetClientTeam(client) == team) {
+	for (int client = 1; client <= MaxClients; client++) {
+		if (IsClientInGame(client) && !IsFakeClient(client)) {
+			if (GetClientTeam(client) == team) {
 				SDKHooks_TakeDamage(client, client, client, float(g_Health), DMG_BLAST);
-            }
-        }
-    }
+			}
+		}
+	}
 }
 
 public Action:DontMissDamageTimer(Handle timer, DataPack data) {
@@ -481,91 +477,91 @@ public Action:DontMissDamageTimer(Handle timer, DataPack data) {
 }
 
 public Action:RandomGunsTimer(Handle timer) {
-    if (!g_RandomGuns) {
-        return Plugin_Stop;
-    }
+	if (!g_RandomGuns) {
+		return Plugin_Stop;
+	}
 
-    RemoveWeapons();
+	RemoveWeapons();
 
-    for (int client = 1; client <= MaxClients; client++) {
+	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            new randomIntCat = GetRandomInt(0, 1);
+			new randomIntCat = GetRandomInt(0, 1);
 
-            char weapon[256];
-            if (randomIntCat == 0) {
-                new randomInt = GetRandomInt(0, PRIMARY_LENGTH - 1);
-                Format(weapon, sizeof(weapon), WeaponPrimary[randomInt]);
-            } else {
-                new randomInt = GetRandomInt(0, SECONDARY_LENGTH - 1);
-                Format(weapon, sizeof(weapon), WeaponSecondary[randomInt]);
-            }
-            GivePlayerItem(client, weapon);
-        }
-    }
+			char weapon[256];
+			if (randomIntCat == 0) {
+				new randomInt = GetRandomInt(0, PRIMARY_LENGTH - 1);
+				Format(weapon, sizeof(weapon), WeaponPrimary[randomInt]);
+			} else {
+				new randomInt = GetRandomInt(0, SECONDARY_LENGTH - 1);
+				Format(weapon, sizeof(weapon), WeaponSecondary[randomInt]);
+			}
+			GivePlayerItem(client, weapon);
+		}
+	}
 
-    float randomFloat = GetRandomFloat(5.0, 9.0);
+	float randomFloat = GetRandomFloat(5.0, 9.0);
 
-    CreateTimer(randomFloat, RandomGunsTimer);
+	CreateTimer(randomFloat, RandomGunsTimer);
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:PoisonDamageTimer(Handle timer) {
-    if (!g_Poison) {
-        return Plugin_Stop;
-    }
+	if (!g_Poison) {
+		return Plugin_Stop;
+	}
 
-    for (int client = 1; client <= MaxClients; client++) {
+	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            float playerPos[3];
-            GetClientEyePosition(client, playerPos);
+			float playerPos[3];
+			GetClientEyePosition(client, playerPos);
 
-            StringMapSnapshot snapshot = smokeMap.Snapshot();
-            for (int i = 0; i < snapshot.Length; i++) {
-                char key[64];
-                snapshot.GetKey(i, key, sizeof(key));
+			StringMapSnapshot snapshot = smokeMap.Snapshot();
+			for (int i = 0; i < snapshot.Length; i++) {
+				char key[64];
+				snapshot.GetKey(i, key, sizeof(key));
 
-                float smokePos[3];
-                smokeMap.GetArray(key, smokePos, sizeof(smokePos));
+				float smokePos[3];
+				smokeMap.GetArray(key, smokePos, sizeof(smokePos));
 
-                float distance = GetVectorDistance(playerPos, smokePos);
+				float distance = GetVectorDistance(playerPos, smokePos);
 
-                if (distance < SMOKE_RADIUS) {
+				if (distance < SMOKE_RADIUS) {
 					SDKHooks_TakeDamage(client, client, client, 5.0, DMG_GENERIC);
 					SendMessage(client, "%t", "SmokeToxic");
-                }
-            }
-            // Free snapshot variable
-            delete snapshot;
-        }
-    }
+				}
+			}
+			// Free snapshot variable
+			delete snapshot;
+		}
+	}
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:AwardZeusTimer(Handle timer, int client) {
-    if (!g_ZeusRound) {
-        return Plugin_Stop;
-    }
+	if (!g_ZeusRound) {
+		return Plugin_Stop;
+	}
 
-    GivePlayerItem(client, "weapon_taser");
+	GivePlayerItem(client, "weapon_taser");
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:RemoveOITCWeapon(Handle timer, DataPack data) {
-    if (!g_OneInTheChamber) {
-        return Plugin_Stop;
-    }
+	if (!g_OneInTheChamber) {
+		return Plugin_Stop;
+	}
 
-    data.Reset();
-    int client = data.ReadCell();
-    new weapon = data.ReadCell();
+	data.Reset();
+	int client = data.ReadCell();
+	new weapon = data.ReadCell();
 
-    RemovePlayerItem(client, weapon);
-    RemoveEdict(weapon);
+	RemovePlayerItem(client, weapon);
+	RemoveEdict(weapon);
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:SendCaptchaTimer(Handle timer) {
@@ -609,25 +605,25 @@ public Action:DropShotWeapon(Handle timer, DataPack data) {
 	int weaponOwner = EntRefToEntIndex(Weapon_GetOwner(weapon));
 
 	if (weaponOwner == client) {
-	    CS_DropWeapon(client, weapon, true, true);
+		CS_DropWeapon(client, weapon, true, true);
 	}
 
 	return Plugin_Continue;
 }
 
 public Action:StartHardcore(Handle timer) {
-    for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            Client_SetHideHud(client, HIDEHUD_ALL);
+	for (int client = 1; client <= MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+			Client_SetHideHud(client, HIDEHUD_ALL);
 
-            // Make sure that the player is not holding the C4,
-            // otherwise they can't switch to their gun anymore
-            char weaponname[128];
-            Client_GetActiveWeaponName(client, weaponname, sizeof(weaponname));
+			// Make sure that the player is not holding the C4,
+			// otherwise they can't switch to their gun anymore
+			char weaponname[128];
+			Client_GetActiveWeaponName(client, weaponname, sizeof(weaponname));
 
-            if (StrEqual(weaponname, "weapon_c4")) {
-                Client_ChangeToLastWeapon(client);
-            }
-        }
-    }
+			if (StrEqual(weaponname, "weapon_c4")) {
+				Client_ChangeToLastWeapon(client);
+			}
+		}
+	}
 }

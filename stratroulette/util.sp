@@ -1,8 +1,8 @@
-static char _colorNames[][] = {"{NORMAL}", "{DARK_RED}",    "{PINK}",      "{GREEN}",
-                               "{YELLOW}", "{LIGHT_GREEN}", "{LIGHT_RED}", "{GRAY}",
-                               "{ORANGE}", "{LIGHT_BLUE}",  "{DARK_BLUE}", "{PURPLE}"};
+static char _colorNames[][] = {"{NORMAL}", "{DARK_RED}",	"{PINK}",	  "{GREEN}",
+							   "{YELLOW}", "{LIGHT_GREEN}", "{LIGHT_RED}", "{GRAY}",
+							   "{ORANGE}", "{LIGHT_BLUE}",  "{DARK_BLUE}", "{PURPLE}"};
 static char _colorCodes[][] = {"\x01", "\x02", "\x03", "\x04", "\x05", "\x06",
-                               "\x07", "\x08", "\x09", "\x0B", "\x0C", "\x0E"};
+							   "\x07", "\x08", "\x09", "\x0B", "\x0C", "\x0E"};
 
 // Used before each round to reset all remaining modifiers from
 // previous round
@@ -41,8 +41,6 @@ public ResetConfiguration() {
 	SetConVarInt(mp_radar_showall, 0, true, false);
 	// Buddy System
 	ClearBuddySystemChickens();
-	// Red Green
-	positionMap.Clear();
 	// Winner
 	SetConVarInt(mp_default_team_winner_no_objective, -1, true, false);
 	// Kill round
@@ -74,24 +72,28 @@ public ResetConfiguration() {
 
 	// Client loop
 	for (int client = 1; client <= MaxClients; client++) {
-	    if (IsClientInGame(client) && !IsFakeClient(client)) {
-	        if (IsPlayerAlive(client)) {
-	            // Third person
-	            ClientCommand(client, "firstperson");
-	            // Defuser
-	            SetEntProp(client, Prop_Send, "m_bHasDefuser", 0);
-	            // Armor
-	            Client_SetArmor(client, 0);
-	            // Helmet
-	            SetEntData(client, FindSendPropInfo("CCSPlayer", "m_bHasHelmet"), 0);
-	            // Collision
-	            SetEntData(client, g_offsCollisionGroup, 5, 4, true);
-	            // Color
-	            SetEntityRenderColor(client, 255, 255, 255, 0);
-	        }
-	        // Hardcore
-	        Client_SetHideHud(client, 2050);
-	    }
+		if (IsClientInGame(client) && !IsFakeClient(client)) {
+			if (IsPlayerAlive(client)) {
+				// Third person
+				ClientCommand(client, "firstperson");
+				// Defuser
+				SetEntProp(client, Prop_Send, "m_bHasDefuser", 0);
+				// Armor
+				Client_SetArmor(client, 0);
+				// Helmet
+				SetEntData(client, FindSendPropInfo("CCSPlayer", "m_bHasHelmet"), 0);
+				// Collision
+				SetEntData(client, g_offsCollisionGroup, 5, 4, true);
+				// Color
+				SetEntityRenderColor(client, 255, 255, 255, 0);
+				// Red light, green light
+				positions[client][2] = -1.0;
+				// Buddy system
+				chickens[client] = -1;
+			}
+			// Hardcore
+			Client_SetHideHud(client, 2050);
+		}
 	}
 
 	// Setting all state variables to false
@@ -138,55 +140,55 @@ public ResetConfiguration() {
 }
 
 public int GetNumberOfStrats() {
-    KeyValues kv = new KeyValues("Strats");
+	KeyValues kv = new KeyValues("Strats");
 
-    if (!kv.ImportFromFile(STRAT_FILE)) {
-        PrintToServer("Strat file could not be found!");
+	if (!kv.ImportFromFile(STRAT_FILE)) {
+		PrintToServer("Strat file could not be found!");
 
-        delete kv;
-        return -1;
-    }
+		delete kv;
+		return -1;
+	}
 
-    if (!kv.GotoFirstSubKey(false)) {
-        PrintToServer("No strats in strat file!");
+	if (!kv.GotoFirstSubKey(false)) {
+		PrintToServer("No strats in strat file!");
 
-        delete kv;
-        return -1;
-    }
+		delete kv;
+		return -1;
+	}
 
-    int numberOfStrats = 0;
+	int numberOfStrats = 0;
 
-    do {
-        if (kv.GetDataType(NULL_STRING) == KvData_None) {
-            numberOfStrats++;
-        }
-    } while (kv.GotoNextKey(false));
+	do {
+		if (kv.GetDataType(NULL_STRING) == KvData_None) {
+			numberOfStrats++;
+		}
+	} while (kv.GotoNextKey(false));
 
-    delete kv;
+	delete kv;
 
-    return numberOfStrats;
+	return numberOfStrats;
 }
 
 public CreateNewDropWeaponsTimer(client) {
-    float randomFloat = GetRandomFloat(3.0, 6.0);
-    DataPack data = new DataPack();
-    data.WriteCell(client);
-    CreateTimer(randomFloat, DropWeaponsTimer, data);
+	float randomFloat = GetRandomFloat(3.0, 6.0);
+	DataPack data = new DataPack();
+	data.WriteCell(client);
+	CreateTimer(randomFloat, DropWeaponsTimer, data);
 }
 
 public SendLeaderMessage(team) {
-    for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            if (GetClientTeam(client) == team) {
+	for (int client = 1; client <= MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+			if (GetClientTeam(client) == team) {
 				if (team == CS_TEAM_CT) {
 					SendMessage(client, "%t", "NewLeader", ctLeaderName);
 				} else {
 					SendMessage(client, "%t", "NewLeader", tLeaderName);
-                }
-            }
-        }
-    }
-    SendMessageTeam(team, "%t", "FollowLeader");
+				}
+			}
+		}
+	}
+	SendMessageTeam(team, "%t", "FollowLeader");
 }
 
 public SendMessage(client, String:szMessage[], any:...) {
@@ -265,112 +267,112 @@ public SendMessageTeam(int team, String:szMessage[], any:...) {
 }
 
 public CreateNewRedGreenTimer() {
-    float randomFloat;
-    if (g_RedLight) {
-        randomFloat = GetRandomFloat(2.0, 4.0);
-    } else {
-        randomFloat = GetRandomFloat(4.0, 12.0);
-    }
+	float randomFloat;
+	if (g_RedLight) {
+		randomFloat = GetRandomFloat(2.0, 4.0);
+	} else {
+		randomFloat = GetRandomFloat(4.0, 12.0);
+	}
 
-    CreateTimer(randomFloat, RedGreenMessageTimer);
+	CreateTimer(randomFloat, RedGreenMessageTimer);
 }
 
 public SetLeader(team) {
-    if (team == CS_TEAM_CT) {
-        ctLeader = -1;
-    } else {
-        tLeader = -1;
-    }
-    ArrayList players = new ArrayList();
+	if (team == CS_TEAM_CT) {
+		ctLeader = -1;
+	} else {
+		tLeader = -1;
+	}
+	ArrayList players = new ArrayList();
 
-    for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            if (GetClientTeam(client) == team) {
-                players.Push(client);
-            }
-        }
-    }
+	for (int client = 1; client <= MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+			if (GetClientTeam(client) == team) {
+				players.Push(client);
+			}
+		}
+	}
 
-    if (players.Length > 0) {
-        int randomPlayer = GetRandomInt(0, players.Length - 1);
-        if (team == CS_TEAM_CT) {
-            ctLeader = players.Get(randomPlayer);
-            GetClientName(ctLeader, ctLeaderName, sizeof(ctLeaderName));
-        } else {
-            tLeader = players.Get(randomPlayer);
-            GetClientName(tLeader, tLeaderName, sizeof(tLeaderName));
-        }
-    }
+	if (players.Length > 0) {
+		int randomPlayer = GetRandomInt(0, players.Length - 1);
+		if (team == CS_TEAM_CT) {
+			ctLeader = players.Get(randomPlayer);
+			GetClientName(ctLeader, ctLeaderName, sizeof(ctLeaderName));
+		} else {
+			tLeader = players.Get(randomPlayer);
+			GetClientName(tLeader, tLeaderName, sizeof(tLeaderName));
+		}
+	}
 }
 
 public SendVIPMessage(team) {
-    for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            if (GetClientTeam(client) == team) {
-                if (team == CS_TEAM_CT) {
+	for (int client = 1; client <= MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+			if (GetClientTeam(client) == team) {
+				if (team == CS_TEAM_CT) {
 					SendMessage(client, "%t", "VIPTarget", tLeaderName);
 					SendMessage(client, "%t", "VIPProtect", ctLeaderName);
-                } else {
+				} else {
 					SendMessage(client, "%t", "VIPTarget", ctLeaderName);
 					SendMessage(client, "%t", "VIPProtect", tLeaderName);
-                }
-            }
-        }
-    }
+				}
+			}
+		}
+	}
 }
 
 public SendKillListMessage(team) {
-    if (team == CS_TEAM_CT) {
+	if (team == CS_TEAM_CT) {
 		SendMessageTeam(team, "%t", "NewTarget", tLeaderName);
-    } else if (team == CS_TEAM_T) {
+	} else if (team == CS_TEAM_T) {
 		SendMessageTeam(team, "%t", "NewTarget", ctLeaderName);
-    }
+	}
 }
 
 public RemoveWeapons() {
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            RemoveWeaponsClient(client);
+			RemoveWeaponsClient(client);
 		}
 	}
 }
 
 public RemoveWeaponsClient(int client) {
-    // Primary = 0
-    // Secondary = 1
-    // Knife = 2
-    // C4 = 4
-    // Shield = 11
+	// Primary = 0
+	// Secondary = 1
+	// Knife = 2
+	// C4 = 4
+	// Shield = 11
 
-    new primary = GetPlayerWeaponSlot(client, 0);
-    new secondary = GetPlayerWeaponSlot(client, 1);
-    new c4Slot = GetPlayerWeaponSlot(client, 4);
-    new shield = GetPlayerWeaponSlot(client, 11);
+	new primary = GetPlayerWeaponSlot(client, 0);
+	new secondary = GetPlayerWeaponSlot(client, 1);
+	new c4Slot = GetPlayerWeaponSlot(client, 4);
+	new shield = GetPlayerWeaponSlot(client, 11);
 
-    if (primary > -1) {
-        RemovePlayerItem(client, primary);
-        RemoveEdict(primary);
-    }
+	if (primary > -1) {
+		RemovePlayerItem(client, primary);
+		RemoveEdict(primary);
+	}
 
-    if (secondary > -1) {
-        RemovePlayerItem(client, secondary);
-        RemoveEdict(secondary);
-    }
+	if (secondary > -1) {
+		RemovePlayerItem(client, secondary);
+		RemoveEdict(secondary);
+	}
 
-    char classname[128];
-    if (c4Slot != -1) {
-        GetEdictClassname(c4Slot, classname, sizeof(classname));
+	char classname[128];
+	if (c4Slot != -1) {
+		GetEdictClassname(c4Slot, classname, sizeof(classname));
 
-        if (!StrEqual(classname, "weapon_c4") || StrEqual(NoC4, "1")) {
-            RemovePlayerItem(client, c4Slot);
-            RemoveEdict(c4Slot);
-        }
-    }
+		if (!StrEqual(classname, "weapon_c4") || StrEqual(NoC4, "1")) {
+			RemovePlayerItem(client, c4Slot);
+			RemoveEdict(c4Slot);
+		}
+	}
 
-    if (shield > -1) {
-        RemovePlayerItem(client, shield);
-        RemoveEdict(shield);
-    }
+	if (shield > -1) {
+		RemovePlayerItem(client, shield);
+		RemoveEdict(shield);
+	}
 }
 
 public RemoveNades() {
@@ -384,32 +386,32 @@ public RemoveNades() {
 }
 
 public SetKnife(bool add) {
-    for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            new knife = GetPlayerWeaponSlot(client, 2);
-            if (add) {
-                if (knife == -1) {
-                    new newKnife = GivePlayerItem(client, "weapon_knife");
-                    EquipPlayerWeapon(client, newKnife);
-                }
-            } else {
-                if (knife != -1) {
-                    RemovePlayerItem(client, knife);
-                    RemoveEdict(knife);
-                }
-            }
-        }
-    }
+	for (int client = 1; client <= MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+			new knife = GetPlayerWeaponSlot(client, 2);
+			if (add) {
+				if (knife == -1) {
+					new newKnife = GivePlayerItem(client, "weapon_knife");
+					EquipPlayerWeapon(client, newKnife);
+				}
+			} else {
+				if (knife != -1) {
+					RemovePlayerItem(client, knife);
+					RemoveEdict(knife);
+				}
+			}
+		}
+	}
 }
 
 public GiveAllPlayersItem(char[] item) {
-    for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            if (!g_Zombies || GetClientTeam(client) == CS_TEAM_CT) {
-                GivePlayerItem(client, item);
-            }
-        }
-    }
+	for (int client = 1; client <= MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+			if (!g_Zombies || GetClientTeam(client) == CS_TEAM_CT) {
+				GivePlayerItem(client, item);
+			}
+		}
+	}
 }
 
 public bool IsWiped() {
@@ -482,40 +484,39 @@ public GiveHotPotato(client) {
 }
 
 public ClearBuddySystemChickens() {
-    if (chickenHealth.Size != 0) {
-        StringMapSnapshot snapshot = chickenHealth.Snapshot();
-        for (int i = 0; i < snapshot.Length; i++) {
-            char key[64];
-            snapshot.GetKey(i, key, sizeof(key));
+	if (chickenHealth.Size != 0) {
+		StringMapSnapshot snapshot = chickenHealth.Snapshot();
+		for (int i = 0; i < snapshot.Length; i++) {
+			char key[64];
+			snapshot.GetKey(i, key, sizeof(key));
 
-            int chickenRef = EntIndexToEntRef(StringToInt(key));
-            AcceptEntityInput(chickenRef, "kill");
-        }
+			int chickenRef = EntIndexToEntRef(StringToInt(key));
+			AcceptEntityInput(chickenRef, "kill");
+		}
 
-        delete snapshot;
-        chickenMap.Clear();
-        chickenHealth.Clear();
-    }
+		delete snapshot;
+		chickenHealth.Clear();
+	}
 }
 
 public ClearDownUnder() {
-    downUnderMap.Clear();
-    g_DownUnder = false;
+	g_DownUnder = false;
 
-    for (new i = 1; i <= MaxClients; i++) {
-        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-            // Reset player angle
-            float angles[3];
-            GetClientEyeAngles(i, angles);
+	for (new i = 1; i <= MaxClients; i++) {
+		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+			downUnderArray[i] = -1;
+			// Reset player angle
+			float angles[3];
+			GetClientEyeAngles(i, angles);
 
-            angles[2] = 0.0;
+			angles[2] = 0.0;
 
-            TeleportEntity(i, NULL_VECTOR, angles, NULL_VECTOR);
+			TeleportEntity(i, NULL_VECTOR, angles, NULL_VECTOR);
 
-            // Reset view
-            SetClientViewEntity(i, i);
-        }
-    }
+			// Reset view
+			SetClientViewEntity(i, i);
+		}
+	}
 }
 
 stock void HealPlayer(int client, int amount) {
@@ -534,12 +535,12 @@ public SetClipAmmo(weapon, ammo) {
 }
 
 public SetActiveWeaponClipAmmo(client, ammo) {
-    new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
-    if(weapon < 1) {
-        return;
-    }
+	new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
+	if(weapon < 1) {
+		return;
+	}
 
-    SetClipAmmo(weapon, ammo);
+	SetClipAmmo(weapon, ammo);
 }
 
 public int GetClipAmmo(weapon) {
@@ -547,12 +548,12 @@ public int GetClipAmmo(weapon) {
 }
 
 public int GetActiveWeaponClipAmmo(client) {
-    new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
-    if(weapon < 1) {
-        return -1;
-    }
+	new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
+	if(weapon < 1) {
+		return -1;
+	}
 
-    return GetClipAmmo(weapon);
+	return GetClipAmmo(weapon);
 }
 
 public SetReserveAmmo(weapon, ammo) {
@@ -560,12 +561,12 @@ public SetReserveAmmo(weapon, ammo) {
 }
 
 public SetActiveWeaponReserveAmmo(client, ammo) {
-    new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
-    if(weapon < 1) {
-        return;
-    }
+	new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
+	if(weapon < 1) {
+		return;
+	}
 
-    SetReserveAmmo(weapon, ammo);
+	SetReserveAmmo(weapon, ammo);
 }
 
 stock void Colorize(String:msg[], int size, bool stripColor = false) {
@@ -575,70 +576,70 @@ stock void Colorize(String:msg[], int size, bool stripColor = false) {
 		} else {
 			ReplaceString(msg, size, _colorNames[colorNameIndex], _colorCodes[colorNameIndex]);
 		}
-    }
+	}
 }
 
 // Precache & prepare download for overlays & decals
 stock void PrecacheDecalAnyDownload(char[] sOverlay) {
-    char sBuffer[256];
-    Format(sBuffer, sizeof(sBuffer), "%s.vmt", sOverlay);
-    PrecacheDecal(sBuffer, true);
-    Format(sBuffer, sizeof(sBuffer), "materials/%s.vmt", sOverlay);
-    AddFileToDownloadsTable(sBuffer);
+	char sBuffer[256];
+	Format(sBuffer, sizeof(sBuffer), "%s.vmt", sOverlay);
+	PrecacheDecal(sBuffer, true);
+	Format(sBuffer, sizeof(sBuffer), "materials/%s.vmt", sOverlay);
+	AddFileToDownloadsTable(sBuffer);
 
-    Format(sBuffer, sizeof(sBuffer), "%s.vtf", sOverlay);
-    PrecacheDecal(sBuffer, true);
-    Format(sBuffer, sizeof(sBuffer), "materials/%s.vtf", sOverlay);
-    AddFileToDownloadsTable(sBuffer);
+	Format(sBuffer, sizeof(sBuffer), "%s.vtf", sOverlay);
+	PrecacheDecal(sBuffer, true);
+	Format(sBuffer, sizeof(sBuffer), "materials/%s.vtf", sOverlay);
+	AddFileToDownloadsTable(sBuffer);
 }
 
 // Show overlay to a client with lifetime | 0.0 = no auto remove
 stock void ShowOverlay(int client, char[] path, float lifetime) {
-    if (!IsClientInGame(client) || IsFakeClient(client) || IsClientSourceTV(client) || IsClientReplay(client)) {
-        return;
-    }
+	if (!IsClientInGame(client) || IsFakeClient(client) || IsClientSourceTV(client) || IsClientReplay(client)) {
+		return;
+	}
 
-    ClientCommand(client, "r_screenoverlay \"%s.vtf\"", path);
+	ClientCommand(client, "r_screenoverlay \"%s.vtf\"", path);
 
-    if (lifetime != 0.0) {
-        CreateTimer(lifetime, DeleteOverlay, GetClientUserId(client));
-    }
+	if (lifetime != 0.0) {
+		CreateTimer(lifetime, DeleteOverlay, GetClientUserId(client));
+	}
 }
 
 // Show overlay to all clients with lifetime | 0.0 = no auto remove
 stock void ShowOverlayAll(char[] path, float lifetime) {
-    for (int i = 1; i <= MaxClients; i++) {
-        if (!IsClientInGame(i) || IsFakeClient(i) || IsClientSourceTV(i) || IsClientReplay(i)) {
-            continue;
-        }
+	for (int i = 1; i <= MaxClients; i++) {
+		if (!IsClientInGame(i) || IsFakeClient(i) || IsClientSourceTV(i) || IsClientReplay(i)) {
+			continue;
+		}
 
-        ClientCommand(i, "r_screenoverlay \"%s.vtf\"", path);
+		ClientCommand(i, "r_screenoverlay \"%s.vtf\"", path);
 
-        if (lifetime != 0.0) {
-            CreateTimer(lifetime, DeleteOverlay, GetClientUserId(i));
-        }
-    }
+		if (lifetime != 0.0) {
+			CreateTimer(lifetime, DeleteOverlay, GetClientUserId(i));
+		}
+	}
 }
 
 stock void RemoveOverlayAll() {
-    for (int i = 1; i <= MaxClients; i++) {
-        if (!IsClientInGame(i) || IsFakeClient(i) || IsClientSourceTV(i) || IsClientReplay(i)) {
-            continue;
-        }
+	for (int i = 1; i <= MaxClients; i++) {
+		if (!IsClientInGame(i) || IsFakeClient(i) || IsClientSourceTV(i) || IsClientReplay(i)) {
+			continue;
+		}
 
-        ClientCommand(i, "r_screenoverlay \"\"");
-    }
+		ClientCommand(i, "r_screenoverlay \"\"");
+	}
 }
 
 // Remove overlay from a client - Timer!
 stock Action DeleteOverlay(Handle timer, any userid) {
 
-    int client = GetClientOfUserId(userid);
-    if (client <= 0 || !IsClientInGame(client) || IsFakeClient(client) || IsClientSourceTV(client) || IsClientReplay(client)) {
-        return;
-    }
+	int client = GetClientOfUserId(userid);
+	if (client <= 0 || !IsClientInGame(client) || IsFakeClient(client) || IsClientSourceTV(client) || IsClientReplay(client)) {
+		return;
+	}
 
-    ClientCommand(client, "r_screenoverlay \"\"");
+	ClientCommand(client, "r_screenoverlay \"\"");
 }
 
 int CreateViewEntity(int client, float pos[3]) {

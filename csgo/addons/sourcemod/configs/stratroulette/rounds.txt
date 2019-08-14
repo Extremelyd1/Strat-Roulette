@@ -206,7 +206,7 @@
 		"description"	"RoundSlowMotionDesc"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"slowmotion"	"1"
-		"defuser"		"1"
+		"noc4"			"1"
 		"killround"		"1"
 		"armor"			"100"
 		"helmet"		"1"

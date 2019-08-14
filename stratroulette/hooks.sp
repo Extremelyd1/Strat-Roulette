@@ -1,33 +1,33 @@
 public Action:Hook_DenyTransmit(entity, client) {
-    if (entity != client) {
-        if (IsClientInGame(entity)) {
-            if (!IsPlayerAlive(client)) {
-                if (GetClientTeam(entity) != GetClientTeam(client)) {
-                        return Plugin_Handled;
-                }
-            } else {
-                return Plugin_Handled;
-            }
-        }
-    }
-    return Plugin_Continue;
+	if (entity != client) {
+		if (IsClientInGame(entity)) {
+			if (!IsPlayerAlive(client)) {
+				if (GetClientTeam(entity) != GetClientTeam(client)) {
+						return Plugin_Handled;
+				}
+			} else {
+				return Plugin_Handled;
+			}
+		}
+	}
+	return Plugin_Continue;
 }
 
 public Action:Hook_StealthTransmit(entity, client) {
-    if (entity != client) {
-        if (IsClientInGame(entity)) {
-            if (!IsPlayerAlive(client)) {
-                if (GetClientTeam(entity) != GetClientTeam(client)) {
-                        return Plugin_Handled;
-                }
-            } else {
-                if (!stealthVisible[entity]) {
-                    return Plugin_Handled;
-                }
-            }
-        }
-    }
-    return Plugin_Continue;
+	if (entity != client) {
+		if (IsClientInGame(entity)) {
+			if (!IsPlayerAlive(client)) {
+				if (GetClientTeam(entity) != GetClientTeam(client)) {
+						return Plugin_Handled;
+				}
+			} else {
+				if (!stealthVisible[entity]) {
+					return Plugin_Handled;
+				}
+			}
+		}
+	}
+	return Plugin_Continue;
 }
 
 public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &damagetype) {
@@ -97,7 +97,7 @@ public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &d
 		}
 
 		return Plugin_Handled;
-    }
+	}
 
 	if (g_BuddySystem) {
 		return Plugin_Handled;
@@ -205,43 +205,43 @@ public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &d
 }
 
 /*  Edict class names:
-    smokegrenade_projectile
-    flashbang_projectile
-    decoy_projectile
-    hegrenade_projectile
-    molotov_projectile
-    incgrenade_projectile
+	smokegrenade_projectile
+	flashbang_projectile
+	decoy_projectile
+	hegrenade_projectile
+	molotov_projectile
+	incgrenade_projectile
 */
 public OnEntitySpawned(iGrenade) {
-    new client = GetEntPropEnt(iGrenade, Prop_Send, "m_hOwnerEntity");
-    if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-    	new nadeslot = GetPlayerWeaponSlot(client, 3);
-    	if (nadeslot > -1) {
-    		RemovePlayerItem(client, nadeslot);
-    	}
-        RemoveEdict(nadeslot);
-        char className[128];
-        int randomInt = -1;
-        if (g_RandomNade) {
-            randomInt = GetRandomInt(1, 6);
-        } else {
-            GetEdictClassname(iGrenade, className, sizeof(className));
-        }
+	new client = GetEntPropEnt(iGrenade, Prop_Send, "m_hOwnerEntity");
+	if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		new nadeslot = GetPlayerWeaponSlot(client, 3);
+		if (nadeslot > -1) {
+			RemovePlayerItem(client, nadeslot);
+		}
+		RemoveEdict(nadeslot);
+		char className[128];
+		int randomInt = -1;
+		if (g_RandomNade) {
+			randomInt = GetRandomInt(1, 6);
+		} else {
+			GetEdictClassname(iGrenade, className, sizeof(className));
+		}
 
-        if (StrEqual(className, "smokegrenade_projectile") || randomInt == 1) {
-            GivePlayerItem(client, "weapon_smokegrenade");
-        } else if (StrEqual(className, "flashbang_projectile") || randomInt == 2) {
-            GivePlayerItem(client, "weapon_flashbang");
-        } else if (StrEqual(className, "decoy_projectile") || randomInt == 3) {
-            GivePlayerItem(client, "weapon_decoy");
-        } else if (StrEqual(className, "hegrenade_projectile") || randomInt == 4) {
-            GivePlayerItem(client, "weapon_hegrenade");
-        } else if (StrEqual(className, "molotov_projectile") || randomInt == 5) {
-            GivePlayerItem(client, "weapon_molotov");
-        } else if (StrEqual(className, "incgrenade_projectile") || randomInt == 6) {
-            GivePlayerItem(client, "weapon_incgrenade");
-        }
-    }
+		if (StrEqual(className, "smokegrenade_projectile") || randomInt == 1) {
+			GivePlayerItem(client, "weapon_smokegrenade");
+		} else if (StrEqual(className, "flashbang_projectile") || randomInt == 2) {
+			GivePlayerItem(client, "weapon_flashbang");
+		} else if (StrEqual(className, "decoy_projectile") || randomInt == 3) {
+			GivePlayerItem(client, "weapon_decoy");
+		} else if (StrEqual(className, "hegrenade_projectile") || randomInt == 4) {
+			GivePlayerItem(client, "weapon_hegrenade");
+		} else if (StrEqual(className, "molotov_projectile") || randomInt == 5) {
+			GivePlayerItem(client, "weapon_molotov");
+		} else if (StrEqual(className, "incgrenade_projectile") || randomInt == 6) {
+			GivePlayerItem(client, "weapon_incgrenade");
+		}
+	}
 }
 
 public Action:Hook_OnWeaponReload(int weapon) {
