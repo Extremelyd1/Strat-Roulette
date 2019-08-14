@@ -196,8 +196,7 @@ public Action:SrEventInspectWeapon(Handle:event, const String:name[], bool:dontB
 
 public Action:SrEventPlayerDeath(Handle:event, const String:name[], bool:dontBroadcast) {
 	new client = GetClientOfUserId(GetEventInt(event, "userid"));
-	new killerUserid = GetEventInt(event, "attacker");
-	new assisterUserid = GetEventInt(event, "assister");
+	new killer = GetClientOfUserId(GetEventInt(event, "attacker"));
 	char weapon[128];
 	GetEventString(event, "weapon", weapon, sizeof(weapon));
 
@@ -234,21 +233,19 @@ public Action:SrEventPlayerDeath(Handle:event, const String:name[], bool:dontBro
 			if (killTeam == CS_TEAM_CT || CS_TEAM_T) {
 				for (int i = 1; i <= MaxClients; i++) {
 					if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i) && GetClientTeam(i) == killTeam) {
-						KillPlayer(i, killerUserid, weapon, assisterUserid);
+						SDKHooks_TakeDamage(i, killer, killer, float(g_Health), DMG_GENERIC);
 					}
 				}
 			}
 		}
 
 		if (g_ZeusRound) {
-			int killer = GetClientOfUserId(killerUserid);
 			if (IsClientInGame(killer) && !IsFakeClient(killer) && IsPlayerAlive(killer)) {
 				CreateTimer(1.2, AwardZeusTimer, killer);
 			}
 		}
 
 		if (g_OneInTheChamber) {
-			int killer = GetClientOfUserId(killerUserid);
 			if (IsClientInGame(killer) && !IsFakeClient(killer) && IsPlayerAlive(killer)) {
 				if (!StrEqual(weapon, "weapon_knife")) {
 					// Not killed with knife
@@ -288,62 +285,45 @@ public Action:SrEventPlayerDeathPre(Handle:event, const String:name[], bool:dont
             SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
         }
     }
-
-    new userid = GetEventInt(event, "userid");
-    new attackerUserid = GetEventInt(event, "attacker");
-
-    if (IsFakeClient(GetClientOfUserId(userid)) || IsFakeClient(GetClientOfUserId(userid))) {
-        return Plugin_Stop;
-    }
-
-    if (attackerUserid == 13371337) {
-        SetEventInt(event, "attacker", userid);
-        return Plugin_Continue;
-    }
-
-    if (userid == attackerUserid && skipNextKill) {
-        skipNextKill = false;
-        return Plugin_Stop;
-    }
-
-    return Plugin_Continue;
 }
 
 public Action:SrEventEntityDeath(Handle:event, const String:name[], bool:dontBroadcast) {
-    new entity = GetEventInt(event, "otherid");
+	new entity = GetEventInt(event, "otherid");
 
-    if (g_BuddySystem) {
-        new attackerUserid = GetEventInt(event, "attacker");
-        char weapon[128];
-        GetEventString(event, "weapon", weapon, sizeof(weapon));
-        for (new i = 1; i <= MaxClients; i++) {
-            if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-                // Convert player id to string
-                new String:playerIdString[64];
-                IntToString(i, playerIdString, sizeof(playerIdString));
-                // Get chicken that belongs to player
-                new chicken;
-                chickenMap.GetValue(playerIdString, chicken);
+	if (g_BuddySystem) {
+		new attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
+		char weapon[128];
+		GetEventString(event, "weapon", weapon, sizeof(weapon));
+		for (new i = 1; i <= MaxClients; i++) {
+			if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+				// Convert player id to string
+				new String:playerIdString[64];
+				IntToString(i, playerIdString, sizeof(playerIdString));
+				// Get chicken that belongs to player
+				new chicken;
+				chickenMap.GetValue(playerIdString, chicken);
 
-                if (chicken == entity) {
-                    KillPlayer(i, attackerUserid, weapon);
-                    chickenMap.Remove(playerIdString);
-                }
-            }
-        }
-    }
+				if (chicken == entity) {
+					SDKHooks_TakeDamage(i, attacker, attacker, float(g_Health), DMG_GENERIC);
+					chickenMap.Remove(playerIdString);
 
-    if (g_Drones) {
-        new String:entityIdString[64];
-        IntToString(entity, entityIdString, sizeof(entityIdString));
+					break;
+				}
+			}
+		}
+	}
 
-        int client;
-        if (droneMap.GetValue(entityIdString, client)) {
-            droneMap.Remove(entityIdString);
+	if (g_Drones) {
+		new String:entityIdString[64];
+		IntToString(entity, entityIdString, sizeof(entityIdString));
 
-            GivePlayerItem(client, "weapon_decoy");
-        }
-    }
+		int client;
+		if (droneMap.GetValue(entityIdString, client)) {
+			droneMap.Remove(entityIdString);
+
+			GivePlayerItem(client, "weapon_decoy");
+		}
+	}
 }
 
 public Action:SrEventSmokeDetonate(Handle:event, const String:name[], bool:dontBroadcast) {
@@ -373,17 +353,18 @@ public Action:SrEventSmokeExpired(Handle:event, const String:name[], bool:dontBr
 }
 
 public Action:SrEventPlayerBlind(Handle:event, const String:name[], bool:dontBroadcast) {
-    if (g_FlashDmg) {
-        int client = GetClientOfUserId(GetEventInt(event, "userid"));
-        if (IsPlayerAlive(client)) {
-            int attackerUserid = GetEventInt(event, "attacker");
-            float blindDuration = GetEventFloat(event, "blind_duration");
+	if (g_FlashDmg) {
+		int client = GetClientOfUserId(GetEventInt(event, "userid"));
+		if (IsPlayerAlive(client)) {
+			int attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
+			int entityId = GetEventInt(event, "entityid");
+			float blindDuration = GetEventFloat(event, "blind_duration");
 
-            int damage = RoundToNearest(blindDuration * 8.5);
+			int damage = RoundToNearest(blindDuration * 8.5);
 
-            DamagePlayer(client, damage, attackerUserid, "flashbang");
-        }
-    }
+			SDKHooks_TakeDamage(client, entityId, attacker, float(damage), DMG_GENERIC);
+		}
+	}
 }
 
 public Action:SrEventSwitchTeam(Event event, const char[] name, bool dontBroadcast) {

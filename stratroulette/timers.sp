@@ -88,93 +88,93 @@ public Action:StartLeaderTimer(Handle timer) {
 }
 
 public Action:CheckLeaderTimer(Handle timer) {
-    if (!g_Leader) {
-        return Plugin_Stop;
-    }
+	if (!g_Leader) {
+		return Plugin_Stop;
+	}
 
-    float ctPos[3];
-    float tPos[3];
-    if (ctLeader != -1) {
-        GetClientEyePosition(ctLeader, ctPos);
-    }
-    if (tLeader != -1) {
-        GetClientEyePosition(tLeader, tPos);
-    }
+	float ctPos[3];
+	float tPos[3];
+	if (ctLeader != -1) {
+		GetClientEyePosition(ctLeader, ctPos);
+	}
+	if (tLeader != -1) {
+		GetClientEyePosition(tLeader, tPos);
+	}
 
-    for (int i = 1; i <= MaxClients; i++) {
-        if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
-            float pos[3];
-            GetClientEyePosition(i, pos);
+	for (int i = 1; i <= MaxClients; i++) {
+		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+			float pos[3];
+			GetClientEyePosition(i, pos);
 
-            float distance = -1.0;
-            if (GetClientTeam(i) == CS_TEAM_CT) {
-                distance = GetVectorDistance(pos, ctPos);
-            } else if (GetClientTeam(i) == CS_TEAM_T) {
-                distance = GetVectorDistance(pos, tPos);
-            }
+			float distance = -1.0;
+			if (GetClientTeam(i) == CS_TEAM_CT) {
+				distance = GetVectorDistance(pos, ctPos);
+			} else if (GetClientTeam(i) == CS_TEAM_T) {
+				distance = GetVectorDistance(pos, tPos);
+			}
 
-            if (distance > 300) {
-				DamagePlayer(i, 5);
+			if (distance > 300) {
+				SDKHooks_TakeDamage(i, i, i, 5.0, DMG_GENERIC);
 				SendMessage(i, "%t", "TooFarFromLeader");
-            }
-        }
-    }
+			}
+		}
+	}
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:CheckMonkeyTimer(Handle timer) {
-    if (!g_MonkeySee) {
-        return Plugin_Stop;
-    }
+	if (!g_MonkeySee) {
+		return Plugin_Stop;
+	}
 
-    float ctPos[3];
-    float tPos[3];
+	float ctPos[3];
+	float tPos[3];
 
-    if (monkeyOneTeam != CS_TEAM_T) {
-        GetClientEyePosition(ctLeader, ctPos);
-    }
-    if (monkeyOneTeam != CS_TEAM_CT) {
-        GetClientEyePosition(tLeader, tPos);
-    }
+	if (monkeyOneTeam != CS_TEAM_T) {
+		GetClientEyePosition(ctLeader, ctPos);
+	}
+	if (monkeyOneTeam != CS_TEAM_CT) {
+		GetClientEyePosition(tLeader, tPos);
+	}
 
-    int ctAlive = 0;
-    int tAlive = 0;
+	int ctAlive = 0;
+	int tAlive = 0;
 
-    for (int client = 1; client <= MaxClients; client++) {
-        if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-            if (client != ctLeader && client != tLeader) {
-                float pos[3];
-                GetClientEyePosition(client, pos);
-                float distance = -1.0;
+	for (int client = 1; client <= MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+			if (client != ctLeader && client != tLeader) {
+				float pos[3];
+				GetClientEyePosition(client, pos);
+				float distance = -1.0;
 
-                if (GetClientTeam(client) == CS_TEAM_CT) {
-                    ctAlive++;
-                    distance = GetVectorDistance(pos, tPos);
-                } else if (GetClientTeam(client) == CS_TEAM_T) {
-                    tAlive++;
-                    distance = GetVectorDistance(pos, ctPos);
-                }
+				if (GetClientTeam(client) == CS_TEAM_CT) {
+					ctAlive++;
+					distance = GetVectorDistance(pos, tPos);
+				} else if (GetClientTeam(client) == CS_TEAM_T) {
+					tAlive++;
+					distance = GetVectorDistance(pos, ctPos);
+				}
 
-                if (distance > 500) {
-					DamagePlayer(client, 5);
+				if (distance > 500) {
+					SDKHooks_TakeDamage(client, client, client, 5.0, DMG_GENERIC);
 					SendMessage(client, "%t", "TooFarFromLeader");
-                }
-            }
-        }
-    }
+				}
+			}
+		}
+	}
 
-    if (monkeyOneTeam == -1) {
-        if (ctAlive == 0) {
-            KillPlayer(ctLeader, tLeader, "knife");
-            return Plugin_Stop;
-        } else if (tAlive == 0) {
-            KillPlayer(tLeader, ctLeader, "knife");
-            return Plugin_Stop;
-        }
-    }
+	if (monkeyOneTeam == -1) {
+		if (ctAlive == 0) {
+			SDKHooks_TakeDamage(ctLeader, tLeader, tLeader, float(g_Health), DMG_GENERIC);
+			return Plugin_Stop;
+		} else if (tAlive == 0) {
+			SDKHooks_TakeDamage(tLeader, ctLeader, ctLeader, float(g_Health), DMG_GENERIC);
+			return Plugin_Stop;
+		}
+	}
 
-    return Plugin_Continue;
+	return Plugin_Continue;
 }
 
 public Action:StartMonkeyTimer(Handle timer) {
@@ -465,19 +465,19 @@ public Action:WipeTeamTimer(Handle timer, DataPack data) {
     for (int client = 1; client <= MaxClients; client++) {
         if (IsClientInGame(client) && !IsFakeClient(client)) {
             if (GetClientTeam(client) == team) {
-                KillPlayer(client, client);
+				SDKHooks_TakeDamage(client, client, client, float(g_Health), DMG_BLAST);
             }
         }
     }
 }
 
 public Action:DontMissDamageTimer(Handle timer, DataPack data) {
-    data.Reset();
+	data.Reset();
 
-    int client = data.ReadCell();
-    int damage = data.ReadCell();
+	int client = data.ReadCell();
+	int damage = data.ReadCell();
 
-    DamagePlayer(client, damage);
+	SDKHooks_TakeDamage(client, client, client, float(damage), DMG_GENERIC);
 }
 
 public Action:RandomGunsTimer(Handle timer) {
@@ -531,7 +531,7 @@ public Action:PoisonDamageTimer(Handle timer) {
                 float distance = GetVectorDistance(playerPos, smokePos);
 
                 if (distance < SMOKE_RADIUS) {
-					DamagePlayer(client, 5);
+					SDKHooks_TakeDamage(client, client, client, 5.0, DMG_GENERIC);
 					SendMessage(client, "%t", "SmokeToxic");
                 }
             }

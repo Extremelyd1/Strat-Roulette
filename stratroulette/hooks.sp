@@ -51,7 +51,7 @@ public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &d
 			}
 
 			if (!ctWiped && !tWiped) {
-				KillPlayer(victim, victim);
+				SDKHooks_TakeDamage(victim, victim, victim, float(g_Health), DMG_BLAST);
 				return Plugin_Handled;
 			}
 
@@ -110,8 +110,13 @@ public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &d
 
 		new attackerHealth = GetEntProp(attacker, Prop_Send, "m_iHealth");
 		if (IsClientInGame(attacker) && IsPlayerAlive(attacker) && !IsFakeClient(attacker)) {
-			new giveHealth = RoundToNearest(attackerHealth + damage);
-			SetEntityHealth(attacker, giveHealth);
+			if (GetClientTeam(victim) == GetClientTeam(attacker)) {
+				new giveHealth = RoundToNearest(attackerHealth + damage / 4);
+				SetEntityHealth(attacker, giveHealth);
+			} else {
+				new giveHealth = RoundToNearest(attackerHealth + damage);
+				SetEntityHealth(attacker, giveHealth);
+			}
 		}
 	}
 
@@ -167,13 +172,13 @@ public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &d
 
 		for (int i = 0; i < PRIMARY_LENGTH; i++) {
 			if (StrEqual(weaponname, WeaponPrimary[i])) {
-				DamagePlayer(attacker, -PrimaryDamage[i]);
+				SDKHooks_TakeDamage(attacker, attacker, attacker, float(PrimaryDamage[i]), DMG_BULLET);
 				return Plugin_Continue;
 			}
 		}
 		for (int i = 0; i < SECONDARY_LENGTH; i++) {
 			if (StrEqual(weaponname, WeaponSecondary[i])) {
-				DamagePlayer(attacker, -SecondaryDamage[i]);
+				SDKHooks_TakeDamage(attacker, attacker, attacker, float(SecondaryDamage[i]), DMG_BULLET);
 				return Plugin_Continue;
 			}
 		}
@@ -183,11 +188,7 @@ public Action:Hook_OnTakeDamage(victim, &attacker, &inflictor, &Float:damage, &d
 		if (victim != ctLeader && victim != tLeader) {
 			SendMessage(attacker, "%t", "KillListWrongTarget");
 
-			char weaponname[128];
-			Client_GetActiveWeaponName(attacker, weaponname, sizeof(weaponname));
-			ReplaceString(weaponname, sizeof(weaponname), "weapon_", "");
-
-			KillPlayer(attacker, GetClientUserId(victim), weaponname);
+			SDKHooks_TakeDamage(attacker, attacker, attacker, float(g_Health), DMG_BULLET);
 
 			return Plugin_Handled;
 		}

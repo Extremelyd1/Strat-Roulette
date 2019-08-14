@@ -136,7 +136,8 @@
 		"vampire"		"1"
 		"infiniteammo"	"2"
 		"pcolor"		"black"
-		"defuser"		"1"
+		"noc4"			"1"
+		"killround"		"1"
 	}
 	"14"
 	{

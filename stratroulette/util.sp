@@ -518,50 +518,15 @@ public ClearDownUnder() {
     }
 }
 
-// Used to damage player by amount of damage, can also be used to heal
-// with negative damage
-stock void DamagePlayer(int client, int damage, int attackerUserid=-1, char[] weapon="knife") {
-    new currentHealth = GetEntProp(client, Prop_Send, "m_iHealth");
-    new newHealth = currentHealth - damage;
-    if (damage > 0) {
-        if (newHealth > 0) {
-            SetEntityHealth(client, newHealth);
-        } else {
-            KillPlayer(client, attackerUserid, weapon);
-        }
-    } else if (damage < 0) {
-        if (newHealth <= g_Health) {
-            SetEntityHealth(client, newHealth);
-        }
-    }
-}
+stock void HealPlayer(int client, int amount) {
+	new currentHealth = GetEntProp(client, Prop_Send, "m_iHealth");
+	new newHealth = currentHealth + amount;
 
-stock void KillPlayer(int client, int killerUserid=-1, char[] weapon="knife", int assisterUserid=-1) {
-    if (killerUserid != -1) {
-        new Handle:event = CreateEvent("player_death");
-        if (event != INVALID_HANDLE) {
-            // Set victim to userid, not client index
-            int userid = GetClientUserId(client);
-            SetEventInt(event, "userid", userid);
-            SetEventInt(event, "assister", assisterUserid);
+	if (newHealth > g_Health) {
+		newHealth = g_Health;
+	}
 
-            if (userid == killerUserid) {
-                // Special value to indicate suicide
-                SetEventInt(event, "attacker", 13371337);
-            } else {
-                // Set attacker
-                SetEventInt(event, "attacker", killerUserid);
-            }
-
-            // TODO: Make it so that it shows the correct weapon
-            // new weapon = GetEntPropEnt(killer, Prop_Data, "m_hActiveWeapon");
-
-            SetEventString(event, "weapon", weapon); // weapon name
-            FireEvent(event, false);
-        }
-    }
-    skipNextKill = true;
-    ForcePlayerSuicide(client);
+	SetEntityHealth(client, newHealth);
 }
 
 public SetClipAmmo(weapon, ammo) {

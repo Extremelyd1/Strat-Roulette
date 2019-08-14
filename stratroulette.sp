@@ -206,8 +206,6 @@ int monkeyOneTeam = -1;
 new stealthVisible[MAXPLAYERS + 1];
 // Drones
 new StringMap:droneMap;
-// Kill method
-new bool:skipNextKill = false;
 // Down Under
 new StringMap:downUnderMap;
 int magazineSize;
