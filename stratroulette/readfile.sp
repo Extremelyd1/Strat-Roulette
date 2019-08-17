@@ -1,4 +1,4 @@
-public ReadNewRound() {
+public void ReadNewRound() {
 	int numberOfStrats = GetNumberOfStrats();
 
 	/* PrintToServer("Number of strats: %d", numberOfStrats); */
@@ -35,81 +35,13 @@ public ReadNewRound() {
 		PrintToServer("Strat number %s could not be found!", roundNumberString);
 
 		delete kv;
-		return 0;
+		return;
 	}
 
 	PrintToServer("Picked strat %s", roundNumberString);
 
-	kv.GetString("name", RoundName, sizeof(RoundName), "No name round!");
-	kv.GetString("thirdperson", ThirdPerson, sizeof(ThirdPerson), "0");
-	kv.GetString("collision", Collision, sizeof(Collision), "default");
-	kv.GetString("weapon", Weapon, sizeof(Weapon), "weapon_none");
-	kv.GetString("health", Health, sizeof(Health), "100");
-	kv.GetString("decoysound", DecoySound, sizeof(DecoySound), "1");
-	kv.GetString("noknife", NoKnife, sizeof(NoKnife), "0");
-	kv.GetString("infiniteammo", InfiniteAmmo, sizeof(InfiniteAmmo), "0");
-	kv.GetString("infinitenade", InfiniteNade, sizeof(InfiniteNade), "0");
-	kv.GetString("speed", PlayerSpeed, sizeof(PlayerSpeed), "1.0");
-	kv.GetString("gravity", PlayerGravity, sizeof(PlayerGravity), "800");
-	kv.GetString("norecoil", NoRecoil, sizeof(NoRecoil), "0");
-	kv.GetString("vampire", Vampire, sizeof(Vampire), "0");
-	kv.GetString("pcolor", PColor, sizeof(PColor), "null");
-	kv.GetString("backwards", Backwards, sizeof(Backwards), "0");
-	kv.GetString("fov", Fov, sizeof(Fov), "90");
-	kv.GetString("chickendef", ChickenDefuse, sizeof(ChickenDefuse), "0");
-	kv.GetString("headshot", HeadShot, sizeof(HeadShot), "0");
-	kv.GetString("slowmotion", SlowMotion, sizeof(SlowMotion), "0");
-	kv.GetString("noscope", NoScope, sizeof(NoScope), "0");
-	kv.GetString("recoilview", RecoilView, sizeof(RecoilView), "0.0555");
-	kv.GetString("alwaysmove", AlwaysMove, sizeof(AlwaysMove), "0");
-	kv.GetString("dropweapons", DropWeapons, sizeof(DropWeapons), "0");
-	kv.GetString("tinymags", TinyMags, sizeof(TinyMags), "0");
-	kv.GetString("followleader", Leader, sizeof(Leader), "0");
-	kv.GetString("showallmap", AllOnMap, sizeof(AllOnMap), "0");
-	kv.GetString("invisible", Invisible, sizeof(Invisible), "0");
-	kv.GetString("defuser", Defuser, sizeof(Defuser), "0");
-	kv.GetString("armor", Armor, sizeof(Armor), "0");
-	kv.GetString("helmet", Helmet, sizeof(Helmet), "0");
-	kv.GetString("noc4", NoC4, sizeof(NoC4), "0");
-	kv.GetString("zombies", Zombies, sizeof(Zombies), "0");
-	kv.GetString("axe", Axe, sizeof(Axe), "0");
-	kv.GetString("fists", Fists, sizeof(Fists), "0");
-	kv.GetString("hitswap", HitSwap, sizeof(HitSwap), "0");
-	kv.GetString("buddysystem", BuddySystem, sizeof(BuddySystem), "0");
-	kv.GetString("randomnade", RandomNade, sizeof(RandomNade), "0");
-	kv.GetString("redgreen", RedGreen, sizeof(RedGreen), "0");
-	kv.GetString("manhunt", Manhunt, sizeof(Manhunt), "0");
-	kv.GetString("winner", Winner, sizeof(Winner), "0");
-	kv.GetString("hotpotato", HotPotato, sizeof(HotPotato), "0");
-	kv.GetString("killround", KillRound, sizeof(KillRound), "0");
-	kv.GetString("bomberman", Bomberman, sizeof(Bomberman), "0");
-	kv.GetString("dontmiss", DontMiss, sizeof(DontMiss), "0");
-	kv.GetString("crabwalk", CrabWalk, sizeof(CrabWalk), "0");
-	kv.GetString("randomguns", RandomGuns, sizeof(RandomGuns), "0");
-	kv.GetString("poison", Poison, sizeof(Poison), "0");
-	kv.GetString("bodyguard", Bodyguard, sizeof(Bodyguard), "0");
-	kv.GetString("zeusround", ZeusRound, sizeof(ZeusRound), "0");
-	kv.GetString("pockettp", PocketTP, sizeof(PocketTP), "0");
-	kv.GetString("oitc", OneInTheChamber, sizeof(OneInTheChamber), "0");
-	kv.GetString("captcha", Captcha, sizeof(Captcha), "0");
-	kv.GetString("monkeysee", MonkeySee, sizeof(MonkeySee), "0");
-	kv.GetString("stealth", Stealth, sizeof(Stealth), "0");
-	kv.GetString("flashdmg", FlashDmg, sizeof(FlashDmg), "0");
-	kv.GetString("killlist", KillList, sizeof(KillList), "0");
-	kv.GetString("breach", Breach, sizeof(Breach), "0");
-	kv.GetString("drones", Drones, sizeof(Drones), "0");
-	kv.GetString("bumpmine", Bumpmine, sizeof(Bumpmine), "0");
-	kv.GetString("panic", Panic, sizeof(Panic), "0");
-	kv.GetString("dropshot", Dropshot, sizeof(Dropshot), "0");
-	kv.GetString("hardcore", Hardcore, sizeof(Hardcore), "0");
-	kv.GetString("tunnelvision", TunnelVision, sizeof(TunnelVision), "0");
-	kv.GetString("downunder", DownUnder, sizeof(DownUnder), "0");
-	kv.GetString("reincarnation", Reincarnation, sizeof(Reincarnation), "0");
-	kv.GetString("teamlives", TeamLives, sizeof(TeamLives), "0");
-	kv.GetString("jumpshot", Jumpshot, sizeof(Jumpshot), "0");
-	kv.GetString("nofall", NoFallDamage, sizeof(NoFallDamage), "0");
-	kv.GetString("onedirection", OneDirection, sizeof(OneDirection), "0");
-	kv.GetString("mobileturret", MobileTurret, sizeof(MobileTurret), "0");
+	char roundName[256];
+	kv.GetString("name", roundName, sizeof(roundName), "No name round!");
 
 	char descriptionOverride[3];
 	kv.GetString("descoverride", descriptionOverride, sizeof(descriptionOverride), "0");
@@ -119,7 +51,7 @@ public ReadNewRound() {
 
 	SendMessageAll(" ");
 	SendMessageAll("{LIGHT_BLUE}-----------------------------------------------------------------------------------------");
-	SendMessageAll("%t", RoundName);
+	SendMessageAll("%t", roundName);
 	SendMessageAll(" ");
 	SendMessageAll("%t", description);
 	SendMessageAll("{LIGHT_BLUE}-----------------------------------------------------------------------------------------");
@@ -128,16 +60,16 @@ public ReadNewRound() {
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && !IsFakeClient(client)) {
 			PrintToConsole(client, "%t", "ConsoleRoundName");
-			PrintToConsole(client, "	%t", RoundName);
+			PrintToConsole(client, "	%t", roundName);
 
 			PrintToConsole(client, "%t", "ConsoleDescription");
 			PrintToConsole(client, "	%t", description);
 			if (StrEqual(descriptionOverride, "0")) {
-				if (StrEqual(KillRound, "1")) {
+				if (killRoundActive) {
 					PrintToConsole(client, "%t", "ConsoleRoundInfoElimination");
-				} else if (StrEqual(Winner, "t")) {
+				} else if (winnerTeam == CS_TEAM_T) {
 					PrintToConsole(client, "%t", "ConsoleRoundInfoEliminationTerroristWinTimeUp");
-				} else if (StrEqual(Winner, "draw")) {
+				} else if (winnerTeam == -1) {
 					PrintToConsole(client, "%t", "ConsoleRoundInfoEliminationDrawTimeUp");
 				} else {
 					PrintToConsole(client, "%t", "ConsoleRoundInfoDefault");
@@ -146,142 +78,416 @@ public ReadNewRound() {
 		}
 	}
 
-	PrintCenterTextAll("%t", RoundName);
+	PrintCenterTextAll("%t", roundName);
 
-	ResetConfiguration();
+	char keyValue[500];
+	kv.GetString("noknife", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureNoKnife();
+		resetFunctions[resetFunctionsLength++] = ResetNoKnife;
+	}
 
-	//** Collision **//
-	ConfigureCollision();
-	//** Zombies **//
-	ConfigureZombies();
-	//** Third person **//
-	ConfigureThirdPerson();
-	//** Weapons **//
-	ConfigureWeapons();
-	//** Armor and kits **//
-	ConfigureArmorDefuser();
-	//** Health **//
-	ConfigureHealth();
-	//** Decoy sound **//
-	ConfigureDecoySound();
-	//** No knife **//
-	ConfigureNoKnife();
-	//** Infinite ammo **//
-	ConfigureInfiniteAmmo();
-	//** Infinite  nade **//
-	ConfigureInfiniteNades();
-	//** Speed **//
-	ConfigureSpeed();
-	//** Gravity **//
-	ConfigureGravity();
-	//** No recoil **//
-	ConfigureNoRecoil();
-	//** Noscope **//
-	ConfigureNoScope();
-	//** Vampire **//
-	ConfigureVampire();
-	//** Player color **//
-	ConfigurePlayerColors();
-	//** Backwards **//
-	ConfigureBackwards();
-	//** Fov **//
-	ConfigureFov();
-	//** Chicken defuse **//
-	ConfigureChickenDefuse();
-	//** Headshot only **//
-	ConfigureHeadshotOnly();
-	//** Speedchange **//
-	ConfigureSlowMotion();
-	//** Weird recoil view **//
-	ConfigureWeirdRecoilView();
-	//** Friction **//
-	ConfigureFriction();
-	//** Drop weapons **//
-	ConfigureDropWeapons();
-	//** One in the chamber **//
-	ConfigureTinyMags();
-	//** Follow the leader **//
-	ConfigureLeader();
-	//** Show all on map **//
-	ConfigureAllOnMap();
-	//** Invisible **//
-	ConfigureInvisible();
-	//** Axe or fists **//
-	ConfigureAxeFists();
-	//** Buddy System **//
-	ConfigureBuddySystem();
-	//** Random nades **//
-	ConfigureRandomNade();
-	//** HitSwap **//
-	ConfigureHitSwap();
-	//** Red light, green light **//
-	ConfigureRedGreen();
-	//** Manhunt **//
-	ConfigureManhunt();
-	//** Default winner **//
-	ConfigureWinner();
-	//** Hot potato **//
-	ConfigureHotPotato();
-	//** Kill round **//
-	ConfigureKillRound();
-	//** Bomberman **//
-	ConfigureBomberman();
-	//** Dont miss **//
-	ConfigureDontMiss();
-	//** Crab Walk **//
-	ConfigureCrabWalk();
-	//** Random Guns **//
-	ConfigureRandomGuns();
-	//** Poison **//
-	ConfigurePoison();
-	//** Bodyguard **//
-	ConfigureBodyguard();
-	//** Auto zeus **//
-	ConfigureZeusRound();
-	//** PocketTP **//
-	ConfigurePocketTP();
-	//** One in the Chamber **//
-	ConfigureOneInTheChamber();
-	//** Captcha **//
-	ConfigureCaptcha();
-	//** Monkey see, Monkey do **//
-	ConfigureMonkeySee();
-	//** Stealth **//
-	ConfigureStealth();
-	//** Flash damage **//
-	ConfigureFlashDmg();
-	//** Kill List **//
-	ConfigureKillList();
-	//** Breach **//
-	ConfigureBreach();
-	//** Drones **//
-	ConfigureDrones();
-	//** Bumpmine **//
-	ConfigureBumpmine();
-	//** Panic **//
-	ConfigurePanic();
-	//** Dropshot **//
-	ConfigureDropshot();
-	//** Hardcore **//
-	ConfigureHardcore();
-	//** Tunnel Vision **//
-	ConfigureTunnelVision();
-	//** Down Under **//
-	ConfigureDownUnder();
-	//** Reincarnation **//
-	ConfigureReincarnation();
-	//** Team Lives **//
-	ConfigureTeamLives();
-	//** Jumpshot **//
-	ConfigureJumpshot();
-	//** No fall damage **//
-	ConfigureNoFallDamage();
-	//** Forward only **//
-	ConfigureOneDirection();
-	//** Mobile turret **//
-	ConfigureMobileTurret();
+	kv.GetString("weapon", keyValue, sizeof(keyValue), "weapon_none");
+	if (!StrEqual(keyValue, "weapon_none")) {
+		ConfigureWeapons(keyValue);
+		resetFunctions[resetFunctionsLength++] = ResetWeapons;
+	}
+
+	kv.GetString("health", keyValue, sizeof(keyValue), "100");
+	if (!StrEqual(keyValue, "100")) {
+		ConfigureHealth(keyValue);
+		resetFunctions[resetFunctionsLength++] = ResetHealth;
+	}
+
+	kv.GetString("defuser", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureDefuser();
+		resetFunctions[resetFunctionsLength++] = ResetDefuser;
+	}
+
+	kv.GetString("armor", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureArmor(keyValue);
+		resetFunctions[resetFunctionsLength++] = ResetArmor;
+	}
+
+	kv.GetString("helmet", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureHelmet();
+		resetFunctions[resetFunctionsLength++] = ResetHelmet;
+	}
+
+	kv.GetString("noc4", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureNoC4();
+		resetFunctions[resetFunctionsLength++] = ResetNoC4;
+	}
+
+	kv.GetString("infiniteammo", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureInfiniteAmmo(keyValue);
+		resetFunctions[resetFunctionsLength++] = ResetInfiniteAmmo;
+	}
+
+	kv.GetString("thirdperson", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureThirdPerson();
+		resetFunctions[resetFunctionsLength++] = ResetThirdPerson;
+	}
+
+	kv.GetString("collision", keyValue, sizeof(keyValue), "default");
+	if (!StrEqual(keyValue, "default")) {
+		ConfigureCollision(keyValue);
+		resetFunctions[resetFunctionsLength++] = ResetCollision;
+	}
+
+	kv.GetString("infinitenade", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureInfiniteNades();
+		resetFunctions[resetFunctionsLength++] = ResetInfiniteNades;
+	}
+
+	kv.GetString("speed", keyValue, sizeof(keyValue), "1.0");
+	if (!StrEqual(keyValue, "1.0")) {
+		ConfigureSpeed(keyValue);
+		resetFunctions[resetFunctionsLength++] = ResetSpeed;
+	}
+
+	kv.GetString("gravity", keyValue, sizeof(keyValue), "800");
+	if (!StrEqual(keyValue, "800")) {
+		ConfigureGravity(keyValue);
+		resetFunctions[resetFunctionsLength++] = ResetGravity;
+	}
+
+	kv.GetString("norecoil", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureNoRecoil();
+		resetFunctions[resetFunctionsLength++] = ResetNoRecoil;
+	}
+
+	kv.GetString("vampire", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureVampire();
+		resetFunctions[resetFunctionsLength++] = ResetVampire;
+	}
+
+	kv.GetString("pcolor", keyValue, sizeof(keyValue), "null");
+	if (!StrEqual(keyValue, "null")) {
+		ConfigurePlayerColors(keyValue);
+		resetFunctions[resetFunctionsLength++] = ResetPlayerColors;
+	}
+
+	kv.GetString("backwards", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureBackwards();
+		resetFunctions[resetFunctionsLength++] = ResetBackwards;
+	}
+
+	kv.GetString("fov", keyValue, sizeof(keyValue), "90");
+	if (!StrEqual(keyValue, "90")) {
+		ConfigureFov(keyValue);
+		resetFunctions[resetFunctionsLength++] = ResetFov;
+	}
+
+	kv.GetString("chickendef", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureChickenDefuse();
+		resetFunctions[resetFunctionsLength++] = ResetChickenDefuse;
+	}
+
+	kv.GetString("headshot", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureHeadshotOnly();
+		resetFunctions[resetFunctionsLength++] = ResetHeadshotOnly;
+	}
+
+	kv.GetString("slowmotion", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureSlowMotion();
+		resetFunctions[resetFunctionsLength++] = ResetSlowMotion;
+	}
+
+	kv.GetString("noscope", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureNoScope();
+		resetFunctions[resetFunctionsLength++] = ResetNoScope;
+	}
+
+	kv.GetString("recoilview", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureWeirdRecoil();
+		resetFunctions[resetFunctionsLength++] = ResetWeirdRecoil;
+	}
+
+	kv.GetString("nofriction", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureNoFriction();
+		resetFunctions[resetFunctionsLength++] = ResetNoFriction;
+	}
+
+	kv.GetString("dropweapons", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureDropWeapons();
+		resetFunctions[resetFunctionsLength++] = ResetDropWeapons;
+	}
+
+	kv.GetString("tinymags", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureTinyMags(keyValue);
+		resetFunctions[resetFunctionsLength++] = ResetTinyMags;
+	}
+
+	kv.GetString("followleader", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureLeader();
+		resetFunctions[resetFunctionsLength++] = ResetLeader;
+	}
+
+	kv.GetString("showallradar", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureAllOnRadar();
+		resetFunctions[resetFunctionsLength++] = ResetAllOnRadar;
+	}
+
+	kv.GetString("invisible", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureInvisible();
+		resetFunctions[resetFunctionsLength++] = ResetInvisible;
+	}
+
+	kv.GetString("zombies", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureZombies();
+		resetFunctions[resetFunctionsLength++] = ResetZombies;
+	}
+
+	kv.GetString("axe", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureAxe();
+		resetFunctions[resetFunctionsLength++] = ResetAxe;
+	}
+
+	kv.GetString("fists", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureFists();
+		resetFunctions[resetFunctionsLength++] = ResetFists;
+	}
+
+	kv.GetString("hitswap", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureHitSwap();
+		resetFunctions[resetFunctionsLength++] = ResetHitSwap;
+	}
+
+	kv.GetString("buddysystem", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureBuddySystem();
+		resetFunctions[resetFunctionsLength++] = ResetBuddySystem;
+	}
+
+	kv.GetString("randomnade", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureRandomNades();
+		resetFunctions[resetFunctionsLength++] = ResetRandomNades;
+	}
+
+	kv.GetString("redgreen", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureRedGreen();
+		resetFunctions[resetFunctionsLength++] = ResetRedGreen;
+	}
+
+	kv.GetString("manhunt", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureManHunt();
+		resetFunctions[resetFunctionsLength++] = ResetManHunt;
+	}
+
+	kv.GetString("winner", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureWinner(keyValue);
+		resetFunctions[resetFunctionsLength++] = ResetWinner;
+	}
+
+	kv.GetString("hotpotato", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureHotPotato();
+		resetFunctions[resetFunctionsLength++] = ResetHotPotato;
+	}
+
+	kv.GetString("killround", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureKillRound();
+		resetFunctions[resetFunctionsLength++] = ResetKillRound;
+	}
+
+	kv.GetString("bomberman", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureBomberman();
+		resetFunctions[resetFunctionsLength++] = ResetBomberman;
+	}
+
+	kv.GetString("dontmiss", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureDontMiss();
+		resetFunctions[resetFunctionsLength++] = ResetDontMiss;
+	}
+
+	kv.GetString("crabwalk", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureCrabWalk();
+		resetFunctions[resetFunctionsLength++] = ResetCrabWalk;
+	}
+
+	kv.GetString("randomguns", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureRandomGuns();
+		resetFunctions[resetFunctionsLength++] = ResetRandomGuns;
+	}
+
+	kv.GetString("poison", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigurePoison();
+		resetFunctions[resetFunctionsLength++] = ResetPoison;
+	}
+
+	kv.GetString("bodyguard", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureBodyguard();
+		resetFunctions[resetFunctionsLength++] = ResetBodyguard;
+	}
+
+	kv.GetString("zeusoitc", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureZeusOITC();
+		resetFunctions[resetFunctionsLength++] = ResetZeusOITC;
+	}
+
+	kv.GetString("pockettp", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigurePocketTP();
+		resetFunctions[resetFunctionsLength++] = ResetPocketTP;
+	}
+
+	kv.GetString("oitc", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureOneInTheChamber();
+		resetFunctions[resetFunctionsLength++] = ResetOneInTheChamber;
+	}
+
+	kv.GetString("captcha", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureCaptcha();
+		resetFunctions[resetFunctionsLength++] = ResetCaptcha;
+	}
+
+	kv.GetString("monkeysee", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureMonkeySeeDo();
+		resetFunctions[resetFunctionsLength++] = ResetMonkeySeeDo;
+	}
+
+	kv.GetString("stealth", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureStealth();
+		resetFunctions[resetFunctionsLength++] = ResetStealth;
+	}
+
+	kv.GetString("flashdmg", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureFlashDamage();
+		resetFunctions[resetFunctionsLength++] = ResetFlashDamage;
+	}
+
+	kv.GetString("killlist", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureKillList();
+		resetFunctions[resetFunctionsLength++] = ResetKillList;
+	}
+
+	kv.GetString("breach", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureBreach();
+		resetFunctions[resetFunctionsLength++] = ResetBreach;
+	}
+
+	kv.GetString("droneguns", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureDroneGuns();
+		resetFunctions[resetFunctionsLength++] = ResetDroneGuns;
+	}
+
+	kv.GetString("bumpmine", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureBumpmine();
+		resetFunctions[resetFunctionsLength++] = ResetBumpmine;
+	}
+
+	kv.GetString("panic", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigurePanic();
+		resetFunctions[resetFunctionsLength++] = ResetPanic;
+	}
+
+	kv.GetString("dropshot", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureDropshot();
+		resetFunctions[resetFunctionsLength++] = ResetDropshot;
+	}
+
+	kv.GetString("hardcore", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureHardcore();
+		resetFunctions[resetFunctionsLength++] = ResetHardcore;
+	}
+
+	kv.GetString("tunnelvision", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureTunnelVision();
+		resetFunctions[resetFunctionsLength++] = ResetTunnelVision;
+	}
+
+	kv.GetString("downunder", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureDownUnder();
+		resetFunctions[resetFunctionsLength++] = ResetDownUnder;
+	}
+
+	kv.GetString("reincarnation", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureReincarnation();
+		resetFunctions[resetFunctionsLength++] = ResetReincarnation;
+	}
+
+	kv.GetString("teamlives", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureTeamLives(keyValue);
+		resetFunctions[resetFunctionsLength++] = ResetTeamLives;
+	}
+
+	kv.GetString("jumpshot", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureJumpshot();
+		resetFunctions[resetFunctionsLength++] = ResetJumpshot;
+	}
+
+	kv.GetString("nofalldmg", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureNoFallDamage();
+		resetFunctions[resetFunctionsLength++] = ResetNoFallDamage;
+	}
+
+	kv.GetString("onedirection", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureOneDirection();
+		resetFunctions[resetFunctionsLength++] = ResetOneDirection;
+	}
+
+	kv.GetString("mobileturret", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureMobileTurret();
+		resetFunctions[resetFunctionsLength++] = ResetMobileTurret;
+	}
 
 	delete kv;
-
-	return 1;
 }

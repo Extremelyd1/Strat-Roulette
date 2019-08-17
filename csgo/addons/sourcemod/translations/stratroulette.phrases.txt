@@ -688,7 +688,7 @@
 	}
 	"RoundBumpDesc"
 	{
-		"en"		"Normal round, but with infinite bump mines."
+		"en"		"Normal round, but with 3 bump mines each and no fall damage."
 	}
 	"RoundOneDirectionName"
 	{
