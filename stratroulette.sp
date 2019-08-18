@@ -5,6 +5,7 @@
 #include <smlib>
 #include "include/adt_trie.inc"
 #include "include/keyvalues.inc"
+#include "stratroulette/functional-interface.sp"
 
 #define STRAT_FILE "addons/sourcemod/configs/stratroulette/rounds.txt"
 #define TUNNEL_VISION_OVERLAY "overlays/stratroulette/tunnel_vision_overlay"
@@ -19,118 +20,6 @@
 // Convar handles
 ConVar g_AutoStart;
 ConVar g_AutoStartMinPlayers;
-
-// KeyValue strings
-new String:RoundName[200];
-new String:Collision[20];
-new String:ThirdPerson[3];
-new String:Weapon[70];
-new String:Health[70];
-new String:DecoySound[70];
-new String:NoKnife[3];
-new String:InfiniteAmmo[3];
-new String:InfiniteNade[50];
-new String:PlayerSpeed[20];
-new String:PlayerGravity[20];
-new String:NoRecoil[3];
-new String:NoScope[3];
-new String:Vampire[3];
-new String:PColor[15];
-new String:Backwards[3];
-new String:Fov[10];
-new String:ChickenDefuse[3];
-new String:HeadShot[3];
-new String:SlowMotion[3];
-new String:RecoilView[7];
-new String:AlwaysMove[3];
-new String:DropWeapons[3];
-new String:TinyMags[20];
-new String:Leader[3];
-new String:AllOnMap[3];
-new String:Invisible[3];
-new String:Defuser[3];
-new String:Armor[20];
-new String:Helmet[3];
-new String:NoC4[3];
-new String:Zombies[3];
-new String:Axe[3];
-new String:Fists[3];
-new String:HitSwap[3];
-new String:BuddySystem[3];
-new String:RandomNade[3];
-new String:RedGreen[3];
-new String:Manhunt[3];
-new String:Winner[20];
-new String:HotPotato[3];
-new String:KillRound[3];
-new String:Bomberman[3];
-new String:DontMiss[3];
-new String:CrabWalk[3];
-new String:RandomGuns[3];
-new String:Poison[3];
-new String:Bodyguard[3];
-new String:ZeusRound[3];
-new String:PocketTP[3];
-new String:OneInTheChamber[3];
-new String:Captcha[3];
-new String:MonkeySee[3];
-new String:Stealth[3];
-new String:FlashDmg[3];
-new String:KillList[3];
-new String:Breach[3];
-new String:Drones[3];
-new String:Bumpmine[3];
-new String:Panic[3];
-new String:Dropshot[3];
-new String:Hardcore[3];
-new String:TunnelVision[3];
-new String:DownUnder[3];
-new String:Reincarnation[3];
-new String:TeamLives[20];
-
-// State variables
-new bool:g_DecoySound = false;
-new bool:g_InfiniteNade = false;
-new bool:g_NoScope = false;
-new bool:g_Vampire = false;
-new bool:g_ChickenDefuse = false;
-new bool:g_HeadShot = false;
-new bool:g_SlowMotion = false;
-new bool:g_DropWeapons = false;
-new bool:g_TinyMags = false;
-new bool:g_Leader = false;
-new bool:g_Axe = false;
-new bool:g_Fists = false;
-new bool:g_BuddySystem = false;
-new bool:g_RandomNade = false;
-new bool:g_Zombies = false;
-new bool:g_HitSwap = false;
-new bool:g_RedGreen = false;
-new bool:g_Manhunt = false;
-new bool:g_HotPotato = false;
-new bool:g_KillRound = false;
-new bool:g_Bomberman = false;
-new bool:g_DontMiss = false;
-new bool:g_CrabWalk = false;
-new bool:g_RandomGuns = false;
-new bool:g_Poison = false;
-new bool:g_Bodyguard = false;
-new bool:g_ZeusRound = false;
-new bool:g_PocketTP = false;
-new bool:g_OneInTheChamber = false;
-new bool:g_Captcha = false;
-new bool:g_MonkeySee = false;
-new bool:g_Stealth = false;
-new bool:g_FlashDmg = false;
-new bool:g_KillList = false;
-new bool:g_Breach = false;
-new bool:g_Drones = false;
-new bool:g_Bumpmine = false;
-new bool:g_Panic = false;
-new bool:g_Dropshot = false;
-new bool:g_DownUnder = false;
-new bool:g_Reincarnation = false;
-new bool:g_TeamLives = false;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -156,6 +45,18 @@ new const PrimaryDamage[PRIMARY_LENGTH] = {
 	10, 50, 10
 };
 
+// Clip sizes of primary weapons
+new const PrimaryClipSize[PRIMARY_LENGTH] = {
+	30, 30, 64,
+	25, 20, 35,
+	100, 30, 30,
+	5, 30, 30,
+	150, 8, 50,
+	7, 20, 30,
+	10, 25, 7,
+	25, 10, 30
+};
+
 // Secondary weapons
 new const String:WeaponSecondary[SECONDARY_LENGTH][] =  {
 	"weapon_deagle", "weapon_elite", "weapon_fiveseven",
@@ -172,53 +73,25 @@ new const SecondaryDamage[SECONDARY_LENGTH] = {
 	20
 };
 
+// Clip sizes of secondary weapons
+new const SecondaryClipSize[PRIMARY_LENGTH] = {
+	7, 30, 20,
+	20, 13, 13,
+	18, 12, 12,
+	8
+};
+
 // Grenades
 new const GrenadesAll[] =  { 15, 17, 16, 14, 18, 17 };
 
 new bool:inGame = false;
 new bool:pugSetupLoaded = false;
 
-new g_Health;
-// Leader/Manhunt/Hot potato
-new String:ctLeaderName[128];
-new ctLeader;
-new String:tLeaderName[128];
-new tLeader;
-// Speed change
-new bool:g_HighSpeed = false;
-// Red light, green light
-new bool:g_RedLight = false;
-new StringMap:positionMap;
-// Buddy system
-new StringMap:chickenMap;
-new StringMap:chickenHealth;
-// Poison
-new StringMap:smokeMap;
-// Weapons
-char primaryWeapon[256];
-char secondaryWeapon[256];
-// Captcha
-char captchaAnswer[64];
-ArrayList captchaClients;
-// Monkey see
-int monkeyOneTeam = -1;
-// Stealth
-new stealthVisible[MAXPLAYERS + 1];
-// Drones
-new StringMap:droneMap;
-// Kill method
-new bool:skipNextKill = false;
-// Down Under
-new StringMap:downUnderMap;
-int magazineSize;
-// Team Lives
-int teamLives = 0;
-int ctLives = 0;
-int tLives = 0;
-
 // Round variables
+FunctionalInterface resetFunctions[128];
+int resetFunctionsLength = 0;
+
 int lastRound = -1;
-new bool:roundHasEnded = false;
 
 new Handle:voteTimer = INVALID_HANDLE;
 
@@ -261,12 +134,12 @@ new Handle:mp_respawn_on_death_ct;
 new Handle:mp_respawn_on_death_t;
 new Handle:host_timescale;
 
-#include "stratroulette/configure.sp"
-#include "stratroulette/readfile.sp"
+#include "stratroulette/round-modifiers-include.sp"
 #include "stratroulette/events.sp"
-#include "stratroulette/hooks.sp"
-#include "stratroulette/timers.sp"
+#include "stratroulette/presets.sp"
+#include "stratroulette/vote.sp"
 #include "stratroulette/util.sp"
+#include "stratroulette/readfile.sp"
 #include "stratroulette/pugsetup-integration.sp"
 
 #pragma semicolon 1
@@ -275,19 +148,19 @@ public Plugin:myinfo =  {
 	name = "Strat Roulette",
 	author = "Extremelyd1",
 	description = "Random strats every round",
-	version = "2.1"
+	version = "3.0"
 }
 
 public OnPluginStart() {
 
 	//** Convars **//
 	g_AutoStart = CreateConVar(
-	    "sm_sr_auto_start", "0",
-	    "Whether to automagically start the game when enough players are present"
+		"sm_sr_auto_start", "0",
+		"Whether to automagically start the game when enough players are present"
 	);
 	g_AutoStartMinPlayers = CreateConVar(
-	    "sm_sr_auto_start_min_players", "4",
-	    "The minimum number of players required to automagically start the game"
+		"sm_sr_auto_start_min_players", "4",
+		"The minimum number of players required to automagically start the game"
 	);
 
 	//** Create and exec plugin's configuration file **//
@@ -303,83 +176,46 @@ public OnPluginStart() {
 	RegAdminCmd("sm_srslots", cmd_srslots, ADMFLAG_ROOT, "Command to output items in weapons slots");
 	RegAdminCmd("sm_srtest", cmd_srtest, ADMFLAG_ROOT, "Command to test something");
 	//** Event **//
-	HookEvent("decoy_started", SrEventDecoyStarted);
-	HookEvent("weapon_zoom", SrEventWeaponZoom, EventHookMode_Post);
-	HookEvent("bomb_planted", SrBombPlanted_Event);
-	HookEvent("inspect_weapon", SrEventInspectWeapon);
-	HookEvent("round_end", SrEventRoundEnd);
-	HookEvent("round_start", SrEventRoundStart);
-	HookEvent("player_death", SrEventPlayerDeath);
-	HookEvent("player_death", SrEventPlayerDeathPre, EventHookMode_Pre);
-	HookEvent("other_death", SrEventEntityDeath);
-	HookEvent("weapon_fire", SrEventWeaponFire);
-	HookEvent("smokegrenade_detonate", SrEventSmokeDetonate);
-	HookEvent("smokegrenade_expired", SrEventSmokeExpired);
-	HookEvent("player_blind", SrEventPlayerBlind);
-	HookEvent("switch_team", SrEventSwitchTeam);
-	HookEvent("player_spawn", SrEventPlayerSpawn, EventHookMode_Post);
-
-	AddCommandListener(CommandDrop, "drop");
+	HookEvent("round_end", RoundEndEvent);
+	HookEvent("round_start", RoundStartEvent, EventHookMode_Pre);
+	HookEvent("switch_team", SwitchTeamEvent);
 
 	LoadTranslations("stratroulette.phrases");
 
-	// Hook players after plugin reload
-	for (int client = 1; client <= MaxClients; client++) {
-	    if (IsClientInGame(client) && !IsFakeClient(client)) {
-	    	SDKHook(client, SDKHook_OnTakeDamage, Hook_OnTakeDamage);
-	    }
-	}
-
 	if (voteTimer != INVALID_HANDLE) {
-	    CloseHandle(voteTimer);
-	    voteTimer = INVALID_HANDLE;
+		CloseHandle(voteTimer);
+		voteTimer = INVALID_HANDLE;
 	}
 }
 
 public OnPluginEnd() {
-	UnhookEvent("decoy_started", SrEventDecoyStarted);
-	UnhookEvent("weapon_zoom", SrEventWeaponZoom, EventHookMode_Post);
-	UnhookEvent("bomb_planted", SrBombPlanted_Event);
-	UnhookEvent("inspect_weapon", SrEventInspectWeapon);
-	UnhookEvent("round_end", SrEventRoundEnd);
-	UnhookEvent("round_start", SrEventRoundStart);
-	UnhookEvent("player_death", SrEventPlayerDeath);
-	UnhookEvent("player_death", SrEventPlayerDeathPre, EventHookMode_Pre);
-	UnhookEvent("other_death", SrEventEntityDeath);
-	UnhookEvent("weapon_fire", SrEventWeaponFire);
-	UnhookEvent("smokegrenade_detonate", SrEventSmokeDetonate);
-	UnhookEvent("smokegrenade_expired", SrEventSmokeExpired);
-	UnhookEvent("player_blind", SrEventPlayerBlind);
-
-	for (int client = 1; client <= MaxClients; client++) {
-	    if (IsClientInGame(client) && !IsFakeClient(client)) {
-	    	SDKUnhook(client, SDKHook_OnTakeDamage, Hook_OnTakeDamage);
-	    }
-	}
+	UnhookEvent("round_end", RoundEndEvent);
+	UnhookEvent("round_start", RoundStartEvent, EventHookMode_Pre);
+	UnhookEvent("switch_team", SwitchTeamEvent);
 }
 
 public void OnMapStart() {
 	// Check if PugSetup is loaded
 	if (GetFeatureStatus(FeatureType_Native, "PugSetup_IsMatchLive") == FeatureStatus_Available) {
-	    pugSetupLoaded = true;
-	    PrintToServer("PugSetup is loaded, using it for match handling");
+		pugSetupLoaded = true;
+		PrintToServer("PugSetup is loaded, using it for match handling");
 	} else {
-	    pugSetupLoaded = false;
+		pugSetupLoaded = false;
 	}
 
 	inGame = false;
 	if (!pugSetupLoaded) {
-	    // Indefinite warmup
-	    ServerCommand("mp_do_warmup_period 1");
-	    ServerCommand("mp_warmup_start");
-	    ServerCommand("mp_warmup_pausetimer 1");
-	    ServerCommand("mp_warmup_pausetimer 1");
+		// Indefinite warmup
+		ServerCommand("mp_do_warmup_period 1");
+		ServerCommand("mp_warmup_start");
+		ServerCommand("mp_warmup_pausetimer 1");
+		ServerCommand("mp_warmup_pausetimer 1");
 	}
 
 	// Precache necessary models
 	int precache = PrecacheModel("models/props_survival/dronegun/dronegun.mdl", true);
 	if (precache == 0) {
-	    SetFailState("models/props_survival/dronegun/dronegun.mdl not precached !");
+		SetFailState("models/props_survival/dronegun/dronegun.mdl not precached !");
 	}
 
 	PrecacheModel("models/props_survival/dronegun/dronegun_gib1.mdl", true);
@@ -407,14 +243,10 @@ public void OnMapStart() {
 	PrecacheDecalAnyDownload(TUNNEL_VISION_OVERLAY);
 }
 
-public OnClientPutInServer(client) {
-	SDKHook(client, SDKHook_OnTakeDamage, Hook_OnTakeDamage);
-}
-
 public Action:cmd_start(client, args) {
 	if (!pugSetupLoaded) {
-	    ServerCommand("mp_warmup_end 1");
-	    inGame = true;
+		ServerCommand("mp_warmup_end 1");
+		inGame = true;
 	} else {
 		SendMessage(client, "%t", "MatchHandlingPugSetup");
 	}
@@ -422,18 +254,18 @@ public Action:cmd_start(client, args) {
 
 public Action:cmd_end(client, args) {
 	if (!pugSetupLoaded) {
-	    if (inGame) {
-	        ServerCommand("mp_do_warmup_period 1");
-	        ServerCommand("mp_warmup_start");
-	        ServerCommand("mp_warmup_pausetimer 1");
-	        inGame = false;
+		if (inGame) {
+			ServerCommand("mp_do_warmup_period 1");
+			ServerCommand("mp_warmup_start");
+			ServerCommand("mp_warmup_pausetimer 1");
+			inGame = false;
 
-	        ResetConfiguration();
-	    } else {
-	        ReplyToCommand(client, "Game is not in progress!");
-	    }
+			ResetLastRound();
+		} else {
+			ReplyToCommand(client, "Game is not in progress!");
+		}
 	} else {
-	    SendMessage(client, "%t", "MatchHandlingPugSetup");
+		SendMessage(client, "%t", "MatchHandlingPugSetup");
 	}
 }
 
@@ -444,17 +276,17 @@ public Action:cmd_setround(client, args) {
 	KeyValues kv = new KeyValues("Strats");
 
 	if (!kv.ImportFromFile(STRAT_FILE)) {
-	    PrintToServer("Strat file could not be found!");
+		PrintToServer("Strat file could not be found!");
 
-	    delete kv;
-	    return Plugin_Handled;
+		delete kv;
+		return Plugin_Handled;
 	}
 
 	if (!kv.JumpToKey(roundArg)) {
-	    PrintToServer("Strat number %s could not be found!", roundArg);
+		PrintToServer("Strat number %s could not be found!", roundArg);
 
-	    delete kv;
-	    return Plugin_Handled;
+		delete kv;
+		return Plugin_Handled;
 	}
 
 	Format(forceRoundNumber, sizeof(forceRoundNumber), "%s", roundArg);
@@ -473,93 +305,47 @@ public Action:cmd_endround(client, args) {
 
 public Action:cmd_srslots(client, args) {
 	for (new i = 0; i < 100; i++) {
-	    new edict = GetPlayerWeaponSlot(client, i);
+		new edict = GetPlayerWeaponSlot(client, i);
 
-	    if (edict > -1) {
-	        char className[128];
-	        GetEdictClassname(edict, className, sizeof(className));
+		if (edict > -1) {
+			char className[128];
+			GetEdictClassname(edict, className, sizeof(className));
 
-	        PrintToServer("Slot=%d, name=%s", i, className);
-	    }
+			PrintToServer("Slot=%d, name=%s", i, className);
+		}
 	}
 }
 
 public Action:cmd_srtest(client, args) {
 }
 
-public Action:CommandDrop(int client, const char[] command, int args) {
-	if (g_HotPotato || g_Bomberman || g_Bodyguard || g_RandomGuns || g_Zombies) {
-	    return Plugin_Stop;
-	}
-
-	return Plugin_Continue;
-}
-
 public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3], float angles[3], int& weapon, int& subtype, int& cmdnum, int& tickcount, int& seed, int mouse[2]) {
-	if (g_CrabWalk) {
-	    if (buttons & IN_FORWARD) {
-	        return Plugin_Handled;
-	    }
-	    if (buttons & IN_BACK) {
-	        return Plugin_Handled;
-	    }
+	if (CrabWalkOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse) == Plugin_Handled) {
+		return Plugin_Handled;
 	}
 
-	if (g_Stealth) {
-	    int walkMask = IN_FORWARD | IN_BACK | IN_LEFT | IN_RIGHT;
-	    int otherMask = IN_ATTACK | IN_RELOAD;
-	    if (buttons & otherMask || (buttons & walkMask && !(buttons & IN_SPEED))) {
-	        stealthVisible[client] = true;
-	    } else {
-	        stealthVisible[client] = false;
-	    }
+	if (OneDirectionOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse) == Plugin_Handled) {
+		return Plugin_Handled;
 	}
 
-	if (g_DownUnder) {
-	    // Convert player id to string
-	    new String:playerIdString[64];
-	    IntToString(client, playerIdString, sizeof(playerIdString));
-	    // Get entity that belongs to player
-	    new entity;
-	    if (downUnderMap.GetValue(playerIdString, entity)) {
-			if (entity != 0 && IsValidEntity(entity)) {
-			    // Set position and angles
-			    float eyeAngles[3];
-			    GetClientEyeAngles(client, eyeAngles);
+	StealthOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
 
-			    float position[3];
-			    GetClientEyePosition(client, position);
+	DownUnderOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
 
-			    eyeAngles[2] = 180.0;
-
-			    TeleportEntity(entity, position, eyeAngles, NULL_VECTOR);
-
-			    SetClientViewEntity(client, entity);
-			}
-	    }
-	}
+	JumpshotOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
 
 	return Plugin_Continue;
 }
 
 public Action:OnClientSayCommand(int client, const char[] command, const char[] sArgs) {
-	if (g_Captcha) {
-	    if (captchaClients.FindValue(client) != -1) {
-	        if (StrEqual(sArgs, captchaAnswer)) {
-	            GivePlayerItem(client, primaryWeapon);
-	            GivePlayerItem(client, secondaryWeapon);
-	            captchaClients.Erase(captchaClients.FindValue(client));
-	        } else {
-				SendMessage(client, "%t", "CaptchaWrong");
-	        }
-	        return Plugin_Stop;
-	    }
+	if (CaptchaOnClientSayCommand(client, command, sArgs) == Plugin_Stop) {
+		return Plugin_Stop;
 	}
+
 	return Plugin_Continue;
 }
 
 public OnConfigsExecuted() {
-
 	//** CVARS **//
 	sv_allow_thirdperson = FindConVar("sv_allow_thirdperson");
 	sv_infinite_ammo = FindConVar("sv_infinite_ammo");
@@ -611,14 +397,6 @@ public OnConfigsExecuted() {
 	SetConVarFlags(host_timescale, flags & ~FCVAR_CHEAT);
 
 	SetServerConvars();
-
-	chickenMap = CreateTrie();
-	chickenHealth = CreateTrie();
-	positionMap = CreateTrie();
-	smokeMap = CreateTrie();
-	droneMap = CreateTrie();
-	downUnderMap = CreateTrie();
-	captchaClients = new ArrayList();
 }
 
 public SetServerConvars() {
@@ -637,8 +415,12 @@ public SetServerConvars() {
 	SetConVarString(mp_ct_default_secondary, "");
 	SetConVarString(mp_t_default_secondary, "");
 	SetConVarInt(mp_autokick, 0);
+	SetConVarInt(mp_default_team_winner_no_objective, -1);
+	SetConVarInt(mp_ignore_round_win_conditions, 0);
+	SetConVarInt(mp_respawn_on_death_ct, 0);
+	SetConVarInt(mp_respawn_on_death_t, 0);
 	if (!pugSetupLoaded) {
-	    SetConVarInt(mp_freezetime, 5, true, false);
+		SetConVarInt(mp_freezetime, 5, true, false);
 	}
 }
 
@@ -646,114 +428,19 @@ public void PugSetup_OnLive() {
 	SetServerConvars();
 }
 
-public OnEntityCreated(iEntity, const String:classname[]) {
-	if (g_InfiniteNade || g_RandomNade) {
-		if (StrContains(classname, "_projectile") != -1) {
-			SDKHook(iEntity, SDKHook_SpawnPost, OnEntitySpawned);
-		}
-	}
+public OnEntityCreated(entity, const String:className[]) {
+	InfiniteNadesOnEntitySpawn(entity, className);
+	RandomNadesOnEntitySpawn(entity, className);
+	TinyMagsOnEntitySpawn(entity, className);
 }
 
-public CreateRoundVoteMenu() {
-	Menu menu = new Menu(VoteMenuHandler, MENU_ACTIONS_ALL);
-	menu.SetTitle("RoundVoteTitle");
-
-	ArrayList options = new ArrayList();
-	int numberOfStrats = GetNumberOfStrats();
-	for (int i = 1; i <= numberOfStrats; i++) {
-	    if (i != lastRound) {
-	        options.Push(i);
-	    }
-	}
-
-	for (int i = 1; i < 6; i++) {
-	    if (options.Length == 0) {
-	        break;
-	    }
-
-	    int randomRound = options.Get(GetRandomInt(0, options.Length - 1));
-
-	    options.Erase(options.FindValue(randomRound));
-
-	    char randomRoundString[16];
-	    IntToString(randomRound, randomRoundString, sizeof(randomRoundString));
-
-	    KeyValues kv = new KeyValues("Strats");
-	    kv.ImportFromFile(STRAT_FILE);
-
-	    if (!kv.JumpToKey(randomRoundString)) {
-	        PrintToServer("Strat number %s could not be found for voting!", randomRoundString);
-
-	        delete kv;
-	        continue;
-	    }
-
-	    kv.GetString("name", RoundName, sizeof(RoundName), "No name round!");
-	    Colorize(RoundName, sizeof(RoundName), true);
-
-	    menu.AddItem(randomRoundString, RoundName);
-
-	    delete kv;
-	}
-
-	menu.ExitButton = false;
-
-	menu.DisplayVoteToAll(20);
-}
-
-public int VoteMenuHandler(Menu menu, MenuAction action, int param1, int param2) {
-	if (action == MenuAction_VoteEnd) {
-		char winningRound[32];
-		char winningRoundName[256];
-		int style;
-		menu.GetItem(param1, winningRound, sizeof(winningRound), style, winningRoundName, sizeof(winningRoundName));
-
-		Format(voteRoundNumber, sizeof(voteRoundNumber), winningRound);
-		nextRoundVoted = true;
-
-		for (new i = 1; i <= MaxClients; i++) {
-			if (IsClientInGame(i) && !IsFakeClient(i)) {
-				char translatedRoundName[128];
-				Format(translatedRoundName, sizeof(translatedRoundName), "%T", winningRoundName, i);
-				SendMessage(i, "%t", "RoundVotingFinished", translatedRoundName);
-			}
+public ResetLastRound() {
+	if (resetFunctionsLength > 0) {
+		for (int i = 0; i < resetFunctionsLength; i++) {
+			Call_StartFunction(INVALID_HANDLE, resetFunctions[i]);
+			Call_Finish();
 		}
 	}
 
-	if (action == MenuAction_DisplayItem) {
-		/* Get the display string, we'll use it as a translation phrase */
-		char display[64];
-		menu.GetItem(param2, "", 0, _, display, sizeof(display));
-
-		/* Translate the string to the client's language */
-		char buffer[255];
-		Format(buffer, sizeof(buffer), "%T", display, param1);
-
-		/* Override the text */
-		return RedrawMenuItem(buffer);
-	}
-
-	if (action == MenuAction_Display) {
-		/* Panel Handle is the second parameter */
-		Panel panel = view_as<Panel>(param2);
-
-		/* Translate to our phrase */
-		char buffer[255];
-		Format(buffer, sizeof(buffer), "%T", "RoundVoteTitle", param1);
-
-		panel.SetTitle(buffer);
-	}
-
-	if (action == MenuAction_End) {
-		delete menu;
-	}
-
-	return 0;
-}
-
-public bool:RayFilter(entity, mask, any:data) {
-	if (entity == data) {
-	    return false;
-	}
-	return true;
+	resetFunctionsLength = 0;
 }

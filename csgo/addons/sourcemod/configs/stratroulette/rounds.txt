@@ -17,7 +17,6 @@
 		"description"	"RoundBabyHitMeDesc"
 		"weapon"		"weapon_decoy"
 		"health"		"1"
-		"decoysound"	"0"
 		"noknife"		"1"
 		"infinitenade"	"1"
 		"defuser"		"1"
@@ -52,7 +51,7 @@
 		"helmet"		"1"
 		"noc4"			"1"
 		"killround"		"1"
-		"zeusround"		"1"
+		"zeusoitc"		"1"
 	}
 	"6"
 	{
@@ -102,7 +101,7 @@
 		"noc4"			"1"
 		"armor"			"100"
 		"helmet"		"1"
-		"health"		"1000"
+		"health"		"200"
 		"randomguns"	"1"
 	}
 	"11"
@@ -136,7 +135,8 @@
 		"vampire"		"1"
 		"infiniteammo"	"2"
 		"pcolor"		"black"
-		"defuser"		"1"
+		"noc4"			"1"
+		"killround"		"1"
 	}
 	"14"
 	{
@@ -205,7 +205,7 @@
 		"description"	"RoundSlowMotionDesc"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
 		"slowmotion"	"1"
-		"defuser"		"1"
+		"noc4"			"1"
 		"killround"		"1"
 		"armor"			"100"
 		"helmet"		"1"
@@ -236,7 +236,7 @@
 		"name"			"RoundNoStopName"
 		"description"	"RoundNoStopDesc"
 		"weapon"		"weapon_primary_random;weapon_secondary_random"
-		"alwaysmove"	"1"
+		"nofriction"	"1"
 		"defuser"		"1"
 		"armor"			"100"
 		"helmet"		"1"
@@ -423,7 +423,7 @@
 		"killround"		"1"
 		"noknife"		"1"
 		"tinymags"		"1"
-		"showallmap"	"1"
+		"showallradar"	"1"
 	}
 	"42"
 	{
@@ -432,7 +432,7 @@
 		"weapon"		"weapon_c4"
 		"health"		"500"
 		"bomberman"		"1"
-		"showallmap"	"1"
+		"showallradar"	"1"
 		"killround"		"1"
 		"noknife"		"1"
 		"noc4"			"1"
@@ -512,6 +512,7 @@
 		"noc4"			"1"
 		"health"		"1"
 		"killround"		"1"
+		"nofalldmg"		"1"
 	}
 	"50"
 	{
@@ -553,7 +554,7 @@
 		"helmet"		"1"
 		"noc4"			"1"
 		"killround"		"1"
-		"showallmap"	"1"
+		"showallradar"	"1"
 	}
 	"54"
 	{
@@ -573,7 +574,7 @@
 		"name"			"RoundTowerDefenseName"
 		"description"	"RoundTowerDefenseDesc"
 		"weapon"		"weapon_decoy"
-		"drones"		"1"
+		"droneguns"		"1"
 		"armor"			"100"
 		"helmet"		"1"
 	}
@@ -682,5 +683,46 @@
 		"teamlives"		"10"
 		"noc4"			"1"
 		"killround"		"1"
+	}
+	"65"
+	{
+		"name"			"RoundJumpshotName"
+		"description"	"RoundJumpshotDesc"
+		"weapon"		"weapon_random"
+		"armor"			"100"
+		"health"		"100"
+		"noc4"			"1"
+		"killround"		"1"
+		"jumpshot"		"1"
+	}
+	"66"
+	{
+		"name"			"RoundBumpName"
+		"description"	"RoundBumpDesc"
+		"weapon"		"weapon_primary_random;weapon_secondary_random;weapon_bumpmine"
+		"armor"			"100"
+		"health"		"100"
+		"helmet"		"1"
+		"nofalldmg"		"1"
+	}
+	"67"
+	{
+		"name"			"RoundOneDirectionName"
+		"description"	"RoundOneDirectionDesc"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"armor"			"100"
+		"health"		"100"
+		"helmet"		"1"
+		"onedirection"	"1"
+	}
+	"68"
+	{
+		"name"			"RoundMobileTurretName"
+		"description"	"RoundMobileTurretDesc"
+		"weapon"		"weapon_negev"
+		"armor"			"100"
+		"health"		"100"
+		"helmet"		"1"
+		"mobileturret"	"1"
 	}
 }

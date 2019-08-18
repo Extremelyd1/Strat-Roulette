@@ -674,4 +674,36 @@
 	{
 		"en"		"Your team has {DARK_RED}no lives {NORMAL}remaining, you can no longer respawn!"
 	}
+	"RoundJumpshotName"
+	{
+		"en"		"Jumpshot Galore"
+	}
+	"RoundJumpshotDesc"
+	{
+		"en"		"You can only shoot your weapon while in the air."
+	}
+	"RoundBumpName"
+	{
+		"en"		"Bumpy road"
+	}
+	"RoundBumpDesc"
+	{
+		"en"		"Normal round, but with 3 bump mines each and no fall damage."
+	}
+	"RoundOneDirectionName"
+	{
+		"en"		"One Direction"
+	}
+	"RoundOneDirectionDesc"
+	{
+		"en"		"You can only move backwards, no forward and no strafing."
+	}
+	"RoundMobileTurretName"
+	{
+		"en"		"Mobile Turret"
+	}
+	"RoundMobileTurretDesc"
+	{
+		"en"		"You can only move while holding your knife, not while holding your primary"
+	}
 }

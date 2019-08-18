@@ -1,0 +1,5 @@
+typeset FunctionalInterface {
+
+	function void ();
+
+};

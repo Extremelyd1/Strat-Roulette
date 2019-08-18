@@ -4,7 +4,7 @@
 
 public bool IsPugSetupMatchLive() {
 #if defined _pugsetup_included
-    return PugSetup_IsMatchLive();
+	return PugSetup_IsMatchLive();
 #endif
-    return false;
+	return false;
 }
