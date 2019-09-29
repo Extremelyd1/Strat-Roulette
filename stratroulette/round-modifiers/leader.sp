@@ -56,7 +56,7 @@ public Action:CheckLeaderTimer(Handle timer) {
 	}
 
 	for (int i = 1; i <= MaxClients; i++) {
-		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+		if (IsClientInGame(i) && IsPlayerAlive(i)) {
 			float pos[3];
 			GetClientEyePosition(i, pos);
 

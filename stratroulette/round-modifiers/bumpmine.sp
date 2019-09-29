@@ -10,7 +10,7 @@ public ResetBumpmine() {
 
 public Action:CheckBumpmineTimer(Handle timer) {
 	for (new i = 1; i <= MaxClients; i++) {
-		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+		if (IsClientInGame(i) && IsPlayerAlive(i)) {
 			new mineSlot = GetPlayerWeaponSlot(i, 4);
 
 			if (mineSlot < 0) {

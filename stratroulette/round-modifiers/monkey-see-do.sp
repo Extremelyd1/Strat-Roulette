@@ -84,7 +84,7 @@ public Action:StartMonkeyTimer(Handle timer) {
 	}
 
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			if (GetClientTeam(client) == CS_TEAM_CT) {
 				if (client == ctMonkeyLeader) {
 					SendMessage(client, "%t", "LoseTerrorists");
@@ -123,7 +123,7 @@ public Action:CheckMonkeyTimer(Handle timer) {
 	int tAlive = 0;
 
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			if (client != ctMonkeyLeader && client != tMonkeyLeader) {
 				float pos[3];
 				GetClientEyePosition(client, pos);
@@ -147,10 +147,10 @@ public Action:CheckMonkeyTimer(Handle timer) {
 
 	if (monkeyOneTeam == -1) {
 		if (ctAlive == 0) {
-			SDKHooks_TakeDamage(ctMonkeyLeader, tMonkeyLeader, tMonkeyLeader, float(health), DMG_GENERIC);
+			SDKHooks_TakeDamage(ctMonkeyLeader, tMonkeyLeader, tMonkeyLeader, GetTrueDamage(ctMonkeyLeader, float(health)), DMG_GENERIC);
 			return Plugin_Stop;
 		} else if (tAlive == 0) {
-			SDKHooks_TakeDamage(tMonkeyLeader, ctMonkeyLeader, ctMonkeyLeader, float(health), DMG_GENERIC);
+			SDKHooks_TakeDamage(tMonkeyLeader, ctMonkeyLeader, ctMonkeyLeader, GetTrueDamage(tMonkeyLeader, float(health)), DMG_GENERIC);
 			return Plugin_Stop;
 		}
 	}

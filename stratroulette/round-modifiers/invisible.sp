@@ -1,6 +1,6 @@
 public ConfigureInvisible() {
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			SDKHook(client, SDKHook_SetTransmit, InvisibleSetTransmitHook);
 		}
 	}
@@ -8,7 +8,7 @@ public ConfigureInvisible() {
 
 public ResetInvisible() {
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			SDKUnhook(client, SDKHook_SetTransmit, InvisibleSetTransmitHook);
 		}
 	}

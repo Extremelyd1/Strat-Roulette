@@ -408,8 +408,8 @@ public SetServerConvars() {
 	new Handle:mp_ct_default_secondary = FindConVar("mp_ct_default_secondary");
 	new Handle:mp_t_default_secondary = FindConVar("mp_t_default_secondary");
 	new Handle:mp_autokick = FindConVar("mp_autokick");
-	SetConVarInt(bot_quota, 0);
-	SetConVarString(bot_quota_mode, "none");
+	SetConVarInt(bot_quota, 3);
+	SetConVarString(bot_quota_mode, "normal");
 	SetConVarInt(mp_buytime, 0);
 	SetConVarInt(mp_maxmoney, 0);
 	SetConVarString(mp_ct_default_secondary, "");

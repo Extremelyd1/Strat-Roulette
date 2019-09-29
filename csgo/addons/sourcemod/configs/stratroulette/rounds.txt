@@ -725,4 +725,26 @@
 		"helmet"		"1"
 		"mobileturret"	"1"
 	}
+	"69"
+	{
+		"name"			"RoundKillConfirmedName"
+		"description"	"RoundKillConfirmedDesc"
+		"weapon"		"weapon_secondary_random"
+		"health"		"100"
+		"killconfirmed"	"1"
+		"killround"		"1"
+		"noc4"			"1"
+		"armor"			"100"
+		"helmet"		"1"
+	}
+	"70"
+	{
+		"name"				"RoundTacticalReloadName"
+		"description"		"RoundTacticalReloadDesc"
+		"weapon"			"weapon_primary_random"
+		"armor"				"100"
+		"health"			"100"
+		"helmet"			"1"
+		"tacticalreload"	"1"
+	}
 }

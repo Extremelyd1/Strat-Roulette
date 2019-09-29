@@ -53,7 +53,7 @@ public Action:RedLightTimer(Handle timer) {
 
 	// Save player positions
 	for (new i = 1; i <= MaxClients; i++) {
-		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+		if (IsClientInGame(i) && IsPlayerAlive(i)) {
 			float playerPos[3];
 			GetClientEyePosition(i, playerPos);
 
@@ -68,7 +68,7 @@ public Action:RedLightTimer(Handle timer) {
 
 public Action:RedGreenDamageTimer(Handle timer) {
 	for (new i = 1; i <= MaxClients; i++) {
-		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+		if (IsClientInGame(i) && IsPlayerAlive(i)) {
 			float playerPos[3];
 			GetClientEyePosition(i, playerPos);
 

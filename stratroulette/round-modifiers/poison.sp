@@ -41,7 +41,7 @@ public Action:PoisonSmokeGrenadeExpireEvent(Handle:event, const String:name[], b
 
 public Action:PoisonDamageTimer(Handle timer) {
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			float playerPos[3];
 			GetClientEyePosition(client, playerPos);
 

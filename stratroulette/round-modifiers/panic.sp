@@ -1,6 +1,6 @@
 public ConfigurePanic() {
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			SDKHook(client, SDKHook_OnTakeDamage, PanicOnTakeDamageHook);
 		}
 	}
@@ -8,7 +8,7 @@ public ConfigurePanic() {
 
 public ResetPanic() {
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			SDKUnhook(client, SDKHook_OnTakeDamage, PanicOnTakeDamageHook);
 		}
 	}

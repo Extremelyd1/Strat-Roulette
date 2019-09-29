@@ -7,7 +7,7 @@ public ConfigureTinyMags(char magazineSizeString[500]) {
 
 	magazineSize = StringToInt(magazineSizeString);
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			int primary = GetPlayerWeaponSlot(client, CS_SLOT_PRIMARY);
 			if (primary > 0) {
 				SetClipAmmo(primary, magazineSize);

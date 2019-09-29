@@ -55,7 +55,7 @@ stock void SelectHotPotato(int client = -1) {
 	ArrayList players = new ArrayList();
 
 	for (int i = 1; i <= MaxClients; i++) {
-		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+		if (IsClientInGame(i) && IsPlayerAlive(i)) {
 			players.Push(i);
 		}
 	}
@@ -114,7 +114,7 @@ public Action:HotPotatoTimer(Handle timer) {
 		bool tWiped = true;
 
 		for (int client = 1; client <= MaxClients; client++) {
-			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+			if (IsClientInGame(client) && IsPlayerAlive(client)) {
 				if (GetClientTeam(client) == CS_TEAM_CT) {
 					ctWiped = false;
 				} else if (GetClientTeam(client) == CS_TEAM_T) {

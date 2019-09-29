@@ -67,3 +67,5 @@
 #include "stratroulette/round-modifiers/weird-recoil.sp"
 #include "stratroulette/round-modifiers/zeus-oitc.sp"
 #include "stratroulette/round-modifiers/zombies.sp"
+#include "stratroulette/round-modifiers/kill-confirmed.sp"
+#include "stratroulette/round-modifiers/tactical-reload.sp"

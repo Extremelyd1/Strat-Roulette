@@ -113,7 +113,7 @@ public int GetRandomPlayerFromTeam(int team) {
 	ArrayList players = new ArrayList();
 
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			if (GetClientTeam(client) == team) {
 				players.Push(client);
 			}
@@ -137,7 +137,7 @@ public RemoveWeapons() {
 	}
 }
 
-public RemoveWeaponsClient(int client) {
+stock RemoveWeaponsClient(int client, bool removeC4=false, bool removeKnife=false) {
 	// Primary = 0
 	// Secondary = 1
 	// Knife = 2
@@ -146,6 +146,7 @@ public RemoveWeaponsClient(int client) {
 
 	new primary = GetPlayerWeaponSlot(client, 0);
 	new secondary = GetPlayerWeaponSlot(client, 1);
+	new knife = GetPlayerWeaponSlot(client, 2);
 	new c4Slot = GetPlayerWeaponSlot(client, 4);
 	new shield = GetPlayerWeaponSlot(client, 11);
 
@@ -159,13 +160,18 @@ public RemoveWeaponsClient(int client) {
 		RemoveEdict(secondary);
 	}
 
+	if (removeKnife && knife > -1) {
+		RemovePlayerItem(client, knife);
+		RemoveEdict(knife);
+	}
+
 	new c4SlotBuffer = -1;
 
 	char classname[128];
 	while (c4Slot != -1) {
 		GetEdictClassname(c4Slot, classname, sizeof(classname));
 
-		if (StrEqual(classname, "weapon_c4")) {
+		if (!removeC4 && StrEqual(classname, "weapon_c4")) {
 			c4SlotBuffer = c4Slot;
 
 			RemovePlayerItem(client, c4Slot);
@@ -190,7 +196,7 @@ public RemoveWeaponsClient(int client) {
 
 public RemoveNades() {
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			for (int j = 0; j < 6; j++) {
 				SetEntProp(client, Prop_Send, "m_iAmmo", 0, _, GrenadesAll[j]);
 			}
@@ -200,26 +206,30 @@ public RemoveNades() {
 
 public SetKnife(bool add) {
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-			new knife = GetPlayerWeaponSlot(client, 2);
-			if (add) {
-				if (knife == -1) {
-					new newKnife = GivePlayerItem(client, "weapon_knife");
-					EquipPlayerWeapon(client, newKnife);
-				}
-			} else {
-				if (knife != -1) {
-					RemovePlayerItem(client, knife);
-					RemoveEdict(knife);
-				}
-			}
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
+			SetKnifeClient(client, add);
+		}
+	}
+}
+
+public SetKnifeClient(int client, bool add) {
+	new knife = GetPlayerWeaponSlot(client, 2);
+	if (add) {
+		if (knife == -1) {
+			new newKnife = GivePlayerItem(client, "weapon_knife");
+			EquipPlayerWeapon(client, newKnife);
+		}
+	} else {
+		if (knife != -1) {
+			RemovePlayerItem(client, knife);
+			RemoveEdict(knife);
 		}
 	}
 }
 
 public GiveAllPlayersItem(char[] item) {
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			GivePlayerItem(client, item);
 		}
 	}
@@ -396,6 +406,16 @@ public float GetTrueDamage(int client, float damage) {
 
 	if (armor > 0) {
 		return damage * 2;
+	}
+
+	return damage;
+}
+
+public float GetReducedDamage(int client, float damage) {
+	int armor = Client_GetArmor(client);
+
+	if (armor > 0) {
+		return damage / 2;
 	}
 
 	return damage;

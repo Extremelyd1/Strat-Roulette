@@ -25,7 +25,7 @@ public ConfigureWeapons(char weaponString[500]) {
 
 		for (int string = 0; string < SumOfStrings; string++) {
 			for (int j = 1; j <= MaxClients; j++) {
-				if (IsClientInGame(j) && IsPlayerAlive(j) && !IsFakeClient(j)) {
+				if (IsClientInGame(j) && IsPlayerAlive(j)) {
 					if (StrEqual(bit[string], "weapon_primary_random")
 					 || (StrEqual(bit[string], "weapon_random") && randomIntCat == 0)) {
 						GivePlayerItem(j, primaryWeapon);

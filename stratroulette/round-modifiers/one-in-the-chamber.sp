@@ -27,7 +27,7 @@ public Action:OneInTheChamberPlayerDeathEvent(Handle:event, const String:name[],
 	char weapon[128];
 	GetEventString(event, "weapon", weapon, sizeof(weapon), "none");
 
-	if (IsClientInGame(killer) && !IsFakeClient(killer) && IsPlayerAlive(killer)) {
+	if (IsClientInGame(killer) && IsPlayerAlive(killer)) {
 		if (StrContains(weapon, "knife") == -1) {
 			// Not killed with knife
 			SetActiveWeaponClipAmmo(killer, GetActiveWeaponClipAmmo(killer) + 1);

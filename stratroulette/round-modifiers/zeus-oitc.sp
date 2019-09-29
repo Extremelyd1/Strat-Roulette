@@ -15,7 +15,7 @@ public ResetZeusOITC() {
 public Action:ZeusOITCPlayerDeathEvent(Handle:event, const String:name[], bool:dontBroadcast) {
 	new killer = GetClientOfUserId(GetEventInt(event, "attacker"));
 
-	if (IsClientInGame(killer) && !IsFakeClient(killer) && IsPlayerAlive(killer)) {
+	if (IsClientInGame(killer) && IsPlayerAlive(killer)) {
 		CreateTimer(1.2, AwardZeusTimer, killer);
 	}
 }

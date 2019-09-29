@@ -10,7 +10,7 @@ public ConfigureBomberman() {
 
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client)) {
-			SDKHook(client, SDKHook_OnTakeDamage, BombermanOnTakeDamageHook);
+			SDKHook(client, SDKHook_OnTakeDamageAlive, BombermanOnTakeDamageHook);
 		}
 	}
 
@@ -27,7 +27,7 @@ public ResetBomberman() {
 
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client)) {
-			SDKUnhook(client, SDKHook_OnTakeDamage, BombermanOnTakeDamageHook);
+			SDKUnhook(client, SDKHook_OnTakeDamageAlive, BombermanOnTakeDamageHook);
 		}
 	}
 
@@ -48,7 +48,7 @@ public Action:BombermanOnTakeDamageHook(victim, &attacker, &inflictor, &Float:da
 		bool tWiped = true;
 
 		for (int client = 1; client <= MaxClients; client++) {
-			if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client) && client != victim) {
+			if (IsClientInGame(client) && IsPlayerAlive(client) && client != victim) {
 				if (GetClientTeam(client) == CS_TEAM_CT) {
 					ctWiped = false;
 				} else if (GetClientTeam(client) == CS_TEAM_T) {
@@ -80,7 +80,7 @@ public Action:BombermanWipeTeamTimer(Handle timer, int team) {
 	SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
 
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			if (GetClientTeam(client) == team) {
 				SDKHooks_TakeDamage(client, client, client, GetTrueDamage(client, float(health)), DMG_BLAST);
 			}
@@ -94,7 +94,7 @@ public Action:BombermanWipeTeamTimer(Handle timer, int team) {
 // TODO: fix
 public Action:CheckC4Timer(Handle timer) {
 	for (new i = 1; i <= MaxClients; i++) {
-		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+		if (IsClientInGame(i) && IsPlayerAlive(i)) {
 			new c4Slot = GetPlayerWeaponSlot(i, 4);
 
 			if (c4Slot < 0) {

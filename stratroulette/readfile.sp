@@ -489,5 +489,17 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetMobileTurret;
 	}
 
+	kv.GetString("killconfirmed", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureKillConfirmed();
+		resetFunctions[resetFunctionsLength++] = ResetKillConfirmed;
+	}
+
+	kv.GetString("tacticalreload", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureTacticalReload();
+		resetFunctions[resetFunctionsLength++] = ResetTacticalReload;
+	}
+
 	delete kv;
 }

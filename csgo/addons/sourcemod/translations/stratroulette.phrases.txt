@@ -706,4 +706,20 @@
 	{
 		"en"		"You can only move while holding your knife, not while holding your primary"
 	}
+	"RoundKillConfirmedName"
+	{
+		"en"		"Kill Confirmed"
+	}
+	"RoundKillConfirmedDesc"
+	{
+		"en"		"Players need to be confirmed to be killed with a knife. Teammates can revive players by knifing them."
+	}
+	"RoundTacticalReloadName"
+	{
+		"en"		"Tactical Reload"
+	}
+	"RoundTacticalReloadDesc"
+	{
+		"en"		"In order to reload your weapon, you need to drop it."
+	}
 }

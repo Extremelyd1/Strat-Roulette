@@ -2,7 +2,7 @@ bool dropWeaponsActive = false;
 
 public ConfigureDropWeapons() {
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			CreateNewDropWeaponsTimer(client);
 		}
 	}

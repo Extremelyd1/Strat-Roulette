@@ -88,12 +88,12 @@ public Action:BuddySystemOtherDeathEvent(Handle:event, const String:name[], bool
 	new attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
 
 	for (new i = 1; i <= MaxClients; i++) {
-		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+		if (IsClientInGame(i) && IsPlayerAlive(i)) {
 			// Get chicken that belongs to player
 			new chicken = chickens[i];
 
 			if (chicken == entity) {
-				SDKHooks_TakeDamage(i, attacker, attacker, float(health), DMG_GENERIC);
+				SDKHooks_TakeDamage(i, attacker, attacker, GetTrueDamage(i, float(health)), DMG_GENERIC);
 				chickens[i] = -1;
 
 				break;
@@ -104,7 +104,7 @@ public Action:BuddySystemOtherDeathEvent(Handle:event, const String:name[], bool
 
 public Action:BuddyTimer(Handle timer) {
 	for (new i = 1; i <= MaxClients; i++) {
-		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+		if (IsClientInGame(i) && IsPlayerAlive(i)) {
 			// Get chicken that belongs to player
 			if (chickens[i] != -1) {
 				new chicken = chickens[i];

@@ -4,7 +4,7 @@ new stealthVisible[MAXPLAYERS + 1];
 
 public ConfigureStealth() {
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			SDKHook(client, SDKHook_SetTransmit, StealthSetTransmitHook);
 		}
 	}
@@ -16,7 +16,7 @@ public ResetStealth() {
 	stealthActive = false;
 
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			stealthVisible[client] = false;
 			SDKUnhook(client, SDKHook_SetTransmit, StealthSetTransmitHook);
 		}

@@ -16,7 +16,7 @@ public Action:RandomGunsTimer(Handle timer) {
 	RemoveWeapons();
 
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			new randomIntCat = GetRandomInt(0, 1);
 
 			char weapon[256];

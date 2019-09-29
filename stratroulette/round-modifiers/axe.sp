@@ -10,7 +10,7 @@ public ResetAxe() {
 
 public Action:CheckAxeTimer(Handle timer) {
 	for (new i = 1; i <= MaxClients; i++) {
-		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+		if (IsClientInGame(i) && IsPlayerAlive(i)) {
 			new meleeSlot = GetPlayerWeaponSlot(i, 2);
 
 			if (meleeSlot < 0) {

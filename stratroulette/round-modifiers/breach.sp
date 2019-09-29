@@ -10,7 +10,7 @@ public ResetBreach() {
 
 public Action:CheckBreachTimer(Handle timer) {
 	for (new i = 1; i <= MaxClients; i++) {
-		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+		if (IsClientInGame(i) && IsPlayerAlive(i)) {
 			new breachSlot = GetPlayerWeaponSlot(i, 4);
 
 			if (breachSlot < 0) {

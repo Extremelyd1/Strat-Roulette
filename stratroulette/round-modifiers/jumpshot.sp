@@ -104,6 +104,10 @@ public Action:JumpshotWaitForReloadTimer(Handle timer, int weapon) {
 
 	int weaponOwner = EntRefToEntIndex(Weapon_GetOwner(weapon));
 
+	if (weaponOwner < 0) {
+		return Plugin_Stop;
+	}
+
 	// Check whether the player is current on the ground, therefore the reload would be cancelled
 	if (jumpshotState[weaponOwner] != 0) {
 		return Plugin_Stop;
