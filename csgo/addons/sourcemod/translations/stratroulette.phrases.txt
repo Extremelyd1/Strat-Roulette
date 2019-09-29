@@ -158,7 +158,7 @@
 	}
 	"RoundSlowMotionDesc"
 	{
-		"en"		"Time is slowed down periodically."
+		"en"		"Time is slowed down."
 	}
 	"RoundJuanDeagName"
 	{
