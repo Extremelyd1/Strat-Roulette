@@ -722,4 +722,12 @@
 	{
 		"en"		"In order to reload your weapon, you need to drop it."
 	}
+	"RoundStunGunName"
+	{
+		"en"		"Stun Gun"
+	}
+	"RoundStunGunDesc"
+	{
+		"en"		"Your secondary acts as a stun gun, dealing no damage, but stunning enemies when hit."
+	}
 }

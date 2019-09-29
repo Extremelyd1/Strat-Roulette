@@ -16,7 +16,7 @@ public ResetStealth() {
 	stealthActive = false;
 
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client)) {
+		if (IsClientInGame(client)) {
 			stealthVisible[client] = false;
 			SDKUnhook(client, SDKHook_SetTransmit, StealthSetTransmitHook);
 		}

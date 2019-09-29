@@ -501,5 +501,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetTacticalReload;
 	}
 
+	kv.GetString("stungun", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureStunGun();
+		resetFunctions[resetFunctionsLength++] = ResetStunGun;
+	}
+
 	delete kv;
 }

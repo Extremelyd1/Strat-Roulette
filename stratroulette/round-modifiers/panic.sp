@@ -8,7 +8,7 @@ public ConfigurePanic() {
 
 public ResetPanic() {
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client)) {
+		if (IsClientInGame(client)) {
 			SDKUnhook(client, SDKHook_OnTakeDamage, PanicOnTakeDamageHook);
 		}
 	}

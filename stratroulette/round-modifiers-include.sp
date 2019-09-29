@@ -69,3 +69,4 @@
 #include "stratroulette/round-modifiers/zombies.sp"
 #include "stratroulette/round-modifiers/kill-confirmed.sp"
 #include "stratroulette/round-modifiers/tactical-reload.sp"
+#include "stratroulette/round-modifiers/stun-gun.sp"

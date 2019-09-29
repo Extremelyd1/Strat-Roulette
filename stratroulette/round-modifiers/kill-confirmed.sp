@@ -11,7 +11,7 @@ public ConfigureKillConfirmed() {
 
 public ResetKillConfirmed() {
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client)) {
+		if (IsClientInGame(client)) {
 			SDKUnhook(client, SDKHook_OnTakeDamageAlive, KillConfirmedPlayerOnTakeDamageHook);
 			SetEntityRenderColor(client, 255, 255, 255, 0);
 		}

@@ -747,4 +747,14 @@
 		"helmet"			"1"
 		"tacticalreload"	"1"
 	}
+	"71"
+	{
+		"name"			"RoundStunGunName"
+		"description"	"RoundStunGunDesc"
+		"weapon"		"weapon_primary_random;weapon_usp_silencer"
+		"health"		"100"
+		"stungun"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+	}
 }

@@ -26,7 +26,7 @@ public Action:ManHuntPlayerDeathEvent(Handle:event, const String:name[], bool:do
 
 		for (int i = 1; i <= MaxClients; i++) {
 			if (IsClientInGame(i) && IsPlayerAlive(i) && GetClientTeam(i) == teamToWipe) {
-				SDKHooks_TakeDamage(i, killer, killer, float(health), DMG_GENERIC);
+				SDKHooks_TakeDamage(i, killer, killer, GetTrueDamage(i, float(health)), DMG_GENERIC);
 			}
 		}
 	}

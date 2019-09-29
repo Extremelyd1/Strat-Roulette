@@ -192,6 +192,8 @@ public OnPluginEnd() {
 	UnhookEvent("round_end", RoundEndEvent);
 	UnhookEvent("round_start", RoundStartEvent, EventHookMode_Pre);
 	UnhookEvent("switch_team", SwitchTeamEvent);
+
+	ResetLastRound();
 }
 
 public void OnMapStart() {

@@ -28,7 +28,7 @@ public ResetBodyguard() {
 	UnhookEvent("player_death", BodyguardPlayerDeathEvent);
 
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client)) {
+		if (IsClientInGame(client)) {
 			if (client != ctBodyguard && client != tBodyguard) {
 				SDKUnhook(client, SDKHook_OnTakeDamage, BodyguardPlayerOnTakeDamageHook);
 			}

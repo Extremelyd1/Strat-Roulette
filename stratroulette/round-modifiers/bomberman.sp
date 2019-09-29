@@ -26,7 +26,7 @@ public ResetBomberman() {
 	SetConVarInt(mp_anyone_can_pickup_c4, 0, true, false);
 
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client)) {
+		if (IsClientInGame(client)) {
 			SDKUnhook(client, SDKHook_OnTakeDamageAlive, BombermanOnTakeDamageHook);
 		}
 	}

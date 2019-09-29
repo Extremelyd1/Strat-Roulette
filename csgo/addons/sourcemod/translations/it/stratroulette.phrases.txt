@@ -674,36 +674,4 @@
 	{
 		"it"		"Il tuo team {DARK_RED}non ha più vite {NORMAL}rimanenti, non puoi più rinascere!"
 	}
-	"RoundJumpshotName"
-	{
-		"it"		"Salto a Bizzeffe"
-	}
-	"RoundJumpshotDesc"
-	{
-		"it"		"Puoi solo sparare con la tua arma mentre sei in aria."
-	}
-	"RoundBumpName"
-	{
-		"it"		"Strada Dissestata"
-	}
-	"RoundBumpDesc"
-	{
-		"it"		"Round normale, ma con 3 mine da salto ciascuno e nessun danno da caduta."
-	}
-	"RoundOneDirectionName"
-	{
-		"it"		"Una Sola Direzione"
-	}
-	"RoundOneDirectionDesc"
-	{
-		"it"		"Puoi solamente muoverti all'indietro. Neanche di lato o avanti."
-	}
-	"RoundMobileTurretName"
-	{
-		"it"		"Torretta Mobile"
-	}
-	"RoundMobileTurretDesc"
-	{
-		"it"		"Puoi muoverti solo mentre equipaggi il coltello, non mentre tieni la tua arma primaria"
-	}
 }
