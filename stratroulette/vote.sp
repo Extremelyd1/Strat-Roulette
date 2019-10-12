@@ -7,13 +7,7 @@ public CreateRoundVoteMenu() {
 	Menu menu = new Menu(VoteMenuHandler, MENU_ACTIONS_ALL);
 	menu.SetTitle("RoundVoteTitle");
 
-	ArrayList options = new ArrayList();
-	int numberOfStrats = GetNumberOfStrats();
-	for (int i = 1; i <= numberOfStrats; i++) {
-		if (i != lastRound) {
-			options.Push(i);
-		}
-	}
+	ArrayList options = GetEnabledStrats();
 
 	for (int i = 1; i < 6; i++) {
 		if (options.Length == 0) {

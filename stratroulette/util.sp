@@ -4,34 +4,39 @@ static char _colorNames[][] = {"{NORMAL}", "{DARK_RED}",	"{PINK}",	  "{GREEN}",
 static char _colorCodes[][] = {"\x01", "\x02", "\x03", "\x04", "\x05", "\x06",
 							   "\x07", "\x08", "\x09", "\x0B", "\x0C", "\x0E"};
 
-public int GetNumberOfStrats() {
+public ArrayList GetEnabledStrats() {
 	KeyValues kv = new KeyValues("Strats");
 
 	if (!kv.ImportFromFile(STRAT_FILE)) {
 		PrintToServer("Strat file could not be found!");
 
 		delete kv;
-		return -1;
+		return new ArrayList();
 	}
 
 	if (!kv.GotoFirstSubKey(false)) {
 		PrintToServer("No strats in strat file!");
 
 		delete kv;
-		return -1;
+		return new ArrayList();
 	}
 
-	int numberOfStrats = 0;
+	ArrayList enabledStrats = new ArrayList();
+
+	int index = 1;
 
 	do {
-		if (kv.GetDataType(NULL_STRING) == KvData_None) {
-			numberOfStrats++;
+		char disabled[3];
+		kv.GetString("disable", disabled, sizeof(disabled), "0");
+		if (StrEqual(disabled, "0")) {
+			enabledStrats.Push(index);
 		}
+		index++;
 	} while (kv.GotoNextKey(false));
 
 	delete kv;
 
-	return numberOfStrats;
+	return enabledStrats;
 }
 
 public SendMessage(int client, String:szMessage[], any:...) {

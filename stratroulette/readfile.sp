@@ -1,21 +1,4 @@
 public void ReadNewRound() {
-	int numberOfStrats = GetNumberOfStrats();
-
-	/* PrintToServer("Number of strats: %d", numberOfStrats); */
-
-	KeyValues kv = new KeyValues("Strats");
-	kv.ImportFromFile(STRAT_FILE);
-
-	ArrayList possibleRoundNumbers = new ArrayList();
-
-	for (int i = 1; i <= numberOfStrats; i++) {
-		if (i != lastRound) {
-			possibleRoundNumbers.Push(i);
-		}
-	}
-
-	int roundNumber = possibleRoundNumbers.Get(GetRandomInt(0, possibleRoundNumbers.Length - 1));
-
 	char roundNumberString[16];
 
 	if (forceNextRound) {
@@ -27,9 +10,21 @@ public void ReadNewRound() {
 		nextRoundVoted = false;
 		lastRound = StringToInt(voteRoundNumber);
 	} else {
+		ArrayList possibleRoundNumbers = GetEnabledStrats();
+
+		int lastRoundIndex = possibleRoundNumbers.FindValue(lastRound);
+		if (lastRoundIndex != -1) {
+			possibleRoundNumbers.Erase(lastRoundIndex);
+		}
+
+		int roundNumber = possibleRoundNumbers.Get(GetRandomInt(0, possibleRoundNumbers.Length - 1));
+
 		IntToString(roundNumber, roundNumberString, sizeof(roundNumberString));
 		lastRound = roundNumber;
 	}
+
+	KeyValues kv = new KeyValues("Strats");
+	kv.ImportFromFile(STRAT_FILE);
 
 	if (!kv.JumpToKey(roundNumberString)) {
 		PrintToServer("Strat number %s could not be found!", roundNumberString);
