@@ -51,8 +51,10 @@ public TinyMagsOnEntitySpawn(int entity, const String:className[]) {
 }
 
 public Action:TinyMagsDelayClipAmmoTimer(Handle timer, int weapon) {
-	SetClipAmmo(weapon, magazineSize);
-	SetReserveAmmo(weapon, magazineSize);
+	if (tinyMagsActive) {
+		SetClipAmmo(weapon, magazineSize);
+		SetReserveAmmo(weapon, magazineSize);
+	}
 }
 
 public Action:TinyMagsOnWeaponReloadHook(int weapon) {

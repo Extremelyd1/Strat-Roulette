@@ -3,10 +3,7 @@ public Action MatchOverEvent(Handle:event, const String:name[], bool:dontBroadca
 }
 
 public Action:RoundEndEvent(Handle:event, const String:name[], bool:dontBroadcast) {
-	if (voteTimer != INVALID_HANDLE) {
-		CloseHandle(voteTimer);
-		voteTimer = INVALID_HANDLE;
-	}
+	SafeKillTimer(voteTimer);
 }
 
 public Action:RoundStartEvent(Handle:event, const String:name[], bool:dontBroadcast) {

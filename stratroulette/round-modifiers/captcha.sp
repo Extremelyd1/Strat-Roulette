@@ -6,6 +6,8 @@ ArrayList captchaClients;
 Handle captchaTimer;
 
 public ConfigureCaptcha() {
+	SetConVarInt(mp_death_drop_gun, 0, true, false);
+
 	captchaClients = new ArrayList();
 
 	float randomFloat = GetRandomFloat(2.0, 5.0);
@@ -16,6 +18,8 @@ public ConfigureCaptcha() {
 
 public ResetCaptcha() {
 	captchaActive = false;
+
+	SetConVarInt(mp_death_drop_gun, 1, true, false);
 
 	delete captchaClients;
 

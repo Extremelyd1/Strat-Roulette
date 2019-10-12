@@ -5,6 +5,8 @@ int tBodyguard;
 char tBodyguardName[128];
 
 public ConfigureBodyguard() {
+	SetConVarInt(mp_death_drop_gun, 0, true, false);
+
 	SetBodyguard(CS_TEAM_CT);
 	SetBodyguard(CS_TEAM_T);
 
@@ -25,6 +27,8 @@ public ConfigureBodyguard() {
 }
 
 public ResetBodyguard() {
+	SetConVarInt(mp_death_drop_gun, 1, true, false);
+
 	UnhookEvent("player_death", BodyguardPlayerDeathEvent);
 
 	for (int client = 1; client <= MaxClients; client++) {

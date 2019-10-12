@@ -694,6 +694,7 @@
 		"noc4"			"1"
 		"killround"		"1"
 		"jumpshot"		"1"
+		"infiniteammo"	"2"
 	}
 	"66"
 	{

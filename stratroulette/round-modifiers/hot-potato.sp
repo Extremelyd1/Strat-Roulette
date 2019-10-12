@@ -8,7 +8,7 @@ Handle hotPotatoTimer3;
 public ConfigureHotPotato() {
 	int freezeTime = GetConVarInt(mp_freezetime);
 
-	CreateTimer(freezeTime + 10.0, NewHotPotatoTimer);
+	hotPotatoTimer1 = CreateTimer(freezeTime + 10.0, NewHotPotatoTimer);
 
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client)) {

@@ -1,16 +1,22 @@
 Handle c4Timer;
+new bombermanSkip[MAXPLAYERS + 1];
+float bombermanPositions[MAXPLAYERS + 1][3];
 
 public ConfigureBomberman() {
 	SetConVarInt(mp_plant_c4_anywhere, 1, true, false);
 	SetConVarInt(mp_c4timer, 10, true, false);
 	SetConVarInt(mp_c4_cannot_be_defused, 1, true, false);
 	SetConVarInt(mp_anyone_can_pickup_c4, 1, true, false);
+	SetConVarInt(mp_give_player_c4, 0, true, false);
+	SetConVarInt(mp_death_drop_c4, 0, true, false);
 
 	c4Timer = CreateTimer(0.1, CheckC4Timer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client)) {
+			bombermanSkip[client] = false;
 			SDKHook(client, SDKHook_OnTakeDamageAlive, BombermanOnTakeDamageHook);
+			bombermanPositions[client][2] = -1.0;
 		}
 	}
 
@@ -24,6 +30,8 @@ public ResetBomberman() {
 	SetConVarInt(mp_c4timer, 40, true, false);
 	SetConVarInt(mp_c4_cannot_be_defused, 0, true, false);
 	SetConVarInt(mp_anyone_can_pickup_c4, 0, true, false);
+	SetConVarInt(mp_give_player_c4, 1, true, false);
+	SetConVarInt(mp_death_drop_c4, 1, true, false);
 
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client)) {
@@ -39,6 +47,11 @@ public Action:BombermanDropListener(int client, const char[] command, int args) 
 }
 
 public Action:BombermanOnTakeDamageHook(victim, &attacker, &inflictor, &Float:damage, &damagetype) {
+	if (bombermanSkip[victim]) {
+		bombermanSkip[victim] = false;
+		return Plugin_Continue;
+	}
+
 	new victimHealth = GetEntProp(victim, Prop_Send, "m_iHealth");
 	if (victimHealth <= damage) {
 		// Victim would have been killed by bomb damage
@@ -58,6 +71,7 @@ public Action:BombermanOnTakeDamageHook(victim, &attacker, &inflictor, &Float:da
 		}
 
 		if (!ctWiped && !tWiped) {
+			bombermanSkip[victim] = true;
 			SDKHooks_TakeDamage(victim, victim, victim, GetTrueDamage(victim, float(health)), DMG_BLAST);
 			return Plugin_Handled;
 		}
@@ -82,25 +96,41 @@ public Action:BombermanWipeTeamTimer(Handle timer, int team) {
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			if (GetClientTeam(client) == team) {
+				bombermanSkip[client] = true;
 				SDKHooks_TakeDamage(client, client, client, GetTrueDamage(client, float(health)), DMG_BLAST);
 			}
 		}
 	}
 }
 
-// This becomes problematic when the player is AFK and automatically drops the c4 on the ground
-// This then results in a loop of giving and c4 and dropping, eventually causing a massive number
-// of c4's to be dropped.
-// TODO: fix
 public Action:CheckC4Timer(Handle timer) {
 	for (new i = 1; i <= MaxClients; i++) {
 		if (IsClientInGame(i) && IsPlayerAlive(i)) {
 			new c4Slot = GetPlayerWeaponSlot(i, 4);
 
+			float playerPos[3];
+			GetClientEyePosition(i, playerPos);
+
 			if (c4Slot < 0) {
-				new c4 = GivePlayerItem(i, "weapon_c4");
-				EquipPlayerWeapon(i, c4);
+				if (bombermanPositions[i][2] != -1.0) {
+					float oldPlayerPos[3];
+					oldPlayerPos[0] = bombermanPositions[i][0];
+					oldPlayerPos[1] = bombermanPositions[i][1];
+					oldPlayerPos[2] = bombermanPositions[i][2];
+
+					float distance = GetVectorDistance(oldPlayerPos, playerPos);
+
+					if (distance > 10) {
+						new c4 = GivePlayerItem(i, "weapon_c4");
+						EquipPlayerWeapon(i, c4);
+					}
+				} else {
+					new c4 = GivePlayerItem(i, "weapon_c4");
+					EquipPlayerWeapon(i, c4);
+				}
 			}
+
+			bombermanPositions[i] = playerPos;
 		}
 	}
 

@@ -149,12 +149,16 @@ public Action:JumpshotWaitForReloadTimer(Handle timer, int weapon) {
 	}
 
 	// Manually reload the clip and reserve values
-	if (clipsize > lastReserveAmmo[weaponOwner]) {
-		lastClipAmmo[weaponOwner] = lastReserveAmmo[weaponOwner];
-		lastReserveAmmo[weaponOwner] = 0;
-	} else {
+	if (GetConVarInt(sv_infinite_ammo) == 2) {
 		lastClipAmmo[weaponOwner] = clipsize;
-		lastReserveAmmo[weaponOwner] = lastReserveAmmo[weaponOwner] - clipsize;
+	} else {
+		if (clipsize > lastReserveAmmo[weaponOwner]) {
+			lastClipAmmo[weaponOwner] = lastReserveAmmo[weaponOwner];
+			lastReserveAmmo[weaponOwner] = 0;
+		} else {
+			lastClipAmmo[weaponOwner] = clipsize;
+			lastReserveAmmo[weaponOwner] = lastReserveAmmo[weaponOwner] - clipsize;
+		}
 	}
 
 	return Plugin_Stop;

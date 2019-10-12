@@ -35,6 +35,7 @@ public Action:StunGunPlayerOnTakeDamageHook(victim, &attacker, &inflictor, &Floa
 
 	if (!isStunned[victim]) {
 		SetEntPropFloat(victim, Prop_Data, "m_flLaggedMovementValue", 0.0);
+		RemoveWeaponsClient(victim);
 		isStunned[victim] = true;
 		CreateTimer(2.0, StunGunResetStunTimer, victim);
 	}
@@ -44,5 +45,7 @@ public Action:StunGunPlayerOnTakeDamageHook(victim, &attacker, &inflictor, &Floa
 
 public Action:StunGunResetStunTimer(Handle timer, int client) {
 	SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", 1.0);
+	GivePlayerItem(client, primaryWeapon);
+	GivePlayerItem(client, secondaryWeapon);
 	isStunned[client] = false;
 }

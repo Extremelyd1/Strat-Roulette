@@ -148,9 +148,11 @@ public Action:CheckMonkeyTimer(Handle timer) {
 	if (monkeyOneTeam == -1) {
 		if (ctAlive == 0) {
 			SDKHooks_TakeDamage(ctMonkeyLeader, tMonkeyLeader, tMonkeyLeader, GetTrueDamage(ctMonkeyLeader, float(health)), DMG_GENERIC);
+			monkeyTimer = INVALID_HANDLE;
 			return Plugin_Stop;
 		} else if (tAlive == 0) {
 			SDKHooks_TakeDamage(tMonkeyLeader, ctMonkeyLeader, ctMonkeyLeader, GetTrueDamage(tMonkeyLeader, float(health)), DMG_GENERIC);
+			monkeyTimer = INVALID_HANDLE;
 			return Plugin_Stop;
 		}
 	}
