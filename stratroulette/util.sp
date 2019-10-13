@@ -28,9 +28,34 @@ public ArrayList GetEnabledStrats() {
 	do {
 		char disabled[3];
 		kv.GetString("disable", disabled, sizeof(disabled), "0");
-		if (StrEqual(disabled, "0")) {
-			enabledStrats.Push(index);
+
+		if (!StrEqual(disabled, "0")) {
+			index++;
+			continue;
 		}
+
+		char mapName[128];
+		GetCurrentMap(mapName, sizeof(mapName));
+
+		char restrictedMaps[2560];
+		kv.GetString("restricted", restrictedMaps, sizeof(restrictedMaps), "0");
+
+		if (StrEqual(restrictedMaps, "0")) {
+			enabledStrats.Push(index);
+			index++;
+			continue;
+		}
+
+		char mapList[10][80];
+		new numberOfStrings = ExplodeString(restrictedMaps, ";", mapList, sizeof(mapList), sizeof (mapList[]));
+
+		for (int i = 0; i < numberOfStrings; i++) {
+			if (StrEqual(mapList[i], mapName)) {
+				enabledStrats.Push(index);
+				break;
+			}
+		}
+
 		index++;
 	} while (kv.GotoNextKey(false));
 
