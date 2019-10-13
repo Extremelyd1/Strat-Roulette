@@ -428,7 +428,6 @@ stock Action DeleteOverlay(Handle timer, any userid) {
 public void SafeKillTimer(Handle timer) {
 	if (timer != INVALID_HANDLE) {
 		CloseHandle(timer);
-		timer = INVALID_HANDLE;
 	}
 }
 

@@ -758,4 +758,17 @@
 		"armor"			"100"
 		"helmet"		"1"
 	}
+	"72"
+	{
+		"name"			"RoundMexicanStandoffName"
+		"description"	"RoundMexicanStandoffDesc"
+		"weapon"		"weapon_random"
+		"health"		"100"
+		"mexican"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"noc4"			"1"
+		"killround"		"1"
+		"restricted"	"de_lake;de_safehouse;de_stmarc;de_bank;de_shortdust;de_shortnuke;de_sugarcane"
+	}
 }

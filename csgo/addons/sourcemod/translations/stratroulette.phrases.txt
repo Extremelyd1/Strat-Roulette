@@ -730,4 +730,12 @@
 	{
 		"en"		"Your secondary acts as a stun gun, dealing no damage, but stunning enemies when hit."
 	}
+	"RoundMexicanStandoffName"
+	{
+		"en"		"Mexican Standoff"
+	}
+	"RoundMexicanStandoffDesc"
+	{
+		"en"		"Last team standing wins."
+	}
 }

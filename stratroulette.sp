@@ -8,6 +8,7 @@
 #include "stratroulette/functional-interface.sp"
 
 #define STRAT_FILE "addons/sourcemod/configs/stratroulette/rounds.txt"
+#define LOCATION_FILE "addons/sourcemod/configs/stratroulette/locations.txt"
 #define TUNNEL_VISION_OVERLAY "overlays/stratroulette/tunnel_vision_overlay"
 #define SPRITE 	"materials/sprites/dot.vmt"
 #define PRIMARY_LENGTH 24
@@ -265,7 +266,6 @@ public Action:cmd_end(client, args) {
 			inGame = false;
 
 			ResetLastRound();
-			SafeKillTimer(voteTimer);
 		} else {
 			ReplyToCommand(client, "Game is not in progress!");
 		}

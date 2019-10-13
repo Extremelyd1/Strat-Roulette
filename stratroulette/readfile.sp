@@ -502,5 +502,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetStunGun;
 	}
 
+	kv.GetString("mexican", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureMexicanStandoff();
+		resetFunctions[resetFunctionsLength++] = ResetMexicanStandoff;
+	}
+
 	delete kv;
 }

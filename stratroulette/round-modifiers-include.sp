@@ -70,3 +70,4 @@
 #include "stratroulette/round-modifiers/kill-confirmed.sp"
 #include "stratroulette/round-modifiers/tactical-reload.sp"
 #include "stratroulette/round-modifiers/stun-gun.sp"
+#include "stratroulette/round-modifiers/mexican-standoff.sp"

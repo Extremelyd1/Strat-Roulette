@@ -4,6 +4,7 @@ public Action MatchOverEvent(Handle:event, const String:name[], bool:dontBroadca
 
 public Action:RoundEndEvent(Handle:event, const String:name[], bool:dontBroadcast) {
 	SafeKillTimer(voteTimer);
+	voteTimer = INVALID_HANDLE;
 }
 
 public Action:RoundStartEvent(Handle:event, const String:name[], bool:dontBroadcast) {
