@@ -1,6 +1,8 @@
+Handle hardcoreTimer;
+
 public ConfigureHardcore() {
 	int freezeTime = GetConVarInt(mp_freezetime);
-	CreateTimer(freezeTime - 1.0, StartHardcore);
+	hardcoreTimer = CreateTimer(freezeTime - 1.0, StartHardcore);
 }
 
 public ResetHardcore() {
@@ -9,6 +11,8 @@ public ResetHardcore() {
 			Client_SetHideHud(client, 2050);
 		}
 	}
+
+	SafeKillTimer(hardcoreTimer);
 }
 
 public Action:StartHardcore(Handle timer) {

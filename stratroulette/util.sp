@@ -425,9 +425,10 @@ stock Action DeleteOverlay(Handle timer, any userid) {
 	ClientCommand(client, "r_screenoverlay \"\"");
 }
 
-public void SafeKillTimer(Handle timer) {
+public void SafeKillTimer(&Handle:timer) {
 	if (timer != INVALID_HANDLE) {
 		CloseHandle(timer);
+		timer = INVALID_HANDLE;
 	}
 }
 
