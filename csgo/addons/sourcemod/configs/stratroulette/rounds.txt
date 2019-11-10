@@ -784,4 +784,17 @@
 		"nofalldmg"		"1"
 		"restricted"	"de_lake;de_safehouse;de_bank;de_stmarc;gd_rialto;de_sugarcane"
 	}
+	"74"
+	{
+		"name"			"RoundTradeOffName"
+		"description"	"RoundTradeOffDesc"
+		"weapon"		"weapon_random"
+		"health"		"100"
+		"tradeoff"		"1"
+		"noc4"			"1"
+		"killround"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"noknife"		"1"
+	}
 }

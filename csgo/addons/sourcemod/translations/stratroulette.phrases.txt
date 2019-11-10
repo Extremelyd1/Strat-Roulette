@@ -756,4 +756,12 @@
 		"#format"	"{1:s}"
 		"en"		"{GREEN}Round winner: {NORMAL}{1}"
 	}
+	"RoundTradeOffName"
+	{
+		"en"		"Trade-off"
+	}
+	"RoundTradeOffDesc"
+	{
+		"en"		"Killing an enemy will remove your weapons."
+	}
 }

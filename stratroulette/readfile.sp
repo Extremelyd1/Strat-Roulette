@@ -514,5 +514,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetKnifeArena;
 	}
 
+	kv.GetString("tradeoff", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureTradeOff();
+		resetFunctions[resetFunctionsLength++] = ResetTradeOff;
+	}
+
 	delete kv;
 }

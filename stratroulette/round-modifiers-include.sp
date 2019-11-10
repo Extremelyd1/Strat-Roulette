@@ -72,3 +72,4 @@
 #include "stratroulette/round-modifiers/stun-gun.sp"
 #include "stratroulette/round-modifiers/mexican-standoff.sp"
 #include "stratroulette/round-modifiers/knife-arena.sp"
+#include "stratroulette/round-modifiers/trade-off.sp"
