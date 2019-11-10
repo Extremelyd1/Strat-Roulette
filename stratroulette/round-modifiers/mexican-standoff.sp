@@ -21,6 +21,8 @@ public ConfigureMexicanStandoff() {
 	float yCenter = kv.GetFloat("y", 0.0);
 	float zCenter = kv.GetFloat("z", 0.0);
 
+	delete kv;
+
 	ArrayList players = new ArrayList();
 
 	for (int client = 1; client <= MaxClients; client++) {

@@ -508,5 +508,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetMexicanStandoff;
 	}
 
+	kv.GetString("knifearena", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureKnifeArena();
+		resetFunctions[resetFunctionsLength++] = ResetKnifeArena;
+	}
+
 	delete kv;
 }

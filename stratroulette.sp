@@ -232,6 +232,9 @@ public void OnMapStart() {
 	PrecacheModel("models/props_survival/dronegun/dronegun_gib7.mdl", true);
 	PrecacheModel("models/props_survival/dronegun/dronegun_gib8.mdl", true);
 
+	PrecacheModel("models/props/de_dust/hr_dust/dust_fences/dust_chainlink_fence_001_256.mdl", true);
+	PrecacheModel("models/props/de_dust/hr_dust/dust_fences/dust_chainlink_fence_001_256_links.mdl", true);
+
 	PrecacheSound("sound/survival/turret_death_01.wav", true);
 	PrecacheSound("sound/survival/turret_idle_01.wav", true);
 

@@ -71,3 +71,4 @@
 #include "stratroulette/round-modifiers/tactical-reload.sp"
 #include "stratroulette/round-modifiers/stun-gun.sp"
 #include "stratroulette/round-modifiers/mexican-standoff.sp"
+#include "stratroulette/round-modifiers/knife-arena.sp"

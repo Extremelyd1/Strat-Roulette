@@ -769,6 +769,19 @@
 		"helmet"		"1"
 		"noc4"			"1"
 		"killround"		"1"
-		"restricted"	"de_lake;de_safehouse;de_stmarc;de_bank;de_shortdust;de_shortnuke;de_sugarcane"
+		"nofalldmg"		"1"
+		"restricted"	"de_lake;de_safehouse;de_stmarc;de_bank;de_shortdust;de_shortnuke;de_sugarcane;gd_rialto"
+	}
+	"73"
+	{
+		"name"			"RoundKnifeArenaName"
+		"description"	"RoundKnifeArenaDesc"
+		"weapon"		"none"
+		"health"		"100"
+		"knifearena"	"1"
+		"noc4"			"1"
+		"killround"		"1"
+		"nofalldmg"		"1"
+		"restricted"	"de_lake;de_safehouse;de_bank;de_stmarc;gd_rialto;de_sugarcane"
 	}
 }

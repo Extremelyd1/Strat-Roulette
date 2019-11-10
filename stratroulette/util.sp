@@ -242,6 +242,7 @@ public SetKnife(bool add) {
 	}
 }
 
+// TODO: This causes a memory leak when switching between giving and removing a knife
 public SetKnifeClient(int client, bool add) {
 	new knife = GetPlayerWeaponSlot(client, 2);
 	if (add) {

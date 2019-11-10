@@ -738,4 +738,22 @@
 	{
 		"en"		"Last team standing wins."
 	}
+	"RoundKnifeArenaName"
+	{
+		"en"		"Knife Arena"
+	}
+	"RoundKnifeArenaDesc"
+	{
+		"en"		"Last team standing in this 1v1 knife arena wins."
+	}
+	"KnifeArenaNewRound"
+	{
+		"#format"	"{1:s},{2:s}"
+		"en"		"{GREEN}New round: {NORMAL}{1} {YELLOW}vs. {NORMAL}{2}"
+	}
+	"KnifeArenaWinner"
+	{
+		"#format"	"{1:s}"
+		"en"		"{GREEN}Round winner: {NORMAL}{1}"
+	}
 }
