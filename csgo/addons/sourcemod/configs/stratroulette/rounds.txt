@@ -809,4 +809,15 @@
 		"noknife"		"1"
 		"defuser"		"1"
 	}
+	"76"
+	{
+		"name"			"RoundWallhackName"
+		"description"	"RoundWallhackDesc"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"health"		"100"
+		"wallhack"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"defuser"		"1"
+	}
 }

@@ -772,4 +772,12 @@
 	{
 		"en"		"After shooting each bullet you need to switch to your other weapon."
 	}
+	"RoundWallhackName"
+	{
+		"en"		"Wallhack"
+	}
+	"RoundWallhackDesc"
+	{
+		"en"		"Everyone has wallhacks."
+	}
 }

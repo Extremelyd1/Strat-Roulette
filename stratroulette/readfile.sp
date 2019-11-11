@@ -526,5 +526,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetSwitcheroo;
 	}
 
+	kv.GetString("wallhack", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureWallhack();
+		resetFunctions[resetFunctionsLength++] = ResetWallhack;
+	}
+
 	delete kv;
 }
