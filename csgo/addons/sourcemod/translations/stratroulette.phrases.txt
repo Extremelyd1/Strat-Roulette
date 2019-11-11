@@ -764,4 +764,12 @@
 	{
 		"en"		"Killing an enemy will remove your weapons."
 	}
+	"RoundSwitcherooName"
+	{
+		"en"		"Switcheroo"
+	}
+	"RoundSwitcherooDesc"
+	{
+		"en"		"After shooting each bullet you need to switch to your other weapon."
+	}
 }

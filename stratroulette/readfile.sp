@@ -520,5 +520,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetTradeOff;
 	}
 
+	kv.GetString("switcheroo", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureSwitcheroo();
+		resetFunctions[resetFunctionsLength++] = ResetSwitcheroo;
+	}
+
 	delete kv;
 }

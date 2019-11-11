@@ -797,4 +797,16 @@
 		"helmet"		"1"
 		"noknife"		"1"
 	}
+	"75"
+	{
+		"name"			"RoundSwitcherooName"
+		"description"	"RoundSwitcherooDesc"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"health"		"100"
+		"switcheroo"	"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"noknife"		"1"
+		"defuser"		"1"
+	}
 }

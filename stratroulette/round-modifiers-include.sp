@@ -73,3 +73,4 @@
 #include "stratroulette/round-modifiers/mexican-standoff.sp"
 #include "stratroulette/round-modifiers/knife-arena.sp"
 #include "stratroulette/round-modifiers/trade-off.sp"
+#include "stratroulette/round-modifiers/switcheroo.sp"
