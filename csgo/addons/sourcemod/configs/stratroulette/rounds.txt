@@ -820,4 +820,15 @@
 		"helmet"		"1"
 		"defuser"		"1"
 	}
+	"77"
+	{
+		"name"			"RoundSecondChanceName"
+		"description"	"RoundSecondChanceDesc"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"health"		"100"
+		"secondchance"	"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"noc4"			"1"
+	}
 }

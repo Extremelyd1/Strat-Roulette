@@ -532,5 +532,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetWallhack;
 	}
 
+	kv.GetString("secondchance", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureSecondChance();
+		resetFunctions[resetFunctionsLength++] = ResetSecondChance;
+	}
+
 	delete kv;
 }

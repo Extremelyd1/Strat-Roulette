@@ -780,4 +780,12 @@
 	{
 		"en"		"Everyone has wallhacks."
 	}
+	"RoundSecondChanceName"
+	{
+		"en"		"Second Chance"
+	}
+	"RoundSecondChanceDesc"
+	{
+		"en"		"When you get killed you respawn with only a knife. Getting a kill with a knife restores your weapons. Last team with weapons wins."
+	}
 }
