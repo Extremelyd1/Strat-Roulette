@@ -50,11 +50,13 @@ public Action:SecondChancePlayerDeathEvent(Event event, const char[] name, bool 
 			SetConVarInt(mp_respawn_on_death_ct, 0, true, false);
 			SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
 			SecondChanceWipe(CS_TEAM_CT);
+			return Plugin_Continue;
 		}
 		if (secondChanceTAlive == 0) {
 			SetConVarInt(mp_respawn_on_death_t, 0, true, false);
 			SetConVarInt(mp_ignore_round_win_conditions, 0, true, false);
 			SecondChanceWipe(CS_TEAM_T);
+			return Plugin_Continue;
 		}
 
 		if (killer > 0) {
@@ -81,6 +83,8 @@ public Action:SecondChancePlayerDeathEvent(Event event, const char[] name, bool 
 			}
 		}
 	}
+
+	return Plugin_Continue;
 }
 
 public SecondChanceWipe(int team) {
