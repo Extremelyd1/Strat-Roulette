@@ -139,6 +139,28 @@ public SendMessageTeam(int team, String:szMessage[], any:...) {
 	}
 }
 
+public SendCenterText(int client, String:szMessage[], any:...) {
+	if (client <= 0 || client > MaxClients) {
+		ThrowError("Invalid client index %d", client);
+	}
+
+	if (!IsClientInGame(client)) {
+		ThrowError("Client %d is not in game", client);
+	}
+
+	decl String:szCMessage[MAX_MESSAGE_LENGTH];
+
+	SetGlobalTransTarget(client);
+
+	VFormat(szCMessage, sizeof(szCMessage), szMessage, 3);
+
+	Colorize(szCMessage, MAX_MESSAGE_LENGTH);
+
+	Format(szCMessage, sizeof(szCMessage), " \x01\x0B\x01%s", szCMessage);
+
+	PrintCenterText(client, "%s", szCMessage);
+}
+
 public int GetRandomPlayerFromTeam(int team) {
 	ArrayList players = new ArrayList();
 
@@ -173,12 +195,14 @@ stock RemoveWeaponsClient(int client, bool removeC4=false, bool removeKnife=fals
 	// Knife = 2
 	// C4 = 4
 	// Shield = 11
+	// Tablet = 12
 
 	new primary = GetPlayerWeaponSlot(client, 0);
 	new secondary = GetPlayerWeaponSlot(client, 1);
 	new knife = GetPlayerWeaponSlot(client, 2);
 	new c4Slot = GetPlayerWeaponSlot(client, 4);
 	new shield = GetPlayerWeaponSlot(client, 11);
+	new tablet = GetPlayerWeaponSlot(client, 12);
 
 	if (primary > -1) {
 		RemovePlayerItem(client, primary);
@@ -221,6 +245,11 @@ stock RemoveWeaponsClient(int client, bool removeC4=false, bool removeKnife=fals
 	if (shield > -1) {
 		RemovePlayerItem(client, shield);
 		RemoveEdict(shield);
+	}
+
+	if (tablet > -1) {
+		RemovePlayerItem(client, tablet);
+		RemoveEdict(tablet);
 	}
 }
 

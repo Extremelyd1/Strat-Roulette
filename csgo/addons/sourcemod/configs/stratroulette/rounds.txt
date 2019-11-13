@@ -807,7 +807,6 @@
 		"armor"			"100"
 		"helmet"		"1"
 		"noknife"		"1"
-		"defuser"		"1"
 	}
 	"76"
 	{
@@ -830,5 +829,15 @@
 		"armor"			"100"
 		"helmet"		"1"
 		"noc4"			"1"
+	}
+	"78"
+	{
+		"name"			"RoundTimeTravelName"
+		"description"	"RoundTimeTravelDesc"
+		"weapon"		"weapon_secondary_random;weapon_tablet"
+		"health"		"100"
+		"timetravel"	"1"
+		"armor"			"100"
+		"helmet"		"1"
 	}
 }

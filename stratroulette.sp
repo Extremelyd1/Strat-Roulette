@@ -342,6 +342,8 @@ public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3
 
 	JumpshotOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
 
+	TimeTravelOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
+
 	return Plugin_Continue;
 }
 

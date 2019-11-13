@@ -538,5 +538,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetSecondChance;
 	}
 
+	kv.GetString("timetravel", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureTimeTravel();
+		resetFunctions[resetFunctionsLength++] = ResetTimeTravel;
+	}
+
 	delete kv;
 }

@@ -7,6 +7,7 @@ public ConfigureSecondChance() {
 	SetConVarInt(mp_respawn_on_death_ct, 1, true, false);
 	SetConVarInt(mp_respawn_on_death_t, 1, true, false);
 	SetConVarInt(mp_ignore_round_win_conditions, 1, true, false);
+	SetConVarInt(mp_death_drop_gun, 0, true, false);
 
 	secondChanceCTAlive = 0;
 	secondChanceTAlive = 0;
@@ -24,13 +25,18 @@ public ConfigureSecondChance() {
 	}
 
 	HookEvent("player_death", SecondChancePlayerDeathEvent, EventHookMode_Pre);
+
+	AddCommandListener(DenyDropListener, "drop");
 }
 
 public ResetSecondChance() {
 	SetConVarInt(mp_respawn_on_death_ct, 0, true, false);
 	SetConVarInt(mp_respawn_on_death_t, 0, true, false);
+	SetConVarInt(mp_death_drop_gun, 1, true, false);
 
 	UnhookEvent("player_death", SecondChancePlayerDeathEvent, EventHookMode_Pre);
+
+	RemoveCommandListener(DenyDropListener, "drop");
 }
 
 public Action:SecondChancePlayerDeathEvent(Event event, const char[] name, bool dontBroadcast) {

@@ -788,4 +788,21 @@
 	{
 		"en"		"When you get killed you respawn with only a knife. Getting a kill with a knife restores your weapons. Last team with weapons wins."
 	}
+	"RoundTimeTravelName"
+	{
+		"en"		"Time Travel"
+	}
+	"RoundTimeTravelDesc"
+	{
+		"en"		"Right-click your tablet to go back in time. Time travelling has a cooldown."
+	}
+	"TimeTravelNoCooldown"
+	{
+		"en"		"Time travel is {GREEN}ready!"
+	}
+	"TimeTravelCooldown"
+	{
+		"#format"	"{1:d}"
+		"en"		"Time travel is on cooldown: {YELLOW}{1}s"
+	}
 }
