@@ -8,7 +8,7 @@ public ConfigureHardcore() {
 public ResetHardcore() {
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && !IsFakeClient(client)) {
-			Client_SetHideHud(client, 2050);
+			SetEntProp(client, Prop_Send, "m_iHideHUD", 2050);
 		}
 	}
 
@@ -18,7 +18,7 @@ public ResetHardcore() {
 public Action:StartHardcore(Handle timer) {
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
-			Client_SetHideHud(client, HIDEHUD_ALL);
+			SetEntProp(client, Prop_Send, "m_iHideHUD", 1<<2);
 
 			// Make sure that the player is not holding the C4,
 			// otherwise they can't switch to their gun anymore
@@ -26,7 +26,9 @@ public Action:StartHardcore(Handle timer) {
 			Client_GetActiveWeaponName(client, weaponname, sizeof(weaponname));
 
 			if (StrEqual(weaponname, "weapon_c4")) {
-				Client_ChangeToLastWeapon(client);
+				new primary = GetPlayerWeaponSlot(client, CS_SLOT_PRIMARY);
+				SetEntPropEnt(client, Prop_Data, "m_hActiveWeapon", primary);
+				ChangeEdictState(client, FindDataMapInfo(client, "m_hActiveWeapon"));
 			}
 		}
 	}

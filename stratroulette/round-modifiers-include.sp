@@ -77,3 +77,5 @@
 #include "stratroulette/round-modifiers/wallhack.sp"
 #include "stratroulette/round-modifiers/second-chance.sp"
 #include "stratroulette/round-modifiers/time-travel.sp"
+#include "stratroulette/round-modifiers/shared-ammo.sp"
+#include "stratroulette/round-modifiers/crouch-only.sp"

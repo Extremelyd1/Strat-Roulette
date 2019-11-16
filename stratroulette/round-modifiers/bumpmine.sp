@@ -19,7 +19,7 @@ public Action:CheckBumpmineTimer(Handle timer) {
 			}
 
 			float playerAbsVelocity[3];
-			Entity_GetAbsVelocity(i, playerAbsVelocity);
+			GetEntPropVector(i, Prop_Data, "m_vecAbsVelocity", playerAbsVelocity);
 
 			if (playerAbsVelocity[0] > 500 || playerAbsVelocity[1] > 500 || playerAbsVelocity[2] > 500) {
 				SDKHooks_TakeDamage(i, i, i, GetTrueDamage(i, 25.0), DMG_GENERIC);

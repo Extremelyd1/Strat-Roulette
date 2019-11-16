@@ -805,4 +805,20 @@
 		"#format"	"{1:d}"
 		"en"		"Time travel is on cooldown: {YELLOW}{1}s"
 	}
+	"RoundSharedAmmoName"
+	{
+		"en"		"Shared Ammo"
+	}
+	"RoundSharedAmmoDesc"
+	{
+		"en"		"You share the ammo in your weapon with your whole team. Reloading only occurs when each individual has reloaded."
+	}
+	"RoundCrouchOnlyName"
+	{
+		"en"		"Crouch Only"
+	}
+	"RoundCrouchOnlyDesc"
+	{
+		"en"		"You are only able to crouch."
+	}
 }

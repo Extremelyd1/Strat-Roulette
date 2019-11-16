@@ -30,12 +30,13 @@ public Action:DropShotWeapon(Handle timer, DataPack data) {
 	if (!dropshotActive) {
 		return Plugin_Stop;
 	}
-	
+
 	data.Reset();
 	int client = data.ReadCell();
 	new weapon = data.ReadCell();
 
-	int weaponOwner = EntRefToEntIndex(Weapon_GetOwner(weapon));
+	int weaponOwnerRef = GetEntPropEnt(weapon, Prop_Data, "m_hOwner");
+	int weaponOwner = EntRefToEntIndex(weaponOwnerRef);
 
 	if (weaponOwner == client) {
 		CS_DropWeapon(client, weapon, true, true);

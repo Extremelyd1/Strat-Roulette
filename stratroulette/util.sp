@@ -481,3 +481,48 @@ public float GetReducedDamage(int client, float damage) {
 
 	return damage;
 }
+
+public void SDKReload(int weapon) {
+	if(hReload != null) {
+		SDKCall(hReload, weapon);
+	}
+}
+
+stock Client_SetArmor(client, value) {
+	SetEntProp(client, Prop_Data, "m_ArmorValue", value);
+}
+
+stock Client_GetArmor(client) {
+	return GetEntProp(client, Prop_Data, "m_ArmorValue");
+}
+
+stock Client_SetHideHud(client, flags) {
+	SetEntProp(client, Prop_Send, "m_iHideHUD", flags);
+}
+
+stock Client_GetActiveWeapon(client) {
+	new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
+
+	if (!IsValidEntity(weapon)) {
+		return INVALID_ENT_REFERENCE;
+	}
+
+	return weapon;
+}
+
+stock Client_GetActiveWeaponName(client, String:buffer[], size) {
+	new weapon = Client_GetActiveWeapon(client);
+
+	if (weapon == INVALID_ENT_REFERENCE) {
+		buffer[0] = '\0';
+		return INVALID_ENT_REFERENCE;
+	}
+
+	Entity_GetClassName(weapon, buffer, size);
+
+	return weapon;
+}
+
+stock Entity_GetClassName(entity, String:buffer[], size) {
+	return GetEntPropString(entity, Prop_Data, "m_iClassname", buffer, size);
+}

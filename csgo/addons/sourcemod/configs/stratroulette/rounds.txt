@@ -840,4 +840,29 @@
 		"armor"			"100"
 		"helmet"		"1"
 	}
+	"79"
+	{
+		"name"			"RoundSharedAmmoName"
+		"description"	"RoundSharedAmmoDesc"
+		"weapon"		"weapon_random"
+		"health"		"100"
+		"sharedammo"	"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"noknife"		"1"
+		"infiniteammo"	"2"
+		"noc4"			"1"
+		"killround"		"1"
+	}
+	"80"
+	{
+		"name"			"RoundCrouchOnlyName"
+		"description"	"RoundCrouchOnlyDesc"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"health"		"100"
+		"crouchonly"	"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"defuser"		"1"
+	}
 }

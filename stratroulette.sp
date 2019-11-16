@@ -2,7 +2,6 @@
 #include <sdktools>
 #include <sdkhooks>
 #include <cstrike>
-#include <smlib>
 #include "include/adt_trie.inc"
 #include "include/keyvalues.inc"
 #include "stratroulette/functional-interface.sp"
@@ -137,6 +136,8 @@ new Handle:mp_respawn_on_death_ct;
 new Handle:mp_respawn_on_death_t;
 new Handle:host_timescale;
 
+new Handle:hReload;
+
 #include "stratroulette/round-modifiers-include.sp"
 #include "stratroulette/events.sp"
 #include "stratroulette/presets.sp"
@@ -184,6 +185,8 @@ public OnPluginStart() {
 	HookEvent("switch_team", SwitchTeamEvent);
 
 	LoadTranslations("stratroulette.phrases");
+
+	LoadOffsets();
 
 	if (voteTimer != INVALID_HANDLE) {
 		CloseHandle(voteTimer);
@@ -325,6 +328,8 @@ public Action:cmd_srslots(client, args) {
 }
 
 public Action:cmd_srtest(client, args) {
+	new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
+	SDKReload(weapon);
 }
 
 public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3], float angles[3], int& weapon, int& subtype, int& cmdnum, int& tickcount, int& seed, int mouse[2]) {
@@ -343,6 +348,8 @@ public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3
 	JumpshotOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
 
 	TimeTravelOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
+
+	CrouchOnlyOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
 
 	return Plugin_Continue;
 }
@@ -433,6 +440,18 @@ public SetServerConvars() {
 	SetConVarInt(mp_respawn_on_death_t, 0);
 	if (!pugSetupLoaded) {
 		SetConVarInt(mp_freezetime, 5, true, false);
+	}
+}
+
+public LoadOffsets() {
+	Handle hGameConf = LoadGameConfigFile("strat-roulette.games");
+
+	StartPrepSDKCall(SDKCall_Entity);
+	PrepSDKCall_SetFromConf(hGameConf, SDKConf_Virtual, "Reload");
+	if ((hReload = EndPrepSDKCall()) == null) {
+		LogError("Unable to load Reload offset");
+
+		return;
 	}
 }
 

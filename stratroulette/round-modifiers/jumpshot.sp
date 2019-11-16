@@ -85,7 +85,8 @@ public void JumpshotOnPlayerRunCmd(int client, int& buttons, int& impulse, float
 
 public void JumpshotReloadPostHook(int weapon, bool bSuccessful) {
 	if (bSuccessful) {
-		int weaponOwner = EntRefToEntIndex(Weapon_GetOwner(weapon));
+		int weaponOwnerRef = GetEntPropEnt(weapon, Prop_Data, "m_hOwner");
+		int weaponOwner = EntRefToEntIndex(weaponOwnerRef);
 
 		beforeReloadAmmo[weaponOwner] = GetClipAmmo(weapon);
 
@@ -102,7 +103,8 @@ public Action:JumpshotWaitForReloadTimer(Handle timer, int weapon) {
 		return Plugin_Continue;
 	}
 
-	int weaponOwner = EntRefToEntIndex(Weapon_GetOwner(weapon));
+	int weaponOwnerRef = GetEntPropEnt(weapon, Prop_Data, "m_hOwner");
+	int weaponOwner = EntRefToEntIndex(weaponOwnerRef);
 
 	if (weaponOwner < 0) {
 		return Plugin_Stop;

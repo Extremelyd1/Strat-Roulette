@@ -544,5 +544,17 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetTimeTravel;
 	}
 
+	kv.GetString("sharedammo", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureSharedAmmo();
+		resetFunctions[resetFunctionsLength++] = ResetSharedAmmo;
+	}
+
+	kv.GetString("crouchonly", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureCrouchOnly();
+		resetFunctions[resetFunctionsLength++] = ResetCrouchOnly;
+	}
+
 	delete kv;
 }

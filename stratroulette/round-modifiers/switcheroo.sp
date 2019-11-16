@@ -1,6 +1,8 @@
 new switcherooPrimary[MAXPLAYERS + 1];
 
 public ConfigureSwitcheroo() {
+	SetConVarInt(mp_death_drop_gun, 0, true, false);
+
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			switcherooPrimary[client] = true;
@@ -23,6 +25,8 @@ public ConfigureSwitcheroo() {
 }
 
 public ResetSwitcheroo() {
+	SetConVarInt(mp_death_drop_gun, 1, true, false);
+
 	UnhookEvent("weapon_fire", SwitcherooWeaponFireEvent);
 
 	RemoveCommandListener(DenyDropListener, "drop");
