@@ -556,5 +556,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetCrouchOnly;
 	}
 
+	kv.GetString("gta", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureGTA();
+		resetFunctions[resetFunctionsLength++] = ResetGTA;
+	}
+
 	delete kv;
 }

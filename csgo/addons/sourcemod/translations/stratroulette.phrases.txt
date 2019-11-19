@@ -821,4 +821,12 @@
 	{
 		"en"		"You are only able to crouch."
 	}
+	"RoundGTAName"
+	{
+		"en"		"Grand Theft Auto 1"
+	}
+	"RoundGTADesc"
+	{
+		"en"		"Everyone has a top-down view."
+	}
 }

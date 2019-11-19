@@ -137,6 +137,7 @@ new Handle:mp_respawn_on_death_t;
 new Handle:host_timescale;
 
 new Handle:hReload;
+new Handle:hFireBullets;
 
 #include "stratroulette/round-modifiers-include.sp"
 #include "stratroulette/events.sp"
@@ -328,8 +329,12 @@ public Action:cmd_srslots(client, args) {
 }
 
 public Action:cmd_srtest(client, args) {
-	new weapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
-	SDKReload(weapon);
+	if (hFireBullets != null) {
+		SDKCall(hFireBullets, client, 1, "");
+		PrintToServer("Called");
+	} else {
+		PrintToServer("Handle null");
+	}
 }
 
 public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3], float angles[3], int& weapon, int& subtype, int& cmdnum, int& tickcount, int& seed, int mouse[2]) {
@@ -350,6 +355,8 @@ public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3
 	TimeTravelOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
 
 	CrouchOnlyOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
+
+	GTAOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
 
 	return Plugin_Continue;
 }
@@ -450,6 +457,14 @@ public LoadOffsets() {
 	PrepSDKCall_SetFromConf(hGameConf, SDKConf_Virtual, "Reload");
 	if ((hReload = EndPrepSDKCall()) == null) {
 		LogError("Unable to load Reload offset");
+
+		return;
+	}
+
+	StartPrepSDKCall(SDKCall_Entity);
+	PrepSDKCall_SetFromConf(hGameConf, SDKConf_Virtual, "FireBullets");
+	if ((hFireBullets = EndPrepSDKCall()) == null) {
+		LogError("Unable to load FireBullets offset");
 
 		return;
 	}

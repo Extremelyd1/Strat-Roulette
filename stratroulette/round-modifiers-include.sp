@@ -79,3 +79,4 @@
 #include "stratroulette/round-modifiers/time-travel.sp"
 #include "stratroulette/round-modifiers/shared-ammo.sp"
 #include "stratroulette/round-modifiers/crouch-only.sp"
+#include "stratroulette/round-modifiers/gta.sp"

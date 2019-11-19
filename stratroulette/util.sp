@@ -483,7 +483,7 @@ public float GetReducedDamage(int client, float damage) {
 }
 
 public void SDKReload(int weapon) {
-	if(hReload != null) {
+	if (hReload != null) {
 		SDKCall(hReload, weapon);
 	}
 }
@@ -525,4 +525,19 @@ stock Client_GetActiveWeaponName(client, String:buffer[], size) {
 
 stock Entity_GetClassName(entity, String:buffer[], size) {
 	return GetEntPropString(entity, Prop_Data, "m_iClassname", buffer, size);
+}
+
+public int CreateViewEntity() {
+
+	int entity = CreateEntityByName("env_sprite");
+	if (entity != -1) {
+		DispatchKeyValue(entity, "model", SPRITE);
+		DispatchKeyValue(entity, "renderamt", "0");
+		DispatchKeyValue(entity, "rendercolor", "0 0 0");
+		DispatchSpawn(entity);
+
+		return entity;
+	}
+
+	return -1;
 }

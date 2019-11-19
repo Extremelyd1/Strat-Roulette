@@ -40,6 +40,7 @@ public Action:KillConfirmedPlayerOnTakeDamageHook(victim, &attacker, &inflictor,
 		// Victim is to be confirmed and was hit with knife
 		if (GetClientTeam(victim) == GetClientTeam(inflictor)) {
 			// Hit by teammate, thus respawning
+			toBeConfirmedPlayers[victim] = false;
 
 			// Give player weapon again
 			GivePlayerItem(victim, secondaryWeapon);
@@ -62,8 +63,6 @@ public Action:KillConfirmedPlayerOnTakeDamageHook(victim, &attacker, &inflictor,
 
 			SetEntPropFloat(victim, Prop_Data, "m_flLaggedMovementValue", 1.0);
 			SetEntityRenderColor(victim, 255, 255, 255, 0);
-
-			toBeConfirmedPlayers[victim] = false;
 
 			return Plugin_Handled;
 		} else {

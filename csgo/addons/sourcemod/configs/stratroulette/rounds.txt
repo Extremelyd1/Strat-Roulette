@@ -735,8 +735,6 @@
 		"killconfirmed"	"1"
 		"killround"		"1"
 		"noc4"			"1"
-		"armor"			"100"
-		"helmet"		"1"
 	}
 	"70"
 	{
@@ -782,6 +780,8 @@
 		"noc4"			"1"
 		"killround"		"1"
 		"nofalldmg"		"1"
+		"armor"			"100"
+		"helmet"		"1"
 		"restricted"	"de_lake;de_safehouse;de_bank;de_stmarc;gd_rialto;de_sugarcane"
 	}
 	"74"
@@ -864,5 +864,20 @@
 		"armor"			"100"
 		"helmet"		"1"
 		"defuser"		"1"
+	}
+	"81"
+	{
+		"name"			"RoundGTAName"
+		"description"	"RoundGTADesc"
+		"weapon"		"weapon_primary_random"
+		"health"		"100"
+		"gta"			"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"noc4"			"1"
+		"killround"		"1"
+		"noknife"		"1"
+		"infiniteammo"	"2"
+		"showallradar"	"1"
 	}
 }

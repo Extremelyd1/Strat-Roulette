@@ -33,7 +33,7 @@ public Action:PocketTPWeaponFireEvent(Handle:event, const String:name[], bool:do
 	GetClientEyePosition(client, origin);
 	GetClientEyeAngles(client, angles);
 
-	new Handle:lookTrace = TR_TraceRayFilterEx(origin, angles, MASK_PLAYERSOLID, RayType_Infinite, RayFilter, client);
+	new Handle:lookTrace = TR_TraceRayFilterEx(origin, angles, MASK_PLAYERSOLID, RayType_Infinite, PlayerRayFilter, client);
 	if (TR_DidHit(lookTrace)) {
 		float hitLocation[3];
 
@@ -73,11 +73,4 @@ public Action:PocketTPWeaponFireEvent(Handle:event, const String:name[], bool:do
 	CloseHandle(lookTrace);
 
 	return Plugin_Continue;
-}
-
-public bool RayFilter(int entity, mask, any:data) {
-	if (entity == data) {
-		return false;
-	}
-	return true;
 }

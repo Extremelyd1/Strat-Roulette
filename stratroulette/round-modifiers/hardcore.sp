@@ -1,4 +1,4 @@
-Handle hardcoreTimer;
+Handle hardcoreTimer = INVALID_HANDLE;
 
 public ConfigureHardcore() {
 	int freezeTime = GetConVarInt(mp_freezetime);
@@ -32,4 +32,6 @@ public Action:StartHardcore(Handle timer) {
 			}
 		}
 	}
+
+	hardcoreTimer = INVALID_HANDLE;
 }

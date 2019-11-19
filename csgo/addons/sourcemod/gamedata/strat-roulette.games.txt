@@ -1,0 +1,23 @@
+"Games"
+{
+	"csgo"
+	{
+		"Offsets"
+		{
+			"Reload"
+			{
+				"windows"	"310"
+				"linux"		"316"
+				"linux64"	"316"
+				"mac64"		"316"
+			}
+			"FireBullets"
+			{
+				"windows"	"118"
+				"linux"		"119"
+				"linux64"	"119"
+				"mac64"		"119"
+			}
+		}
+	}
+}

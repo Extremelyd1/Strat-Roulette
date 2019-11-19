@@ -8,7 +8,9 @@ public ConfigureDownUnder() {
 			float position[3];
 			GetClientEyePosition(client, position);
 
-			int entity = CreateViewEntity(client, position);
+			int entity = CreateViewEntity();
+
+			TeleportEntity(entity, position, NULL_VECTOR, NULL_VECTOR);
 
 			float angle[3];
 			GetEntPropVector(entity, Prop_Send, "m_angRotation", angle);
@@ -16,6 +18,8 @@ public ConfigureDownUnder() {
 			angle[2] = 180.0;
 
 			TeleportEntity(entity, NULL_VECTOR, angle, NULL_VECTOR);
+
+			SetClientViewEntity(client, entity);
 
 			downUnderArray[client] = entity;
 		}
@@ -64,26 +68,4 @@ public Action:DownUnderOnPlayerRunCmd(int client, int& buttons, int& impulse, fl
 			}
 		}
 	}
-}
-
-public int CreateViewEntity(int client, float pos[3]) {
-
-	int entity = CreateEntityByName("env_sprite");
-	if (entity != -1) {
-		DispatchKeyValue(entity, "model", SPRITE);
-		DispatchKeyValue(entity, "renderamt", "0");
-		DispatchKeyValue(entity, "rendercolor", "0 0 0");
-		DispatchSpawn(entity);
-
-		float angle[3];
-		GetClientEyeAngles(client, angle);
-
-		TeleportEntity(entity, pos, angle, NULL_VECTOR);
-		TeleportEntity(client, NULL_VECTOR, angle, NULL_VECTOR);
-
-		SetClientViewEntity(client, entity);
-		return entity;
-	}
-
-	return -1;
 }
