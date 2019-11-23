@@ -562,5 +562,23 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetGTA;
 	}
 
+	kv.GetString("healthshots", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureHealthshots();
+		resetFunctions[resetFunctionsLength++] = ResetHealthshots;
+	}
+
+	kv.GetString("blackout", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureBlackout();
+		resetFunctions[resetFunctionsLength++] = ResetBlackout;
+	}
+
+	kv.GetString("enderpearl", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureEnderpearl();
+		resetFunctions[resetFunctionsLength++] = ResetEnderpearl;
+	}
+
 	delete kv;
 }

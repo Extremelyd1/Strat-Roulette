@@ -13,8 +13,8 @@
 #define PRIMARY_LENGTH 24
 #define SECONDARY_LENGTH 10
 #define SMOKE_RADIUS 165
-#define	CLIENTWIDTH	35.0
-#define	CLIENTHEIGHT 90.0
+#define	CLIENTWIDTH	32.0
+#define	CLIENTHEIGHT 72.0
 #define MAX_MESSAGE_LENGTH 250
 
 // Convar handles
@@ -134,10 +134,10 @@ new Handle:mp_solid_teammates;
 new Handle:mp_respawn_on_death_ct;
 new Handle:mp_respawn_on_death_t;
 new Handle:host_timescale;
-new Handle:sv_competitive_official_5v5;
+new Handle:game_mode;
+new Handle:game_type;
 
 new Handle:hReload;
-new Handle:hFireBullets;
 
 #include "stratroulette/round-modifiers-include.sp"
 #include "stratroulette/events.sp"
@@ -332,12 +332,6 @@ public Action:cmd_srslots(client, args) {
 }
 
 public Action:cmd_srtest(client, args) {
-	if (hFireBullets != null) {
-		SDKCall(hFireBullets, client, 1, "");
-		PrintToServer("Called");
-	} else {
-		PrintToServer("Handle null");
-	}
 }
 
 public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3], float angles[3], int& weapon, int& subtype, int& cmdnum, int& tickcount, int& seed, int mouse[2]) {
@@ -360,6 +354,8 @@ public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3
 	CrouchOnlyOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
 
 	GTAOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
+
+	EnderpearlOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
 
 	return Plugin_Continue;
 }
@@ -406,7 +402,8 @@ public OnConfigsExecuted() {
 	mp_respawn_on_death_ct = FindConVar("mp_respawn_on_death_ct");
 	mp_respawn_on_death_t = FindConVar("mp_respawn_on_death_t");
 	host_timescale = FindConVar("host_timescale");
-	sv_competitive_official_5v5 = FindConVar("sv_competitive_official_5v5");
+	game_mode = FindConVar("game_mode");
+	game_type = FindConVar("game_type");
 
 	g_offsCollisionGroup = FindSendPropInfo("CBaseEntity", "m_CollisionGroup");
 
@@ -425,8 +422,6 @@ public OnConfigsExecuted() {
 	SetConVarFlags(mp_c4timer, flags & ~FCVAR_NOTIFY);
 	flags = GetConVarFlags(host_timescale);
 	SetConVarFlags(host_timescale, flags & ~FCVAR_CHEAT);
-	flags = GetConVarFlags(sv_competitive_official_5v5);
-	SetConVarFlags(sv_competitive_official_5v5, flags & ~FCVAR_NOTIFY);
 
 	SetServerConvars();
 }
@@ -451,7 +446,8 @@ public SetServerConvars() {
 	SetConVarInt(mp_ignore_round_win_conditions, 0);
 	SetConVarInt(mp_respawn_on_death_ct, 0);
 	SetConVarInt(mp_respawn_on_death_t, 0);
-	SetConVarInt(sv_competitive_official_5v5, 1);
+	SetConVarInt(game_mode, 0);
+	SetConVarInt(game_type, 0);
 	if (!pugSetupLoaded) {
 		SetConVarInt(mp_freezetime, 5, true, false);
 	}
@@ -467,14 +463,6 @@ public LoadOffsets() {
 
 		return;
 	}
-
-	StartPrepSDKCall(SDKCall_Entity);
-	PrepSDKCall_SetFromConf(hGameConf, SDKConf_Virtual, "FireBullets");
-	if ((hFireBullets = EndPrepSDKCall()) == null) {
-		LogError("Unable to load FireBullets offset");
-
-		return;
-	}
 }
 
 public void PugSetup_OnLive() {
@@ -485,6 +473,7 @@ public OnEntityCreated(entity, const String:className[]) {
 	InfiniteNadesOnEntitySpawn(entity, className);
 	RandomNadesOnEntitySpawn(entity, className);
 	TinyMagsOnEntitySpawn(entity, className);
+	EnderpearlOnEntitySpawn(entity, className);
 }
 
 public ResetLastRound() {

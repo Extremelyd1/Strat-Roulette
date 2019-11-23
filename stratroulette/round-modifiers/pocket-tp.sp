@@ -39,35 +39,7 @@ public Action:PocketTPWeaponFireEvent(Handle:event, const String:name[], bool:do
 
 		TR_GetEndPosition(hitLocation, lookTrace);
 
-		int tries = 300;
-		bool success = false;
-
-		hitLocation[2] = hitLocation[2] - 5.0;
-
-		float mins[3];
-		mins[0] = -CLIENTWIDTH / 2;
-		mins[1] = -CLIENTWIDTH / 2;
-		mins[2] = 0.0;
-
-		float maxs[3];
-		maxs[0] = CLIENTWIDTH / 2;
-		maxs[1] = CLIENTWIDTH / 2;
-		maxs[2] = CLIENTHEIGHT;
-
-		while (!success && tries > 0) {
-			hitLocation[2] = hitLocation[2] + 5.0;
-
-			new Handle:hitboxTrace = TR_TraceHullEx(hitLocation, hitLocation, mins, maxs, MASK_PLAYERSOLID);
-
-			if (!TR_DidHit(hitboxTrace)) {
-				TeleportEntity(client, hitLocation, NULL_VECTOR, NULL_VECTOR);
-				success = true;
-			} else {
-				tries--;
-			}
-
-			CloseHandle(hitboxTrace);
-		}
+		FitPlayerUp(client, hitLocation, 3.0, 500);
 	}
 
 	CloseHandle(lookTrace);

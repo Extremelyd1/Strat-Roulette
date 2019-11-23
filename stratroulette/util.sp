@@ -194,14 +194,14 @@ stock RemoveWeaponsClient(int client, bool removeC4=false, bool removeKnife=fals
 	// Secondary = 1
 	// Knife = 2
 	// C4 = 4
-	// Shield = 11
+	// Shield, Healthshot = 11
 	// Tablet = 12
 
 	new primary = GetPlayerWeaponSlot(client, 0);
 	new secondary = GetPlayerWeaponSlot(client, 1);
 	new knife = GetPlayerWeaponSlot(client, 2);
 	new c4Slot = GetPlayerWeaponSlot(client, 4);
-	new shield = GetPlayerWeaponSlot(client, 11);
+	new shield_health = GetPlayerWeaponSlot(client, 11);
 	new tablet = GetPlayerWeaponSlot(client, 12);
 
 	if (primary > -1) {
@@ -242,9 +242,12 @@ stock RemoveWeaponsClient(int client, bool removeC4=false, bool removeKnife=fals
 		EquipPlayerWeapon(client, c4SlotBuffer);
 	}
 
-	if (shield > -1) {
-		RemovePlayerItem(client, shield);
-		RemoveEdict(shield);
+
+	while (shield_health != -1) {
+		RemovePlayerItem(client, shield_health);
+		RemoveEdict(shield_health);
+
+		shield_health = GetPlayerWeaponSlot(client, 11);
 	}
 
 	if (tablet > -1) {
@@ -540,4 +543,35 @@ public int CreateViewEntity() {
 	}
 
 	return -1;
+}
+
+public FitPlayerUp(int client, float startPos[3], float interval, int tries) {
+	bool success = false;
+
+	startPos[2] = startPos[2] - interval;
+
+	float mins[3];
+	mins[0] = -CLIENTWIDTH / 2;
+	mins[1] = -CLIENTWIDTH / 2;
+	mins[2] = 0.0;
+
+	float maxs[3];
+	maxs[0] = CLIENTWIDTH / 2;
+	maxs[1] = CLIENTWIDTH / 2;
+	maxs[2] = CLIENTHEIGHT;
+
+	while (!success && tries > 0) {
+		startPos[2] = startPos[2] + interval;
+
+		new Handle:hitboxTrace = TR_TraceHullFilterEx(startPos, startPos, mins, maxs, MASK_PLAYERSOLID, PlayerRayFilter, client);
+
+		if (!TR_DidHit(hitboxTrace)) {
+			TeleportEntity(client, startPos, NULL_VECTOR, NULL_VECTOR);
+			success = true;
+		} else {
+			tries--;
+		}
+
+		CloseHandle(hitboxTrace);
+	}
 }

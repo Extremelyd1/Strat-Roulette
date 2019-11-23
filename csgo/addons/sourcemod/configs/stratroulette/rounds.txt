@@ -879,5 +879,42 @@
 		"noknife"		"1"
 		"infiniteammo"	"2"
 		"showallradar"	"1"
+		"norecoil"		"1"
+	}
+	"82"
+	{
+		"name"			"RoundHealthshotsName"
+		"description"	"RoundHealthshotsDesc"
+		"weapon"		"weapon_secondary_random;weapon_healthshot"
+		"health"		"100"
+		"healthshots"	"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"noc4"			"1"
+		"killround"		"1"
+		"infiniteammo"	"2"
+	}
+	"83"
+	{
+		"name"			"RoundBlackoutName"
+		"description"	"RoundBlackoutDesc"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"health"		"100"
+		"blackout"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"defuser"		"1"
+	}
+	"84"
+	{
+		"name"			"RoundEnderpearlName"
+		"description"	"RoundEnderpearlDesc"
+		"weapon"		"weapon_secondary_random;weapon_decoy"
+		"health"		"100"
+		"enderpearl"	"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"killround"		"1"
+		"noc4"			"1"
 	}
 }

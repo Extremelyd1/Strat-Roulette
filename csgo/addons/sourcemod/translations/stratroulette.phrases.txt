@@ -829,4 +829,28 @@
 	{
 		"en"		"Everyone has a top-down view."
 	}
+	"RoundHealthshotsName"
+	{
+		"en"		"Opioid Epidemic"
+	}
+	"RoundHealthshotsDesc"
+	{
+		"en"		"Everyone has unlimited health shots."
+	}
+	"RoundBlackoutName"
+	{
+		"en"		"Blackout"
+	}
+	"RoundBlackoutDesc"
+	{
+		"en"		"Everyone suffers from periodic blackouts."
+	}
+	"RoundEnderpearlName"
+	{
+		"en"		"Enderpearl"
+	}
+	"RoundEnderpearlDesc"
+	{
+		"en"		"Throwing your decoy will make you follow it."
+	}
 }

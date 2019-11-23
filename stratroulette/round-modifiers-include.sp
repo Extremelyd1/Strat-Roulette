@@ -80,3 +80,6 @@
 #include "stratroulette/round-modifiers/shared-ammo.sp"
 #include "stratroulette/round-modifiers/crouch-only.sp"
 #include "stratroulette/round-modifiers/gta.sp"
+#include "stratroulette/round-modifiers/healthshots.sp"
+#include "stratroulette/round-modifiers/blackout.sp"
+#include "stratroulette/round-modifiers/enderpearl.sp"
