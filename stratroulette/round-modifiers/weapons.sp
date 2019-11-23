@@ -9,6 +9,17 @@ public ConfigureWeapons(char weaponString[500]) {
 		randomIntCat = GetRandomInt(0, 1);
 	}
 
+	int randomAutoWeapon;
+
+	if (StrContains(weaponString, "weapon_auto_random") != -1) {
+		randomAutoWeapon = GetRandomInt(0, AUTO_WEAPONS_LENGTH - 1);
+		if (randomAutoWeapon == 0) {
+			Format(secondaryWeapon, sizeof(secondaryWeapon), AutoWeapons[randomAutoWeapon]);
+		} else {
+			Format(primaryWeapon, sizeof(primaryWeapon), AutoWeapons[randomAutoWeapon]);
+		}
+	}
+
 	if (StrContains(weaponString, "weapon_primary_random") != -1 || randomIntCat == 0) {
 		new randomInt = GetRandomInt(0, PRIMARY_LENGTH - 1);
 		Format(primaryWeapon, sizeof(primaryWeapon), WeaponPrimary[randomInt]);
@@ -20,20 +31,22 @@ public ConfigureWeapons(char weaponString[500]) {
 
 	// If we need to give a weapon
 	if (!StrEqual(weaponString, "none")) {
-		decl String:bit[10][80];
-		new SumOfStrings = ExplodeString(weaponString, ";", bit, sizeof bit, sizeof bit[]);
+		char colonSplit[10][80];
+		new colonSplitNumber = ExplodeString(weaponString, ";", colonSplit, sizeof(colonSplit), sizeof(colonSplit[]));
 
-		for (int string = 0; string < SumOfStrings; string++) {
+		for (int colonIndex = 0; colonIndex < colonSplitNumber; colonIndex++) {
 			for (int j = 1; j <= MaxClients; j++) {
 				if (IsClientInGame(j) && IsPlayerAlive(j)) {
-					if (StrEqual(bit[string], "weapon_primary_random")
-					 || (StrEqual(bit[string], "weapon_random") && randomIntCat == 0)) {
+					if (StrEqual(colonSplit[colonIndex], "weapon_primary_random")
+					 || (StrEqual(colonSplit[colonIndex], "weapon_random") && randomIntCat == 0)
+					 || (StrEqual(colonSplit[colonIndex], "weapon_auto_random") && randomAutoWeapon != 0)) {
 						GivePlayerItem(j, primaryWeapon);
-					} else if (StrEqual(bit[string], "weapon_secondary_random")
-					 || (StrEqual(bit[string], "weapon_random") && randomIntCat == 1)) {
+					} else if (StrEqual(colonSplit[colonIndex], "weapon_secondary_random")
+					 || (StrEqual(colonSplit[colonIndex], "weapon_random") && randomIntCat == 1)
+					 || (StrEqual(colonSplit[colonIndex], "weapon_auto_random") && randomAutoWeapon == 0)) {
 						GivePlayerItem(j, secondaryWeapon);
 					} else {
-						new item = GivePlayerItem(j, bit[string]);
+						new item = GivePlayerItem(j, colonSplit[colonIndex]);
 						char className[128];
 						GetEdictClassname(item, className, sizeof(className));
 

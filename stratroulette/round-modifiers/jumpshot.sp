@@ -129,19 +129,22 @@ public Action:JumpshotWaitForReloadTimer(Handle timer, int weapon) {
 	}
 
 	// Get weapon name
-	char className[128];
-	GetEdictClassname(weapon, className, sizeof(className));
+	char weaponname[128];
+
+	int iItemDefIndex = GetEntProp(weapon, Prop_Send, "m_iItemDefinitionIndex");
+	CS_WeaponIDToAlias(CS_ItemDefIndexToID(iItemDefIndex), weaponname, sizeof(weaponname));
+	Format(weaponname, sizeof(weaponname), "weapon_%s", weaponname);
 
 	// Get the clip size for this weapon
 	int clipsize = -1;
 
 	for (int i = 0; i < PRIMARY_LENGTH; i++) {
-		if (StrEqual(className, WeaponPrimary[i])) {
+		if (StrEqual(weaponname, WeaponPrimary[i])) {
 			clipsize = PrimaryClipSize[i];
 		}
 	}
 	for (int i = 0; i < SECONDARY_LENGTH; i++) {
-		if (StrEqual(className, WeaponSecondary[i])) {
+		if (StrEqual(weaponname, WeaponSecondary[i])) {
 			clipsize = SecondaryClipSize[i];
 		}
 	}

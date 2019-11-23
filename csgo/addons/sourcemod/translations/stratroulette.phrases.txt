@@ -853,4 +853,24 @@
 	{
 		"en"		"Throwing your decoy will make you follow it."
 	}
+	"RoundAllOrNothingName"
+	{
+		"en"		"All or Nothing"
+	}
+	"RoundAllOrNothingDesc"
+	{
+		"en"		"Once you start firing, you have to keep shooting until you finish your clip."
+	}
+	"KeepFiringAllOrNothing"
+	{
+		"en"		"Don't stop {DARK_RED}firing{NORMAL} until you run out of ammo"
+	}
+	"RoundScreenCheatName"
+	{
+		"en"		"Screen Cheat"
+	}
+	"RoundScreenCheatDesc"
+	{
+		"en"		"You can only see the screen of your enemy."
+	}
 }

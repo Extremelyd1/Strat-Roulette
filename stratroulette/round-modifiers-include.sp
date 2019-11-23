@@ -83,3 +83,5 @@
 #include "stratroulette/round-modifiers/healthshots.sp"
 #include "stratroulette/round-modifiers/blackout.sp"
 #include "stratroulette/round-modifiers/enderpearl.sp"
+#include "stratroulette/round-modifiers/all-or-nothing.sp"
+#include "stratroulette/round-modifiers/screen-cheat.sp"

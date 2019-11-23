@@ -23,7 +23,11 @@ public ResetDontMiss() {
 
 public Action:DontMissOnTakeDamageHook(victim, &attacker, &inflictor, &Float:damage, &damagetype) {
 	char weaponname[128];
-	Client_GetActiveWeaponName(attacker, weaponname, sizeof(weaponname));
+
+	new activeWeapon = Client_GetActiveWeapon(attacker);
+	int iItemDefIndex = GetEntProp(activeWeapon, Prop_Send, "m_iItemDefinitionIndex");
+	CS_WeaponIDToAlias(CS_ItemDefIndexToID(iItemDefIndex), weaponname, sizeof(weaponname));
+	Format(weaponname, sizeof(weaponname), "weapon_%s", weaponname);
 
 	for (int i = 0; i < PRIMARY_LENGTH; i++) {
 		if (StrEqual(weaponname, WeaponPrimary[i])) {
@@ -45,8 +49,13 @@ public Action:DontMissOnTakeDamageHook(victim, &attacker, &inflictor, &Float:dam
 
 public Action:DontMissWeaponFireEvent(Handle:event, const String:name[], bool:dontBroadcast) {
 	new client = GetClientOfUserId(GetEventInt(event, "userid"));
+
 	char weaponname[128];
-	Client_GetActiveWeaponName(client, weaponname, sizeof(weaponname));
+
+	new activeWeapon = Client_GetActiveWeapon(client);
+	int iItemDefIndex = GetEntProp(activeWeapon, Prop_Send, "m_iItemDefinitionIndex");
+	CS_WeaponIDToAlias(CS_ItemDefIndexToID(iItemDefIndex), weaponname, sizeof(weaponname));
+	Format(weaponname, sizeof(weaponname), "weapon_%s", weaponname);
 
 	for (int i = 0; i < PRIMARY_LENGTH; i++) {
 		if (StrEqual(weaponname, WeaponPrimary[i])) {

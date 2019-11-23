@@ -575,3 +575,11 @@ public FitPlayerUp(int client, float startPos[3], float interval, int tries) {
 		CloseHandle(hitboxTrace);
 	}
 }
+
+stock any:Math_Max(any:value, any:max) {
+	if (value > max) {
+		value = max;
+	}
+
+	return value;
+}

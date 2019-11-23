@@ -11,6 +11,7 @@
 #define TUNNEL_VISION_OVERLAY "overlays/stratroulette/tunnel_vision_overlay"
 #define SPRITE 	"materials/sprites/dot.vmt"
 #define PRIMARY_LENGTH 24
+#define AUTO_WEAPONS_LENGTH 20
 #define SECONDARY_LENGTH 10
 #define SMOKE_RADIUS 165
 #define	CLIENTWIDTH	32.0
@@ -32,6 +33,17 @@ new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
 	"weapon_sawedoff", "weapon_scar20", "weapon_sg556",
 	"weapon_ssg08", "weapon_ump45", "weapon_xm1014",
 	"weapon_m4a1_silencer", "weapon_awp", "weapon_mp5sd"
+};
+
+// Automatic weapons
+new const String:AutoWeapons[AUTO_WEAPONS_LENGTH][] = {
+	"weapon_cz75a", "weapon_ak47", "weapon_aug",
+	"weapon_famas", "weapon_g3sg1", "weapon_galilar",
+	"weapon_m249", "weapon_m4a1", "weapon_mac10",
+	"weapon_mp7", "weapon_mp9", "weapon_negev",
+	"weapon_p90", "weapon_scar20", "weapon_sg556",
+	"weapon_ump45", "weapon_xm1014", "weapon_m4a1_silencer",
+	"weapon_mp5sd", "weapon_bizon"
 };
 
 // Damage taken when missing with primary
@@ -134,8 +146,8 @@ new Handle:mp_solid_teammates;
 new Handle:mp_respawn_on_death_ct;
 new Handle:mp_respawn_on_death_t;
 new Handle:host_timescale;
-new Handle:game_mode;
-new Handle:game_type;
+/* new Handle:game_mode;
+new Handle:game_type; */
 
 new Handle:hReload;
 
@@ -357,6 +369,10 @@ public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3
 
 	EnderpearlOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
 
+	AllOrNothingOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
+
+	ScreenCheatOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
+
 	return Plugin_Continue;
 }
 
@@ -402,8 +418,8 @@ public OnConfigsExecuted() {
 	mp_respawn_on_death_ct = FindConVar("mp_respawn_on_death_ct");
 	mp_respawn_on_death_t = FindConVar("mp_respawn_on_death_t");
 	host_timescale = FindConVar("host_timescale");
-	game_mode = FindConVar("game_mode");
-	game_type = FindConVar("game_type");
+	/* game_mode = FindConVar("game_mode");
+	game_type = FindConVar("game_type"); */
 
 	g_offsCollisionGroup = FindSendPropInfo("CBaseEntity", "m_CollisionGroup");
 
@@ -446,8 +462,8 @@ public SetServerConvars() {
 	SetConVarInt(mp_ignore_round_win_conditions, 0);
 	SetConVarInt(mp_respawn_on_death_ct, 0);
 	SetConVarInt(mp_respawn_on_death_t, 0);
-	SetConVarInt(game_mode, 0);
-	SetConVarInt(game_type, 0);
+	/* SetConVarInt(game_mode, 0);
+	SetConVarInt(game_type, 0); */
 	if (!pugSetupLoaded) {
 		SetConVarInt(mp_freezetime, 5, true, false);
 	}

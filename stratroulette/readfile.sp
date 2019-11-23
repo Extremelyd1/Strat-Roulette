@@ -580,5 +580,17 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetEnderpearl;
 	}
 
+	kv.GetString("allornothing", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureAllOrNothing();
+		resetFunctions[resetFunctionsLength++] = ResetAllOrNothing;
+	}
+
+	kv.GetString("screencheat", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureScreenCheat();
+		resetFunctions[resetFunctionsLength++] = ResetScreenCheat;
+	}
+
 	delete kv;
 }

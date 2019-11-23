@@ -917,4 +917,31 @@
 		"killround"		"1"
 		"noc4"			"1"
 	}
+	"85"
+	{
+		"name"			"RoundAllOrNothingName"
+		"description"	"RoundAllOrNothingDesc"
+		"weapon"		"weapon_auto_random"
+		"health"		"100"
+		"allornothing"	"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"noknife"		"1"
+		"infiniteammo"	"2"
+	}
+	"86"
+	{
+		"name"			"RoundScreenCheatName"
+		"description"	"RoundScreenCheatDesc"
+		"weapon"		"weapon_random"
+		"health"		"100"
+		"screencheat"	"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"noknife"		"1"
+		"infiniteammo"	"2"
+		"killround"		"1"
+		"noc4"			"1"
+		"disable"		"1"
+	}
 }
