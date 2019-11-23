@@ -37,6 +37,8 @@ public ConfigureGTA() {
 
 	HookEvent("player_death", GTAPlayerDeathEvent, EventHookMode_Pre);
 
+	CreateTimer(1.0, GTATimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+
 	gtaActive = true;
 }
 
@@ -104,6 +106,25 @@ public Action:GTAOnPlayerRunCmd(int client, int& buttons, int& impulse, float ve
 			viewEntityAngle[1] = angles[1];
 
 			TeleportEntity(entity, position, viewEntityAngle, NULL_VECTOR);
+		}
+	}
+
+	return Plugin_Continue;
+}
+
+public Action:GTATimer(Handle timer) {
+	if (!gtaActive) {
+		return Plugin_Stop;
+	}
+
+	for (new i = 1; i <= MaxClients; i++) {
+		if (IsClientInGame(i) && IsPlayerAlive(i) && !IsFakeClient(i)) {
+			float angles[3];
+			GetClientEyeAngles(i, angles);
+
+			angles[0] = 0.0;
+
+			TeleportEntity(i, NULL_VECTOR, angles, NULL_VECTOR);
 		}
 	}
 

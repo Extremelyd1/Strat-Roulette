@@ -20,6 +20,7 @@
 // Convar handles
 ConVar g_AutoStart;
 ConVar g_AutoStartMinPlayers;
+ConVar g_AllowVoting;
 
 // Primary weapons
 new const String:WeaponPrimary[PRIMARY_LENGTH][] =  {
@@ -93,8 +94,6 @@ int resetFunctionsLength = 0;
 
 int lastRound = -1;
 
-new Handle:voteTimer = INVALID_HANDLE;
-
 new bool:nextRoundVoted = false;
 new String:voteRoundNumber[16];
 new bool:forceNextRound = false;
@@ -135,6 +134,7 @@ new Handle:mp_solid_teammates;
 new Handle:mp_respawn_on_death_ct;
 new Handle:mp_respawn_on_death_t;
 new Handle:host_timescale;
+new Handle:sv_competitive_official_5v5;
 
 new Handle:hReload;
 new Handle:hFireBullets;
@@ -167,6 +167,10 @@ public OnPluginStart() {
 		"sm_sr_auto_start_min_players", "4",
 		"The minimum number of players required to automagically start the game"
 	);
+	g_AllowVoting = CreateConVar(
+		"sm_sr_allow_voting", "1",
+		"Whether to allow players to vote on the next round"
+	);
 
 	//** Create and exec plugin's configuration file **//
 	AutoExecConfig(true, "stratroulette", "sourcemod/stratroulette");
@@ -184,22 +188,20 @@ public OnPluginStart() {
 	HookEvent("round_end", RoundEndEvent);
 	HookEvent("round_start", RoundStartEvent, EventHookMode_Pre);
 	HookEvent("switch_team", SwitchTeamEvent);
+	HookEvent("player_death", PlayerDeathEvent);
 
 	LoadTranslations("stratroulette.phrases");
 
 	LoadOffsets();
-
-	if (voteTimer != INVALID_HANDLE) {
-		CloseHandle(voteTimer);
-		voteTimer = INVALID_HANDLE;
-	}
 }
 
 public OnPluginEnd() {
 	UnhookEvent("round_end", RoundEndEvent);
 	UnhookEvent("round_start", RoundStartEvent, EventHookMode_Pre);
 	UnhookEvent("switch_team", SwitchTeamEvent);
+	UnhookEvent("player_death", PlayerDeathEvent);
 
+	ForceEndVote();
 	ResetLastRound();
 }
 
@@ -273,6 +275,7 @@ public Action:cmd_end(client, args) {
 			inGame = false;
 
 			ResetLastRound();
+			ForceEndVote();
 		} else {
 			ReplyToCommand(client, "Game is not in progress!");
 		}
@@ -403,6 +406,7 @@ public OnConfigsExecuted() {
 	mp_respawn_on_death_ct = FindConVar("mp_respawn_on_death_ct");
 	mp_respawn_on_death_t = FindConVar("mp_respawn_on_death_t");
 	host_timescale = FindConVar("host_timescale");
+	sv_competitive_official_5v5 = FindConVar("sv_competitive_official_5v5");
 
 	g_offsCollisionGroup = FindSendPropInfo("CBaseEntity", "m_CollisionGroup");
 
@@ -421,6 +425,8 @@ public OnConfigsExecuted() {
 	SetConVarFlags(mp_c4timer, flags & ~FCVAR_NOTIFY);
 	flags = GetConVarFlags(host_timescale);
 	SetConVarFlags(host_timescale, flags & ~FCVAR_CHEAT);
+	flags = GetConVarFlags(sv_competitive_official_5v5);
+	SetConVarFlags(sv_competitive_official_5v5, flags & ~FCVAR_NOTIFY);
 
 	SetServerConvars();
 }
@@ -445,6 +451,7 @@ public SetServerConvars() {
 	SetConVarInt(mp_ignore_round_win_conditions, 0);
 	SetConVarInt(mp_respawn_on_death_ct, 0);
 	SetConVarInt(mp_respawn_on_death_t, 0);
+	SetConVarInt(sv_competitive_official_5v5, 1);
 	if (!pugSetupLoaded) {
 		SetConVarInt(mp_freezetime, 5, true, false);
 	}

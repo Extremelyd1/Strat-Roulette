@@ -108,7 +108,7 @@ public Action:BuddyTimer(Handle timer) {
 			// Get chicken that belongs to player
 			if (chickens[i] != -1) {
 				new chicken = chickens[i];
-				if (chicken != 0) {
+				if (chicken != 0 && IsValidEntity(chicken)) {
 					// Set the leader property again
 					SetEntPropEnt(chicken, Prop_Send, "m_leader", i);
 				}

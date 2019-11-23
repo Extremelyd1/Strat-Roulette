@@ -3,7 +3,7 @@ public Action MatchOverEvent(Handle:event, const String:name[], bool:dontBroadca
 }
 
 public Action:RoundEndEvent(Handle:event, const String:name[], bool:dontBroadcast) {
-	SafeKillTimer(voteTimer);
+	EndRoundVote();
 }
 
 public Action:RoundStartEvent(Handle:event, const String:name[], bool:dontBroadcast) {
@@ -11,9 +11,19 @@ public Action:RoundStartEvent(Handle:event, const String:name[], bool:dontBroadc
 		ResetLastRound();
 
 		ReadNewRound();
-		// Don't create new timer if another already exists
-		if (voteTimer == INVALID_HANDLE && !nextRoundVoted) {
-			voteTimer = CreateTimer(GetConVarInt(mp_freezetime) + 15.0, VoteTimer);
+	}
+}
+
+public Action:PlayerDeathEvent(Handle:event, const String:name[], bool:dontBroadcast) {
+	if (IsPugSetupMatchLive() || inGame) {
+		new client = GetClientOfUserId(GetEventInt(event, "userid"));
+
+		if (IsClientInGame(client) && !IsFakeClient(client)) {
+			int team = GetClientTeam(client);
+			if ((team == CS_TEAM_CT && GetConVarInt(mp_respawn_on_death_ct) == 0)
+				|| (team == CS_TEAM_T && GetConVarInt(mp_respawn_on_death_t) == 0)) {
+				PlayerDeathCheckVote(client);
+			}
 		}
 	}
 }
