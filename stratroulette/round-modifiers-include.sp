@@ -85,3 +85,5 @@
 #include "stratroulette/round-modifiers/enderpearl.sp"
 #include "stratroulette/round-modifiers/all-or-nothing.sp"
 #include "stratroulette/round-modifiers/screen-cheat.sp"
+#include "stratroulette/round-modifiers/clone.sp"
+#include "stratroulette/round-modifiers/traitor.sp"

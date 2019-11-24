@@ -873,4 +873,20 @@
 	{
 		"en"		"You can only see the screen of your enemy."
 	}
+	"RoundCloneName"
+	{
+		"en"		"Clone"
+	}
+	"RoundCloneDesc"
+	{
+		"en"		"Everyone has their personal clone. Switch positions with your clone by inspecting your weapon."
+	}
+	"RoundTraitorName"
+	{
+		"en"		"Traitors"
+	}
+	"RoundTraitorDesc"
+	{
+		"en"		"Everyone has the same player model, names are not visible, player positions are scrambled, good luck."
+	}
 }

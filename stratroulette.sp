@@ -17,6 +17,8 @@
 #define	CLIENTWIDTH	32.0
 #define	CLIENTHEIGHT 72.0
 #define MAX_MESSAGE_LENGTH 250
+#define EF_BONEMERGE (1 << 0)
+#define EF_PARENT_ANIMATES (1 << 9)
 
 // Convar handles
 ConVar g_AutoStart;

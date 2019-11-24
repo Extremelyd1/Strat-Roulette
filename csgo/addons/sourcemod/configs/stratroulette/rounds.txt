@@ -944,4 +944,27 @@
 		"noc4"			"1"
 		"disable"		"1"
 	}
+	"87"
+	{
+		"name"			"RoundCloneName"
+		"description"	"RoundCloneDesc"
+		"weapon"		"weapon_m4a1"
+		"health"		"100"
+		"clone"			"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"collision"		"none"
+	}
+	"88"
+	{
+		"name"			"RoundTraitorName"
+		"description"	"RoundTraitorDesc"
+		"weapon"		"weapon_random"
+		"health"		"100"
+		"traitor"		"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"noc4"			"1"
+		"killround"		"1"
+	}
 }

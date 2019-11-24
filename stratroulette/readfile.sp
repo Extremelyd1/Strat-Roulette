@@ -592,5 +592,17 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetScreenCheat;
 	}
 
+	kv.GetString("clone", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureClone();
+		resetFunctions[resetFunctionsLength++] = ResetClone;
+	}
+
+	kv.GetString("traitor", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureTraitor();
+		resetFunctions[resetFunctionsLength++] = ResetTraitor;
+	}
+
 	delete kv;
 }
