@@ -207,6 +207,8 @@ public OnPluginStart() {
 	LoadTranslations("stratroulette.phrases");
 
 	LoadOffsets();
+
+	OnConfigsExecuted();
 }
 
 public OnPluginEnd() {
@@ -440,6 +442,8 @@ public OnConfigsExecuted() {
 	SetConVarFlags(mp_c4timer, flags & ~FCVAR_NOTIFY);
 	flags = GetConVarFlags(host_timescale);
 	SetConVarFlags(host_timescale, flags & ~FCVAR_CHEAT);
+	flags = GetConVarFlags(mp_freezetime);
+	SetConVarFlags(mp_freezetime, flags & ~FCVAR_NOTIFY);
 
 	SetServerConvars();
 }

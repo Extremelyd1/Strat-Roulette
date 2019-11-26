@@ -67,9 +67,15 @@ public Action:KillListPlayerOnTakeDamageHook(victim, &attacker, &inflictor, &Flo
 public SetTopList(team) {
 	if (team == CS_TEAM_CT) {
 		ctTopList = GetRandomPlayerFromTeam(team);
+		if (ctTopList == -1) {
+			return;
+		}
 		GetClientName(ctTopList, ctTopListName, sizeof(ctTopListName));
 	} else {
 		tTopList = GetRandomPlayerFromTeam(team);
+		if (tTopList == -1) {
+			return;
+		}
 		GetClientName(tTopList, tTopListName, sizeof(tTopListName));
 	}
 }

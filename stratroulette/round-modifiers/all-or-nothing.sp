@@ -30,6 +30,10 @@ public Action:AllOrNothingOnPlayerRunCmd(int client, int& buttons, int& impulse,
 
 	new activeWeapon = Client_GetActiveWeapon(client);
 
+	if (activeWeapon < 0) {
+		return Plugin_Continue;
+	}
+
 	char weaponname[128];
 
 	int iItemDefIndex = GetEntProp(activeWeapon, Prop_Send, "m_iItemDefinitionIndex");

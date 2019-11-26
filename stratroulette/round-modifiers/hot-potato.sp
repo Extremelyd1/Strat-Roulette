@@ -61,9 +61,11 @@ stock void SelectHotPotato(int client = -1) {
 	}
 
 	if (client == -1) {
+		if (players.Length == 0) {
+			// This method should not have been called!
+			return;
+		}
 		int randomInt = GetRandomInt(0, players.Length - 1);
-		// Used to store hot potato holder,
-		// has nothing to do with CT
 		potatoHolder = players.Get(randomInt);
 	} else {
 		potatoHolder = client;
