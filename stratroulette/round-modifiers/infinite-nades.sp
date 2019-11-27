@@ -22,6 +22,9 @@ public InfiniteNadesOnEntitySpawn(int entity, const String:className[]) {
 
 public InfiniteNadesSpawnHook(entity) {
 	int client = GetEntPropEnt(entity, Prop_Send, "m_hOwnerEntity");
+	if (client < 0) {
+		return;
+	}
 	if (IsClientInGame(client) && IsPlayerAlive(client)) {
 		int nadeslot = GetPlayerWeaponSlot(client, 3);
 		if (nadeslot > -1) {
@@ -44,6 +47,8 @@ public InfiniteNadesSpawnHook(entity) {
 			GivePlayerItem(client, "weapon_molotov");
 		} else if (StrEqual(className, "incgrenade_projectile")) {
 			GivePlayerItem(client, "weapon_incgrenade");
+		} else if (StrEqual(className, "tagrenade_projectile")) {
+			GivePlayerItem(client, "weapon_tagrenade");
 		}
 	}
 }

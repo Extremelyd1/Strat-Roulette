@@ -604,5 +604,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetTraitor;
 	}
 
+	kv.GetString("smokescreen", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureSmokeScreen();
+		resetFunctions[resetFunctionsLength++] = ResetSmokeScreen;
+	}
+
 	delete kv;
 }

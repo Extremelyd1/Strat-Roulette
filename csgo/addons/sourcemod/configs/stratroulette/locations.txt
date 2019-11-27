@@ -151,4 +151,21 @@
 			}
 		}
 	}
+	"Smoke-Screen"
+	{
+		"de_lake"
+		{
+			"x"		"5706.3"
+			"y"		"-5230.0"
+			"z"		"-245.1"	
+			"x-modifier"	"-1"
+			"y-modifier"	"1"
+			"ctSpawnX"	"4894.7"
+			"ctSpawnY"	"-4799.4"
+			"ctSpawnZ"	"-182.0"
+			"tSpawnX"	"5526.9"
+			"tSpawnY"	"-4819.5"
+			"tSpawnZ"	"-182.0"
+		}
+	}
 }

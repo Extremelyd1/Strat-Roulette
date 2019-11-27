@@ -80,22 +80,7 @@ public ConfigureKnifeArena() {
 			angles[1] = 360.0 / KNIFE_ARENA_NUM_FENCES * (j + 0.5);
 			angles[2] = 0.0;
 
-			int fence_link = CreateEntityByName("prop_dynamic");
-			int fence_border = CreateEntityByName("prop_dynamic");
-
-			SetEntityModel(fence_link, "models/props/de_dust/hr_dust/dust_fences/dust_chainlink_fence_001_256_links.mdl");
-			SetEntityModel(fence_border, "models/props/de_dust/hr_dust/dust_fences/dust_chainlink_fence_001_256.mdl");
-			DispatchKeyValue(fence_link, "Solid", "6");
-			DispatchKeyValue(fence_border, "Solid", "6");
-
-			TeleportEntity(fence_link, location, angles, NULL_VECTOR);
-			TeleportEntity(fence_border, location, angles, NULL_VECTOR);
-
-			DispatchSpawn(fence_link);
-			DispatchSpawn(fence_border);
-
-			AcceptEntityInput(fence_link, "EnableCollision");
-			AcceptEntityInput(fence_border, "EnableCollision");
+			SpawnFenceWithAngles(location, angles);
 		}
 	}
 

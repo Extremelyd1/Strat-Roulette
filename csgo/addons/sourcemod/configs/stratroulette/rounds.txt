@@ -967,4 +967,19 @@
 		"noc4"			"1"
 		"killround"		"1"
 	}
+	"89"
+	{
+		"name"			"RoundSmokeScreenName"
+		"description"	"RoundSmokeScreenDesc"
+		"weapon"		"weapon_secondary_random;weapon_tagrenade"
+		"health"		"100"
+		"smokescreen"	"1"
+		"armor"			"100"
+		"helmet"		"1"
+		"noc4"			"1"
+		"killround"		"1"
+		"infinitenade"	"1"
+		"restricted"	"de_lake"
+		"collision"		"none"
+	}
 }

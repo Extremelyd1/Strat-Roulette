@@ -889,4 +889,12 @@
 	{
 		"en"		"Everyone has the same player model, names are not visible, player positions are scrambled, good luck."
 	}
+	"RoundSmokeScreenName"
+	{
+		"en"		"Smoke Screen"
+	}
+	"RoundSmokeScreenDesc"
+	{
+		"en"		"The map is covered in smoke, but everyone is equiped with Tactical Awareness Grenades."
+	}
 }

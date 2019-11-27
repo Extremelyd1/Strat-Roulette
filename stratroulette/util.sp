@@ -200,6 +200,7 @@ stock RemoveWeaponsClient(int client, bool removeC4=false, bool removeKnife=fals
 	new primary = GetPlayerWeaponSlot(client, 0);
 	new secondary = GetPlayerWeaponSlot(client, 1);
 	new knife = GetPlayerWeaponSlot(client, 2);
+	new grenade = GetPlayerWeaponSlot(client, 3);
 	new c4Slot = GetPlayerWeaponSlot(client, 4);
 	new shield_health = GetPlayerWeaponSlot(client, 11);
 	new tablet = GetPlayerWeaponSlot(client, 12);
@@ -217,6 +218,13 @@ stock RemoveWeaponsClient(int client, bool removeC4=false, bool removeKnife=fals
 	if (removeKnife && knife > -1) {
 		RemovePlayerItem(client, knife);
 		RemoveEdict(knife);
+	}
+
+	while (grenade != -1) {
+		RemovePlayerItem(client, grenade);
+		RemoveEdict(grenade);
+
+		grenade = GetPlayerWeaponSlot(client, 3);
 	}
 
 	new c4SlotBuffer = -1;
