@@ -64,6 +64,16 @@ public ResetBuddySystem() {
 }
 
 public Action:BuddySystemChickenOnTakeDamageHook(victim, &attacker, &inflictor, &Float:damage, &damagetype) {
+	// Find owner of attacked chicken
+	for (int client = 1; client <= MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
+			// If the owner is in the same team, do not damage chicken
+			if (chickens[client] == victim && GetClientTeam(client) == GetClientTeam(inflictor)) {
+				return Plugin_Handled;
+			}
+		}
+	}
+
 	new String:victimIdString[64];
 	IntToString(victim, victimIdString, sizeof(victimIdString));
 	float currentChickenHealth;
