@@ -1007,4 +1007,12 @@
         "armor"         "100"
         "helmet"        "1"
 	}
+    "92"
+	{
+		"name"			"RoundSuicideName"
+		"description"	"RoundSuicideDesc"
+		"weapon"		"none"
+		"suicide"  		"1"
+		"noc4"			"1"
+	}
 }

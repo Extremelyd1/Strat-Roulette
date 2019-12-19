@@ -913,4 +913,12 @@
 	{
 		"en"		"Automatic bunnyhopping is enabled, velocity cap is removed. Hold space to bhop."
 	}
+    "RoundSuicideName"
+	{
+		"en"		"Mass Suicide"
+	}
+	"RoundSuicideDesc"
+	{
+		"en"		"First team to kill themselves wins."
+	}
 }

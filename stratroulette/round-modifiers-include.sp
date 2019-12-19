@@ -90,3 +90,4 @@
 #include "stratroulette/round-modifiers/smoke-screen.sp"
 #include "stratroulette/round-modifiers/snowball.sp"
 #include "stratroulette/round-modifiers/bhop.sp"
+#include "stratroulette/round-modifiers/suicide.sp"

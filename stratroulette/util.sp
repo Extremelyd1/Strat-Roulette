@@ -306,7 +306,7 @@ public GiveAllPlayersItem(char[] item) {
 	}
 }
 
-public bool IsWiped() {
+stock bool IsWiped(int excludeClient = -1) {
 	bool ctWiped = true;
 	bool tWiped = true;
 
@@ -318,6 +318,10 @@ public bool IsWiped() {
 	}
 
 	for (int client = 1; client <= MaxClients; client++) {
+		if (client == excludeClient) {
+			continue;
+		}
+		
 		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			if (GetClientTeam(client) == CS_TEAM_CT) {
 				ctWiped = false;

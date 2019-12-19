@@ -151,6 +151,7 @@ new Handle:host_timescale;
 new Handle:sv_autobunnyhopping;
 new Handle:sv_enablebunnyhopping;
 new Handle:sv_maxvelocity;
+new Handle:mp_friendlyfire;
 
 new Handle:hReload;
 
@@ -359,7 +360,11 @@ public Action:SmokeRemoveTimer(Handle timer) {
 }
 
 public Action:cmd_srtest(client, args) {
-	GivePlayerItem(client, "weapon_snowball");
+	for (int i = 1; i <= MaxClients; i++) {
+		if (IsClientInGame(i) && IsPlayerAlive(i)) {
+			SDKHooks_TakeDamage(i, i, i, GetTrueDamage(i, float(health)), DMG_GENERIC);
+		}
+	}
 }
 
 public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3], float angles[3], int& weapon, int& subtype, int& cmdnum, int& tickcount, int& seed, int mouse[2]) {
@@ -437,7 +442,7 @@ public OnConfigsExecuted() {
 	sv_autobunnyhopping = FindConVar("sv_autobunnyhopping");
 	sv_enablebunnyhopping = FindConVar("sv_enablebunnyhopping");
 	sv_maxvelocity = FindConVar("sv_maxvelocity");
-
+	mp_friendlyfire = FindConVar("mp_friendlyfire");
 
 	g_offsCollisionGroup = FindSendPropInfo("CBaseEntity", "m_CollisionGroup");
 
@@ -458,6 +463,8 @@ public OnConfigsExecuted() {
 	SetConVarFlags(host_timescale, flags & ~FCVAR_CHEAT);
 	flags = GetConVarFlags(mp_freezetime);
 	SetConVarFlags(mp_freezetime, flags & ~FCVAR_NOTIFY);
+	flags = GetConVarFlags(mp_freezetime);
+	SetConVarFlags(mp_friendlyfire, flags & ~FCVAR_NOTIFY);
 
 	SetServerConvars();
 }

@@ -622,5 +622,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetBhop;
 	}
 
+	kv.GetString("suicide", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureSuicide();
+		resetFunctions[resetFunctionsLength++] = ResetSuicide;
+	}
+
 	delete kv;
 }
