@@ -871,7 +871,7 @@
 	}
 	"RoundScreenCheatDesc"
 	{
-		"en"		"You can only see the screen of your enemy."
+		"en"		"You can see the view of a random enemy by inspecting your weapon."
 	}
 	"RoundCloneName"
 	{

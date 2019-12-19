@@ -1,52 +1,19 @@
 bool screenCheatActive = false;
 
-ArrayList screenCheatCTPlayers;
-ArrayList screenCheatTPlayers;
-
 new screenCheatEntities[MAXPLAYERS + 1];
 
-int ctClientNeedsView;
-int tClientNeedsView;
+new screenCheating[MAXPLAYERS + 1];
 
 public ConfigureScreenCheat() {
-	screenCheatCTPlayers = new ArrayList();
-	screenCheatTPlayers = new ArrayList();
-
-	ctClientNeedsView = -1;
-	tClientNeedsView = -1;
-
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
 			int entity = CreateViewEntity();
 			screenCheatEntities[client] = entity;
-
-			if (GetClientTeam(client) == CS_TEAM_CT) {
-				if (ctClientNeedsView != -1) {
-					SetClientViewEntity(ctClientNeedsView, screenCheatEntities[client]);
-					ctClientNeedsView = -1;
-				}
-
-				if (screenCheatCTPlayers.Length == 0) {
-					ctClientNeedsView = client;
-				} else {
-					SetClientViewEntity(client, screenCheatEntities[screenCheatCTPlayers.Get(screenCheatCTPlayers.Length - 1)]);
-				}
-				screenCheatCTPlayers.Push(client);
-			} else if (GetClientTeam(client) == CS_TEAM_T) {
-				if (tClientNeedsView != -1) {
-					SetClientViewEntity(tClientNeedsView, screenCheatEntities[client]);
-					tClientNeedsView = -1;
-				}
-				
-				if (screenCheatTPlayers.Length == 0) {
-					tClientNeedsView = client;
-				} else {
-					SetClientViewEntity(client, screenCheatEntities[screenCheatTPlayers.Get(screenCheatTPlayers.Length - 1)]);
-				}
-				screenCheatTPlayers.Push(client);
-			}
+			screenCheating[client] = false;
 		}
 	}
+
+	AddCommandListener(ScreenCheatLookAtWeaponListener, "+lookatweapon");
 
 	screenCheatActive = true;
 }
@@ -54,19 +21,50 @@ public ConfigureScreenCheat() {
 public ResetScreenCheat() {
 	screenCheatActive = false;
 
+	RemoveCommandListener(ScreenCheatLookAtWeaponListener, "+lookatweapon");
+
 	for (new i = 1; i <= MaxClients; i++) {
 		if (IsClientInGame(i) && !IsFakeClient(i)) {
 			// Reset view
 			SetClientViewEntity(i, i);
 		}
 	}
+}
 
-	delete screenCheatCTPlayers;
-	delete screenCheatTPlayers;
+public Action:ScreenCheatLookAtWeaponListener(int client, const char[] command, int args) {
+	if (IsWiped()) {
+		return Plugin_Continue;
+	}
+
+	if (screenCheating[client]) {
+		SetClientViewEntity(client, client);
+		screenCheating[client] = false;
+		return Plugin_Stop;
+	}
+
+	int clientTeam = GetClientTeam(client);
+
+	int randomEnemy = -1;
+
+	if (clientTeam == CS_TEAM_CT) {
+		randomEnemy = GetRandomPlayerFromTeam(CS_TEAM_T);
+	} else {
+		randomEnemy = GetRandomPlayerFromTeam(CS_TEAM_CT);
+	}
+
+	if (randomEnemy == -1 || !IsClientInGame(randomEnemy) || !IsPlayerAlive(randomEnemy)) {
+		return Plugin_Continue;
+	}
+
+	SetClientViewEntity(client, screenCheatEntities[randomEnemy]);
+
+	screenCheating[client] = true;
+
+	return Plugin_Stop;
 }
 
 public Action:ScreenCheatOnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3], float angles[3], int& weapon, int& subtype, int& cmdnum, int& tickcount, int& seed, int mouse[2]) {
-	if (!screenCheatActive) {
+	if (!screenCheatActive || !IsPlayerAlive(client)) {
 		return Plugin_Continue;
 	}
 
