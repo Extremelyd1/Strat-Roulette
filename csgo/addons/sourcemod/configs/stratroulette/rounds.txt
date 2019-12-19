@@ -1014,5 +1014,6 @@
 		"weapon"		"none"
 		"suicide"  		"1"
 		"noc4"			"1"
+		"collision"		"none"
 	}
 }

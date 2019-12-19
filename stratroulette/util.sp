@@ -161,6 +161,24 @@ public SendCenterText(int client, String:szMessage[], any:...) {
 	PrintCenterText(client, "%s", szCMessage);
 }
 
+public int GetRandomPlayer() {
+	ArrayList players = new ArrayList();
+
+	for (int client = 1; client <= MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
+			players.Push(client);
+		}
+	}
+
+	if (players.Length > 0) {
+		int randomIndex = GetRandomInt(0, players.Length - 1);
+
+		return players.Get(randomIndex);
+	}
+
+	return -1;
+}
+
 public int GetRandomPlayerFromTeam(int team) {
 	ArrayList players = new ArrayList();
 
@@ -321,7 +339,7 @@ stock bool IsWiped(int excludeClient = -1) {
 		if (client == excludeClient) {
 			continue;
 		}
-		
+
 		if (IsClientInGame(client) && IsPlayerAlive(client)) {
 			if (GetClientTeam(client) == CS_TEAM_CT) {
 				ctWiped = false;

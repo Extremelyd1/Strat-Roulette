@@ -9,6 +9,16 @@ public ConfigureSuicide() {
 	AddCommandListener(DenyDropListener, "kill");
 	AddCommandListener(DenyDropListener, "explode");
 
+	float tpPos[3];
+
+	GetEntPropVector(GetRandomPlayer(), Prop_Send, "m_vecOrigin", tpPos);
+
+	for (int client = 1; client <= MaxClients; client++) {
+		if (IsClientInGame(client) && IsPlayerAlive(client)) {
+			TeleportEntity(client, tpPos, NULL_VECTOR, NULL_VECTOR);
+		}
+	}
+
 	suicideActive = true;
 }
 
