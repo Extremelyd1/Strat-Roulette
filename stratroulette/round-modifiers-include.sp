@@ -88,3 +88,4 @@
 #include "stratroulette/round-modifiers/clone.sp"
 #include "stratroulette/round-modifiers/traitor.sp"
 #include "stratroulette/round-modifiers/smoke-screen.sp"
+#include "stratroulette/round-modifiers/snowball.sp"

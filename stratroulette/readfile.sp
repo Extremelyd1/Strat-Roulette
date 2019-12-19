@@ -610,5 +610,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetSmokeScreen;
 	}
 
+	kv.GetString("snowball", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureSnowball();
+		resetFunctions[resetFunctionsLength++] = ResetSnowball;
+	}
+
 	delete kv;
 }

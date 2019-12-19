@@ -895,6 +895,14 @@
 	}
 	"RoundSmokeScreenDesc"
 	{
-		"en"		"The map is covered in smoke, but everyone is equiped with Tactical Awareness Grenades."
+		"en"		"A line of smokes divides the teams, but players can be spotted with Tactical Awareness Grenades."
+	}
+    "RoundSnowballName"
+	{
+		"en"		"Snowball Fight!"
+	}
+	"RoundSnowballDesc"
+	{
+		"en"		"Pummel each other with snowballs until they die. Beware that you cannot attack with knives."
 	}
 }

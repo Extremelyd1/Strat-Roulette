@@ -318,6 +318,7 @@
 		"infiniteammo"	"2"
 		"armor"			"100"
 		"helmet"		"1"
+		"beacon"		"1"
 	}
 	"32"
 	{
@@ -981,5 +982,16 @@
 		"infinitenade"	"1"
 		"restricted"	"de_lake"
 		"collision"		"none"
+	}
+    "90"
+	{
+		"name"			"RoundSnowballName"
+		"description"	"RoundSnowballDesc"
+		"weapon"		"none"
+		"snowball"		"1"
+		"noc4"			"1"
+		"killround"		"1"
+		"health"		"20"
+        "infiniteammo"  "1"
 	}
 }
