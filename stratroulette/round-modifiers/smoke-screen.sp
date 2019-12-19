@@ -163,18 +163,26 @@ public BuildSmokeScreenArena() {
 	for (int x = 0; x < 6; x++) {
 		for (int y = 0; y < 6; y++) {
 			float spawnPos[3];
-			spawnPos[0] = smokeScreenStartPos[0] - 91.0 + x * smokeScreenXMod * 180.0;
-			spawnPos[1] = smokeScreenStartPos[1] + 70.0 + y * smokeScreenYMod * 144.0;
+			spawnPos[0] = smokeScreenStartPos[0] + 91.0 * smokeScreenXMod + x * smokeScreenXMod * 180.0;
+			spawnPos[1] = smokeScreenStartPos[1] + 70.0 * smokeScreenYMod + y * smokeScreenYMod * 144.0;
 			spawnPos[2] = smokeScreenStartPos[2];
 
-			SpawnScaffolding(spawnPos);
+			float angles[3];
+			angles[0] = 0.0;
+			angles[1] = 0.0
+			if (smokeScreenXMod == 1) {
+				angles[1] = 180.0;
+			}
+			angles[2] = 0.0;
+
+			SpawnScaffoldingWithAngles(spawnPos, angles);
 		}
 	}
 
-	SmokeScreenFenceLine(smokeScreenStartPos, 90.0, smokeScreenXMod, smokeScreenYMod, 0.0, 0.0, true, 4);
-	SmokeScreenFenceLine(smokeScreenStartPos, 0.0, smokeScreenXMod, smokeScreenYMod, smokeScreenXMod * 1024.0, 0.0, false, 3);
-	SmokeScreenFenceLine(smokeScreenStartPos, -90.0, -smokeScreenXMod, smokeScreenYMod, smokeScreenXMod * 1024.0, smokeScreenYMod * 768.0, true, 4);
-	SmokeScreenFenceLine(smokeScreenStartPos, -180.0, smokeScreenXMod, -smokeScreenYMod, 0.0, smokeScreenYMod * 768.0, false, 3);
+	SmokeScreenFenceLine(smokeScreenStartPos, -90.0 * smokeScreenXMod, smokeScreenXMod, smokeScreenYMod, 0.0, 0.0, true, 4);
+	SmokeScreenFenceLine(smokeScreenStartPos, 90.0 - 90.0 * smokeScreenYMod, smokeScreenXMod, smokeScreenYMod, smokeScreenXMod * 1024.0, 0.0, false, 3);
+	SmokeScreenFenceLine(smokeScreenStartPos, 90.0 * smokeScreenXMod, -smokeScreenXMod, smokeScreenYMod, smokeScreenXMod * 1024.0, smokeScreenYMod * 768.0, true, 4);
+	SmokeScreenFenceLine(smokeScreenStartPos, 90.0 + 90.0 * smokeScreenYMod, smokeScreenXMod, -smokeScreenYMod, 0.0, smokeScreenYMod * 768.0, false, 3);
 }
 
 public SmokeScreenFenceLine(float startPos[3], float rotation, int xMod, int yMod, float startX, float startY, bool xDir, int length) {

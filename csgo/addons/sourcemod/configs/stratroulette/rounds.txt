@@ -980,8 +980,9 @@
 		"noc4"			"1"
 		"killround"		"1"
 		"infinitenade"	"1"
-		"restricted"	"de_lake"
+		"restricted"	"de_lake;de_bank;de_safehouse;de_stmarc;gd_rialto;de_sugarcane"
 		"collision"		"none"
+        "infiniteammo"  "2"
 	}
     "90"
 	{
