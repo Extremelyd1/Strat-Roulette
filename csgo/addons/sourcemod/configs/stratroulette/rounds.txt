@@ -994,4 +994,16 @@
 		"health"		"20"
         "infiniteammo"  "1"
 	}
+    "91"
+	{
+		"name"			"RoundBhopName"
+		"description"	"RoundBhopDesc"
+		"weapon"		"weapon_secondary_random"
+		"bhop"  		"1"
+		"noc4"			"1"
+		"killround"		"1"
+        "infiniteammo"  "2"
+        "armor"         "100"
+        "helmet"        "1"
+	}
 }

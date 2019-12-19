@@ -148,8 +148,9 @@ new Handle:mp_solid_teammates;
 new Handle:mp_respawn_on_death_ct;
 new Handle:mp_respawn_on_death_t;
 new Handle:host_timescale;
-/* new Handle:game_mode;
-new Handle:game_type; */
+new Handle:sv_autobunnyhopping;
+new Handle:sv_enablebunnyhopping;
+new Handle:sv_maxvelocity;
 
 new Handle:hReload;
 
@@ -433,8 +434,10 @@ public OnConfigsExecuted() {
 	mp_respawn_on_death_ct = FindConVar("mp_respawn_on_death_ct");
 	mp_respawn_on_death_t = FindConVar("mp_respawn_on_death_t");
 	host_timescale = FindConVar("host_timescale");
-	/* game_mode = FindConVar("game_mode");
-	game_type = FindConVar("game_type"); */
+	sv_autobunnyhopping = FindConVar("sv_autobunnyhopping");
+	sv_enablebunnyhopping = FindConVar("sv_enablebunnyhopping");
+	sv_maxvelocity = FindConVar("sv_maxvelocity");
+
 
 	g_offsCollisionGroup = FindSendPropInfo("CBaseEntity", "m_CollisionGroup");
 

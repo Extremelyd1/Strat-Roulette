@@ -905,4 +905,12 @@
 	{
 		"en"		"Pummel each other with snowballs until they die. Beware that you cannot attack with knives."
 	}
+    "RoundBhopName"
+	{
+		"en"		"Bunnyhopping"
+	}
+	"RoundBhopDesc"
+	{
+		"en"		"Automatic bunnyhopping is enabled, velocity cap is removed. Hold space to bhop."
+	}
 }

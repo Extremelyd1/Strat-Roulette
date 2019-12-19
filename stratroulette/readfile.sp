@@ -616,5 +616,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetSnowball;
 	}
 
+	kv.GetString("bhop", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureBhop();
+		resetFunctions[resetFunctionsLength++] = ResetBhop;
+	}
+
 	delete kv;
 }
