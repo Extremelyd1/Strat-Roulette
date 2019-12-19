@@ -134,7 +134,7 @@
 	}
 	"RoundChickenDefuseDesc"
 	{
-		"en"		"When the bomb is planted, it is put on a moving chicken."
+		"en"		"The bomb is planted on a live chicken. Bomb timer is extended."
 	}
 	"RoundHeadshotOnlyName"
 	{

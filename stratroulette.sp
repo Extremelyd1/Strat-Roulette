@@ -114,6 +114,7 @@ new bool:forceNextRound = false;
 new String:forceRoundNumber[16];
 
 int g_offsCollisionGroup;
+int g_offsBombTicking;
 
 // Cvars
 new Handle:sv_allow_thirdperson;
@@ -445,6 +446,7 @@ public OnConfigsExecuted() {
 	mp_friendlyfire = FindConVar("mp_friendlyfire");
 
 	g_offsCollisionGroup = FindSendPropInfo("CBaseEntity", "m_CollisionGroup");
+	g_offsBombTicking = FindSendPropInfo("CPlantedC4", "m_bBombTicking");
 
 	//** KEYVALUES **//
 	new flags = GetConVarFlags(sv_gravity);

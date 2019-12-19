@@ -177,6 +177,7 @@
 		"defuser"		"1"
 		"armor"			"100"
 		"helmet"		"1"
+        "noc4"          "1"
 	}
 	"18"
 	{
