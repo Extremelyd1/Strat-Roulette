@@ -361,11 +361,6 @@ public Action:SmokeRemoveTimer(Handle timer) {
 }
 
 public Action:cmd_srtest(client, args) {
-	for (int i = 1; i <= MaxClients; i++) {
-		if (IsClientInGame(i) && IsPlayerAlive(i)) {
-			SDKHooks_TakeDamage(i, i, i, GetTrueDamage(i, float(health)), DMG_GENERIC);
-		}
-	}
 }
 
 public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3], float angles[3], int& weapon, int& subtype, int& cmdnum, int& tickcount, int& seed, int mouse[2]) {

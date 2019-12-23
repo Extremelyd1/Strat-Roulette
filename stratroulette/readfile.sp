@@ -44,6 +44,20 @@ public void ReadNewRound() {
 	char description[2048];
 	kv.GetString("description", description, sizeof(description), "");
 
+	char keyValue[500];
+
+	kv.GetString("killround", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureKillRound();
+		resetFunctions[resetFunctionsLength++] = ResetKillRound;
+	}
+
+	kv.GetString("winner", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureWinner(keyValue);
+		resetFunctions[resetFunctionsLength++] = ResetWinner;
+	}
+
 	SendMessageAll(" ");
 	SendMessageAll("{LIGHT_BLUE}-----------------------------------------------------------------------------------------");
 	SendMessageAll("%t", roundName);
@@ -75,7 +89,6 @@ public void ReadNewRound() {
 
 	PrintCenterTextAll("%t", roundName);
 
-	char keyValue[500];
 	kv.GetString("noknife", keyValue, sizeof(keyValue), "0");
 	if (!StrEqual(keyValue, "0")) {
 		ConfigureNoKnife();
@@ -298,22 +311,10 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetManHunt;
 	}
 
-	kv.GetString("winner", keyValue, sizeof(keyValue), "0");
-	if (!StrEqual(keyValue, "0")) {
-		ConfigureWinner(keyValue);
-		resetFunctions[resetFunctionsLength++] = ResetWinner;
-	}
-
 	kv.GetString("hotpotato", keyValue, sizeof(keyValue), "0");
 	if (!StrEqual(keyValue, "0")) {
 		ConfigureHotPotato();
 		resetFunctions[resetFunctionsLength++] = ResetHotPotato;
-	}
-
-	kv.GetString("killround", keyValue, sizeof(keyValue), "0");
-	if (!StrEqual(keyValue, "0")) {
-		ConfigureKillRound();
-		resetFunctions[resetFunctionsLength++] = ResetKillRound;
 	}
 
 	kv.GetString("bomberman", keyValue, sizeof(keyValue), "0");

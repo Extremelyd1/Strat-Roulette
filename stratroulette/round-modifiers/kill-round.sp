@@ -4,6 +4,7 @@ public ConfigureKillRound() {
 	killRoundActive = true;
 
 	SetConVarInt(mp_ignore_round_win_conditions, 1, true, false);
+	GameRules_SetProp("m_iRoundTime", 0, 1);
 
 	HookEvent("player_death", KillRoundPlayerDeathEvent, EventHookMode_Pre);
 }
