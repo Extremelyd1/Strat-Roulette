@@ -15,7 +15,7 @@ public ResetWallbang() {
 	UnhookEvent("weapon_fire", WallbangWeaponFireEvent, EventHookMode_Pre);
 
 	for (int client = 1; client <= MaxClients; client++) {
-		if (IsClientInGame(client) && IsPlayerAlive(client)) {
+		if (IsClientInGame(client)) {
 			SDKUnhook(client, SDKHook_OnTakeDamage, WallbangPlayerOnTakeDamageHook);
 		}
 	}
