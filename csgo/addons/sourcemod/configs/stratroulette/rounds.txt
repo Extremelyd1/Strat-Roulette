@@ -981,4 +981,15 @@
 		"noc4"			"1"
 		"collision"		"none"
 	}
+    "93"
+	{
+		"name"			"RoundWallbangName"
+		"description"	"RoundWallbangDesc"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"wallbang" 		"1"
+        "noknife"       "1"
+        "infiniteammo"  "2"
+        "armor"         "100"
+        "helmet"        "1"
+	}
 }

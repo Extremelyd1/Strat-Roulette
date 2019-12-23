@@ -921,4 +921,12 @@
 	{
 		"en"		"First team to kill themselves wins."
 	}
+    "RoundWallbangName"
+	{
+		"en"		"Bangers"
+	}
+	"RoundWallbangDesc"
+	{
+		"en"		"You can only damage other players by wallbanging them."
+	}
 }

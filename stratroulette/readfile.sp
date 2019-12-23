@@ -628,5 +628,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetSuicide;
 	}
 
+	kv.GetString("wallbang", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureWallbang();
+		resetFunctions[resetFunctionsLength++] = ResetWallbang;
+	}
+
 	delete kv;
 }

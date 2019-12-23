@@ -91,3 +91,4 @@
 #include "stratroulette/round-modifiers/snowball.sp"
 #include "stratroulette/round-modifiers/bhop.sp"
 #include "stratroulette/round-modifiers/suicide.sp"
+#include "stratroulette/round-modifiers/wallbang.sp"
