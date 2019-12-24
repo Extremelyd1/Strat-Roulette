@@ -969,4 +969,20 @@
 	{
 		"en"		"{DARK_RED}The enemy{NORMAL} team is now allowed to move"
 	}
+    "RoundFeetOnlyName"
+	{
+		"en"		"Foot Fetish"
+	}
+    "RoundFeetOnlyDesc"
+	{
+		"en"		"You can only damage players by hitting their feet."
+	}
+    "RoundPropulsionName"
+	{
+		"en"		"Propulsion"
+	}
+    "RoundPropulsionDesc"
+	{
+		"en"		"Shooting your weapon propels you backwards."
+	}
 }

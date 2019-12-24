@@ -11,8 +11,7 @@ public ConfigureClone() {
 
 			DispatchKeyValue(entity, "model", clientModel);
 
-			ActivateEntity(entity);
-			DispatchSpawn(entity);
+			SetEntPropEnt(entity, Prop_Send, "m_hOwnerEntity", i);
 
 			SetEntData(entity, g_offsCollisionGroup, 2, 4, true);
 
@@ -23,6 +22,9 @@ public ConfigureClone() {
 			GetClientEyeAngles(i, clientAngles);
 
 			TeleportEntity(entity, clientPos, clientAngles, NULL_VECTOR);
+
+			DispatchSpawn(entity);
+			ActivateEntity(entity);
 
 			cloneEntities[i] = entity;
 
@@ -40,6 +42,10 @@ public ResetClone() {
 }
 
 public Action:CloneLookAtWeaponListener(int client, const char[] command, int args) {
+	if (!IsPlayerAlive(client)) {
+		return Plugin_Continue;
+	}
+
 	int cloneEntity = cloneEntities[client];
 	if (!IsValidEntity(cloneEntity) || cloneEntity < 1) {
 		return Plugin_Continue;

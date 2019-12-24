@@ -659,5 +659,17 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetTurnBased;
 	}
 
+	kv.GetString("feetonly", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureFeetOnly();
+		resetFunctions[resetFunctionsLength++] = ResetFeetOnly;
+	}
+
+	kv.GetString("propulsion", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigurePropulsion();
+		resetFunctions[resetFunctionsLength++] = ResetPropulsion;
+	}
+
 	delete kv;
 }

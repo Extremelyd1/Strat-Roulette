@@ -96,3 +96,5 @@
 #include "stratroulette/round-modifiers/no-sound.sp"
 #include "stratroulette/round-modifiers/availability.sp"
 #include "stratroulette/round-modifiers/turn-based.sp"
+#include "stratroulette/round-modifiers/feet-only.sp"
+#include "stratroulette/round-modifiers/propulsion.sp"

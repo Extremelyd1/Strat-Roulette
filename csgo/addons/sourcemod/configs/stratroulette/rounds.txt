@@ -1034,5 +1034,29 @@
 		"turnbased" 	"1"
         "armor"         "100"
         "helmet"        "1"
+        "defuser"       "1"
+	}
+    "98"
+	{
+		"name"			"RoundFeetOnlyName"
+		"description"	"RoundFeetOnlyDesc"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"feetonly"   	"1"
+        "armor"         "100"
+        "helmet"        "1"
+        "defuser"       "1"
+	}
+    "99"
+	{
+		"name"			"RoundPropulsionName"
+		"description"	"RoundPropulsionDesc"
+		"weapon"		"weapon_mag7"
+		"propulsion"   	"1"
+        "armor"         "100"
+        "helmet"        "1"
+        "defuser"       "1"
+        "infiniteammo"  "2"
+        "noknife"       "1"
+        "nofalldmg"		"1"
 	}
 }
