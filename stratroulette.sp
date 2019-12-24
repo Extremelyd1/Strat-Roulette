@@ -361,6 +361,12 @@ public Action:SmokeRemoveTimer(Handle timer) {
 }
 
 public Action:cmd_srtest(client, args) {
+	char arg[128];
+	GetCmdArg(1, arg, sizeof(arg));
+
+	float time = StringToFloat(arg);
+
+	IgniteEntity(client, time);
 }
 
 public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3], float angles[3], int& weapon, int& subtype, int& cmdnum, int& tickcount, int& seed, int mouse[2]) {

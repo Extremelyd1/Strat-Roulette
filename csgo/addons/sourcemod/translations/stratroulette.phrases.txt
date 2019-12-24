@@ -929,4 +929,12 @@
 	{
 		"en"		"You can only damage other players by wallbanging them."
 	}
+    "RoundFireName"
+	{
+		"en"		"Hot, hot, hot!"
+	}
+	"RoundFireDesc"
+	{
+		"en"		"Hitting enemies will ignite them, hitting teammates will extinguish them."
+	}
 }

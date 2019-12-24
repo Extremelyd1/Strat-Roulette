@@ -992,4 +992,16 @@
         "armor"         "100"
         "helmet"        "1"
 	}
+    "94"
+	{
+		"name"			"RoundFireName"
+		"description"	"RoundFireDesc"
+		"weapon"		"weapon_secondary_random"
+		"fire"   		"1"
+        "infiniteammo"  "2"
+        "armor"         "100"
+        "helmet"        "1"
+        "killround"     "1"
+        "noc4"          "1"
+	}
 }

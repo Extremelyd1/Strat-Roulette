@@ -635,5 +635,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetWallbang;
 	}
 
+	kv.GetString("fire", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureFire();
+		resetFunctions[resetFunctionsLength++] = ResetFire;
+	}
+
 	delete kv;
 }
