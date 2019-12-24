@@ -366,7 +366,7 @@ public Action:cmd_srtest(client, args) {
 
 	float time = StringToFloat(arg);
 
-	IgniteEntity(client, time);
+	FadeClientVolume(client, 100.0, 0.0, time, 0.0);
 }
 
 public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3], float angles[3], int& weapon, int& subtype, int& cmdnum, int& tickcount, int& seed, int mouse[2]) {

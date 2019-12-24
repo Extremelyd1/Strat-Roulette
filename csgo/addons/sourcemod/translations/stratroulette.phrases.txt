@@ -937,4 +937,12 @@
 	{
 		"en"		"Hitting enemies will ignite them, hitting teammates will extinguish them."
 	}
+    "RoundNoSoundName"
+	{
+		"en"		"Deaf"
+	}
+	"RoundNoSoundDesc"
+	{
+		"en"		"A normal round without any sound."
+	}
 }

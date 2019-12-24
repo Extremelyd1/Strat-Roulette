@@ -641,5 +641,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetFire;
 	}
 
+	kv.GetString("nosound", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureNoSound();
+		resetFunctions[resetFunctionsLength++] = ResetNoSound;
+	}
+
 	delete kv;
 }
