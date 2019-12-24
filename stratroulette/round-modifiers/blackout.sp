@@ -1,10 +1,14 @@
 bool blackoutActive = false;
 
+Handle blackoutTimer[MAXPLAYERS + 1];
+
 public ConfigureBlackout() {
 	for (new i = 1; i <= MaxClients; i++) {
 		if (IsClientInGame(i) && IsPlayerAlive(i)) {
+			blackoutTimer[i] = INVALID_HANDLE;
+
 			float randomFloat = GetRandomFloat(5.0, 10.0);
-			CreateTimer(randomFloat, BlackoutFadeOutTimer1, i);
+			blackoutTimer[i] = CreateTimer(randomFloat, BlackoutFadeOutTimer1, i);
 		}
 	}
 
@@ -12,6 +16,11 @@ public ConfigureBlackout() {
 }
 
 public ResetBlackout() {
+	for (new i = 1; i <= MaxClients; i++) {
+		if (IsClientInGame(i)) {
+			SafeKillTimer(blackoutTimer[i]);
+		}
+	}
 	blackoutActive = false;
 }
 
@@ -22,7 +31,7 @@ public Action:BlackoutFadeOutTimer1(Handle timer, int client) {
 
 	BlackoutClient(client, false, 200, 1024, 512);
 
-	CreateTimer(2.0, BlackoutFadeInTimer1, client);
+	blackoutTimer[client] = CreateTimer(2.0, BlackoutFadeInTimer1, client);
 
 	return Plugin_Stop;
 }
@@ -34,7 +43,7 @@ public Action:BlackoutFadeInTimer1(Handle timer, int client) {
 
 	BlackoutClient(client, true, 200, 1024, 512);
 
-	CreateTimer(2.5, BlackoutFadeOutTimer2, client);
+	blackoutTimer[client] = CreateTimer(2.5, BlackoutFadeOutTimer2, client);
 
 	return Plugin_Stop;
 }
@@ -46,7 +55,7 @@ public Action:BlackoutFadeOutTimer2(Handle timer, int client) {
 
 	BlackoutClient(client, false, 220, 512, 512);
 
-	CreateTimer(1.0, BlackoutFadeInTimer2, client);
+	blackoutTimer[client] = CreateTimer(1.0, BlackoutFadeInTimer2, client);
 
 	return Plugin_Stop;
 }
@@ -58,7 +67,7 @@ public Action:BlackoutFadeInTimer2(Handle timer, int client) {
 
 	BlackoutClient(client, true, 220, 512, 512);
 
-	CreateTimer(2.0, BlackoutFadeOutTimer3, client);
+	blackoutTimer[client] = CreateTimer(2.0, BlackoutFadeOutTimer3, client);
 
 	return Plugin_Stop;
 }
@@ -70,7 +79,7 @@ public Action:BlackoutFadeOutTimer3(Handle timer, int client) {
 
 	BlackoutClient(client, false, 255, 256, 2048);
 
-	CreateTimer(3.0, BlackoutFadeInTimer3, client);
+	blackoutTimer[client] = CreateTimer(3.0, BlackoutFadeInTimer3, client);
 
 	return Plugin_Stop;
 }
@@ -83,7 +92,7 @@ public Action:BlackoutFadeInTimer3(Handle timer, int client) {
 	BlackoutClient(client, true, 255, 256, 2048);
 
 	float randomFloat = GetRandomFloat(10.0, 15.0);
-	CreateTimer(randomFloat, BlackoutFadeOutTimer1, client);
+	blackoutTimer[client] = CreateTimer(randomFloat, BlackoutFadeOutTimer1, client);
 
 	return Plugin_Stop;
 }

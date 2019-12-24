@@ -945,4 +945,12 @@
 	{
 		"en"		"A normal round without any sound."
 	}
+    "RoundAvailabilityName"
+	{
+		"en"		"Limited Edition"
+	}
+	"RoundAvailabilityDesc"
+	{
+		"en"		"Players can only be damaged in limited time frames."
+	}
 }

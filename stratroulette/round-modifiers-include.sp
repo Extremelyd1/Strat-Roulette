@@ -94,3 +94,4 @@
 #include "stratroulette/round-modifiers/wallbang.sp"
 #include "stratroulette/round-modifiers/fire.sp"
 #include "stratroulette/round-modifiers/no-sound.sp"
+#include "stratroulette/round-modifiers/availability.sp"

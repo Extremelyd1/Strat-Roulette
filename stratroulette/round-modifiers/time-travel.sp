@@ -8,6 +8,9 @@ float timeTravelPositions[MAXPLAYERS + 1][TIME_TRAVEL_SECONDS][3];
 
 int timeTravelOnCooldown[MAXPLAYERS + 1];
 
+Handle timeTravelPositionsTimer;
+Handle timeTravelCooldownTimer;
+
 public ConfigureTimeTravel() {
 	for (int i = 1; i <= MaxClients; i++) {
 		if (IsClientInGame(i) && IsPlayerAlive(i)) {
@@ -24,8 +27,8 @@ public ConfigureTimeTravel() {
 		}
 	}
 
-	CreateTimer(1.0, TimeTravelSavePositionsTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(1.0, TimeTravelCooldownTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+	timeTravelPositionsTimer = CreateTimer(1.0, TimeTravelSavePositionsTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+	timeTravelCooldownTimer = CreateTimer(1.0, TimeTravelCooldownTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 
 	AddCommandListener(DenyDropListener, "drop");
 
@@ -35,14 +38,13 @@ public ConfigureTimeTravel() {
 public ResetTimeTravel() {
 	timeTravelActive = false;
 
+	SafeKillTimer(timeTravelPositionsTimer);
+	SafeKillTimer(timeTravelCooldownTimer);
+
 	RemoveCommandListener(DenyDropListener, "drop");
 }
 
 public Action:TimeTravelSavePositionsTimer(Handle timer) {
-	if (!timeTravelActive) {
-		return Plugin_Stop;
-	}
-
 	for (int i = 1; i <= MaxClients; i++) {
 		if (IsClientInGame(i) && IsPlayerAlive(i)) {
 			for (int j = TIME_TRAVEL_SECONDS - 2; j >= 0; j--) {
@@ -64,10 +66,6 @@ public Action:TimeTravelSavePositionsTimer(Handle timer) {
 }
 
 public Action:TimeTravelCooldownTimer(Handle timer) {
-	if (!timeTravelActive) {
-		return Plugin_Stop;
-	}
-
 	for (int i = 1; i <= MaxClients; i++) {
 		if (IsClientInGame(i) && IsPlayerAlive(i)) {
 			int newCooldown = timeTravelOnCooldown[i] - 1;

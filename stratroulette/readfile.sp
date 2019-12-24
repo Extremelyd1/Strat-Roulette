@@ -647,5 +647,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetNoSound;
 	}
 
+	kv.GetString("availability", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureAvailability();
+		resetFunctions[resetFunctionsLength++] = ResetAvailability;
+	}
+
 	delete kv;
 }
