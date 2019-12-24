@@ -653,5 +653,11 @@ public void ReadNewRound() {
 		resetFunctions[resetFunctionsLength++] = ResetAvailability;
 	}
 
+	kv.GetString("turnbased", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureTurnBased();
+		resetFunctions[resetFunctionsLength++] = ResetTurnBased;
+	}
+
 	delete kv;
 }

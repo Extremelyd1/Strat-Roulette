@@ -55,7 +55,7 @@ public ConfigureMexicanStandoff() {
 		tpLocation[1] = locations.Get(i * 2 + 1);
 		tpLocation[2] = zCenter;
 
-		TeleportEntity(client, tpLocation, NULL_VECTOR, NULL_VECTOR);
+		TeleportEntity(client, tpLocation, NULL_VECTOR, Float: {0.0, 0.0, 0.0});
 	}
 
 	int freezeTime = GetConVarInt(mp_freezetime);

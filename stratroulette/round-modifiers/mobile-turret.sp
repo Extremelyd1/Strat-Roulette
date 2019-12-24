@@ -23,6 +23,7 @@ public Action:MobileTurretWeaponSwitchHook(int client, int weapon) {
 
 	if (weapon == primary) {
 		SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", 0.0);
+		TeleportEntity(client, NULL_VECTOR, NULL_VECTOR, Float: {0.0, 0.0, 0.0});
 	} else {
 		SetEntPropFloat(client, Prop_Data, "m_flLaggedMovementValue", 1.0);
 	}

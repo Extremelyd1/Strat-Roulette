@@ -95,3 +95,4 @@
 #include "stratroulette/round-modifiers/fire.sp"
 #include "stratroulette/round-modifiers/no-sound.sp"
 #include "stratroulette/round-modifiers/availability.sp"
+#include "stratroulette/round-modifiers/turn-based.sp"

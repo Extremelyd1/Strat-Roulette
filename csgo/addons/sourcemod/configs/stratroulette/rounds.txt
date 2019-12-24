@@ -1026,4 +1026,13 @@
         "killround"     "1"
         "noc4"          "1"
 	}
+    "97"
+	{
+		"name"			"RoundTurnBasedName"
+		"description"	"RoundTurnBasedDesc"
+		"weapon"		"weapon_primary_random;weapon_secondary_random"
+		"turnbased" 	"1"
+        "armor"         "100"
+        "helmet"        "1"
+	}
 }

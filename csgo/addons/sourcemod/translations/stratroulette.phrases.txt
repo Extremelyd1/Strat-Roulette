@@ -953,4 +953,20 @@
 	{
 		"en"		"Players can only be damaged in limited time frames."
 	}
+    "RoundTurnBasedName"
+	{
+		"en"		"Turn Based Strategy"
+	}
+	"RoundTurnBasedDesc"
+	{
+		"en"		"Teams take turn in being able to move for 5 seconds."
+	}
+    "TurnBasedMoveAgain"
+	{
+		"en"		"{GREEN}Your team{NORMAL} is now allowed to move"
+	}
+    "TurnBasedEnemyMove"
+	{
+		"en"		"{DARK_RED}The enemy{NORMAL} team is now allowed to move"
+	}
 }
