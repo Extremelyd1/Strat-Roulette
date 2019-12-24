@@ -153,6 +153,7 @@ new Handle:sv_autobunnyhopping;
 new Handle:sv_enablebunnyhopping;
 new Handle:sv_maxvelocity;
 new Handle:mp_friendlyfire;
+new Handle:sv_disable_immunity_alpha;
 
 new Handle:hReload;
 
@@ -361,7 +362,20 @@ public Action:SmokeRemoveTimer(Handle timer) {
 }
 
 public Action:cmd_srtest(client, args) {
-	PrintToServer("Move type: %d", GetEntityMoveType(client));
+	if (args == 1) {
+		for (int i = 1; i <= MaxClients; i++) {
+			if (IsClientInGame(i) && IsPlayerAlive(i)) {
+				SetEntityRenderMode(i, RENDER_NORMAL);
+			}
+		}
+	} else {
+		for (int i = 1; i <= MaxClients; i++) {
+			if (IsClientInGame(i) && IsPlayerAlive(i)) {
+				SetEntityRenderMode(i, RENDER_GLOW);
+				SetEntityRenderColor(i, 255, 255, 255, 100);
+			}
+		}
+	}
 }
 
 public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3], float angles[3], int& weapon, int& subtype, int& cmdnum, int& tickcount, int& seed, int mouse[2]) {
@@ -440,6 +454,7 @@ public OnConfigsExecuted() {
 	sv_enablebunnyhopping = FindConVar("sv_enablebunnyhopping");
 	sv_maxvelocity = FindConVar("sv_maxvelocity");
 	mp_friendlyfire = FindConVar("mp_friendlyfire");
+	sv_disable_immunity_alpha = FindConVar("sv_disable_immunity_alpha");
 
 	g_offsCollisionGroup = FindSendPropInfo("CBaseEntity", "m_CollisionGroup");
 	g_offsBombTicking = FindSendPropInfo("CPlantedC4", "m_bBombTicking");
@@ -487,8 +502,7 @@ public SetServerConvars() {
 	SetConVarInt(mp_ignore_round_win_conditions, 0);
 	SetConVarInt(mp_respawn_on_death_ct, 0);
 	SetConVarInt(mp_respawn_on_death_t, 0);
-	/* SetConVarInt(game_mode, 0);
-	SetConVarInt(game_type, 0); */
+	SetConVarInt(sv_disable_immunity_alpha, 1);
 	if (!pugSetupLoaded) {
 		SetConVarInt(mp_freezetime, 5, true, false);
 	}

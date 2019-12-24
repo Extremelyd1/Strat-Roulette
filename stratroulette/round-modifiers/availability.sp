@@ -9,7 +9,7 @@ public ConfigureAvailability() {
 			availabilityPlayers[client] = false;
 			availabilityTimer[client] = INVALID_HANDLE;
 
-			SetEntityRenderColor(client, 255, 0, 0, 0);
+			SetEntityRenderColor(client, 255, 255, 255, 120);
 
 			SDKHook(client, SDKHook_OnTakeDamage, AvailabilityOnTakeDamageHook);
 
@@ -25,7 +25,7 @@ public ResetAvailability() {
 
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client)) {
-			SetEntityRenderColor(client, 255, 255, 255, 0);
+			SetEntityRenderColor(client, 255, 255, 255, 255);
 
 			SDKUnhook(client, SDKHook_OnTakeDamage, AvailabilityOnTakeDamageHook);
 
@@ -61,9 +61,9 @@ public Action:AvailabilityTimer(Handle timer, int client) {
 	}
 
 	if (availabilityPlayers[client]) {
-		SetEntityRenderColor(client, 255, 0, 0, 0);
+		SetEntityRenderColor(client, 255, 255, 255, 120);
 	} else {
-		SetEntityRenderColor(client, 0, 255, 0, 0);
+		SetEntityRenderColor(client, 255, 255, 255, 255);
 	}
 
 	availabilityPlayers[client] = !availabilityPlayers[client];

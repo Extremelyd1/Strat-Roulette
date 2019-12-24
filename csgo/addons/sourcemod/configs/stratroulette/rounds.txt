@@ -99,6 +99,7 @@
 		"noknife"		"1"
 		"infiniteammo"	"2"
 		"noc4"			"1"
+        "killround"     "1"
 		"armor"			"100"
 		"helmet"		"1"
 		"health"		"200"
@@ -260,6 +261,8 @@
 		"weapon"		"weapon_smokegrenade"
 		"infinitenade"	"1"
 		"defuser"		"1"
+        "armor"         "100"
+        "helmet"        "1"
 	}
 	"26"
 	{
@@ -1048,6 +1051,16 @@
 	}
     "99"
 	{
+		"name"			"RoundNightVisionName"
+		"description"	"RoundNightVisionDesc"
+		"weapon"		"weapon_secondary_random"
+		"nightvision"  	"1"
+        "armor"         "100"
+        "helmet"        "1"
+        "defuser"       "1"
+	}
+    "100"
+	{
 		"name"			"RoundPropulsionName"
 		"description"	"RoundPropulsionDesc"
 		"weapon"		"weapon_mag7"
@@ -1058,5 +1071,41 @@
         "infiniteammo"  "2"
         "noknife"       "1"
         "nofalldmg"		"1"
+	}
+    "101"
+	{
+		"name"			"RoundMagnumOpusName"
+		"description"	"RoundMagnumOpusDesc"
+		"weapon"		"weapon_primary_random;weapon_tablet;weapon_decoy;weapon_smokegrenade;weapon_molotov;weapon_taser"
+        "armor"         "100"
+        "helmet"        "1"
+        "defuser"       "1"
+        "infiniteammo"  "2"
+        "nofalldmg"		"1"
+        "bhop"          "1"
+        
+        "bumpmine"      "2"
+        
+        "tacticalreload"    "1"
+        "randomguns"    "1"
+        "timetravel"    "1"
+        "healthshots"   "1"
+        "infinitenade"  "1"
+        "clone"         "1"
+        "enderpearl"    "1"
+        "collision"		"none"
+        "chickendef"	"1"
+        "noc4"          "1"
+        "availability"  "1"
+        "thirdperson"   "1"
+        "speed"         "2"
+        "gravity"       "600"
+        "vampire"       "1"
+        "noscope"       "1"
+        "showallradar"  "1"
+        "hitswap"       "1"
+        "reincarnation" "1"
+        
+        "disable"       "1"
 	}
 }

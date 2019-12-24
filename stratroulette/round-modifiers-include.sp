@@ -98,3 +98,4 @@
 #include "stratroulette/round-modifiers/turn-based.sp"
 #include "stratroulette/round-modifiers/feet-only.sp"
 #include "stratroulette/round-modifiers/propulsion.sp"
+#include "stratroulette/round-modifiers/night-vision.sp"

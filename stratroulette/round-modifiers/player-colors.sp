@@ -19,7 +19,7 @@ public ConfigurePlayerColors(char color[500]) {
 	if (setNewColor) {
 		for (int client = 1; client <= MaxClients; client++) {
 			if (IsClientInGame(client) && IsPlayerAlive(client)) {
-				SetEntityRenderColor(client, colorR, colorG, colorB, 0);
+				SetEntityRenderColor(client, colorR, colorG, colorB, 255);
 			}
 		}
 	}
@@ -29,7 +29,7 @@ public ResetPlayerColors() {
 	// Not sure if necessary
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client)) {
-			SetEntityRenderColor(client, 255, 255, 255, 0);
+			SetEntityRenderColor(client, 255, 255, 255, 255);
 		}
 	}
 }

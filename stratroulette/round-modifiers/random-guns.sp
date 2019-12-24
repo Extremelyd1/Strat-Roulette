@@ -13,10 +13,21 @@ public ResetRandomGuns() {
 }
 
 public Action:RandomGunsTimer(Handle timer) {
-	RemoveWeapons();
-
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client)) {
+			new primary = GetPlayerWeaponSlot(client, 0);
+			new secondary = GetPlayerWeaponSlot(client, 1);
+
+			if (primary > -1) {
+				RemovePlayerItem(client, primary);
+				RemoveEdict(primary);
+			}
+
+			if (secondary > -1) {
+				RemovePlayerItem(client, secondary);
+				RemoveEdict(secondary);
+			}
+			
 			new randomIntCat = GetRandomInt(0, 1);
 
 			char weapon[256];

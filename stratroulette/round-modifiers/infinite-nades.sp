@@ -14,7 +14,7 @@ public ResetInfiniteNades() {
 
 public InfiniteNadesOnEntitySpawn(int entity, const String:className[]) {
 	if (infiniteNadesActive) {
-		if (StrContains(className, "_projectile") != -1) {
+		if (StrContains(className, "_projectile") != -1 && StrContains(className, "bumpmine") == -1) {
 			SDKHook(entity, SDKHook_SpawnPost, InfiniteNadesSpawnHook);
 		}
 	}
@@ -29,8 +29,8 @@ public InfiniteNadesSpawnHook(entity) {
 		int nadeslot = GetPlayerWeaponSlot(client, 3);
 		if (nadeslot > -1) {
 			RemovePlayerItem(client, nadeslot);
+			RemoveEdict(nadeslot);
 		}
-		RemoveEdict(nadeslot);
 
 		char className[128];
 		GetEdictClassname(entity, className, sizeof(className));

@@ -977,6 +977,14 @@
 	{
 		"en"		"You can only damage players by hitting their feet."
 	}
+    "RoundNightVisionName"
+	{
+		"en"		"Night Vision"
+	}
+    "RoundNightVisionDesc"
+	{
+		"en"		"Everyone has night vision."
+	}
     "RoundPropulsionName"
 	{
 		"en"		"Propulsion"
@@ -984,5 +992,13 @@
     "RoundPropulsionDesc"
 	{
 		"en"		"Shooting your weapon propels you backwards."
+	}
+    "RoundMagnumOpusName"
+	{
+		"en"		"Magnum Opus"
+	}
+    "RoundMagnumOpusDesc"
+	{
+		"en"		"A little bit of every strat. Complete mayhem."
 	}
 }

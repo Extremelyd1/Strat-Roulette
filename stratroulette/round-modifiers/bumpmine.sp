@@ -1,6 +1,14 @@
 Handle bumpmineTimer;
 
-public ConfigureBumpmine() {
+bool bumpmineCheckSpeed = true;
+
+public ConfigureBumpmine(char bumpmineType[500]) {
+	if (StrEqual(bumpmineType, "1")) {
+		bumpmineCheckSpeed = true;
+	} else {
+		bumpmineCheckSpeed = false;
+	}
+
 	bumpmineTimer = CreateTimer(1.0, CheckBumpmineTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 }
 
@@ -18,11 +26,13 @@ public Action:CheckBumpmineTimer(Handle timer) {
 				EquipPlayerWeapon(i, mine);
 			}
 
-			float playerAbsVelocity[3];
-			GetEntPropVector(i, Prop_Data, "m_vecAbsVelocity", playerAbsVelocity);
+			if (bumpmineCheckSpeed) {
+				float playerAbsVelocity[3];
+				GetEntPropVector(i, Prop_Data, "m_vecAbsVelocity", playerAbsVelocity);
 
-			if (playerAbsVelocity[0] > 500 || playerAbsVelocity[1] > 500 || playerAbsVelocity[2] > 500) {
-				SDKHooks_TakeDamage(i, i, i, GetTrueDamage(i, 25.0), DMG_GENERIC);
+				if (playerAbsVelocity[0] > 500 || playerAbsVelocity[1] > 500 || playerAbsVelocity[2] > 500) {
+					SDKHooks_TakeDamage(i, i, i, GetTrueDamage(i, 25.0), DMG_GENERIC);
+				}
 			}
 		}
 	}

@@ -37,6 +37,12 @@ public ResetSecondChance() {
 	UnhookEvent("player_death", SecondChancePlayerDeathEvent, EventHookMode_Pre);
 
 	RemoveCommandListener(DenyDropListener, "drop");
+
+	for (int client = 1; client <= MaxClients; client++) {
+		if (IsClientInGame(client)) {
+			SetEntityRenderColor(client, 255, 255, 255, 255);
+		}
+	}
 }
 
 public Action:SecondChancePlayerDeathEvent(Event event, const char[] name, bool dontBroadcast) {
@@ -65,6 +71,8 @@ public Action:SecondChancePlayerDeathEvent(Event event, const char[] name, bool 
 			return Plugin_Continue;
 		}
 
+		SetEntityRenderColor(client, 255, 255, 255, 120);
+
 		if (killer > 0) {
 			if (!secondChanceAlive[killer]) {
 				secondChanceAlive[killer] = true;
@@ -80,6 +88,8 @@ public Action:SecondChancePlayerDeathEvent(Event event, const char[] name, bool 
 
 				// Set health
 				SetEntityHealth(killer, health);
+
+				SetEntityRenderColor(killer, 255, 255, 255, 255);
 
 				if (GetClientTeam(killer) == CS_TEAM_CT) {
 					secondChanceCTAlive += 1;

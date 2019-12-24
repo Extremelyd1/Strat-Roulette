@@ -415,7 +415,7 @@ public void ReadNewRound() {
 
 	kv.GetString("bumpmine", keyValue, sizeof(keyValue), "0");
 	if (!StrEqual(keyValue, "0")) {
-		ConfigureBumpmine();
+		ConfigureBumpmine(keyValue);
 		resetFunctions[resetFunctionsLength++] = ResetBumpmine;
 	}
 
@@ -669,6 +669,12 @@ public void ReadNewRound() {
 	if (!StrEqual(keyValue, "0")) {
 		ConfigurePropulsion();
 		resetFunctions[resetFunctionsLength++] = ResetPropulsion;
+	}
+
+	kv.GetString("nightvision", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureNightVision();
+		resetFunctions[resetFunctionsLength++] = ResetNightVision;
 	}
 
 	delete kv;

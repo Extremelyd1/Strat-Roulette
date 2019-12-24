@@ -13,7 +13,7 @@ public ResetKillConfirmed() {
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client)) {
 			SDKUnhook(client, SDKHook_OnTakeDamageAlive, KillConfirmedPlayerOnTakeDamageHook);
-			SetEntityRenderColor(client, 255, 255, 255, 0);
+			SetEntityRenderColor(client, 255, 255, 255, 255);
 		}
 	}
 }
@@ -62,12 +62,12 @@ public Action:KillConfirmedPlayerOnTakeDamageHook(victim, &attacker, &inflictor,
 			SetKnifeClient(victim, true);
 
 			SetEntPropFloat(victim, Prop_Data, "m_flLaggedMovementValue", 1.0);
-			SetEntityRenderColor(victim, 255, 255, 255, 0);
+			SetEntityRenderColor(victim, 255, 255, 255, 255);
 
 			return Plugin_Handled;
 		} else {
 			// Hit be opposite team, thus eliminating
-			SetEntityRenderColor(victim, 255, 255, 255, 0);
+			SetEntityRenderColor(victim, 255, 255, 255, 255);
 			return Plugin_Continue;
 		}
 	}
@@ -102,7 +102,7 @@ public Action:KillConfirmedPlayerOnTakeDamageHook(victim, &attacker, &inflictor,
 
 		SetEntPropFloat(victim, Prop_Data, "m_flLaggedMovementValue", 0.0);
 		SetEntityHealth(victim, 1);
-		SetEntityRenderColor(victim, 255, 0, 0, 0);
+		SetEntityRenderColor(victim, 255, 0, 0, 255);
 		RemoveWeaponsClient(victim, true, true);
 
 		return Plugin_Handled;
