@@ -2,7 +2,7 @@
 ## A CS:GO Sourcemod Plugin
 
 **What is Strat Roulette?**  
-Strat Roulette is a gamemode in which every round a different mechanic is applied. This ranges from using only certain weapons in a round to only being able to no-scope. It currently consists of more than 60 strats, with more to come! If you have ideas for new rounds, you can create an issue in the form of a Feature Request.
+Strat Roulette is a gamemode in which every round a different mechanic is applied. This ranges from using only certain weapons in a round to only being able to no-scope. It currently consists of **100+** strats! If you have ideas for new rounds, you can create an issue in the form of a Feature Request.
 
 **How to install:**  
 Download the release and paste the csgo folder in your server installation. That's it!
@@ -15,6 +15,15 @@ There are a few commands that help with controlling the gamemode.
 * /endround - Forcefully ends the round
 
 Keep in mind that this plugin works best if there are no other plugins controlling the match in any other way. Except for [PugSetup](https://github.com/splewis/csgo-pug-setup), as strat roulette nicely integrates with it.
+
+**Maps:**
+Strat Roulette works best on any of the following maps:
+* de_lake
+* de_safehouse
+* de_stmarc
+* de_bank
+* de_rialto
+* de_sugarcane
 
 **Donate:**  
 If you like what I do, feel free to donate: [CSGO Skins](https://steamcommunity.com/tradeoffer/new/?partner=316356077&token=JyWonscp)
