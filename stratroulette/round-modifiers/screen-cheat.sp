@@ -4,12 +4,16 @@ new screenCheatEntities[MAXPLAYERS + 1];
 
 new screenCheating[MAXPLAYERS + 1];
 
+new screenCheatEntityMap[MAXPLAYERS + 1];
+
 public ConfigureScreenCheat() {
 	for (int client = 1; client <= MaxClients; client++) {
 		if (IsClientInGame(client) && IsPlayerAlive(client) && !IsFakeClient(client)) {
 			int entity = CreateViewEntity();
 			screenCheatEntities[client] = entity;
 			screenCheating[client] = false;
+
+			SDKHook(client, SDKHook_SetTransmit, ScreenCheatSetTransmitHook);
 		}
 	}
 
@@ -27,8 +31,23 @@ public ResetScreenCheat() {
 		if (IsClientInGame(i) && !IsFakeClient(i)) {
 			// Reset view
 			SetClientViewEntity(i, i);
+
+			SDKUnhook(i, SDKHook_SetTransmit, ScreenCheatSetTransmitHook);
 		}
 	}
+}
+
+public Action:ScreenCheatSetTransmitHook(int entity, int client) {
+	if (screenCheating[client]) {
+		// If the view entity belonging to this entity is the same as
+		// the entity the client we are sending to is viewing
+		// prevent sending it
+		if (screenCheatEntities[entity] == screenCheatEntityMap[client]) {
+			return Plugin_Handled;
+		}
+	}
+
+	return Plugin_Continue;
 }
 
 public Action:ScreenCheatLookAtWeaponListener(int client, const char[] command, int args) {
@@ -57,6 +76,8 @@ public Action:ScreenCheatLookAtWeaponListener(int client, const char[] command, 
 	}
 
 	SetClientViewEntity(client, screenCheatEntities[randomEnemy]);
+
+	screenCheatEntityMap[client] = screenCheatEntities[randomEnemy];
 
 	screenCheating[client] = true;
 

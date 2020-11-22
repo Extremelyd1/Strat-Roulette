@@ -422,7 +422,7 @@
 	}
 	"RoundKillListDesc"
 	{
-		"en"		"One player of each team is on the top of the kill list. Only this player can be killed, attempted to kill others results in death."
+		"en"		"One player of each team is on the top of the kill list. Only this player can be killed, attempting to kill others results in death."
 	}
 	"RoundBreachName"
 	{
@@ -811,7 +811,7 @@
 	}
 	"RoundSharedAmmoDesc"
 	{
-		"en"		"You share the ammo in your weapon with your whole team. Reloading only occurs when each individual has reloaded."
+		"en"		"You share the ammo in your weapon with your whole team."
 	}
 	"RoundCrouchOnlyName"
 	{

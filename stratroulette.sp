@@ -362,20 +362,32 @@ public Action:SmokeRemoveTimer(Handle timer) {
 }
 
 public Action:cmd_srtest(client, args) {
-	if (args == 1) {
-		for (int i = 1; i <= MaxClients; i++) {
-			if (IsClientInGame(i) && IsPlayerAlive(i)) {
-				SetEntityRenderMode(i, RENDER_NORMAL);
-			}
-		}
+	new Float:mapFogStart = 0.0;
+	new Float:mapFogEnd = 0.0;
+	new Float:mapFogDensity = 0.99;
+
+	new ent = FindEntityByClassname(-1, "env_fog_controller");
+
+	int fogIndex;
+	if (ent == -1) {
+		fogIndex = CreateEntityByName("env_fog_controller");
+		DispatchSpawn(fogIndex);
 	} else {
-		for (int i = 1; i <= MaxClients; i++) {
-			if (IsClientInGame(i) && IsPlayerAlive(i)) {
-				SetEntityRenderMode(i, RENDER_GLOW);
-				SetEntityRenderColor(i, 255, 255, 255, 100);
-			}
-		}
+		fogIndex = ent;
 	}
+
+	if (args == 1) {
+		AcceptEntityInput(fogIndex, "TurnOff");
+	} else {
+		AcceptEntityInput(fogIndex, "TurnOn");
+	}
+
+	DispatchKeyValue(fogIndex, "fogblend", "0");
+	DispatchKeyValue(fogIndex, "fogcolor", "0 0 0");
+	DispatchKeyValue(fogIndex, "fogcolor2", "0 0 0");
+	DispatchKeyValueFloat(fogIndex, "fogstart", mapFogStart);
+	DispatchKeyValueFloat(fogIndex, "fogend", mapFogEnd);
+	DispatchKeyValueFloat(fogIndex, "fogmaxdensity", mapFogDensity);
 }
 
 public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3], float angles[3], int& weapon, int& subtype, int& cmdnum, int& tickcount, int& seed, int mouse[2]) {

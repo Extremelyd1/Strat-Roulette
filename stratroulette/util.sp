@@ -217,7 +217,7 @@ stock RemoveWeaponsClient(int client, bool removeC4=false, bool removeKnife=fals
 
 	new primary = GetPlayerWeaponSlot(client, 0);
 	new secondary = GetPlayerWeaponSlot(client, 1);
-	new knife = GetPlayerWeaponSlot(client, 2);
+	new knifeSlot = GetPlayerWeaponSlot(client, 2);
 	new grenade = GetPlayerWeaponSlot(client, 3);
 	new c4Slot = GetPlayerWeaponSlot(client, 4);
 	new shield_health = GetPlayerWeaponSlot(client, 11);
@@ -233,11 +233,6 @@ stock RemoveWeaponsClient(int client, bool removeC4=false, bool removeKnife=fals
 		RemoveEdict(secondary);
 	}
 
-	if (removeKnife && knife > -1) {
-		RemovePlayerItem(client, knife);
-		RemoveEdict(knife);
-	}
-
 	while (grenade != -1) {
 		RemovePlayerItem(client, grenade);
 		RemoveEdict(grenade);
@@ -248,7 +243,7 @@ stock RemoveWeaponsClient(int client, bool removeC4=false, bool removeKnife=fals
 	new c4SlotBuffer = -1;
 
 	char classname[128];
-	while (c4Slot != -1) {
+	while (c4Slot != -1 && IsValidEdict(c4Slot)) {
 		GetEdictClassname(c4Slot, classname, sizeof(classname));
 
 		if (!removeC4 && StrEqual(classname, "weapon_c4")) {
@@ -266,6 +261,28 @@ stock RemoveWeaponsClient(int client, bool removeC4=false, bool removeKnife=fals
 
 	if (c4SlotBuffer != -1) {
 		EquipPlayerWeapon(client, c4SlotBuffer);
+	}
+
+	new knifeSlotBuffer = -1;
+
+	while (knifeSlot != -1 && IsValidEdict(knifeSlot)) {
+		GetEdictClassname(knifeSlot, classname, sizeof(classname));
+
+		if (!removeKnife && StrEqual(classname, "weapon_knife")) {
+			knifeSlotBuffer = knifeSlot;
+
+			RemovePlayerItem(client, knifeSlot);
+		} else {
+			RemovePlayerItem(client, knifeSlot);
+
+			RemoveEdict(knifeSlot);
+		}
+
+		knifeSlot = GetPlayerWeaponSlot(client, 2);
+	}
+
+	if (knifeSlotBuffer != -1) {
+		EquipPlayerWeapon(client, knifeSlotBuffer);
 	}
 
 

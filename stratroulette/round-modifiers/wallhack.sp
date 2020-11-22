@@ -1,3 +1,5 @@
+
+
 public ConfigureWallhack() {
 	int ctColor[3];
 	ctColor[0] = 0;
@@ -46,7 +48,7 @@ public CreateDynamicGlowProp(int client, int color[3]) {
 	DispatchSpawn(glowProp);
 
 	SetEntityRenderMode(glowProp, RENDER_GLOW);
-	SetEntityRenderColor(glowProp, 0, 0, 0, 255);
+	SetEntityRenderColor(glowProp, 0, 0, 0, 0);
 
 	SetEntProp(glowProp, Prop_Send, "m_fEffects", 1);
 

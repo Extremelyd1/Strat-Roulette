@@ -61,9 +61,10 @@ public Action:AvailabilityTimer(Handle timer, int client) {
 	}
 
 	if (availabilityPlayers[client]) {
-		SetEntityRenderColor(client, 255, 255, 255, 120);
+		SetEntityRenderMode(client, RENDER_GLOW);
+		SetEntityRenderColor(client, 255, 255, 255, 100);
 	} else {
-		SetEntityRenderColor(client, 255, 255, 255, 255);
+		SetEntityRenderMode(client, RENDER_NORMAL);
 	}
 
 	availabilityPlayers[client] = !availabilityPlayers[client];
