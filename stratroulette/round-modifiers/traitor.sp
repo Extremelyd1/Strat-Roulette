@@ -12,7 +12,7 @@ public ConfigureTraitor() {
 			} else {
 			} */
 
-			SetEntityModel(client, "models/player/custom_player/legacy/ctm_st6.mdl");
+			SetEntityModel(client, DEFAULT_CHARACTER_MODEL);
 
 			SetEntProp(client, Prop_Send, "m_iHideHUD", 1<<8 | 1<<12);
 

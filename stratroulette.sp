@@ -9,6 +9,7 @@
 #define STRAT_FILE "addons/sourcemod/configs/stratroulette/rounds.txt"
 #define LOCATION_FILE "addons/sourcemod/configs/stratroulette/locations.txt"
 #define TUNNEL_VISION_OVERLAY "overlays/stratroulette/tunnel_vision_overlay"
+#define DEFAULT_CHARACTER_MODEL "models/player/custom_player/legacy/ctm_st6.mdl"
 #define SPRITE 	"materials/sprites/dot.vmt"
 #define PRIMARY_LENGTH 24
 #define AUTO_WEAPONS_LENGTH 20
@@ -262,6 +263,8 @@ public void OnMapStart() {
 	PrecacheModel("models/props/de_dust/hr_dust/dust_fences/dust_chainlink_fence_001_256.mdl", true);
 	PrecacheModel("models/props/de_dust/hr_dust/dust_fences/dust_chainlink_fence_001_256_links.mdl", true);
 	PrecacheModel("models/props/de_vertigo/scaffolding_walkway_03.mdl", true);
+
+	PrecacheModel(DEFAULT_CHARACTER_MODEL, true);
 
 	PrecacheSound("sound/survival/turret_death_01.wav", true);
 	PrecacheSound("sound/survival/turret_idle_01.wav", true);
