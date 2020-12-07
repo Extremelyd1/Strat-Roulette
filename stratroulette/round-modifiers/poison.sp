@@ -12,6 +12,9 @@ public ConfigurePoison() {
 }
 
 public ResetPoison() {
+	UnhookEvent("smokegrenade_detonate", PoisonSmokeGrenadeDetonateEvent);
+	UnhookEvent("smokegrenade_expired", PoisonSmokeGrenadeExpireEvent);
+
 	SafeKillTimer(poisonDamageTimer);
 
 	delete smokeMap;
