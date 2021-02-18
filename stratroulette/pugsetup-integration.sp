@@ -1,10 +1,10 @@
-#if defined _pugsetup_included
+#undef REQUIRE_PLUGIN
 #include "include/pugsetup.inc"
-#endif
+#define REQUIRE_PLUGIN
 
 public bool IsPugSetupMatchLive() {
-#if defined _pugsetup_included
-	return PugSetup_IsMatchLive();
-#endif
+	if (pugSetupLoaded) {
+		return PugSetup_IsMatchLive();
+	}
 	return false;
 }
