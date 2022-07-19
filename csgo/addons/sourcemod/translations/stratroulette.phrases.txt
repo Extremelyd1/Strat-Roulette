@@ -794,7 +794,7 @@
 	}
 	"RoundTimeTravelDesc"
 	{
-		"en"		"Right-click your tablet to go back in time. Time travelling has a cooldown."
+		"en"		"Inspect your weapon to go back in time. Time travelling has a cooldown."
 	}
 	"TimeTravelNoCooldown"
 	{

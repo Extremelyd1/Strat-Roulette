@@ -155,6 +155,8 @@ new Handle:sv_enablebunnyhopping;
 new Handle:sv_maxvelocity;
 new Handle:mp_friendlyfire;
 new Handle:sv_disable_immunity_alpha;
+new Handle:game_mode;
+new Handle:game_type;
 
 new Handle:hReload;
 
@@ -408,8 +410,6 @@ public Action:OnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3
 
 	JumpshotOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
 
-	TimeTravelOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
-
 	CrouchOnlyOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
 
 	GTAOnPlayerRunCmd(client, buttons, impulse, vel, angles, weapon, subtype, cmdnum, tickcount, seed, mouse);
@@ -470,6 +470,8 @@ public OnConfigsExecuted() {
 	sv_maxvelocity = FindConVar("sv_maxvelocity");
 	mp_friendlyfire = FindConVar("mp_friendlyfire");
 	sv_disable_immunity_alpha = FindConVar("sv_disable_immunity_alpha");
+	game_mode = FindConVar("game_mode");
+	game_type = FindConVar("game_type");
 
 	g_offsCollisionGroup = FindSendPropInfo("CBaseEntity", "m_CollisionGroup");
 	g_offsBombTicking = FindSendPropInfo("CPlantedC4", "m_bBombTicking");

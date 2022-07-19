@@ -94,6 +94,12 @@ public void ReadNewRound() {
 		ConfigureNoKnife();
 		resetFunctions[resetFunctionsLength++] = ResetNoKnife;
 	}
+	
+	kv.GetString("shield", keyValue, sizeof(keyValue), "0");
+	if (!StrEqual(keyValue, "0")) {
+		ConfigureShield();
+		resetFunctions[resetFunctionsLength++] = ResetShield;
+	}
 
 	kv.GetString("weapon", keyValue, sizeof(keyValue), "weapon_none");
 	if (!StrEqual(keyValue, "weapon_none")) {

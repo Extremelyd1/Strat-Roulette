@@ -99,3 +99,4 @@
 #include "stratroulette/round-modifiers/feet-only.sp"
 #include "stratroulette/round-modifiers/propulsion.sp"
 #include "stratroulette/round-modifiers/night-vision.sp"
+#include "stratroulette/round-modifiers/shield.sp"

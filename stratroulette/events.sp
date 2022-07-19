@@ -7,6 +7,13 @@ public Action:RoundEndEvent(Handle:event, const String:name[], bool:dontBroadcas
 }
 
 public Action:RoundStartEvent(Handle:event, const String:name[], bool:dontBroadcast) {
+	if (FindEntityByClassname(-1, "func_hostage_rescue") == -1) {
+		int entity = CreateEntityByName("func_hostage_rescue");
+		DispatchKeyValue(entity, "targetname", "fake_hostage_rescue");
+		DispatchKeyValue(entity, "origin", "-1000 -1000, -1000");
+		DispatchSpawn(entity);
+	}
+
 	if (IsPugSetupMatchLive() || inGame) {
 		ResetLastRound();
 

@@ -66,6 +66,7 @@
 		"name"			"RoundShieldName"
 		"description"	"RoundShieldDesc"
 		"weapon"		"weapon_shield;weapon_fiveseven"
+		"shield"		"1"
 		"noknife"		"1"
 		"tinymags"		"1"
 		"armor"			"100"
@@ -488,6 +489,7 @@
 		"name"			"RoundBodyguardName"
 		"description"	"RoundBodyguardDesc"
 		"weapon"		"none"
+		"shield"		"1"
 		"noknife"		"1"
 		"killround"		"1"
 		"noc4"			"1"
@@ -639,6 +641,8 @@
 		"armor"			"100"
 		"helmet"		"1"
 		"defuser"		"1"
+		
+		"disable"       "1"
 	}
 	"61"
 	{
@@ -818,7 +822,7 @@
 	{
 		"name"			"RoundTimeTravelName"
 		"description"	"RoundTimeTravelDesc"
-		"weapon"		"weapon_secondary_random;weapon_tablet"
+		"weapon"		"weapon_secondary_random"
 		"timetravel"	"1"
 		"armor"			"100"
 		"helmet"		"1"
@@ -1076,7 +1080,7 @@
 	{
 		"name"			"RoundMagnumOpusName"
 		"description"	"RoundMagnumOpusDesc"
-		"weapon"		"weapon_primary_random;weapon_tablet;weapon_decoy;weapon_smokegrenade;weapon_molotov;weapon_taser"
+		"weapon"		"weapon_primary_random;weapon_decoy;weapon_smokegrenade;weapon_molotov;weapon_taser"
         "armor"         "100"
         "helmet"        "1"
         "defuser"       "1"

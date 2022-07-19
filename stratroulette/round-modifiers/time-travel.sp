@@ -1,5 +1,5 @@
-#define TIME_TRAVEL_SECONDS 10
-#define TIME_TRAVEL_COOLDOWN 20
+#define TIME_TRAVEL_SECONDS 5
+#define TIME_TRAVEL_COOLDOWN 10
 #define MAX_INTERACT_DIST 200.0
 
 bool timeTravelActive = false;
@@ -31,6 +31,7 @@ public ConfigureTimeTravel() {
 	timeTravelCooldownTimer = CreateTimer(1.0, TimeTravelCooldownTimer, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 
 	AddCommandListener(DenyDropListener, "drop");
+	AddCommandListener(TimeTravelLookAtWeaponListener, "+lookatweapon");
 
 	timeTravelActive = true;
 }
@@ -42,6 +43,7 @@ public ResetTimeTravel() {
 	SafeKillTimer(timeTravelCooldownTimer);
 
 	RemoveCommandListener(DenyDropListener, "drop");
+	RemoveCommandListener(TimeTravelLookAtWeaponListener, "+lookatweapon");
 }
 
 public Action:TimeTravelSavePositionsTimer(Handle timer) {
@@ -85,7 +87,11 @@ public Action:TimeTravelCooldownTimer(Handle timer) {
 	return Plugin_Continue;
 }
 
-public Action:TimeTravelOnPlayerRunCmd(int client, int& buttons, int& impulse, float vel[3], float angles[3], int& weapon, int& subtype, int& cmdnum, int& tickcount, int& seed, int mouse[2]) {
+public Action:TimeTravelLookAtWeaponListener(int client, const char[] command, int args) {
+	if (!IsPlayerAlive(client)) {
+		return Plugin_Continue;
+	}
+	
 	if (!timeTravelActive) {
 		return Plugin_Continue;
 	}
@@ -93,23 +99,15 @@ public Action:TimeTravelOnPlayerRunCmd(int client, int& buttons, int& impulse, f
 	if (timeTravelOnCooldown[client] != 0) {
 		return Plugin_Continue;
 	}
+	
+	float tpPos[3];
+	tpPos[0] = timeTravelPositions[client][TIME_TRAVEL_SECONDS - 1][0];
+	tpPos[1] = timeTravelPositions[client][TIME_TRAVEL_SECONDS - 1][1];
+	tpPos[2] = timeTravelPositions[client][TIME_TRAVEL_SECONDS - 1][2];
 
-	if (buttons & IN_ATTACK2) {
-		new activeWeapon = GetEntPropEnt(client, Prop_Data, "m_hActiveWeapon");
+	TeleportEntity(client, tpPos, NULL_VECTOR, NULL_VECTOR);
 
-		char className[128];
-		GetEdictClassname(activeWeapon, className, sizeof(className));
-		if (StrEqual(className, "weapon_tablet")) {
-			float tpPos[3];
-			tpPos[0] = timeTravelPositions[client][TIME_TRAVEL_SECONDS - 1][0];
-			tpPos[1] = timeTravelPositions[client][TIME_TRAVEL_SECONDS - 1][1];
-			tpPos[2] = timeTravelPositions[client][TIME_TRAVEL_SECONDS - 1][2];
-
-			TeleportEntity(client, tpPos, NULL_VECTOR, NULL_VECTOR);
-
-			timeTravelOnCooldown[client] = TIME_TRAVEL_COOLDOWN;
-		}
-	}
-
+	timeTravelOnCooldown[client] = TIME_TRAVEL_COOLDOWN;
+	
 	return Plugin_Continue;
 }
