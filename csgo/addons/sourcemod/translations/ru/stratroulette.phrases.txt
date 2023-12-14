@@ -1,0 +1,1004 @@
+"Phrases"
+{
+	"RoundThirdPersonName"
+	{
+		"ru"		"От третьего лица"
+	}
+	"RoundThirdPersonDesc"
+	{
+		"ru"		"Все игроки играют от третьего лица"
+	}
+	"RoundBabyHitMeName"
+	{
+		"ru"		"Детка, ударь меня еще раз"
+	}
+	"RoundBabyHitMeDesc"
+	{
+		"ru"		"У каждого есть 1 HP и неограниченное количество гранат-приманок"
+	}
+	"RoundSpeedName"
+	{
+		"ru"		"Я - скорость"
+	}
+	"RoundSpeedDesc"
+	{
+		"ru"		"Все двигаются с высокой скоростью"
+	}
+	"RoundNoRecoilName"
+	{
+		"ru"		"Меткий стрелок"
+	}
+	"RoundNoRecoilDesc"
+	{
+		"ru"		"Оружие не имеет отдачи или разброса, все пули попадают туда, где находится перекрестие вашего прицела."
+	}
+	"RoundZeusOITCName"
+	{
+		"ru"		"One Battery in the Chamber"
+	}
+	"RoundZeusOITCDesc"
+	{
+		"ru"		"У каждого есть один зевс, но за убийство вы получаете еще один"
+	}
+	"RoundSpeedKnifeName"
+	{
+		"ru"		"Быстрый нож"
+	}
+	"RoundSpeedKnifeDesc"
+	{
+		"ru"		"Все двигаются с высокой скоростью."
+	}
+	"RoundShieldName"
+	{
+		"ru"		"Щитовик"
+	}
+	"RoundShieldDesc"
+	{
+		"ru"		"У каждого есть щит и Five-Seven."
+	}
+	"RoundNoScopeName"
+	{
+		"ru"		"Без прицела"
+	}
+	"RoundNoScopeDesc"
+	{
+		"ru"		"Вы больше не можете использовать прицельный режим у оружия."
+	}
+	"RoundNegevLaserName"
+	{
+		"ru"		"Лазерная пушка"
+	}
+	"RoundNegevLaserDesc"
+	{
+		"ru"		"У каждого есть негев без какой-либо отдачи или разброса."
+	}
+	"RoundRandomGunsName"
+	{
+		"ru"		"Случайное оружие"
+	}
+	"RoundRandomGunsDesc"
+	{
+		"ru"		"Периодически оружие меняется на случайное."
+	}
+	"RoundSpaceAWPName"
+	{
+		"ru"		"Космический AWP"
+	}
+	"RoundSpaceAWPDesc"
+	{
+		"ru"		"У каждого есть AWP, а на карте низкая гравитация."
+	}
+	"RoundSemiZeusName"
+	{
+		"ru"		"Космический полуавтомат Zeus"
+	}
+	"RoundSemiZeusDesc"
+	{
+		"ru"		"У каждого есть Zeus с бесконечными зарядами и низкой гравитацией."
+	}
+	"RoundVampireName"
+	{
+		"ru"		"Вампир"
+	}
+	"RoundVampireDesc"
+	{
+		"ru"		"Попадание в игрока вознаградит вас здоровьем в зависимости от нанесенного урона."
+	}
+	"RoundReverseName"
+	{
+		"ru"		"Наоборот"
+	}
+	"RoundReverseDesc"
+	{
+		"ru"		"Управление инвертировано."
+	}
+	"RoundPeripheralVisionName"
+	{
+		"ru"		"Периферийное зрение"
+	}
+	"RoundPeripheralVisionDesc"
+	{
+		"ru"		"У каждого человека увеличено поле зрения."
+	}
+	"RoundThirdPersonLowerFOVName"
+	{
+		"ru"		"Третье лицо"
+	}
+	"RoundThirdPersonLowerFOVDesc"
+	{
+		"ru"		"Все играют от третьего лица с меньшим полем зрения."
+	}
+	"RoundChickenDefuseName"
+	{
+		"ru"		"Обезвредить курицу"
+	}
+	"RoundChickenDefuseDesc"
+	{
+		"ru"		"Бомба установлена на курице. Таймер бомбы продлен."
+	}
+	"RoundHeadshotOnlyName"
+	{
+		"ru"		"Только выстрелы в голову"
+	}
+	"RoundHeadshotOnlyDesc"
+	{
+		"ru"		"Засчитываются только выстрелы в голову"
+	}
+	"RoundSpaceMag7Name"
+	{
+		"ru"		"Space Swag7"
+	}
+	"RoundSpaceMag7Desc"
+	{
+		"ru"		"У каждого есть MAG-7 и низкая гравитация."
+	}
+	"RoundSlowMotionName"
+	{
+		"ru"		"Замедление"
+	}
+	"RoundSlowMotionDesc"
+	{
+		"ru"		"Время замедляется."
+	}
+	"RoundJuanDeagName"
+	{
+		"ru"		"Хуан Деаг"
+	}
+	"RoundJuanDeagDesc"
+	{
+		"ru"		"У каждого есть дигл, но учитываются только выстрелы в голову."
+	}
+	"RoundTriggerSpazmName"
+	{
+		"ru"		"Триггерный спазм"
+	}
+	"RoundTriggerSpazmDesc"
+	{
+		"ru"		"При стрельбе из вашего оружия вы получаете огромную отдачу и разброс."
+	}
+	"RoundNoStopName"
+	{
+		"ru"		"Меня не остановить"
+	}
+	"RoundNoStopDesc"
+	{
+		"ru"		"Вы не можете остановиться."
+	}
+	"RoundClumsyName"
+	{
+		"ru"		"Неуклюжий"
+	}
+	"RoundClumsyDesc"
+	{
+		"ru"		"Каждый периодически выбрасывает свое оружие."
+	}
+	"RoundSmokeOnlyName"
+	{
+		"ru"		"Smoke Weed Everyday"
+	}
+	"RoundSmokeOnlyDesc"
+	{
+		"ru"		"Каждый получает неограниченное количество дымовых."
+	}
+	"RoundMolotovOnlyName"
+	{
+		"ru"		"Гори, Детка, Гори"
+	}
+	"RoundMolotovOnlyDesc"
+	{
+		"ru"		"Каждый получает неограниченное количество молотовых."
+	}
+	"RoundFlashbangOnlyName"
+	{
+		"ru"		"Молоко, Молоко повсюду"
+	}
+	"RoundFlashbangOnlyDesc"
+	{
+		"ru"		"Каждый получает неограниченное количество светошумовых гранат."
+	}
+	"RoundFragOnlyName"
+	{
+		"ru"		"Граната!"
+	}
+	"RoundFragOnlyDesc"
+	{
+		"ru"		"Каждый получает неограниченное количество гранат."
+	}
+	"RoundTinyMagsName"
+	{
+		"ru"		"Крошечные магазины"
+	}
+	"RoundTinyMagsDesc"
+	{
+		"ru"		"Во всем оружии есть только один патрон в обойме."
+	}
+	"RoundFollowLeaderName"
+	{
+		"ru"		"Следуйте за лидером"
+	}
+	"RoundFollowLeaderDesc"
+	{
+		"ru"		"Один игрок из каждой команды назначается лидером, а остальные должны следовать за ним."
+	}
+	"RoundInvisibilityName"
+	{
+		"ru"		"Невидимость"
+	}
+	"RoundInvisibilityDesc"
+	{
+		"ru"		"Все игроки невидимы."
+	}
+	"RoundMonkeySeeName"
+	{
+		"ru"		"Обезьяна видит, обезьяна делает"
+	}
+	"RoundMonkeySeeDesc"
+	{
+		"ru"		"Один игрок из каждой команды назначается лидером и должен потерять своих последователей."
+	}
+	"RoundZombieInvasionName"
+	{
+		"ru"		"Вторжение зомби"
+	}
+	"RoundZombieInvasionDesc"
+	{
+		"ru"		"Террористы должны убить контртеррориста своими ножами. Контртеррористы должны выжить."
+	}
+	"RoundAxeThrowingName"
+	{
+		"ru"		"Соревнование по метанию топора"
+	}
+	"RoundAxeThrowingDesc"
+	{
+		"ru"		"Каждый получает неограниченное количество топоров."
+	}
+	"RoundBarFightName"
+	{
+		"ru"		"Драка в баре"
+	}
+	"RoundBarFightDesc"
+	{
+		"ru"		"Просто кулачный бой."
+	}
+	"RoundHitSwapName"
+	{
+		"ru"		"Hit Swap"
+	}
+	"RoundHitSwapDesc"
+	{
+		"ru"		"Нанося урон врагу, вы поменяетесь с ним местами."
+	}
+	"RoundBuddySystemName"
+	{
+		"ru"		"Система приятелей"
+	}
+	"RoundBuddySystemDesc"
+	{
+		"ru"		"Все непобедимы, но если ваш цыпленок умрет, умрете и вы."
+	}
+	"RoundRevolverOnlyName"
+	{
+		"ru"		"Ровно в полдень"
+	}
+	"RoundRevolverOnlyDesc"
+	{
+		"ru"		"Каждый получает револьвер R8."
+	}
+	"RoundRedGreenName"
+	{
+		"ru"		"Красный свет, Зеленый свет"
+	}
+	"RoundRedGreenDesc"
+	{
+		"ru"		"Движение на красный свет может нанести вам вред."
+	}
+	"RoundManhuntName"
+	{
+		"ru"		"Охота на человека"
+	}
+	"RoundManhuntDesc"
+	{
+		"ru"		"Цель назначается одному игроку из каждой команды. Если цель убита, погибает вся команда."
+	}
+	"RoundHotPotatoName"
+	{
+		"ru"		"Горячий картофель"
+	}
+	"RoundHotPotatoDesc"
+	{
+		"ru"		"Случайный игрок получает горячую картошку (Five-Seven), которая убивает вас через некоторое время. Ударьте другого игрока, чтобы передать ему горячую картошку."
+	}
+	"RoundBombermanName"
+	{
+		"ru"		"Бомбермен"
+	}
+	"RoundBombermanDesc"
+	{
+		"ru"		"Каждый получает неограниченное количество С4 и может их ставить где угодно."
+	}
+	"RoundRandomNadesName"
+	{
+		"ru"		"Случайные совпадения"
+	}
+	"RoundRandomNadesDesc"
+	{
+		"ru"		"Каждый получает неограниченное количество гранат, но случайных."
+	}
+	"RoundDontMissName"
+	{
+		"ru"		"Не пропусти"
+	}
+	"RoundDontMissDesc"
+	{
+		"ru"		"Пропущенные выстрелы нанесут вам урон, будьте осторожны при стрельбе."
+	}
+	"RoundCrabWalkName"
+	{
+		"ru"		"Прогулка краба"
+	}
+	"RoundCrabWalkDesc"
+	{
+		"ru"		"Передвижение ограничено только обстрелом влево и вправо."
+	}
+	"RoundPoisonCloudName"
+	{
+		"ru"		"Ядовитое облако"
+	}
+	"RoundPoisonCloudDesc"
+	{
+		"ru"		"Клубы дыма превращаются в ядовитые облака, которые со временем наносят урон находящимся поблизости игрокам."
+	}
+	"RoundBodyguardName"
+	{
+		"ru"		"Телохранитель"
+	}
+	"RoundBodyguardDesc"
+	{
+		"ru"		"Одному игроку каждой команды назначается VIP, в то время как остальные являются телохранителями. Телохранители не могут умереть, но когда умирает VIP, умирает вся команда."
+	}
+	"RoundPocketTPName"
+	{
+		"ru"		"Карманный телепортатор"
+	}
+	"RoundPocketTPDesc"
+	{
+		"ru"		"Вашим вспомогательным средством является карманный телепортатор. Вы телепортируетесь в ту позицию, в которую попали с его помощью."
+	}
+	"RoundOITCName"
+	{
+		"ru"		"Один в камере"
+	}
+	"RoundOITCDesc"
+	{
+		"ru"		"У каждого есть 1 HP и одна пуля, если вы убиваете кого-то, вы получаете еще одну пулю."
+	}
+	"RoundCaptchaName"
+	{
+		"ru"		"Капча"
+	}
+	"RoundCaptchaDesc"
+	{
+		"ru"		"Каждый периодически получает капчу, разгадайте капчу, чтобы снова получить свое оружие."
+	}
+	"RoundStealthName"
+	{
+		"ru"		"Хитрость"
+	}
+	"RoundStealthDesc"
+	{
+		"ru"		"Неподвижное стояние или медленная ходьба делают вас невидимым, движение или стрельба делают вас видимым."
+	}
+	"RoundBlindLightName"
+	{
+		"ru"		"Ослепляющий свет"
+	}
+	"RoundBlindLightDesc"
+	{
+		"ru"		"Попадание светошумовой гранаты наносит урон игрокам в зависимости от продолжительности."
+	}
+	"RoundKillListName"
+	{
+		"ru"		"Список убитых"
+	}
+	"RoundKillListDesc"
+	{
+		"ru"		"Один игрок из каждой команды находится в верхней части списка убитых. Только этот игрок может быть убит, попытка убить других приводит к смерти."
+	}
+	"RoundBreachName"
+	{
+		"ru"		"Нарушение, нарушение, нарушение!"
+	}
+	"RoundBreachDesc"
+	{
+		"ru"		"Каждый имеет неограниченное количество пробивных зарядов, но в определённый момент времени активными могут быть только три"
+	}
+	"RoundTowerDefenseName"
+	{
+		"ru"		"Защита башни"
+	}
+	"RoundTowerDefenseDesc"
+	{
+		"ru"		"Бросьте свою приманку, чтобы создать турель на ее месте."
+	}
+	"RoundMinefieldName"
+	{
+		"ru"		"Минное поле"
+	}
+	"RoundMinefieldDesc"
+	{
+		"ru"		"У каждого есть неограниченное количество отбойных мин и 200 единиц здоровья."
+	}
+	"RoundPanicName"
+	{
+		"ru"		"Паника"
+	}
+	"RoundPanicDesc"
+	{
+		"ru"		"Всякий раз, когда в тебя попадают, ты бросаешь свое оружие."
+	}
+	"RoundDropshotName"
+	{
+		"ru"		"Dropshot"
+	}
+	"RoundDropshotDesc"
+	{
+		"ru"		"Всякий раз, когда вы стреляете из пистолета, вы его бросаете."
+	}
+	"RoundHardcoreName"
+	{
+		"ru"		"Хардкор"
+	}
+	"RoundHardcoreDesc"
+	{
+		"ru"		"Жесткий режим, HUD отключен. Установите C4 с помощью клавиши 'Использовать'."
+	}
+	"RoundTunnelVisionName"
+	{
+		"ru"		"Туннельное зрение"
+	}
+	"RoundTunnelVisionDesc"
+	{
+		"ru"		"У всех туннельное зрение."
+	}
+	"RoundDownUnderName"
+	{
+		"ru"		"Вверх ногами"
+	}
+	"RoundDownUnderDesc"
+	{
+		"ru"		"У каждого свой взгляд перевернут с ног на голову."
+	}
+	"RoundKnifeMidName"
+	{
+		"ru"		"knife mid?"
+	}
+	"RoundKnifeMidDesc"
+	{
+		"ru"		"Обычный ножевой раунд"
+	}
+	"RoundVoteTitle"
+	{
+		"ru"		"Голосование за следующий раунд:"
+	}
+	"NewLeader"
+	{
+		"#format"	"{1:s}"
+		"ru"		"{LIGHT_GREEN}Новый {NORMAL}лидер - {YELLOW}{1}"
+	}
+	"FollowLeader"
+	{
+		"ru"		"{LIGHT_GREEN}Следуйте {NORMAL}за лидером или вы {DARK_RED}умрёте"
+	}
+	"VIPTarget"
+	{
+		"#format"	"{1:s}"
+		"ru"		"Ваша {DARK_RED}цель{NORMAL} - {YELLOW}{1}"
+	}
+	"VIPProtect"
+	{
+		"#format"	"{1:s}"
+		"ru"		"{GREEN}Защищайте{NORMAL} вашего VIP {YELLOW}{1}"
+	}
+	"NewTarget"
+	{
+		"#format"	"{1:s}"
+		"ru"		"Ваша новая {DARK_RED}цель{NORMAL} - {YELLOW}{1}"
+	}
+	"ReceivedPotato"
+	{
+		"ru"		"У вас {DARK_RED}горячая картошка{NORMAL}, ударьте кого-нибудь чтобы передать её!"
+	}
+	"PlayerHasPotato"
+	{
+		"#format"	"{1:s}"
+		"ru"		"У {YELLOW}{1} {DARK_RED}горячая картошка{NORMAL}, не дайте ему ударить вас!"
+	}
+	"MatchHandlingPugSetup"
+	{
+		"ru"		"Match handling is done by {LIGHT_GREEN}PugSetup{NORMAL}, please use that"
+	}
+	"ForceRoundSet"
+	{
+		"#format"	"{1:s}"
+		"ru"		"Стратегия следующего раунда - {1}"
+	}
+	"RoundVotingFinished"
+	{
+		"#format"	"{1:s}"
+		"ru"		"Голосование за раунд {LIGHT_GREEN}завершено{NORMAL}, следующий раунд - {DARK_BLUE}{1}"
+	}
+	"CaptchaWrong"
+	{
+		"ru"		"{DARK_RED}Неверный{NORMAL} ответ!"
+	}
+	"TopKillList"
+	{
+		"ru"		"Вы находитесь на вершине {DARK_RED}списка убийств{NORMAL}, берегитесь!"
+	}
+	"KillListWrongTarget"
+	{
+		"ru"		"Это не было {DARK_RED}целью!"
+	}
+	"TooFarFromLeader"
+	{
+		"ru"		"{DARK_RED}Предупреждение {NORMAL}слишком далеко от {YELLOW}лидера"
+	}
+	"LoseTerrorists"
+	{
+		"ru"		"Попытайтесь оторваться от {DARK_RED}террористов"
+	}
+	"LoseCounterTerrorists"
+	{
+		"ru"		"Попытайтесь оторваться от {DARK_RED}контртеррористов"
+	}
+	"KeepUpWithTerrorist"
+	{
+		"ru"		"Старайтесь не отставать от лидера {DARK_RED}террористов"
+	}
+	"KeepUpWithCounterTerrorist"
+	{
+		"ru"		"Старайтесь не отставать от лидера {DARK_RED}контртеррористов"
+	}
+	"RedLight"
+	{
+		"ru"		"{DARK_RED}Красный свет{NORMAL}: Не двигайтесь!"
+	}
+	"GreenLight"
+	{
+		"ru"		"{GREEN}Зелёный свет{NORMAL}: Вы можете двигаться!"
+	}
+	"DontMoveRedLight"
+	{
+		"ru"		"Не {DARK_RED}двигайтесь{NORMAL} во время {DARK_RED}красного{NORMAL} света"
+	}
+	"HotPotatoStage1"
+	{
+		"ru"		"Одна {DARK_RED}горячая картофелина{NORMAL}!"
+	}
+	"HotPotatoStage2"
+	{
+		"ru"		"Я не могу больше держать эту {DARK_RED}горячую картофелину{NORMAL}!"
+	}
+	"HotPotatoDied"
+	{
+		"#format"	"{1:s}"
+		"ru"		"{YELLOW}{1} {NORMAL}умер от {DARK_RED}горячей картофелины{NORMAL}!"
+	}
+	"SmokeToxic"
+	{
+		"ru"		"{DARK_RED}Предупреждение!{NORMAL} Дымовые гранаты {DARK_RED}токсичны"
+	}
+	"CaptchaQuestion"
+	{
+		"#format"	"{1:d},{2:d}"
+		"ru"		"{GREEN}Решите пример{NORMAL} {1} + {2} чтобы получить ваше {LIGHT_GREEN}оружие{NORMAL} назад!"
+	}
+	"CaptchaTypeAnswerChat"
+	{
+		"ru"		"Введите {LIGHT_GREEN}ответ{NORMAL} в чат."
+	}
+	"DontScope"
+	{
+		"ru"		"Вы не можете {DARK_RED}прицеливаться {NORMAL}в этом раунде!"
+	}
+	"ConsoleRoundInfoElimination"
+	{
+		"ru"		"    Раунд заканчивается, когда любая из команд выбывает."
+	}
+	"ConsoleRoundInfoEliminationTerroristWinTimeUp"
+	{
+		"ru"		"    Раунд заканчивается, когда бомба взрывается, обезвреживается, время истекает или любая из команд выбывает. Террористы выигрывают по лимиту времени."
+	}
+	"ConsoleRoundInfoEliminationDrawTimeUp"
+	{
+		"ru"		"    Раунд заканчивается, когда бомба взрывается, обезвреживается, время истекает или любая из команд выбывает. Раунд заканчивается ничьей по истечении установленного времени."
+	}
+	"ConsoleRoundInfoDefault"
+	{
+		"ru"		"    Раунд заканчивается, когда бомба взрывается, обезвреживается, время истекает или любая из команд выбывает."
+	}
+	"ConsoleRoundName"
+	{
+		"ru"		"Название раунда:"
+	}
+	"ConsoleDescription"
+	{
+		"ru"		"Описание:"
+	}
+	"RoundIncarnationName"
+	{
+		"ru"		"Реинкарнация"
+	}
+	"RoundIncarnationDesc"
+	{
+		"ru"		"Обычный раунд, за исключением того, что все игроки возрождаются."
+	}
+	"RoundTeamLivesName"
+	{
+		"ru"		"Командная жизнь"
+	}
+	"RoundTeamLivesDesc"
+	{
+		"ru"		"Ваша команда может возрождаться ограниченное количество раз."
+	}
+	"LivesRemaining"
+	{
+		"#format"	"{1:d}"
+		"ru"		"У вашей команды осталось {GREEN}{1} {NORMAL}жизней!"
+	}
+	"OneLifeRemaining"
+	{
+		"ru"		"У вашей команды осталась {GREEN}одна {NORMAL}жизнь!"
+	}
+	"NoLivesRemaining"
+	{
+		"ru"		"У вашей команды {DARK_RED}не осталось жизней{NORMAL}, вы больше не можете возрождаться!"
+	}
+	"RoundJumpshotName"
+	{
+		"ru"		"Изобилие прыжковых выстрелов"
+	}
+	"RoundJumpshotDesc"
+	{
+		"ru"		"Вы можете стрелять из своего оружия, только находясь в воздухе."
+	}
+	"RoundBumpName"
+	{
+		"ru"		"Ухабистая дорога"
+	}
+	"RoundBumpDesc"
+	{
+		"ru"		"Обычный раунд, но с 3 ударными минами у каждого игрока и без урона при падении."
+	}
+	"RoundOneDirectionName"
+	{
+		"ru"		"В одном направлении"
+	}
+	"RoundOneDirectionDesc"
+	{
+		"ru"		"Вы можете двигаться только назад. Движение вперёд и в стороны заблокировано."
+	}
+	"RoundMobileTurretName"
+	{
+		"ru"		"Передвижная турель"
+	}
+	"RoundMobileTurretDesc"
+	{
+		"ru"		"Вы можете двигаться, только когда держите нож. Когда держите основное оружие - нет."
+	}
+	"RoundKillConfirmedName"
+	{
+		"ru"		"Убийство подтверждено"
+	}
+	"RoundKillConfirmedDesc"
+	{
+		"ru"		"Игроки должны быть подтверждены, что их убили ножом. Товарищи по команде могут оживить игроков, ударив их ножом."
+	}
+	"RoundTacticalReloadName"
+	{
+		"ru"		"Тактическая перезарядка"
+	}
+	"RoundTacticalReloadDesc"
+	{
+		"ru"		"Чтобы перезарядить свое оружие, вам нужно бросить его."
+	}
+	"RoundStunGunName"
+	{
+		"ru"		"Электрошокер"
+	}
+	"RoundStunGunDesc"
+	{
+		"ru"		"Ваше второе оружие работает как электрошокер, не нанося урона, но оглушая врагов при попадании."
+	}
+	"RoundMexicanStandoffName"
+	{
+		"ru"		"Мексиканское противостояние"
+	}
+	"RoundMexicanStandoffDesc"
+	{
+		"ru"		"Побеждает команда, оставшаяся в живых последней."
+	}
+	"RoundKnifeArenaName"
+	{
+		"ru"		"Ножевая арена"
+	}
+	"RoundKnifeArenaDesc"
+	{
+		"ru"		"Побеждает последняя команда, оставшаяся в живых на этой ножевой арене 1 на 1."
+	}
+	"KnifeArenaNewRound"
+	{
+		"#format"	"{1:s},{2:s}"
+		"ru"		"{GREEN}Новый раунд: {NORMAL}{1} {YELLOW}vs. {NORMAL}{2}"
+	}
+	"KnifeArenaWinner"
+	{
+		"#format"	"{1:s}"
+		"ru"		"{GREEN}Победитель раунда: {NORMAL}{1}"
+	}
+	"RoundTradeOffName"
+	{
+		"ru"		"Компромисс"
+	}
+	"RoundTradeOffDesc"
+	{
+		"ru"		"Убив врага, вы лишитесь своего оружия."
+	}
+	"RoundSwitcherooName"
+	{
+		"ru"		"Switcheroo"
+	}
+	"RoundSwitcherooDesc"
+	{
+		"ru"		"После каждого выстрела вам нужно переключиться на другое оружие."
+	}
+	"RoundWallhackName"
+	{
+		"ru"		"Wallhack"
+	}
+	"RoundWallhackDesc"
+	{
+		"ru"		"Все видят врагов через стены."
+	}
+	"RoundSecondChanceName"
+	{
+		"ru"		"Второй шанс"
+	}
+	"RoundSecondChanceDesc"
+	{
+		"ru"		"Когда вас убивают, вы возрождаетесь только с ножом. Убийство ножом восстанавливает ваше оружие. Побеждает последняя команда, у которой есть оружие."
+	}
+	"RoundTimeTravelName"
+	{
+		"ru"		"Путешествие во времени"
+	}
+	"RoundTimeTravelDesc"
+	{
+		"ru"		"Осмотрите свое оружие, чтобы вернуться в прошлое. У путешествий во времени есть время восстановления."
+	}
+	"TimeTravelNoCooldown"
+	{
+		"ru"		"Путешествие во времени {GREEN} готово!"
+	}
+	"TimeTravelCooldown"
+	{
+		"#format"	"{1:d}"
+		"ru"		"Кулдаун путешествия во времени: {YELLOW}{1}s"
+	}
+	"RoundSharedAmmoName"
+	{
+		"ru"		"Общие патроны"
+	}
+	"RoundSharedAmmoDesc"
+	{
+		"ru"		"У вас общие патроны в своём оружии на всю команду."
+	}
+	"RoundCrouchOnlyName"
+	{
+		"ru"		"Только сидя"
+	}
+	"RoundCrouchOnlyDesc"
+	{
+		"ru"		"Вы можете только приседать."
+	}
+	"RoundGTAName"
+	{
+		"ru"		"Grand Theft Auto 1"
+	}
+	"RoundGTADesc"
+	{
+		"ru"		"У всех вид сверху вниз."
+	}
+	"RoundHealthshotsName"
+	{
+		"ru"		"Эпидемия опиоидов"
+	}
+	"RoundHealthshotsDesc"
+	{
+		"ru"		"У каждого неограниченное количество хилок."
+	}
+	"RoundBlackoutName"
+	{
+		"ru"		"Сонный раунд"
+	}
+	"RoundBlackoutDesc"
+	{
+		"ru"		"Все страдают от периодических затемнений."
+	}
+	"RoundEnderpearlName"
+	{
+		"ru"		"Эндерперл"
+	}
+	"RoundEnderpearlDesc"
+	{
+		"ru"		"Бросок вашего декоя заставит вас последовать за ней."
+	}
+	"RoundAllOrNothingName"
+	{
+		"ru"		"Все или ничего"
+	}
+	"RoundAllOrNothingDesc"
+	{
+		"ru"		"Как только вы начнете стрелять, вы продолжите стрелять до тех пор, пока не закончится обойма."
+	}
+	"KeepFiringAllOrNothing"
+	{
+		"ru"		"Не прекращайте {DARK_RED}стрелять{NORMAL}, пока у вас не кончатся патроны"
+	}
+	"RoundScreenCheatName"
+	{
+		"ru"		"Экранный чит"
+	}
+	"RoundScreenCheatDesc"
+	{
+		"ru"		"Вы можете увидеть случайного врага через стену осмотрев свое оружие."
+	}
+	"RoundCloneName"
+	{
+		"ru"		"Клон"
+	}
+	"RoundCloneDesc"
+	{
+		"ru"		"У каждого есть свой личный клон. Поменяйтесь позициями со своим клоном, осмотрев свое оружие."
+	}
+	"RoundTraitorName"
+	{
+		"ru"		"There is ... impostors"
+	}
+	"RoundTraitorDesc"
+	{
+		"ru"		"У всех одинаковая модель игрока, имена не видны, позиции игроков перемешаны. Удачи."
+	}
+	"RoundSmokeScreenName"
+	{
+		"ru"		"Дымовая завеса"
+	}
+	"RoundSmokeScreenDesc"
+	{
+		"ru"		"Команды разделяет линия дыма, но игроков можно заметить с помощью тактических сигнальных гранат."
+	}
+    "RoundSnowballName"
+	{
+		"ru"		"Игра в снежки!"
+	}
+	"RoundSnowballDesc"
+	{
+		"ru"		"Забрасывайте друг друга снежками, пока они не умрут. Помните, что вы не можете атаковать ножами."
+	}
+    "RoundBhopName"
+	{
+		"ru"		"Bunnyhopping"
+	}
+	"RoundBhopDesc"
+	{
+		"ru"		"Включен автоматический баннихоп, ограничение скорости снято. Удерживайте пробел для прыжка."
+	}
+    "RoundSuicideName"
+	{
+		"ru"		"Массовое самоубийство"
+	}
+	"RoundSuicideDesc"
+	{
+		"ru"		"Побеждает первая команда, которая покончит с собой."
+	}
+    "RoundWallbangName"
+	{
+		"ru"		"Bangers"
+	}
+	"RoundWallbangDesc"
+	{
+		"ru"		"Вы можете нанести урон другим игрокам, только нанося урон прострелом."
+	}
+    "RoundFireName"
+	{
+		"ru"		"Горячо, горячо, горячо!"
+	}
+	"RoundFireDesc"
+	{
+		"ru"		"Попадание по врагам воспламеняет врагов, попадание по товарищам гасит огонь на товарищах."
+	}
+    "RoundNoSoundName"
+	{
+		"ru"		"Глухой"
+	}
+	"RoundNoSoundDesc"
+	{
+		"ru"		"Обычный раунд без любых звуков."
+	}
+    "RoundAvailabilityName"
+	{
+		"ru"		"Ограниченный выпуск"
+	}
+	"RoundAvailabilityDesc"
+	{
+		"ru"		"Игроки могут получать урон только в течение ограниченного времени."
+	}
+    "RoundTurnBasedName"
+	{
+		"ru"		"Пошаговая стратегия"
+	}
+	"RoundTurnBasedDesc"
+	{
+		"ru"		"Команды по очереди могут передвигаться в течение 5 секунд."
+	}
+    "TurnBasedMoveAgain"
+	{
+		"ru"		"{GREEN}Вашей команде{NORMAL} разрешено двигаться"
+	}
+    "TurnBasedEnemyMove"
+	{
+		"ru"		"{DARK_RED}Вражеской команде{NORMAL} разрешено двигаться"
+	}
+    "RoundFeetOnlyName"
+	{
+		"ru"		"Фут-фетиш"
+	}
+    "RoundFeetOnlyDesc"
+	{
+		"ru"		"Вы можете нанести урон игрокам, только попадая их по ногам."
+	}
+    "RoundNightVisionName"
+	{
+		"ru"		"Ночное видение"
+	}
+    "RoundNightVisionDesc"
+	{
+		"ru"		"У всех включено ночное зрение."
+	}
+    "RoundPropulsionName"
+	{
+		"ru"		"Продвижение"
+	}
+    "RoundPropulsionDesc"
+	{
+		"ru"		"Стрельба из вашего оружия отбрасывает вас назад."
+	}
+    "RoundMagnumOpusName"
+	{
+		"ru"		"Отличная работа"
+	}
+    "RoundMagnumOpusDesc"
+	{
+		"ru"		"Понемногу от каждой стратегии. Полный беспредел."
+	}
+}
